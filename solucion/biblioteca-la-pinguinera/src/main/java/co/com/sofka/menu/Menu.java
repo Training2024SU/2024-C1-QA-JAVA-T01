@@ -68,7 +68,7 @@ public class Menu {
                     System.out.println("Se hara ingreso pidiendo correo y contraseña");
                     break;
                 case 2:
-                    System.out.println("Se hara registro pidiendo nombre, correo y contraseña");
+                    System.out.println("Se hará registro pidiendo nombre, correo y contraseña");
                     break;
                 case 0:
                     seguirEjecucion = false;

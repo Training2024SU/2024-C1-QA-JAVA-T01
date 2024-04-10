@@ -13,5 +13,7 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
         <!-- Other Hibernate properties -->
         <mapping class ="co.com.sofka.modelo.Usuario"/>
+        <mapping class ="co.com.sofka.modelo.Novela"/>
+        <mapping class ="co.com.sofka.modelo.Libro"/>
     </session-factory>
 </hibernate-configuration>
