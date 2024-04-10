@@ -18,9 +18,6 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.28'
     implementation 'org.hibernate:hibernate-core:5.6.4.Final'
 
-    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-core
-    implementation ('org.apache.shiro:shiro-core:1.13.0')
-
     // https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
     implementation 'org.slf4j:jcl-over-slf4j:2.0.12'
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl

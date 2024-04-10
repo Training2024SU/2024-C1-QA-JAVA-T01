@@ -7,18 +7,18 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Setter
 @Getter
 @ToString
-public class Libro {
+public abstract class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
     private String autor;
-    private String areaDelConocimiento;
-    private int numeroDePaginas;
     private int cantidadEjemplares;
     private int cantidadPrestados;
     private int cantidadDisponible;
+
 }

@@ -1,12 +1,9 @@
 package co.com.sofka.menu;
 
+import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.HibernateUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.env.BasicIniEnvironment;
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
+import co.com.sofka.repositorio.RepositorioUsuario;
+import co.com.sofka.servicio.ServicioUsuario;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,71 +14,70 @@ public class Menu {
 
     static Scanner scanner = new Scanner(System.in);
     static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+    static RepositorioUsuario repositorioUsuario = new RepositorioUsuario(sessionFactory);
+
+    // Al iniciar la aplicacion no hay usuarioIngresado, despues del ingreso se asigna un usuario de la bd
+    static Usuario usuarioIngresado = null;
+
+    // All iniciar la aplicacion se desea ejecutar el menu, una ves el usuario desee, se asigna a false y se sale del menu
     static boolean seguirEjecucion = true;
     private static final transient Logger log = LoggerFactory.getLogger(Menu.class);
     public static void iniciar(){
-
-        SecurityManager securityManager = new BasicIniEnvironment("classpath:shiro.ini").getSecurityManager();
-        SecurityUtils.setSecurityManager(securityManager);
-        Subject currentUser = SecurityUtils.getSubject();
-
-        Session session = currentUser.getSession();
-
-        if (!currentUser.isAuthenticated()) {
-            UsernamePasswordToken token = new UsernamePasswordToken("lonestarr", "vespa");
-            token.setRememberMe(true);
-            try {
-                currentUser.login(token);
-            } catch (UnknownAccountException uae) {
-                System.out.println("There is no user with username of " + token.getPrincipal());
-            } catch (IncorrectCredentialsException ice) {
-                System.out.println("Password for account " + token.getPrincipal() + " was incorrect!");
-            } catch (LockedAccountException lae) {
-                System.out.println("The account for username " + token.getPrincipal() + " is locked.  " +
-                        "Please contact your administrator to unlock it.");
-            }
-            // ... catch more exceptions here (maybe custom ones specific to your application?
-            catch (AuthenticationException ae) {
-                //unexpected condition?  error?
-            }
-
-            System.out.println("User [" + currentUser.getPrincipal() + "] logged in successfully.");
-
-            //test a role:
-            if (currentUser.hasRole("schwartz")) {
-                System.out.println("May the Schwartz be with you!");
-            } else {
-                System.out.println("Hello, mere mortal.");
-            }
-        }
-
-        currentUser.logout();
-
         while(seguirEjecucion){
-            imprimirMenuInicial();
-
-            int eleccion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (eleccion){
-                case 1:
-                    System.out.println("Se hara ingreso pidiendo correo y contraseña");
-                    break;
-                case 2:
-                    System.out.println("Se hará registro pidiendo nombre, correo y contraseña");
-                    break;
-                case 0:
-                    seguirEjecucion = false;
-                    System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
-                    break;
-                default:
-                    System.out.println(ConstantesMenu.OPCION_INVALIDA);
+            if(usuarioIngresado != null){
+                imprimirMenuUsuarioIngresado(scanner);
+            } else {
+                imprimirMenuUsuarioSinIngresar(scanner);
             }
         }
 
     }
 
+    private static void imprimirMenuUsuarioIngresado(Scanner scanner){
+        System.out.println("Usuario " + usuarioIngresado.getNombre() + " ya a ingresado");
+    }
+
+    private static void imprimirMenuUsuarioSinIngresar(Scanner scanner){
+        imprimirMenuInicial();
+
+        int eleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (eleccion){
+            case 1:
+                ingresoUsuario(scanner);
+                break;
+            case 2:
+                System.out.println("Se hará registro pidiendo nombre, correo y contraseña");
+                break;
+            case 0:
+                seguirEjecucion = false;
+                System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
+                break;
+            default:
+                System.out.println(ConstantesMenu.OPCION_INVALIDA);
+        }
+    }
+
     private static void imprimirMenuInicial(){
         System.out.println(ConstantesMenu.MENSAJE_BIENVENIDA);
+    }
+
+    private static void ingresoUsuario(Scanner scanner){
+        System.out.println("Ingreso a la aplicacion...\nPorfavor ingrese su correo");
+
+        String correo = scanner.nextLine();
+
+        System.out.println("Porfavor ingrese su contraseña");
+        String contrasena = scanner.nextLine();
+
+        usuarioIngresado = repositorioUsuario.obtenerPorCorreoYContrasena(correo, contrasena);
+
+        if(usuarioIngresado != null){
+            System.out.println("Ingreso exitoso, bienvenido: " + usuarioIngresado.getNombre());
+        } else {
+            System.out.println("Usuario o contraseña incorrectos");
+        }
     }
 }

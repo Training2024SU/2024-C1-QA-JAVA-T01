@@ -15,5 +15,6 @@
         <mapping class ="co.com.sofka.modelo.Usuario"/>
         <mapping class ="co.com.sofka.modelo.Novela"/>
         <mapping class ="co.com.sofka.modelo.Libro"/>
+        <mapping class ="co.com.sofka.modelo.Prestamo"/>
     </session-factory>
 </hibernate-configuration>
