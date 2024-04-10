@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 // Clase para representar un usuario
-@Getter
 @Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 class Usuario {
