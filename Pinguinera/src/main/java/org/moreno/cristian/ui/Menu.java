@@ -1,4 +1,4 @@
-package org.moreno.cristian.servicios;
+package org.moreno.cristian.ui;
 
 import java.util.Scanner;
 
