@@ -5,3 +5,4 @@ public class Rol {
     private String rolNombre;
     // Getters y setters
 }
+
