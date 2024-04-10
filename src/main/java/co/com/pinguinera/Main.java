@@ -1,11 +1,13 @@
 package co.com.pinguinera;
 
-import co.com.pinguinera.modelos.DAO.NovelaDAO;
-import co.com.pinguinera.modelos.Novela;
-
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+
+import co.com.pinguinera.modelos.DAO.PrestamoDAO;
+import co.com.pinguinera.modelos.EstadoPrestamo;
+import co.com.pinguinera.modelos.Prestamo;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,40 +18,39 @@ public class Main {
             // Si la conexión se establece con éxito, muestra un mensaje
             System.out.println("Conexión establecida correctamente.");
 
-            // Instanciamos NovelaDAO con la conexión establecida
-            NovelaDAO novelaDAO = new NovelaDAO(conexion);
+            // Crear instancia de PrestamoDAO
+            PrestamoDAO prestamoDAO = new PrestamoDAO(conexion);
 
-            // Agregar una nueva novela
-            Novela nuevaNovela = new Novela();
-            nuevaNovela.setTitulo("El nombre del viento");
-            nuevaNovela.setAutor("Patrick Rothfuss");
-            nuevaNovela.setGenero("Fantasía");
-            nuevaNovela.setEdadLecturaSugerida(16);
-            nuevaNovela.setCantEjemplares(10);
-            novelaDAO.agregarNovela(nuevaNovela);
-            System.out.println("Nueva novela agregada correctamente.");
+            // Crear una instancia de Prestamo para usar en las pruebas
+            Prestamo prestamo = new Prestamo();
+            prestamo.setUsuarioID(3); // Reemplaza con el ID de usuario correspondiente
+            prestamo.setLibroID(3); // Reemplaza con el ID de libro correspondiente
+            prestamo.setFechaPrestamo(new Date()); // Reemplaza con la fecha de préstamo actual
+            prestamo.setFechaDevolucion(new Date()); // Reemplaza con la fecha de devolución actual
+            prestamo.setEstado(EstadoPrestamo.SOLICITADO.name()); // Reemplaza con el estado deseado
 
-            // Obtener todas las novelas
-            List<Novela> novelas = novelaDAO.obtenerTodasLasNovelas();
-            System.out.println("Lista de todas las novelas:");
-            for (Novela novela : novelas) {
-                System.out.println(novela.getTitulo() + " - " + novela.getAutor());
-            }
+            // Prueba de agregarPrestamo
+            prestamoDAO.realizarPrestamo(prestamo);
+            System.out.println("Prestamo agregado correctamente.");
 
-            // Buscar novelas por título
-            String tituloBusqueda = "viento";
-            List<Novela> novelasEncontradas = novelaDAO.buscarNovelaPorTitulo(tituloBusqueda);
-            System.out.println("Novelas encontradas con '" + tituloBusqueda + "':");
-            for (Novela novela : novelasEncontradas) {
-                System.out.println(novela.getTitulo() + " - " + novela.getAutor());
-            }
+            // Prueba de listarPrestamosPorUsuario
+            int usuarioID = 3; // Reemplaza con el ID de usuario correspondiente
+            List<Prestamo> prestamosPorUsuario = prestamoDAO.listarPrestamosPorUsuario(usuarioID);
+            System.out.println("Prestamos del usuario con ID " + usuarioID + ":");
+            prestamosPorUsuario.forEach(System.out::println);
 
-            // Listar autores de novelas
-            List<String> autores = novelaDAO.listarAutoresDeNovelas();
-            System.out.println("Autores de novelas:");
-            for (String autor : autores) {
-                System.out.println(autor);
-            }
+            // Prueba de listarPrestamosPorEstado
+            EstadoPrestamo estado = EstadoPrestamo.SOLICITADO; // Reemplaza con el estado deseado
+            List<Prestamo> prestamosPorEstado = prestamoDAO.listarPrestamosPorEstado(estado);
+            System.out.println("Prestamos con estado " + estado + ":");
+            prestamosPorEstado.forEach(System.out::println);
+
+            // Prueba de listarPrestamosPorFecha
+            Date fechaInicio = new Date(2024, 3, 1); // Reemplaza con la fecha de inicio deseada
+            Date fechaFin = new Date(2024, 3, 10); // Reemplaza con la fecha de fin deseada
+            List<Prestamo> prestamosPorFecha = prestamoDAO.listarPrestamosPorFecha(fechaInicio, fechaFin);
+            System.out.println("Prestamos entre " + fechaInicio + " y " + fechaFin + ":");
+            prestamosPorFecha.forEach(System.out::println);
 
             // Cierra la conexión
             conexion.close();
