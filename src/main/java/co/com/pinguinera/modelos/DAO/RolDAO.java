@@ -86,4 +86,23 @@ public class RolDAO implements RolesRepositorio {
         }
         return null;
     }
+
+    public boolean existeUsuarioConRolAdministrador() {
+        String sql = "SELECT COUNT(*) FROM UsuarioRoles UR JOIN Roles R ON UR.RolID = R.RolID WHERE R.RolNombre = ?";
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setString(1, TipoRol.ADMINISTRADOR.name()); // Nombre del rol ADMINISTRADOR
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+
+
 }

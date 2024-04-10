@@ -23,31 +23,40 @@ public class Main {
             RolDAO rolDAO = new RolDAO(conexion); // Crear un objeto RolDAO para interactuar con la base de datos
             UsuarioRolesDAO usuarioRolesDAO = new UsuarioRolesDAO(conexion); // Crear un objeto UsuarioRolesDAO para interactuar con la base de datos
 
-            // Agregar un nuevo rol (ADMINISTRADOR) si no existe
-            TipoRol rol = TipoRol.ADMINISTRADOR;
-            if (rolDAO.buscarRolPorNombre(rol.name()) == null) {
-                rolDAO.agregarRol(rol);
-                System.out.println("Rol ADMINISTRADOR agregado correctamente.");
+            // Verificar si existe algún usuario con el rol de ADMINISTRADOR
+            boolean existeAdmin = rolDAO.existeUsuarioConRolAdministrador();
+            if (existeAdmin) {
+                System.out.println("Ya existe un usuario con el rol de ADMINISTRADOR en la base de datos.");
+            } else {
+                System.out.println("No existe ningún usuario con el rol de ADMINISTRADOR en la base de datos.");
             }
 
-            // Agregar un nuevo usuario con el rol ADMINISTRADOR
-            Usuario nuevoUsuario = new Usuario();
-            nuevoUsuario.setNombre("Juan Pérez");
-            nuevoUsuario.setCorreo("juan.perez@example.com");
-            nuevoUsuario.setContraseña("admin123");
-            nuevoUsuario.setRol(rol);
-            usuarioDAO.agregarUsuario(nuevoUsuario);
-            System.out.println("Usuario Juan Pérez agregado correctamente.");
+            // Solo continuar si no existe ningún usuario con el rol de ADMINISTRADOR
+            if (!existeAdmin) {
+                // Agregar un nuevo rol (ADMINISTRADOR) si no existe
+                TipoRol rol = TipoRol.ADMINISTRADOR;
+                rolDAO.agregarRol(rol);
+                System.out.println("Rol ADMINISTRADOR agregado correctamente.");
 
-            // Obtener el ID del usuario recién creado
-            int usuarioID = nuevoUsuario.getUsuarioID();
+                // Agregar un nuevo usuario con el rol ADMINISTRADOR
+                Usuario nuevoUsuario = new Usuario();
+                nuevoUsuario.setNombre("John Doe");
+                nuevoUsuario.setCorreo("administrador@pingu.com.co");
+                nuevoUsuario.setContraseña("contraseñasegura123456");
+                nuevoUsuario.setRol(rol);
+                usuarioDAO.agregarUsuario(nuevoUsuario);
+                System.out.println("Usuario agregado correctamente.");
 
-            // Asignar el rol al usuario en la tabla UsuarioRoles
-            usuarioRolesDAO.asignarRolAUsuario(usuarioID, rolDAO.buscarRolPorNombre(rol.name()).getRolID());
-            System.out.println("Rol ADMINISTRADOR asignado a Juan Pérez.");
+                // Obtener el ID del usuario recién creado
+                int usuarioID = nuevoUsuario.getUsuarioID();
 
-            // Mostrar mensaje de éxito
-            System.out.println("Proceso completado exitosamente.");
+                // Asignar el rol al usuario en la tabla UsuarioRoles
+                usuarioRolesDAO.asignarRolAUsuario(usuarioID, rolDAO.buscarRolPorNombre(rol.name()).getRolID());
+                System.out.println("Rol ADMINISTRADOR asignado a John Doe.");
+
+                // Mostrar mensaje de éxito
+                System.out.println("Proceso completado exitosamente.");
+            }
 
             // Cerrar la conexión a la base de datos
             conexion.close();

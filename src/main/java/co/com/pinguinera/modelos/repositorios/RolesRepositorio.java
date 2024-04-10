@@ -10,4 +10,5 @@ public interface RolesRepositorio {
     void eliminarRol(int rolId);
     List<TipoRol> obtenerTodosLosRoles();
     TipoRol buscarRolPorNombre(String rolNombre);
+    boolean existeUsuarioConRolAdministrador();
 }
