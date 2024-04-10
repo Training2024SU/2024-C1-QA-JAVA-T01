@@ -5,6 +5,9 @@ public class Usuario {
     private String nombre;
     private String correo;
     private String contraseña;
+    private TipoRol rol;
+
+    // Getters y setters para usuarioID, nombre, correo, contraseña y rol
 
     public int getUsuarioID() {
         return usuarioID;
@@ -37,4 +40,13 @@ public class Usuario {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    public TipoRol getRol() { // Getter para el rol
+        return rol;
+    }
+
+    public void setRol(TipoRol rol) { // Setter para el rol
+        this.rol = rol;
+    }
 }
+

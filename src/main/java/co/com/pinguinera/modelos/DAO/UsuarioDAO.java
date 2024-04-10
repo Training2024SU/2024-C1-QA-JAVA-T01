@@ -1,6 +1,5 @@
 package co.com.pinguinera.modelos.DAO;
 
-import co.com.pinguinera.modelos.Rol;
 import co.com.pinguinera.modelos.Usuario;
 import co.com.pinguinera.modelos.repositorios.UsuarioRepositorio;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class UsuarioDAO implements UsuarioRepositorio {
 
-    private Connection conexion;
+    private final Connection conexion;
 
     // Constructor que recibe la conexión a la base de datos
     public UsuarioDAO(Connection conexion) {
@@ -23,11 +22,16 @@ public class UsuarioDAO implements UsuarioRepositorio {
     @Override
     public void agregarUsuario(Usuario usuario) {
         String sql = "INSERT INTO Usuarios (Nombre, Correo, Contraseña) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, usuario.getNombre());
             statement.setString(2, usuario.getCorreo());
             statement.setString(3, usuario.getContraseña());
             statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                usuario.setUsuarioID(generatedKeys.getInt(1)); // Obtener el ID generado para el usuario
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

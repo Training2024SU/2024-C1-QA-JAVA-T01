@@ -1,6 +1,5 @@
 package co.com.pinguinera.modelos.repositorios;
 
-import co.com.pinguinera.modelos.Rol;
 import co.com.pinguinera.modelos.Usuario;
 
 import java.util.List;

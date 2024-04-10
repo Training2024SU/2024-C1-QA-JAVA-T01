@@ -2,13 +2,13 @@ package co.com.pinguinera;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
-import co.com.pinguinera.modelos.DAO.PrestamoDAO;
-import co.com.pinguinera.modelos.EstadoPrestamo;
-import co.com.pinguinera.modelos.Prestamo;
+import co.com.pinguinera.modelos.DAO.RolDAO;
+import co.com.pinguinera.modelos.DAO.UsuarioDAO;
+import co.com.pinguinera.modelos.DAO.UsuarioRolesDAO;
+import co.com.pinguinera.modelos.TipoRol;
+import co.com.pinguinera.modelos.Usuario;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,27 +19,40 @@ public class Main {
             // Si la conexión se establece con éxito, muestra un mensaje
             System.out.println("Conexión establecida correctamente.");
 
-            Scanner scanner = new Scanner(System.in);
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion); // Crear un objeto UsuarioDAO para interactuar con la base de datos
+            RolDAO rolDAO = new RolDAO(conexion); // Crear un objeto RolDAO para interactuar con la base de datos
+            UsuarioRolesDAO usuarioRolesDAO = new UsuarioRolesDAO(conexion); // Crear un objeto UsuarioRolesDAO para interactuar con la base de datos
 
-            System.out.println("Bienvenido a la Biblioteca La Pingüinera");
-            System.out.println("1. Iniciar sesión");
-            System.out.println("2. Registrarse como nuevo usuario");
-            System.out.print("Seleccione una opción: ");
-            int opcion = scanner.nextInt();
-
-            switch (opcion) {
-                case 1:
-                    //iniciarSesion();
-                    break;
-                case 2:
-                    //registrarUsuario();
-                    break;
-                default:
-                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+            // Agregar un nuevo rol (ADMINISTRADOR) si no existe
+            TipoRol rol = TipoRol.ADMINISTRADOR;
+            if (rolDAO.buscarRolPorNombre(rol.name()) == null) {
+                rolDAO.agregarRol(rol);
+                System.out.println("Rol ADMINISTRADOR agregado correctamente.");
             }
+
+            // Agregar un nuevo usuario con el rol ADMINISTRADOR
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setNombre("Juan Pérez");
+            nuevoUsuario.setCorreo("juan.perez@example.com");
+            nuevoUsuario.setContraseña("admin123");
+            nuevoUsuario.setRol(rol);
+            usuarioDAO.agregarUsuario(nuevoUsuario);
+            System.out.println("Usuario Juan Pérez agregado correctamente.");
+
+            // Obtener el ID del usuario recién creado
+            int usuarioID = nuevoUsuario.getUsuarioID();
+
+            // Asignar el rol al usuario en la tabla UsuarioRoles
+            usuarioRolesDAO.asignarRolAUsuario(usuarioID, rolDAO.buscarRolPorNombre(rol.name()).getRolID());
+            System.out.println("Rol ADMINISTRADOR asignado a Juan Pérez.");
+
+            // Mostrar mensaje de éxito
+            System.out.println("Proceso completado exitosamente.");
+
+            // Cerrar la conexión a la base de datos
+            conexion.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
