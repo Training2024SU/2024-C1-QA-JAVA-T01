@@ -9,6 +9,6 @@ public interface LibroRepositorio {
     void actualizarLibro(Libro libro);
     void eliminarLibro(int libroId);
     List<Libro> obtenerTodosLosLibros();
-    List<Libro> buscarLibroPorTitulo(String titulo);
+    Libro buscarLibroPorTitulo(String titulo);
     List<String> listarAutoresDeLibros();
 }

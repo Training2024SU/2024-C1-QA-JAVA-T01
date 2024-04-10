@@ -1,4 +1,4 @@
-package co.com.pinguinera.modelos;
+package co.com.pinguinera.modelos.DAO;
 
 import co.com.pinguinera.modelos.Libro;
 import co.com.pinguinera.modelos.repositorios.LibroRepositorio;

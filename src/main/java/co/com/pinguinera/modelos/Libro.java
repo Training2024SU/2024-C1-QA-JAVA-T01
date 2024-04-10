@@ -2,7 +2,7 @@ package co.com.pinguinera.modelos;
 
 import java.util.List;
 
-public class Libro implements List<Libro> {
+public class Libro {
     private int libroID;
     private String titulo;
     private String autor;

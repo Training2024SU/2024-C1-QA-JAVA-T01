@@ -11,5 +11,4 @@ public interface UsuarioRepositorio {
     void eliminarUsuario(int usuarioId);
     List<Usuario> obtenerTodosLosUsuarios();
     Usuario buscarUsuarioPorCorreo(String correo);
-    List<Usuario> buscarUsuarioPorRol(Rol rol);
 }
