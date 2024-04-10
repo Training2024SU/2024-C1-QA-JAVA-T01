@@ -1,12 +1,11 @@
 package co.com.pinguinera;
 
+import co.com.pinguinera.modelos.DAO.NovelaDAO;
+import co.com.pinguinera.modelos.Novela;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-
-import co.com.pinguinera.modelos.Libro;
-import co.com.pinguinera.modelos.DAO.LibroDAO;
-import co.com.pinguinera.modelos.repositorios.LibroRepositorio;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,32 +16,39 @@ public class Main {
             // Si la conexión se establece con éxito, muestra un mensaje
             System.out.println("Conexión establecida correctamente.");
 
-            // Crea un objeto LibroDAO y pasa la conexión a la base de datos
-            LibroRepositorio libroDAO = new LibroDAO(conexion);
+            // Instanciamos NovelaDAO con la conexión establecida
+            NovelaDAO novelaDAO = new NovelaDAO(conexion);
 
-            // Agregar un nuevo libro
-            Libro nuevoLibro = new Libro();
-            nuevoLibro.setTitulo("El Principito");
-            nuevoLibro.setAutor("Antoine de Saint-Exupéry");
-            nuevoLibro.setAreaConocimiento("Literatura infantil");
-            nuevoLibro.setNumPaginas(96);
-            nuevoLibro.setCantEjemplares(10);
-            libroDAO.agregarLibro(nuevoLibro);
+            // Agregar una nueva novela
+            Novela nuevaNovela = new Novela();
+            nuevaNovela.setTitulo("El nombre del viento");
+            nuevaNovela.setAutor("Patrick Rothfuss");
+            nuevaNovela.setGenero("Fantasía");
+            nuevaNovela.setEdadLecturaSugerida(16);
+            nuevaNovela.setCantEjemplares(10);
+            novelaDAO.agregarNovela(nuevaNovela);
+            System.out.println("Nueva novela agregada correctamente.");
 
-            // Obtener todos los libros y mostrarlos en la consola
-            List<Libro> libros = libroDAO.obtenerTodosLosLibros();
-            System.out.println("Libros en la biblioteca:");
-            for (Libro libro : libros) {
-                System.out.println(libro.getTitulo() + " - " + libro.getAutor());
+            // Obtener todas las novelas
+            List<Novela> novelas = novelaDAO.obtenerTodasLasNovelas();
+            System.out.println("Lista de todas las novelas:");
+            for (Novela novela : novelas) {
+                System.out.println(novela.getTitulo() + " - " + novela.getAutor());
             }
 
-            // Buscar un libro por título
-            String titulo = "El Principito";
-            Libro libroEncontrado = libroDAO.buscarLibroPorTitulo(titulo);
-            if (libroEncontrado != null) {
-                System.out.println("Libro encontrado: " + libroEncontrado.getTitulo() + " - " + libroEncontrado.getAutor());
-            } else {
-                System.out.println("No se encontró ningún libro con el título: " + titulo);
+            // Buscar novelas por título
+            String tituloBusqueda = "viento";
+            List<Novela> novelasEncontradas = novelaDAO.buscarNovelaPorTitulo(tituloBusqueda);
+            System.out.println("Novelas encontradas con '" + tituloBusqueda + "':");
+            for (Novela novela : novelasEncontradas) {
+                System.out.println(novela.getTitulo() + " - " + novela.getAutor());
+            }
+
+            // Listar autores de novelas
+            List<String> autores = novelaDAO.listarAutoresDeNovelas();
+            System.out.println("Autores de novelas:");
+            for (String autor : autores) {
+                System.out.println(autor);
             }
 
             // Cierra la conexión
