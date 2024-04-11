@@ -1,16 +1,16 @@
 package co.com.pinguinera.vistas;
 
-import co.com.pinguinera.controladores.GestionUsuario;
+import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
 
 import java.util.Scanner;
 
-public class BibliotecaVista {
+public class MenuPrincipal {
     private Scanner scanner;
-    private GestionUsuario gestionUsuario; // Agregar instancia de GestionUsuario
+    private RegistrarUsuarioControlador registrarUsuarioControlador; // Agregar instancia de RegistrarUsuarioControlador
 
-    public BibliotecaVista(GestionUsuario gestionUsuario) { // Pasar GestionUsuario al constructor
+    public MenuPrincipal(RegistrarUsuarioControlador registrarUsuarioControlador) { // Pasar RegistrarUsuarioControlador al constructor
         this.scanner = new Scanner(System.in);
-        this.gestionUsuario = gestionUsuario; // Inicializar GestionUsuario
+        this.registrarUsuarioControlador = registrarUsuarioControlador; // Inicializar RegistrarUsuarioControlador
     }
 
     public void mostrarMenuPrincipal() {
@@ -32,7 +32,7 @@ public class BibliotecaVista {
                         // Lógica para iniciar sesión
                         break;
                     case 2:
-                        gestionUsuario.registrarLector();
+                        registrarUsuarioControlador.registrarLector();
                         break;
                     case 0:
                         continuar = false;
@@ -46,8 +46,6 @@ public class BibliotecaVista {
             }
         }
     }
-
-
 
     // Otros métodos de la clase
 }
