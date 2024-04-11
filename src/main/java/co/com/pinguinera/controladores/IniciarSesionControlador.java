@@ -1,14 +1,17 @@
-package co.com.pinguinera.vistas;
+package co.com.pinguinera.controladores;
 
 import co.com.pinguinera.modelos.DAO.AutenticacionDAO;
-
 import java.util.Scanner;
 
-public class IniciarSesion {
+// Importa la clase Notificaciones
+import co.com.pinguinera.modelos.TipoRol;
+import co.com.pinguinera.vistas.Notificaciones;
+
+public class IniciarSesionControlador {
     private Scanner scanner;
     private AutenticacionDAO autenticacionDAO;
 
-    public IniciarSesion(Scanner scanner, AutenticacionDAO autenticacionDAO) {
+    public IniciarSesionControlador(Scanner scanner, AutenticacionDAO autenticacionDAO) {
         this.scanner = scanner;
         this.autenticacionDAO = autenticacionDAO;
     }
@@ -26,12 +29,23 @@ public class IniciarSesion {
         // Verifica si la autenticación fue exitosa
         if (autenticado) {
             // Autenticación exitosa
-            System.out.println("Inicio de sesión exitoso. Bienvenido!");
-            // Aquí puedes realizar las acciones necesarias para un inicio de sesión exitoso
+            Notificaciones.mostrarMensajeExito();
+
+            // Obtén el rol del usuario autenticado
+            TipoRol rol = autenticacionDAO.obtenerRolUsuario(correo);
+
+            // Muestra el rol del usuario
+            if (rol != null) {
+                Notificaciones.mostrarRol(rol);
+            } else {
+                System.out.println("No se pudo determinar el rol del usuario.");
+            }
+
         } else {
             // Autenticación fallida
-            System.out.println("Inicio de sesión fallido. Por favor, verifica tus credenciales.");
+            Notificaciones.procesoFallido(); // Llama a procesoFallido de Notificaciones
             // Aquí puedes manejar el caso de inicio de sesión fallido
         }
     }
+
 }

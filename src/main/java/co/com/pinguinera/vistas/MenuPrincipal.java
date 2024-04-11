@@ -1,10 +1,6 @@
 package co.com.pinguinera.vistas;
 
-import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
-import co.com.pinguinera.modelos.DAO.AutenticacionDAO;
-
-import java.util.Scanner;
-
+import co.com.pinguinera.controladores.IniciarSesionControlador;
 import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
 import co.com.pinguinera.modelos.DAO.AutenticacionDAO;
 
@@ -21,8 +17,8 @@ public class MenuPrincipal {
         this.autenticacionDAO = autenticacionDAO;
     }
     public void mostrarMenuPrincipal() {
-        // Initialize IniciarSesion object here
-        IniciarSesion iniciarSesion = new IniciarSesion(scanner, autenticacionDAO);
+        // Initialize IniciarSesionControlador object here
+        IniciarSesionControlador iniciarSesionControlador = new IniciarSesionControlador(scanner, autenticacionDAO);
 
         while (true) {
             System.out.println("Bienvenido a La Pingüinera");
@@ -38,7 +34,7 @@ public class MenuPrincipal {
 
                 switch (opcion) {
                     case 1:
-                        iniciarSesion.iniciarSesion(); // Llamar al método iniciarSesion
+                        iniciarSesionControlador.iniciarSesion(); // Llamar al método iniciarSesionControlador
                         break;
                     case 2:
                         registrarUsuarioControlador.registrarLector();
