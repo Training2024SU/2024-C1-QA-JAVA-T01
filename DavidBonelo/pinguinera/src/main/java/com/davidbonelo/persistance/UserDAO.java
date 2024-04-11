@@ -17,17 +17,32 @@ public class UserDAO {
         this.connection = connection;
     }
 
+    public static User buildUserFromResult(ResultSet rs) throws SQLException {
+        UserRole role = UserRole.valueOf(rs.getString("role"));
+        return new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), role);
+    }
+
+    public User validateUserCredentials(String userEmail, String password) throws SQLException {
+        String sql = "SELECT * FROM Users WHERE email= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, userEmail);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next() && rs.getString("password").equals(password)) {
+                    return buildUserFromResult(rs);
+                }
+            }
+        }
+        return null;
+    }
+
     public List<User> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM Users";
+        String sql = "SELECT id, name, email, role FROM Users"; // avoid selecting passwords
         ArrayList<User> users = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs =
                 statement.executeQuery()) {
 
             while (rs.next()) {
-                UserRole role = UserRole.valueOf(rs.getString("role"));
-                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email")
-                        , role);
-                users.add(user);
+                users.add(buildUserFromResult(rs));
             }
             return users;
         }
@@ -64,9 +79,10 @@ public class UserDAO {
             }
         }
     }
+
     public void deleteUser(User userId) throws SQLException {
         String sql = "DELETE FROM Users WHERE id=" + userId;
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int deletedRows = statement.executeUpdate();
             if (deletedRows == 0) {
                 throw new SQLException("User with id " + userId + " not found, can't delete");

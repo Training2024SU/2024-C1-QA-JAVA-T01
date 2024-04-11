@@ -1,25 +1,18 @@
 package com.davidbonelo;
 
-import com.davidbonelo.models.Book;
-import com.davidbonelo.persistance.BookDAO;
+import com.davidbonelo.persistance.UserDAO;
+import com.davidbonelo.services.UserService;
+import com.davidbonelo.ui.MainMenu;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
         Connection connection = PinguDatabase.getConnection();
 
-        Book bookToSave = new Book(5, "Sample book", "John Doe", 10, 0, "Fiction", 200);
-
-        BookDAO bookDAO = new BookDAO(connection);
-
-        try {
-            bookDAO.createBook(bookToSave); // Create ignores id OK
-            System.out.println("Book saved successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        UserDAO userDAO = new UserDAO(connection);
+        UserService userService = new UserService(connection, userDAO);
+        new MainMenu(userService).menu();
 
         PinguDatabase.close();
     }
