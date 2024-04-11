@@ -7,7 +7,10 @@ import co.com.pinguinera.modelos.interfaces.NovelaRepositorio;
 import co.com.pinguinera.modelos.interfaces.UsuarioRepositorio;
 import co.com.pinguinera.modelos.interfaces.UsuarioRolesRepositorio;
 import co.com.pinguinera.vistas.MenuAdministrador;
+import co.com.pinguinera.vistas.MenuLector;
 import co.com.pinguinera.vistas.Notificaciones;
+import co.com.pinguinera.modelos.interfaces.PrestamoRepositorio;
+
 
 import java.util.Scanner;
 
@@ -19,6 +22,8 @@ public class IniciarSesionControlador {
     private UsuarioRolesRepositorio usuarioRolesRepositorio;
     private LibroRepositorio libroRepositorio;
     private NovelaRepositorio novelaRepositorio;
+    private PrestamoRepositorio prestamoRepositorio;
+
 
     // Constructor del controlador
     public IniciarSesionControlador(Scanner scanner, AutenticacionDAO autenticacionDAO, UsuarioRepositorio usuarioRepositorio, UsuarioRolesRepositorio usuarioRolesRepositorio, LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio) {
@@ -28,6 +33,7 @@ public class IniciarSesionControlador {
         this.usuarioRolesRepositorio = usuarioRolesRepositorio;
         this.libroRepositorio = libroRepositorio;
         this.novelaRepositorio = novelaRepositorio;
+
     }
 
     public void iniciarSesion() {
@@ -59,14 +65,25 @@ public class IniciarSesionControlador {
                         novelaRepositorio
                 );
                 menuAdministrador.mostrarMenuAdministrador();
-            } else if (rol == null) {
-                System.out.println("No se pudo determinar el rol del usuario.");
+            } else if (rol != null && rol == TipoRol.LECTOR) {
+                Notificaciones.mostrarRol(rol);
+
+                // Crear instancia de MenuLector y llamar a mostrarMenuLector
+                MenuLector menuLector = new MenuLector(
+                        scanner,
+                        libroRepositorio,
+                        novelaRepositorio,
+                        prestamoRepositorio,
+                        usuarioRepositorio.buscarUsuarioPorCorreo(correo).getUsuarioID()
+                );
+                menuLector.mostrarMenuLector();
             } else {
-                System.out.println("El usuario no es administrador. Acceso restringido.");
+                System.out.println("El usuario no tiene rol válido. Acceso restringido.");
             }
         } else {
             // Autenticación fallida
             Notificaciones.procesoFallido();
         }
     }
-}
+    }
+
