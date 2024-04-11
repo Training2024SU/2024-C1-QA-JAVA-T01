@@ -1,7 +1,7 @@
 package co.com.pinguinera.modelos.DAO;
 
 import co.com.pinguinera.modelos.Libro;
-import co.com.pinguinera.modelos.repositorios.LibroRepositorio;
+import co.com.pinguinera.modelos.interfaces.LibroRepositorio;
 
 import java.sql.*;
 import java.util.ArrayList;

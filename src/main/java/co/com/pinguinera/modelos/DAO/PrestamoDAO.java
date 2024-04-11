@@ -2,7 +2,7 @@ package co.com.pinguinera.modelos.DAO;
 
 import co.com.pinguinera.modelos.EstadoPrestamo;
 import co.com.pinguinera.modelos.Prestamo;
-import co.com.pinguinera.modelos.repositorios.PrestamoRepositorio;
+import co.com.pinguinera.modelos.interfaces.PrestamoRepositorio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

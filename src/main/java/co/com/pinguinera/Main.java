@@ -2,13 +2,13 @@ package co.com.pinguinera;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Scanner;
 
+import co.com.pinguinera.controladores.GestionUsuario;
 import co.com.pinguinera.modelos.DAO.RolDAO;
 import co.com.pinguinera.modelos.DAO.UsuarioDAO;
 import co.com.pinguinera.modelos.DAO.UsuarioRolesDAO;
-import co.com.pinguinera.modelos.TipoRol;
-import co.com.pinguinera.modelos.Usuario;
+import co.com.pinguinera.vistas.BibliotecaVista;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,43 +19,29 @@ public class Main {
             // Si la conexión se establece con éxito, muestra un mensaje
             System.out.println("Conexión establecida correctamente.");
 
-            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion); // Crear un objeto UsuarioDAO para interactuar con la base de datos
-            RolDAO rolDAO = new RolDAO(conexion); // Crear un objeto RolDAO para interactuar con la base de datos
-            UsuarioRolesDAO usuarioRolesDAO = new UsuarioRolesDAO(conexion); // Crear un objeto UsuarioRolesDAO para interactuar con la base de datos
+            // Crear instancias de los DAOs necesarios
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+            RolDAO rolDAO = new RolDAO(conexion);
+            UsuarioRolesDAO usuarioRolesDAO = new UsuarioRolesDAO(conexion);
 
-            // Verificar si existe algún usuario con el rol de ADMINISTRADOR
-            boolean existeAdmin = rolDAO.existeUsuarioConRolAdministrador();
-            if (existeAdmin) {
-                System.out.println("Ya existe un usuario con el rol de ADMINISTRADOR en la base de datos.");
-            } else {
-                System.out.println("No existe ningún usuario con el rol de ADMINISTRADOR en la base de datos.");
-            }
+            // Crear instancia de GestionUsuario y pasarle los DAOs como argumentos
+            GestionUsuario gestionUsuario = new GestionUsuario(usuarioDAO, rolDAO, usuarioRolesDAO);
 
-            // Solo continuar si no existe ningún usuario con el rol de ADMINISTRADOR
-            if (!existeAdmin) {
-                // Agregar un nuevo rol (ADMINISTRADOR) si no existe
-                TipoRol rol = TipoRol.ADMINISTRADOR;
-                rolDAO.agregarRol(rol);
-                System.out.println("Rol ADMINISTRADOR agregado correctamente.");
+            // Inicio de la aplicación
+            boolean continuar = true;
+            Scanner scanner = new Scanner(System.in);
 
-                // Agregar un nuevo usuario con el rol ADMINISTRADOR
-                Usuario nuevoUsuario = new Usuario();
-                nuevoUsuario.setNombre("John Doe");
-                nuevoUsuario.setCorreo("administrador@pingu.com.co");
-                nuevoUsuario.setContraseña("contraseñasegura123456");
-                nuevoUsuario.setRol(rol);
-                usuarioDAO.agregarUsuario(nuevoUsuario);
-                System.out.println("Usuario agregado correctamente.");
+            while (continuar) {
+                BibliotecaVista bibliotecaVista = new BibliotecaVista(gestionUsuario); // Crear una instancia de BibliotecaVista
+                bibliotecaVista.mostrarMenuPrincipal(); // Llamar al método mostrarMenuPrincipal en la instancia creada
 
-                // Obtener el ID del usuario recién creado
-                int usuarioID = nuevoUsuario.getUsuarioID();
-
-                // Asignar el rol al usuario en la tabla UsuarioRoles
-                usuarioRolesDAO.asignarRolAUsuario(usuarioID, rolDAO.buscarRolPorNombre(rol.name()).getRolID());
-                System.out.println("Rol ADMINISTRADOR asignado a John Doe.");
-
-                // Mostrar mensaje de éxito
-                System.out.println("Proceso completado exitosamente.");
+                System.out.println("¿Permanecer en el sistema? (SI/NO)");
+                if (scanner.hasNextLine()) {
+                    String opcion = scanner.nextLine();
+                    if (opcion.equalsIgnoreCase("NO")) {
+                        continuar = false;
+                    }
+                }
             }
 
             // Cerrar la conexión a la base de datos

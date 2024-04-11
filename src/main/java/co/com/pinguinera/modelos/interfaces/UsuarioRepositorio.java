@@ -1,4 +1,4 @@
-package co.com.pinguinera.modelos.repositorios;
+package co.com.pinguinera.modelos.interfaces;
 
 import co.com.pinguinera.modelos.Usuario;
 

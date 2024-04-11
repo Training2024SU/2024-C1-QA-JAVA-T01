@@ -1,7 +1,7 @@
 package co.com.pinguinera.modelos.DAO;
 
 import co.com.pinguinera.modelos.Usuario;
-import co.com.pinguinera.modelos.repositorios.UsuarioRepositorio;
+import co.com.pinguinera.modelos.interfaces.UsuarioRepositorio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

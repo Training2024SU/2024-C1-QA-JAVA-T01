@@ -1,7 +1,7 @@
 package co.com.pinguinera.modelos.DAO;
 
 import co.com.pinguinera.modelos.TipoRol;
-import co.com.pinguinera.modelos.repositorios.RolesRepositorio;
+import co.com.pinguinera.modelos.interfaces.RolesRepositorio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
