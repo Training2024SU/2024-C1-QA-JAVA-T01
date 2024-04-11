@@ -61,6 +61,16 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public Usuario(String nombre, String correo, String contrasenia) {
+        Faker faker = new Faker();
+
+        this.id = faker.bothify("#######");
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.rol = Rol.LECTOR;
+    }
+
     public Usuario(String id, String nombre, String correo, String contrasenia, Rol rol) {
 
         this.id = id;

@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface RepositorioUsuario {
     Optional<Usuario> validarCredenciales(String correo, String contrasenia);
+    Optional<Usuario> guardarUsuario(Usuario nuevoUsuario);
     Optional<ArrayList<Usuario>> listarUsuarios();
 }

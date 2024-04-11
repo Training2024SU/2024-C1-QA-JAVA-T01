@@ -25,7 +25,7 @@ public class MenuPrincipal {
                     inicioSesion();
                     break;
                 case "2":
-                    // code block
+                    registroUsuario();
                     break;
                 default:
                     // code block
@@ -49,18 +49,42 @@ public class MenuPrincipal {
                 System.out.println("Bienvenido ");
                 switch(usuarioDb.get().getRol()) {
                     case LECTOR:
-
+                        menuLector();
                         break;
                     case ADMIN:
-                        inicioSesion();
+                        menuAdmin();
                         break;
                     case ASISTENTE:
-                        // code block
+                        menuAsistente();
                         break;
                 }
             } else {
                 System.out.println("Correo o contraseña erróneos, inténtalo de nuevo");
             }
+        }
+    }
+
+    public static void registroUsuario() {
+
+        while (true) {
+
+            System.out.print("Ingresa tu nombre: ");
+            String nombreUsuario = scan.nextLine();
+            System.out.print("Ingresa tu correo: ");
+            String correoUsuario = scan.nextLine();
+            System.out.print("Ingresa tu contraseña: ");
+            String contraseniaUsuario = scan.nextLine();
+
+            if (!nombreUsuario.isEmpty() && !correoUsuario.isEmpty() && !contraseniaUsuario.isEmpty()) {
+                // Si ninguno de los campos está vacío
+                Usuario newUser = new Usuario(nombreUsuario, correoUsuario, contraseniaUsuario);
+                servicioUsuario.guardarUsuario(newUser);
+                System.out.println("\nUsuario guardado\n");
+                break; // Salir del bucle
+            } else {
+                System.out.println("Por favor, ingresa todos los datos correctamente.");
+            }
+
         }
     }
 
