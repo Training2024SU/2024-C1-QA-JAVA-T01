@@ -1,5 +1,6 @@
 package co.com.pinguinera.modelos.DAO;
 
+import co.com.pinguinera.modelos.TipoRol;
 import co.com.pinguinera.modelos.Usuario;
 import co.com.pinguinera.modelos.interfaces.UsuarioRepositorio;
 

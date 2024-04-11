@@ -1,21 +1,31 @@
 package co.com.pinguinera.vistas;
 
 import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
+import co.com.pinguinera.modelos.DAO.AutenticacionDAO;
+
+import java.util.Scanner;
+
+import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
+import co.com.pinguinera.modelos.DAO.AutenticacionDAO;
 
 import java.util.Scanner;
 
 public class MenuPrincipal {
     private Scanner scanner;
-    private RegistrarUsuarioControlador registrarUsuarioControlador; // Agregar instancia de RegistrarUsuarioControlador
+    private RegistrarUsuarioControlador registrarUsuarioControlador;
+    private AutenticacionDAO autenticacionDAO;
 
-    public MenuPrincipal(RegistrarUsuarioControlador registrarUsuarioControlador) { // Pasar RegistrarUsuarioControlador al constructor
+    public MenuPrincipal(RegistrarUsuarioControlador registrarUsuarioControlador, AutenticacionDAO autenticacionDAO) {
         this.scanner = new Scanner(System.in);
-        this.registrarUsuarioControlador = registrarUsuarioControlador; // Inicializar RegistrarUsuarioControlador
+        this.registrarUsuarioControlador = registrarUsuarioControlador;
+        this.autenticacionDAO = autenticacionDAO;
     }
 
     public void mostrarMenuPrincipal() {
-        boolean continuar = true;
-        while (continuar) {
+        // Initialize IniciarSesion object here
+        IniciarSesion iniciarSesion = new IniciarSesion(scanner, autenticacionDAO);
+
+        while (true) {
             System.out.println("Bienvenido a La Pingüinera");
             System.out.println("Seleccione una opción:");
             System.out.println("1. Iniciar sesión");
@@ -29,14 +39,13 @@ public class MenuPrincipal {
 
                 switch (opcion) {
                     case 1:
-                        // Lógica para iniciar sesión
+                        iniciarSesion.iniciarSesion(); // Llamar al método iniciarSesion
                         break;
                     case 2:
                         registrarUsuarioControlador.registrarLector();
                         break;
                     case 0:
-                        continuar = false;
-                        break;
+                        return; // Salir del método para finalizar la aplicación
                     default:
                         System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
                 }
@@ -46,6 +55,4 @@ public class MenuPrincipal {
             }
         }
     }
-
-    // Otros métodos de la clase
 }

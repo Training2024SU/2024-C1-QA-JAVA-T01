@@ -25,7 +25,7 @@ public class RegistrarUsuarioControlador {
         Usuario nuevoUsuario = recolectarDatosUsuario();
 
         // Registrar el nuevo usuario con los datos proporcionados
-        registrarNuevoUsuario(nuevoUsuario);
+        registrarNuevoLector(nuevoUsuario);
 
         // Manejar la interfaz gráfica
         Notificaciones.mostrarMensajeExito();
@@ -55,7 +55,7 @@ public class RegistrarUsuarioControlador {
         return nuevoUsuario;
     }
 
-    private void registrarNuevoUsuario(Usuario nuevoUsuario) {
+    private void registrarNuevoLector(Usuario nuevoUsuario) {
         // Asignar el rol por defecto de Lector
         TipoRol rol = TipoRol.LECTOR;
         rolDAO.agregarRol(rol);
