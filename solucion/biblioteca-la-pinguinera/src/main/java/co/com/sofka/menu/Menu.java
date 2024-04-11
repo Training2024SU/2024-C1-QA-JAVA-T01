@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 
 import java.util.Scanner;
 
+import static co.com.sofka.menu.ConstantesMenu.*;
+
 public class Menu {
 
     static Scanner scanner = new Scanner(System.in);
@@ -27,11 +29,9 @@ public class Menu {
     static RepositorioPrestamo repositorioPrestamo = new RepositorioPrestamo(sessionFactory);
     static ServicioPrestamo servicioPrestamo = new ServicioPrestamo(repositorioPrestamo, repositorioLibro, repositorioNovela);
 
-
-    // Al iniciar la aplicacion no hay usuario Ingresado, despues del ingreso se asigna un usuario de la bd
     static Usuario usuarioIngresado = null;
 
-    // Al iniciar la aplicacion se desea ejecutar el menu, una ves el usuario desee, se asigna a false y se sale del menu
+    // Al iniciar la aplicacion se desea ejecutar el menu, una vez el usuario desee, se asigna a false y se sale del menu
     static boolean seguirEjecucion = true;
     public static void iniciar(){
         while(seguirEjecucion){
@@ -254,7 +254,7 @@ public class Menu {
     }
 
     public static void modificarLibro(Scanner scanner){
-        System.out.println("Ingrese el id del libro");
+        System.out.println(PRIMER_MENSAJE_MODIFICAR_LIBRO);
         Long id = scanner.nextLong();
         scanner.nextLine();
 
@@ -300,7 +300,7 @@ public class Menu {
     }
 
     public static void modificarNovela(Scanner scanner){
-        System.out.println("Ingrese el id de la novela");
+        System.out.println(PRIMER_MENSAJE_MODIFICAR_NOVELA);
         Long id = scanner.nextLong();
         scanner.nextLine();
 
@@ -325,56 +325,56 @@ public class Menu {
     }
 
     public static void buscarLibroPorAutor(Scanner scanner){
-        System.out.println("Ingrese el nombre del autor");
+        System.out.println(PRIMER_MENSAJE_BUSCAR_LIBRO_POR_AUTOR);
         String autor = scanner.nextLine();
 
         servicioLibro.listarLibroPorAutor(autor);
     }
 
     public static void buscarNovelaPorAutor(Scanner scanner){
-        System.out.println("Ingrese el nombre del autor");
+        System.out.println(PRIMER_MENSAJE_BUSCAR_NOVELA_POR_AUTOR);
         String autor = scanner.nextLine();
 
         servicioNovela.listarNovelaPorAutor(autor);
     }
 
     public static void prestarLibros(Scanner scanner){
-        System.out.println("Ingrese el titulo del libro");
+        System.out.println(PRIMER_MENSAJE_PRESTAR_LIBRO);
         String titulo = scanner.nextLine();
 
         servicioPrestamo.solicitarPrestamoLibro(usuarioIngresado, titulo);
-        System.out.println("Solicitud de prestamo acceptada, dirigase a un asesor para completar el prestamo");
+        System.out.println(SEGUNDO_MENSAJE_PRESTAR_LIBRO );
     }
 
     public static void prestarNovelas(Scanner scanner){
-        System.out.println("Ingrese el titulo de la novela");
+        System.out.println(PRIMER_MENSAJE_PRESTAR_NOVELA);
         String titulo = scanner.nextLine();
 
         servicioPrestamo.solicitarPrestamoNovela(usuarioIngresado, titulo);
-        System.out.println("Solicitud de prestamo acceptada, dirigase a un asesor para completar el prestamo");
+        System.out.println(SEGUNDO_MENSAJE_PRESTAR_NOVELA);
     }
 
     public static void revisarPrestamosSolicitados(Scanner scanner){
-        System.out.println("A continuacion, se listan los prestamos en estado de solicitado");
+        System.out.println(PRIMER_MENSAJE_PRESTAMO_SOLICITADO);
         servicioPrestamo.listarPrestamosSolicitados();
 
-        System.out.println("Ingrese el id del prestamo para realizarlo");
+        System.out.println(SEGUNDO_MENSAJE_PRESTAMO_SOLICITADO);
         Long prestamoId = scanner.nextLong();
         scanner.nextLine();
 
         servicioPrestamo.realizarPrestamo(prestamoId);
-        System.out.println("Prestamo realizado con exito");
+        System.out.println(SEGUNDO_MENSAJE_GUARDAR_LIBRO);
     }
 
     public static void finalizarPrestamoRealizado(Scanner scanner){
-        System.out.println("A continuacion, se listan los prestamos en estado de realizado");
+        System.out.println(PRIMER_MENSAJE_PRESTAMO_REALIZADO);
         servicioPrestamo.listarPrestamosRealizados();
 
-        System.out.println("Ingrese el id del prestamo para finalizarlo");
+        System.out.println(PRIMER_MENSAJE_PRESTAMO_FINALIZADO);
         Long prestamoId = scanner.nextLong();
         scanner.nextLine();
 
         servicioPrestamo.realizarDevolucion(prestamoId);
-        System.out.println("Prestamo finalizado con exito");
+        System.out.println(SEGUNDO_MENSAJE_PRESTAMO_FINALIZADO);
     }
 }

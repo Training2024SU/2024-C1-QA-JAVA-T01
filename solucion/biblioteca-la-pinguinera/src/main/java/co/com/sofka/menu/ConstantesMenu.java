@@ -40,8 +40,21 @@ public class ConstantesMenu {
     static String SEPTIMO_MENSAJE_GUARDAR_NOVELA = "Por favor ingrese la edad de lectura sugerida de la novela";
     public static String OCTAVO_MENSAJE_GUARDAR_NOVELA = "Se ha guardado la novela exitosamente";
     public static String NOVENO_MENSAJE_MODIFICAR_NOVELA = "Se ha modificado la novela exitosamente";
+    static String PRIMER_MENSAJE_MODIFICAR_LIBRO = "Ingrese el id del libro";
+    static String PRIMER_MENSAJE_MODIFICAR_NOVELA = "Ingrese el id de la novela";
 
+    static String PRIMER_MENSAJE_BUSCAR_LIBRO_POR_AUTOR = "Ingrese el nombre del autor del libro";
+    static String PRIMER_MENSAJE_BUSCAR_NOVELA_POR_AUTOR = "Ingrese el nombre del autor de la novela";
+    static String PRIMER_MENSAJE_PRESTAR_LIBRO = "Ingrese el titulo del libro";
+    static String SEGUNDO_MENSAJE_PRESTAR_LIBRO = "Tu solicitud de prestamo ha sido aceptada. Por favor, dirigete a uno de nuestros asesores para completar el proceso.";
+    static String PRIMER_MENSAJE_PRESTAR_NOVELA = "Ingrese el titulo de la novela";
+    static String SEGUNDO_MENSAJE_PRESTAR_NOVELA = "Tu solicitud de prestamo ha sido aceptada. Por favor, dirigete a uno de nuestros asesores para completar el proceso.";
 
+    static String PRIMER_MENSAJE_PRESTAMO_SOLICITADO = "A continuacion, se listan los prestamos en estado de solicitado";
 
-
+    static String SEGUNDO_MENSAJE_PRESTAMO_SOLICITADO = "Ingrese el id del prestamo para realizarlo";
+    static String PRIMER_MENSAJE_PRESTAMO_REALIZADO = "A continuacion, se listan los prestamos en estado de realizado";
+    static String SEGUNDO_MENSAJE_PRESTAMO_REALIZADO= "Prestamo realizado con exito";
+    static String PRIMER_MENSAJE_PRESTAMO_FINALIZADO = "Ingrese el id del prestamo para finalizarlo";
+    static String SEGUNDO_MENSAJE_PRESTAMO_FINALIZADO ="Prestamo finalizado con exito";
 }

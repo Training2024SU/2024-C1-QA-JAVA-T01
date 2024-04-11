@@ -30,7 +30,7 @@ public class ServicioUsuario {
         usuario.setNombre(nombre);
         usuario.setCorreo(correo);
         usuario.setContrasena(contrasena);
-        usuario.setRol(RolUsuario.LECTORES);
+        usuario.setRol(RolUsuario.ASISTENTE);
 
         repositorioUsuario.guardar(usuario);
         System.out.println("Usuario asistente creado exitosamente");
