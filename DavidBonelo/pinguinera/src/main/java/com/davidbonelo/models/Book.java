@@ -1,10 +1,18 @@
 package com.davidbonelo.models;
 
-public class Book extends LibraryItem{
+public class Book extends LibraryItem {
     private String field;
     private int pages;
 
-    public Book(int id, String title, String author, int copies, int copiesBorrowed, String field, int pages) {
+    public Book(String title, String author, int copies, int copiesBorrowed, String field,
+                int pages) {
+        super(title, author, copies, copiesBorrowed);
+        this.field = field;
+        this.pages = pages;
+    }
+
+    public Book(int id, String title, String author, int copies, int copiesBorrowed, String field
+            , int pages) {
         super(id, title, author, copies, copiesBorrowed);
         this.field = field;
         this.pages = pages;

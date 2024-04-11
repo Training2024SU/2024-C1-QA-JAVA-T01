@@ -4,15 +4,24 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Borrowing {
+    private final User borrower;
+    private int id;
     private List<LibraryItem> borrowedItems;
     private LocalDate requestedDate;
     private LocalDate returnDate;
     private BorrowingStatus status;
-    private final User borrower;
 
-    public Borrowing(List<LibraryItem> borrowedItems, LocalDate returnDate, User borrower) {
-        this.borrowedItems = borrowedItems;
+    public Borrowing(LocalDate returnDate, User borrower) {
         this.requestedDate = LocalDate.now();
+        setReturnDate(returnDate);
+        this.status = BorrowingStatus.REQUESTED;
+        this.borrower = borrower;
+    }
+
+    public Borrowing(int id, LocalDate returnDate,
+                     LocalDate requestedDate, User borrower) {
+        this.id = id;
+        this.requestedDate = requestedDate;
         setReturnDate(returnDate);
         this.status = BorrowingStatus.REQUESTED;
         this.borrower = borrower;
@@ -64,5 +73,13 @@ public class Borrowing {
 
     public User getBorrower() {
         return borrower;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
