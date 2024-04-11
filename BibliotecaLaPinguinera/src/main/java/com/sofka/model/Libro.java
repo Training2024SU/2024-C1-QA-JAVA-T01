@@ -1,4 +1,4 @@
-package com.sofka;
+package com.sofka.model;
 
 import lombok.Data;
 import lombok.Getter;

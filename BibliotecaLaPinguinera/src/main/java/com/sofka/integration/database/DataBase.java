@@ -1,4 +1,4 @@
-package com.sofkau.integration.database;
+package com.sofka.integration.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,4 +16,5 @@ public interface DataBase {
     public void close();
 
     public void printResulset() throws SQLException;
+
 }

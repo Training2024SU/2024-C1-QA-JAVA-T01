@@ -1,6 +1,6 @@
 package com.sofka.integration.database.mysql;
 
-import com.sofkau.integration.database.DataBase;
+import com.sofka.integration.database.DataBase;
 
 import java.sql.*;
 
@@ -139,8 +139,9 @@ public class MySqlOperation implements DataBase {
                 String columnValue = resultSet.getString(columnNumber);
                 System.out.print(resultSetMetaData.getColumnName(columnNumber) + ": " + columnValue);
             }
-            System.out.println("");
+            System.out.println();
         }
 
     }
+
 }

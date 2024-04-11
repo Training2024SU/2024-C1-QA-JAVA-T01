@@ -1,4 +1,4 @@
-package com.sofka;
+package com.sofka.model;
 
 // Clase para representar una novela
 

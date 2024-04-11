@@ -1,5 +1,10 @@
 package com.sofka;
 
+import com.sofka.model.Libro;
+import com.sofka.model.Novela;
+import com.sofka.model.Prestamo;
+import com.sofka.model.Usuario;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +22,7 @@ public class BibliotecaPinguinera {
     public static void main(String[] args) {
 
 // Crear el usuario administrador
-        usuarioAdministrador = new Usuario("John Doe", "administrador@pingu.com.co", "contraseñasegura123456", "ADMINISTRADOR");
+        usuarioAdministrador = new Usuario("John Doe", "administrador@pingu.com.co", "contrasenasegura123456", "ADMINISTRADOR");
 
         // Crear algunos asistentes
 
