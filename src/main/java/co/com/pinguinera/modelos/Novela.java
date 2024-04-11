@@ -10,6 +10,8 @@ public class Novela {
     private int cantEjemplares;
     private int cantPrestados;
 
+    // Getters y setters
+
     public int getNovelaID() {
         return novelaID;
     }
@@ -72,5 +74,20 @@ public class Novela {
 
     public void setCantPrestados(int cantPrestados) {
         this.cantPrestados = cantPrestados;
+    }
+
+    // Sobrescribe el método toString() para mostrar la información de la novela de forma legible
+    @Override
+    public String toString() {
+        return "Novela{" +
+                "ID: " + novelaID +
+                ", Título: '" + titulo + '\'' +
+                ", Autor: '" + autor + '\'' +
+                ", Género: '" + genero + '\'' +
+                ", Edad: " + edad +
+                ", Edad de lectura sugerida: " + edadLecturaSugerida +
+                ", Cantidad de ejemplares: " + cantEjemplares +
+                ", Cantidad de ejemplares prestados: " + cantPrestados +
+                '}';
     }
 }

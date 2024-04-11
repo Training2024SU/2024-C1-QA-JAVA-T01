@@ -1,7 +1,5 @@
 package co.com.pinguinera.modelos;
 
-import java.util.List;
-
 public class Libro {
     private int libroID;
     private String titulo;
@@ -9,6 +7,8 @@ public class Libro {
     private String areaConocimiento;
     private int numPaginas;
     private int cantEjemplares;
+
+    // Getters y setters
 
     public int getLibroID() {
         return libroID;
@@ -56,5 +56,18 @@ public class Libro {
 
     public void setCantEjemplares(int cantEjemplares) {
         this.cantEjemplares = cantEjemplares;
+    }
+
+    // Sobrescribe el método toString() para mostrar la información del libro de forma legible
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "ID: " + libroID +
+                ", Título: '" + titulo + '\'' +
+                ", Autor: '" + autor + '\'' +
+                ", Área de conocimiento: '" + areaConocimiento + '\'' +
+                ", Número de páginas: " + numPaginas +
+                ", Cantidad de ejemplares: " + cantEjemplares +
+                '}';
     }
 }

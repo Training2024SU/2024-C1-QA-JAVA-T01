@@ -81,4 +81,18 @@ public class Prestamo {
             throw new IllegalArgumentException("Estado debe ser SOLICITADO, REALIZADO o FINALIZADO");
         }
     }
+
+    // Sobrescribe el método toString() para mostrar la información del préstamo de forma legible
+    @Override
+    public String toString() {
+        return "Prestamo{" +
+                "ID de préstamo: " + prestamoID +
+                ", ID de usuario: " + usuarioID +
+                ", ID de ítem: " + itemID +
+                ", Tipo de ítem: '" + tipo + '\'' +
+                ", Fecha de préstamo: " + fechaPrestamo +
+                ", Fecha de devolución: " + fechaDevolucion +
+                ", Estado: '" + estado + '\'' +
+                '}';
+    }
 }
