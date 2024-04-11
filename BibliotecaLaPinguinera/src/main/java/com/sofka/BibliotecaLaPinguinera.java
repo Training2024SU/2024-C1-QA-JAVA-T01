@@ -5,7 +5,6 @@ import com.sofka.model.Rol;
 import com.sofka.model.Usuario;
 import lombok.Data;
 import net.datafaker.Faker;
-import net.datafaker.providers.base.Options;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.sofka.integration.database.mysql.MySqlOperation;
@@ -248,6 +247,7 @@ public class BibliotecaLaPinguinera {
         // Por ahora, simplemente mostraremos un mensaje de éxito.
         JOptionPane.showMessageDialog(null, "¡Usuario registrado exitosamente: " + nuevoUsuario + "!");
     }
+
     public static String preguntarSalir() throws IOException {
         return JOptionPane.showInputDialog(null, "¿Seguro que desea salir? (S/N):");
     }
@@ -293,9 +293,9 @@ public class BibliotecaLaPinguinera {
         String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
-        titulo = faker.book().title();
-        autor = (faker.book().author()).replace("'", "");
-        areaConocimiento = (faker.book().genre()).replace("'", "");
+        titulo = faker.book().title().replace("'", "");
+        autor = faker.book().author().replace("'", "");
+        areaConocimiento = faker.book().genre().replace("'", "");
         numeroPaginas = faker.bothify("###");
         cantidadEjemplares = faker.bothify("###");
         cantidadPrestados = "0";
@@ -315,9 +315,9 @@ public class BibliotecaLaPinguinera {
         String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
-        titulo = faker.book().title();
-        autor = (faker.book().author()).replace("'", "");
-        genero = (faker.book().genre()).replace("'", "");
+        titulo = faker.book().title().replace("'", "");
+        autor = faker.book().author().replace("'", "");
+        genero = faker.book().genre().replace("'", "");
         edadSugerida = faker.bothify("##");
         cantidadEjemplares = faker.bothify("###");
         cantidadPrestados = "0";
@@ -337,7 +337,7 @@ public class BibliotecaLaPinguinera {
         Faker faker = new Faker(new Locale("es"));
 
         correo = faker.internet().emailAddress();
-        documento = faker.book().title();;
+        documento = faker.book().title().replace("'", "");
         fechaPrestamo = faker.date().birthday().toString();
         fechaDevolucion = faker.date().birthday().toString();
         estado = String.valueOf(Estado.values()[new Random().nextInt(Estado.values().length)]);
@@ -353,7 +353,7 @@ public class BibliotecaLaPinguinera {
         String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
-        nombre = (faker.name().name()).replace("'", "");
+        nombre = faker.name().name().replace("'", "");
         correo = faker.internet().emailAddress();
         contrasena = faker.passport().valid();
         rol = String.valueOf(Rol.values()[new Random().nextInt(Rol.values().length)]);
@@ -368,6 +368,7 @@ public class BibliotecaLaPinguinera {
         mySqlOperation.printResulset();
         System.out.println();
     }
+
     public static void selectAllFromLibro() throws SQLException {
         System.out.println("Lista de Libros Registrados");
         mySqlOperation.setSqlStatement(SELECT_ALL_FROM_LIBROS);
