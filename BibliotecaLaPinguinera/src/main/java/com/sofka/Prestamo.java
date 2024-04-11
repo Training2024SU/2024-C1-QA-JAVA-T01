@@ -12,11 +12,11 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-class Prestamo {
+public class Prestamo {
     private Usuario usuario;
     private ArrayList<Libro> libros;
     private ArrayList<Novela> novelas;
     private String fechaPrestamo;
     private String fechaDevolucion;
-
+    private String estado;
 }

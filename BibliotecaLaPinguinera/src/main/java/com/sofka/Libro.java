@@ -10,19 +10,19 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-class Libro {
+public class Libro {
     private String titulo;
     private String autor;
-    private String area;
+    private String areaConocimiento;
     private int numeroPaginas;
     private int cantidadEjemplares;
     private int cantidadPrestados;
     private int cantidadDisponibles;
 
-    public Libro(String titulo, String autor, String area, int numeroPaginas, int cantidadEjemplares) {
+    public Libro(String titulo, String autor, String areaConocimiento, int numeroPaginas, int cantidadEjemplares) {
         this.titulo = titulo;
         this.autor = autor;
-        this.area = area;
+        this.areaConocimiento = areaConocimiento;
         this.numeroPaginas = numeroPaginas;
         this.cantidadEjemplares = cantidadEjemplares;
         this.cantidadPrestados = 0;

@@ -1,9 +1,7 @@
 package com.sofka;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -45,7 +43,7 @@ public class BibliotecaPinguinera {
         librosUsuario1.add(libros.get(1));
         ArrayList<Novela> novelasUsuario1 = new ArrayList<>();
         novelasUsuario1.add(novelas.get(0));
-        prestamos.add(new Prestamo(usuario1, librosUsuario1, novelasUsuario1, "2023-04-01", "2023-04-15"));
+        prestamos.add(new Prestamo(usuario1, librosUsuario1, novelasUsuario1, "2023-04-01", "2023-04-15","SOLICITADO"));
     }
 
     // Métodos para gestionar usuarios, libros, novelas y préstamos
@@ -164,8 +162,8 @@ public class BibliotecaPinguinera {
 
 // Métodos para gestionar préstamos
 
-    public static void realizarPrestamo(Usuario usuario, ArrayList<Libro> libros, ArrayList<Novela> novelas, String fechaPrestamo, String fechaDevolucion) {
-        Prestamo prestamo = new Prestamo(usuario, libros, novelas, fechaPrestamo, fechaDevolucion);
+    public static void realizarPrestamo(Usuario usuario, ArrayList<Libro> libros, ArrayList<Novela> novelas, String fechaPrestamo, String fechaDevolucion, String estado) {
+        Prestamo prestamo = new Prestamo(usuario, libros, novelas, fechaPrestamo, fechaDevolucion,estado);
         prestamos.add(prestamo);
         for (Libro libro : libros) {
             libro.prestar();

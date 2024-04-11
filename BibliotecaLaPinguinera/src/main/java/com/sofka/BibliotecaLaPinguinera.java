@@ -27,10 +27,14 @@ public class BibliotecaLaPinguinera {
 
     public static void main(String[] args) throws SQLException, IOException {
         do {
-            System.out.println("Bienvenido a la libreria busca libre");
+            System.out.println("Bienvenido a la Biblioteca la Pingüinera");
             System.out.println("Que desea realizar");
             System.out.println("1. Ingresar nuevo estudiante");
             System.out.println("2. Eliminar estudiante");
+
+
+
+
             openConnection();
             insertarLibrosEnBd(preguntarAlUsuario());
             selectAllFromLibro();

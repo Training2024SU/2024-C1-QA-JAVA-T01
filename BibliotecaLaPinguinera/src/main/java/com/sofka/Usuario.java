@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-class Usuario {
+public class Usuario {
     private String nombre;
     private String correo;
     private String contrasena;

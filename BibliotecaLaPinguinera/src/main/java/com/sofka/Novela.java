@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-class Novela {
+public class Novela {
     private String titulo;
     private String autor;
     private String genero;
