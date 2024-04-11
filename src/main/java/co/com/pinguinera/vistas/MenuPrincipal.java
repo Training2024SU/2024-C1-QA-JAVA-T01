@@ -15,12 +15,11 @@ public class MenuPrincipal {
     private RegistrarUsuarioControlador registrarUsuarioControlador;
     private AutenticacionDAO autenticacionDAO;
 
-    public MenuPrincipal(RegistrarUsuarioControlador registrarUsuarioControlador, AutenticacionDAO autenticacionDAO) {
-        this.scanner = new Scanner(System.in);
+    public MenuPrincipal(RegistrarUsuarioControlador registrarUsuarioControlador, AutenticacionDAO autenticacionDAO, Scanner scanner) {
+        this.scanner = scanner; // Usar la instancia de `Scanner` pasada como argumento
         this.registrarUsuarioControlador = registrarUsuarioControlador;
         this.autenticacionDAO = autenticacionDAO;
     }
-
     public void mostrarMenuPrincipal() {
         // Initialize IniciarSesion object here
         IniciarSesion iniciarSesion = new IniciarSesion(scanner, autenticacionDAO);
