@@ -1,13 +1,18 @@
 package com.davidbonelo.models;
 
-import java.util.List;
-
 public class LibraryItem {
     private int id;
     private String title;
     private String author;
     private int copies;
     private int copiesBorrowed;
+
+    public LibraryItem(String title, String author, int copies, int copiesBorrowed) {
+        this.title = title;
+        this.author = author;
+        this.copies = copies;
+        this.copiesBorrowed = copiesBorrowed;
+    }
 
     public LibraryItem(int id, String title, String author, int copies, int copiesBorrowed) {
         this.id = id;
