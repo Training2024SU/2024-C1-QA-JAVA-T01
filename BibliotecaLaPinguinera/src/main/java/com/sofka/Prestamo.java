@@ -1,10 +1,7 @@
 package com.sofka;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 class Prestamo {
     private Usuario usuario;
     private ArrayList<Libro> libros;

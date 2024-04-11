@@ -5,10 +5,12 @@ package com.sofka;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Getter
 @NoArgsConstructor
+@ToString
 class Novela {
     private String titulo;
     private String autor;

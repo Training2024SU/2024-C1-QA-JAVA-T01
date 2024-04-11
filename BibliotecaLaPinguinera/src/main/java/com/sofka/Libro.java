@@ -3,11 +3,13 @@ package com.sofka;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 // Clase para representar un libro
 @Data
 @Getter
 @NoArgsConstructor
+@ToString
 class Libro {
     private String titulo;
     private String autor;
