@@ -2,9 +2,44 @@ package org.moreno.cristian.ui;
 
 import java.util.Scanner;
 
-public class Menu {
+public class MenuAdmin {
 
     private static Scanner scan = new Scanner(System.in);
+
+    public static void menuInicial() {
+        while (true) {
+            System.out.println("\nQué desea hacer?\n" +
+                    "   1. Iniciar sesión \n" +
+                    "   2. Registrarme \n");
+
+            String respuestaUsuario = scan.nextLine();
+
+            switch(respuestaUsuario) {
+                case "1":
+                    inicioSesion();
+                    break;
+                case "2":
+                    // code block
+                    break;
+                default:
+                    // code block
+            }
+        }
+    }
+
+    public static void inicioSesion () {
+
+        while (true) {
+
+            System.out.print("Ingresa tu correo: ");
+            String correoUsuario = scan.nextLine();
+
+            System.out.print("Ingresa tu contraseña: ");
+            String contraseniaUsuario = scan.nextLine();
+
+
+        }
+    }
 
     public static void menuAdmin() {
 
