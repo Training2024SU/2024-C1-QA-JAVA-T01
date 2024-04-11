@@ -1,7 +1,10 @@
 package com.davidbonelo.ui;
 
 import com.davidbonelo.models.User;
+import com.davidbonelo.models.UserRole;
 import com.davidbonelo.services.UserService;
+
+import java.sql.SQLException;
 
 import static com.davidbonelo.Utils.askNumber;
 import static com.davidbonelo.Utils.askText;
@@ -18,7 +21,7 @@ public class LoginMenu {
             int menuChoice = askNumber("Menu: 1. Login | 2. Register");
             switch (menuChoice) {
                 case 1 -> login();
-//                case 2 -> register();
+                case 2 -> register();
                 case 0 -> {
                     return;
                 }
@@ -36,6 +39,19 @@ public class LoginMenu {
             System.out.println("Couldn't login, invalid email or password");
         } else {
             System.out.println("Successful login as: " + user);
+        }
+    }
+
+    private void register() {
+        String name = askText("name: ");
+        String email = askText("email: ");
+        String password = askText("password: ");
+        User user = new User(name, email, UserRole.READER);
+
+        try {
+            userService.register(user, password);
+        } catch (SQLException e) {
+            System.out.println("Couldn't register user, " + e.getLocalizedMessage());
         }
     }
 }
