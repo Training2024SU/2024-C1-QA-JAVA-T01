@@ -19,13 +19,13 @@ public class Prestamo {
 
     @ManyToOne
     @JoinColumn(name="usuario_id", nullable=false)
-    Usuario usuario;
+    private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name="libro_id", nullable=false)
-    Libro libro;
+    private Long material_id;
 
     LocalDateTime fechaDePrestamo;
-    LocalDateTime feachaDeEntrega;
+    private LocalDateTime feachaDeEntrega;
 
+    @Enumerated(EnumType.STRING)
+    private EstadoPrestamo estadoPrestamo;
 }

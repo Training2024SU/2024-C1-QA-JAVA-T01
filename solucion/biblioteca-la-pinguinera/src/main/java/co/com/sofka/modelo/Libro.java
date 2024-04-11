@@ -1,24 +1,29 @@
 package co.com.sofka.modelo;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import lombok.*;
 import javax.persistence.*;
 
 @Entity
 @Setter
 @Getter
-@ToString
-public class Libro {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String titulo;
-    private String autor;
+@ToString(callSuper = true)
+@NoArgsConstructor
+public class Libro extends Material{
     private String areaDelConocimiento;
     private int numeroDePaginas;
-    private int cantidadEjemplares;
-    private int cantidadPrestados;
-    private int cantidadDisponible;
+
+    public Libro(String titulo, String autor, int cantidadEjemplares, String areaDelConocimiento, int numeroDePaginas){
+        this.titulo = titulo;
+        this.autor = autor;
+        this.cantidadEjemplares = cantidadEjemplares;
+        this.cantidadPrestados = 0;
+        this.areaDelConocimiento = areaDelConocimiento;
+        this.numeroDePaginas = numeroDePaginas;
+
+    }
+
+    public boolean sePuedePrestar(){
+        return (cantidadEjemplares - cantidadPrestados) > 0;
+    }
+
 }
