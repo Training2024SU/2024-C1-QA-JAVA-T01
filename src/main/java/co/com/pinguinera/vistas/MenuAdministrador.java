@@ -1,10 +1,10 @@
 package co.com.pinguinera.vistas;
 
 import co.com.pinguinera.controladores.MenuAdministradorControlador;
-import co.com.pinguinera.modelos.interfaces.LibroRepositorio;
-import co.com.pinguinera.modelos.interfaces.NovelaRepositorio;
-import co.com.pinguinera.modelos.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.modelos.interfaces.UsuarioRolesRepositorio;
+import co.com.pinguinera.interfaces.LibroRepositorio;
+import co.com.pinguinera.interfaces.NovelaRepositorio;
+import co.com.pinguinera.interfaces.UsuarioRepositorio;
+import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
 
 import java.util.Scanner;
 

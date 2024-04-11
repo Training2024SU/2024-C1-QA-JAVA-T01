@@ -3,9 +3,9 @@ package co.com.pinguinera.controladores;
 import co.com.pinguinera.modelos.Libro;
 import co.com.pinguinera.modelos.Novela;
 import co.com.pinguinera.modelos.Prestamo;
-import co.com.pinguinera.modelos.interfaces.LibroRepositorio;
-import co.com.pinguinera.modelos.interfaces.NovelaRepositorio;
-import co.com.pinguinera.modelos.interfaces.PrestamoRepositorio;
+import co.com.pinguinera.interfaces.LibroRepositorio;
+import co.com.pinguinera.interfaces.NovelaRepositorio;
+import co.com.pinguinera.interfaces.PrestamoRepositorio;
 
 import java.util.List;
 
@@ -16,25 +16,19 @@ public class MenuLectorControlador {
     private final PrestamoRepositorio prestamoRepositorio;
     private final int usuarioId;
 
-    public MenuLectorControlador(LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio,
-                                 PrestamoRepositorio prestamoRepositorio, int usuarioId) {
+    public MenuLectorControlador(LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio, PrestamoRepositorio prestamoRepositorio, int usuarioId) {
         this.libroRepositorio = libroRepositorio;
         this.novelaRepositorio = novelaRepositorio;
         this.prestamoRepositorio = prestamoRepositorio;
         this.usuarioId = usuarioId;
     }
 
-    public void verTodosLosLibros() {
-        List<Libro> libros = libroRepositorio.obtenerTodosLosLibros();
-        if (libros.isEmpty()) {
-            System.out.println("No hay libros disponibles.");
-        } else {
-            System.out.println("Libros disponibles:");
-            for (Libro libro : libros) {
-                System.out.println(libro);
-            }
-        }
+    // Método para obtener el usuarioId
+    public int getUsuarioId() {
+        return usuarioId;
     }
+
+    // Métodos para operaciones relacionadas con novelas
 
     public void verTodasLasNovelas() {
         List<Novela> novelas = novelaRepositorio.obtenerTodasLasNovelas();
@@ -48,21 +42,78 @@ public class MenuLectorControlador {
         }
     }
 
-    public void realizarPrestamo(int prestamoId) {
-        // Implementar la lógica para realizar el préstamo
-        System.out.println("Realizando préstamo...");
-        Prestamo prestamo = new Prestamo();
-        // Configurar la información del préstamo
-        prestamo.setUsuarioId(usuarioId);
-        prestamo.setPrestamoId(prestamoId);
-        // Realizar el préstamo
+    public void buscarNovelaPorTitulo(String titulo) {
+        List<Novela> novelas = novelaRepositorio.buscarNovelaPorTitulo(titulo);
+        if (novelas.isEmpty()) {
+            System.out.println("No se encontraron novelas con el título: " + titulo);
+        } else {
+            System.out.println("Novelas encontradas:");
+            for (Novela novela : novelas) {
+                System.out.println(novela);
+            }
+        }
+    }
+
+    public void listarAutoresDeNovelas() {
+        List<String> autores = novelaRepositorio.listarAutoresDeNovelas();
+        System.out.println("Autores de novelas:");
+        for (String autor : autores) {
+            System.out.println(autor);
+        }
+    }
+
+    // Métodos para operaciones relacionadas con libros
+
+    public void verTodosLosLibros() {
+        List<Libro> libros = libroRepositorio.obtenerTodosLosLibros();
+        if (libros.isEmpty()) {
+            System.out.println("No hay libros disponibles.");
+        } else {
+            System.out.println("Libros disponibles:");
+            for (Libro libro : libros) {
+                System.out.println(libro);
+            }
+        }
+    }
+
+    public void buscarLibroPorTitulo(String titulo) {
+        Libro libro = libroRepositorio.buscarLibroPorTitulo(titulo);
+        if (libro == null) {
+            System.out.println("No se encontró ningún libro con el título: " + titulo);
+        } else {
+            System.out.println("Libro encontrado: " + libro);
+        }
+    }
+
+    public void listarAutoresDeLibros() {
+        List<String> autores = libroRepositorio.listarAutoresDeLibros();
+        System.out.println("Autores de libros:");
+        for (String autor : autores) {
+            System.out.println(autor);
+        }
+    }
+
+    // Métodos para operaciones relacionadas con préstamos
+
+    public void realizarPrestamo(Prestamo prestamo) {
+        // Verifica que prestamoRepositorio no sea null antes de intentar usarlo
+        if (prestamoRepositorio == null) {
+            System.err.println("Error: `prestamoRepositorio` es null. No se puede realizar el préstamo.");
+            return;
+        }
+
+        prestamo.setUsuarioID(usuarioId);
         prestamoRepositorio.realizarPrestamo(prestamo);
         System.out.println("Préstamo realizado con éxito.");
     }
 
+
+    public void confirmarPrestamo(int prestamoId) {
+        prestamoRepositorio.confirmarPrestamo(prestamoId);
+        System.out.println("Préstamo confirmado con éxito.");
+    }
+
     public void devolverPrestamo(int prestamoId) {
-        // Implementar la lógica para devolver el préstamo
-        System.out.println("Devolviendo préstamo...");
         prestamoRepositorio.devolverPrestamo(prestamoId);
         System.out.println("Préstamo devuelto con éxito.");
     }

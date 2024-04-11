@@ -1,8 +1,8 @@
 package co.com.pinguinera.controladores;
 
-import co.com.pinguinera.modelos.interfaces.LibroRepositorio;
-import co.com.pinguinera.modelos.interfaces.NovelaRepositorio;
-import co.com.pinguinera.modelos.interfaces.PrestamoRepositorio;
+import co.com.pinguinera.interfaces.LibroRepositorio;
+import co.com.pinguinera.interfaces.NovelaRepositorio;
+import co.com.pinguinera.interfaces.PrestamoRepositorio;
 
 public class MenuAsistenteControlador {
 

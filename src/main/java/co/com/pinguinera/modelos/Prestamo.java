@@ -5,10 +5,11 @@ import java.util.Date;
 public class Prestamo {
     private int prestamoID;
     private int usuarioID;
-    private int libroID;
+    private int itemID; // Puede ser un libro o una novela
+    private String tipo; // Puede ser "LIBRO" o "NOVELA"
     private Date fechaPrestamo;
     private Date fechaDevolucion;
-    private String estado;
+    private String estado; // Puede ser "SOLICITADO", "REALIZADO" o "FINALIZADO"
 
     // Getters y setters para prestamoID
     public int getPrestamoID() {
@@ -28,13 +29,26 @@ public class Prestamo {
         this.usuarioID = usuarioID;
     }
 
-    // Getters y setters para libroID
-    public int getLibroID() {
-        return libroID;
+    // Getters y setters para itemID (puede ser libro o novela)
+    public int getItemID() {
+        return itemID;
     }
 
-    public void setLibroID(int libroID) {
-        this.libroID = libroID;
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
+
+    // Getters y setters para tipo (LIBRO o NOVELA)
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        if ("LIBRO".equals(tipo) || "NOVELA".equals(tipo)) {
+            this.tipo = tipo;
+        } else {
+            throw new IllegalArgumentException("Tipo debe ser LIBRO o NOVELA");
+        }
     }
 
     // Getters y setters para fechaPrestamo
@@ -55,12 +69,16 @@ public class Prestamo {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    // Getters y setters para estado
+    // Getters y setters para estado (SOLICITADO, REALIZADO, FINALIZADO)
     public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        if ("SOLICITADO".equals(estado) || "REALIZADO".equals(estado) || "FINALIZADO".equals(estado)) {
+            this.estado = estado;
+        } else {
+            throw new IllegalArgumentException("Estado debe ser SOLICITADO, REALIZADO o FINALIZADO");
+        }
     }
 }

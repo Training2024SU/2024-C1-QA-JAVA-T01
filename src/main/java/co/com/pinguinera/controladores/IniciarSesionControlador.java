@@ -1,40 +1,41 @@
 package co.com.pinguinera.controladores;
 
-import co.com.pinguinera.modelos.DAO.AutenticacionDAO;
+import co.com.pinguinera.DAO.AutenticacionDAO;
+import co.com.pinguinera.interfaces.LibroRepositorio;
+import co.com.pinguinera.interfaces.NovelaRepositorio;
+import co.com.pinguinera.interfaces.PrestamoRepositorio;
+import co.com.pinguinera.interfaces.UsuarioRepositorio;
+import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
 import co.com.pinguinera.modelos.TipoRol;
-import co.com.pinguinera.modelos.interfaces.LibroRepositorio;
-import co.com.pinguinera.modelos.interfaces.NovelaRepositorio;
-import co.com.pinguinera.modelos.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.modelos.interfaces.UsuarioRolesRepositorio;
 import co.com.pinguinera.vistas.MenuAdministrador;
 import co.com.pinguinera.vistas.MenuAsistente;
 import co.com.pinguinera.vistas.MenuLector;
 import co.com.pinguinera.vistas.Notificaciones;
-import co.com.pinguinera.modelos.interfaces.PrestamoRepositorio;
-
 
 import java.util.Scanner;
 
 public class IniciarSesionControlador {
 
-    private Scanner scanner;
-    private AutenticacionDAO autenticacionDAO;
-    private UsuarioRepositorio usuarioRepositorio;
-    private UsuarioRolesRepositorio usuarioRolesRepositorio;
-    private LibroRepositorio libroRepositorio;
-    private NovelaRepositorio novelaRepositorio;
-    private PrestamoRepositorio prestamoRepositorio;
-
+    private final Scanner scanner;
+    private final AutenticacionDAO autenticacionDAO;
+    private final UsuarioRepositorio usuarioRepositorio;
+    private final UsuarioRolesRepositorio usuarioRolesRepositorio;
+    private final LibroRepositorio libroRepositorio;
+    private final NovelaRepositorio novelaRepositorio;
+    private final PrestamoRepositorio prestamoRepositorio;
 
     // Constructor del controlador
-    public IniciarSesionControlador(Scanner scanner, AutenticacionDAO autenticacionDAO, UsuarioRepositorio usuarioRepositorio, UsuarioRolesRepositorio usuarioRolesRepositorio, LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio) {
+    public IniciarSesionControlador(Scanner scanner, AutenticacionDAO autenticacionDAO,
+                                    UsuarioRepositorio usuarioRepositorio, UsuarioRolesRepositorio usuarioRolesRepositorio,
+                                    LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio,
+                                    PrestamoRepositorio prestamoRepositorio) {
         this.scanner = scanner;
         this.autenticacionDAO = autenticacionDAO;
         this.usuarioRepositorio = usuarioRepositorio;
         this.usuarioRolesRepositorio = usuarioRolesRepositorio;
         this.libroRepositorio = libroRepositorio;
         this.novelaRepositorio = novelaRepositorio;
-
+        this.prestamoRepositorio = prestamoRepositorio; // Inicialización de prestamoRepositorio
     }
 
     public void iniciarSesion() {
@@ -74,7 +75,7 @@ public class IniciarSesionControlador {
                             scanner,
                             libroRepositorio,
                             novelaRepositorio,
-                            prestamoRepositorio,
+                            prestamoRepositorio, // Añadir prestamoRepositorio
                             usuarioRepositorio.buscarUsuarioPorCorreo(correo).getUsuarioID()
                     );
                     menuLector.mostrarMenuLector();
@@ -84,7 +85,7 @@ public class IniciarSesionControlador {
                             scanner,
                             libroRepositorio,
                             novelaRepositorio,
-                            prestamoRepositorio
+                            prestamoRepositorio // Añadir prestamoRepositorio
                     );
                     menuAsistente.mostrarMenuAsistente();
                 } else {
@@ -98,5 +99,4 @@ public class IniciarSesionControlador {
             Notificaciones.procesoFallido();
         }
     }
-    }
-
+}

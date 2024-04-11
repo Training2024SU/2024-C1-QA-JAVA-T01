@@ -1,11 +1,12 @@
 package co.com.pinguinera;
-import co.com.pinguinera.modelos.interfaces.UsuarioRolesRepositorio;
 
-
-import co.com.pinguinera.DataBase;
+import co.com.pinguinera.DAO.*;
+import co.com.pinguinera.interfaces.LibroRepositorio;
+import co.com.pinguinera.interfaces.NovelaRepositorio;
+import co.com.pinguinera.interfaces.UsuarioRepositorio;
+import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
+import co.com.pinguinera.interfaces.PrestamoRepositorio;
 import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
-import co.com.pinguinera.modelos.DAO.*;
-import co.com.pinguinera.modelos.interfaces.*;
 import co.com.pinguinera.vistas.MenuPrincipal;
 
 import java.sql.Connection;
@@ -26,12 +27,14 @@ public class Main {
             AutenticacionDAO autenticacionDAO = new AutenticacionDAO(conexion);
             LibroDAO libroDAO = new LibroDAO(conexion);
             NovelaDAO novelaDAO = new NovelaDAO(conexion);
+            PrestamoDAO prestamoDAO = new PrestamoDAO(conexion); // Instancia de PrestamoDAO
 
             // Crear las interfaces necesarias a partir de los DAOs
             UsuarioRepositorio usuarioRepositorio = usuarioDAO;
             UsuarioRolesRepositorio usuarioRolesRepositorio = usuarioRolesDAO;
             LibroRepositorio libroRepositorio = libroDAO;
             NovelaRepositorio novelaRepositorio = novelaDAO;
+            PrestamoRepositorio prestamoRepositorio = prestamoDAO; // Crear PrestamoRepositorio
 
             // Crear una instancia de Scanner para usar en toda la aplicación
             Scanner scanner = new Scanner(System.in);
@@ -47,7 +50,8 @@ public class Main {
                     usuarioRepositorio,
                     usuarioRolesRepositorio,
                     libroRepositorio,
-                    novelaRepositorio
+                    novelaRepositorio,
+                    prestamoRepositorio // Pasar PrestamoRepositorio a MenuPrincipal
             );
 
             // Iniciar la aplicación

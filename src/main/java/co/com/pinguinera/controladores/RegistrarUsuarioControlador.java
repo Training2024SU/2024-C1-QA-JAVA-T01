@@ -1,9 +1,9 @@
 package co.com.pinguinera.controladores;
 
 import java.util.Scanner;
-import co.com.pinguinera.modelos.DAO.RolDAO;
-import co.com.pinguinera.modelos.DAO.UsuarioDAO;
-import co.com.pinguinera.modelos.DAO.UsuarioRolesDAO;
+import co.com.pinguinera.DAO.RolDAO;
+import co.com.pinguinera.DAO.UsuarioDAO;
+import co.com.pinguinera.DAO.UsuarioRolesDAO;
 import co.com.pinguinera.modelos.TipoRol;
 import co.com.pinguinera.modelos.Usuario;
 import co.com.pinguinera.vistas.Notificaciones;
