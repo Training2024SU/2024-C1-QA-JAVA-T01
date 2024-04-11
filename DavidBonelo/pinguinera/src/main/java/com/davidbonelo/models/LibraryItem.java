@@ -12,6 +12,7 @@ public class LibraryItem {
         this.author = author;
         this.copies = copies;
         this.copiesBorrowed = copiesBorrowed;
+        checkCopies();
     }
 
     public LibraryItem(int id, String title, String author, int copies, int copiesBorrowed) {
@@ -20,6 +21,7 @@ public class LibraryItem {
         this.author = author;
         this.copies = copies;
         this.copiesBorrowed = copiesBorrowed;
+        checkCopies();
     }
 
     public int getId() {
@@ -52,6 +54,7 @@ public class LibraryItem {
 
     public void setCopies(int copies) {
         this.copies = copies;
+        checkCopies();
     }
 
     public int getCopiesBorrowed() {
@@ -60,6 +63,13 @@ public class LibraryItem {
 
     public void setCopiesBorrowed(int copiesBorrowed) {
         this.copiesBorrowed = copiesBorrowed;
+        checkCopies();
     }
 
+    private void checkCopies() {
+        if (copiesBorrowed > copies) {
+            // Allow but show a warning
+            System.out.println("Warning: more copies borrowed than copies in existence");
+        }
+    }
 }
