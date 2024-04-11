@@ -3,16 +3,13 @@ package com.davidbonelo.services;
 import com.davidbonelo.models.User;
 import com.davidbonelo.persistance.UserDAO;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class UserService {
-    private final Connection connection;
     private final UserDAO userDAO;
     private User loggedUser;
 
-    public UserService(Connection connection, UserDAO userDAO) {
-        this.connection = connection;
+    public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

@@ -72,4 +72,10 @@ public class LibraryItem {
             System.out.println("Warning: more copies borrowed than copies in existence");
         }
     }
+
+    @Override
+    public String toString() {
+        return "id=" + id + ", title='" + title + '\'' + ", author='" + author + '\'' + ", copies" +
+                "=" + copies + ", copiesBorrowed=" + copiesBorrowed;
+    }
 }

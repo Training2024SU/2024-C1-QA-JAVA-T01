@@ -1,5 +1,8 @@
 package com.davidbonelo;
 
+import com.davidbonelo.models.User;
+import com.davidbonelo.models.UserRole;
+
 import java.util.Scanner;
 
 public class Utils {
@@ -45,5 +48,20 @@ public class Utils {
             input = scanner.nextLine().trim();
         }
         return input;
+    }
+
+    public static boolean validMenuAccess(User user, UserRole requiredRole) {
+        if (user == null) {
+            System.out.println("Unknown menu option");
+            return false;
+        }
+        if (user.getRole().equals(UserRole.ADMINISTRATOR)) {
+            return true;
+        }
+        if (user.getRole().equals(requiredRole)) {
+            return true;
+        }
+        System.out.println("Unknown menu option");
+        return false;
     }
 }

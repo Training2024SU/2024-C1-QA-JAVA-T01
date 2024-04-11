@@ -10,9 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Connection connection = PinguDatabase.getConnection();
 
-        UserDAO userDAO = new UserDAO(connection);
-        UserService userService = new UserService(connection, userDAO);
-        new MainMenu(userService).menu();
+        new MainMenu(connection).menu();
 
         PinguDatabase.close();
     }

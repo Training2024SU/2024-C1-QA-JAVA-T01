@@ -2,25 +2,41 @@ package com.davidbonelo.ui;
 
 import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
+import com.davidbonelo.persistance.BookDAO;
+import com.davidbonelo.persistance.BorrowingDAO;
+import com.davidbonelo.persistance.NovelDAO;
+import com.davidbonelo.persistance.UserDAO;
+import com.davidbonelo.services.LibraryManager;
 import com.davidbonelo.services.UserService;
+
+import java.sql.Connection;
 
 import static com.davidbonelo.Utils.askNumber;
 import static com.davidbonelo.Utils.closeScanner;
 
 public class MainMenu {
     private final UserService userService;
+    private final LibraryManager libraryManager;
 
-    public MainMenu(UserService userService) {
-        this.userService = userService;
+    public MainMenu(Connection connection) {
+        UserDAO userDAO = new UserDAO(connection);
+        BookDAO bookDAO = new BookDAO(connection);
+        NovelDAO novelDAO = new NovelDAO(connection);
+        BorrowingDAO borrowingDAO = new BorrowingDAO(connection);
+        this.userService = new UserService(userDAO);
+        this.libraryManager = new LibraryManager(bookDAO,novelDAO, borrowingDAO);
     }
 
     public void menu() {
         System.out.println("Welcome to La Pingüinera library!!");
         while (true) {
-            String menuMessage = buildMenuMessage(userService.getLoggedUser());
+            User user = userService.getLoggedUser();
+            String menuMessage = buildMenuMessage(user);
+
             int menuChoice = askNumber(menuMessage);
             switch (menuChoice) {
                 case 1 -> new LoginMenu(userService).menu();
+                case 2 -> new BooksMenu(libraryManager,user).menu();
 //                case 3 -> novelsMenu();
                 case 9 -> logout();
                 case 0 -> {
@@ -48,7 +64,7 @@ public class MainMenu {
             menuMessage.insert(5, " 1. Login |");
         } else {
             // Logged in user
-            UserRole role = userService.getLoggedUser().getRole();
+            UserRole role = user.getRole();
 //            menuMessage.append("Reader options");
             if (role == UserRole.EMPLOYEE) {
 //                menuMessage.append("Employee options");

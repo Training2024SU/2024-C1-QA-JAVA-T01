@@ -18,7 +18,7 @@ public class LoginMenu {
 
     public void menu() {
         while (userService.getLoggedUser() == null) {
-            int menuChoice = askNumber("Menu: 1. Login | 2. Register");
+            int menuChoice = askNumber("Menu: 1. Login with email | 2. Register");
             switch (menuChoice) {
                 case 1 -> login();
                 case 2 -> register();

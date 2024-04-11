@@ -33,4 +33,9 @@ public class Novel extends LibraryItem {
     public void setRecommendedAge(int recommendedAge) {
         this.recommendedAge = recommendedAge;
     }
+
+    @Override
+    public String toString() {
+        return "Novel{" + super.toString() + ", genre='" + genre + "', recommendedAge=" + recommendedAge + '}';
+    }
 }

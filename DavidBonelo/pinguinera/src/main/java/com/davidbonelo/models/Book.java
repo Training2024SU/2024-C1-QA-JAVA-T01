@@ -1,5 +1,8 @@
 package com.davidbonelo.models;
 
+import static com.davidbonelo.Utils.askNumber;
+import static com.davidbonelo.Utils.askText;
+
 public class Book extends LibraryItem {
     private String field;
     private int pages;
@@ -18,6 +21,16 @@ public class Book extends LibraryItem {
         this.pages = pages;
     }
 
+    public static Book createBookFromInput() {
+        String title = askText("Title: ");
+        String author = askText("Author: ");
+        int copies = askNumber("Copies: ");
+        int copiesBorrowed = askNumber("Copies borrowed: ");
+        String field = askText("Field: ");
+        int pages = askNumber("Pages: ");
+        return new Book(title, author, copies, copiesBorrowed, field, pages);
+    }
+
     public String getField() {
         return field;
     }
@@ -32,5 +45,10 @@ public class Book extends LibraryItem {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" + super.toString() + ", field='" + field + "', pages=" + pages + '}';
     }
 }
