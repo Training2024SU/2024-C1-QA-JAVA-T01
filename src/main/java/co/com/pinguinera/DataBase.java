@@ -12,8 +12,18 @@ public class DataBase {
     private static final String USUARIO = "root";
     private static final String CONTRASEÑA = "#32zvv48dH";
 
-    // Método para establecer la conexión a la base de datos
+    // Instancia única de la conexión
+    private static Connection conexion;
+
+    // Constructor privado para evitar instanciación externa
+    private DataBase() {}
+
+    // Método estático para obtener la conexión única a la base de datos
     public static Connection conectar() throws SQLException {
-        return DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
+        if (conexion == null || conexion.isClosed()) {
+            // Si no hay conexión o está cerrada, establecer una nueva conexión
+            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
+        }
+        return conexion;
     }
 }

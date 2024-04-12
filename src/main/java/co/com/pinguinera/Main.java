@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try {
-            // Establecer la conexión a la base de datos
+            // Obtener la conexión única a la base de datos
             Connection conexion = DataBase.conectar();
             System.out.println("Conexión establecida correctamente.");
 
-            // Crear instancias de los DAOs necesarios
+            // Crear instancias de los DAOs necesarios con la conexión única
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
             RolesDAO rolesDAO = new RolesDAO(conexion);
             AutenticacionDAO autenticacionDAO = new AutenticacionDAO(conexion);
@@ -49,10 +49,10 @@ public class Main {
                     autenticacionDAO,
                     scanner,
                     usuarioRepositorio,
-                    rolesRepositorio, // Pasar rolesRepositorio
+                    rolesRepositorio,
                     libroRepositorio,
                     novelaRepositorio,
-                    prestamoRepositorio // Pasar PrestamoRepositorio a MenuPrincipal
+                    prestamoRepositorio
             );
 
             // Iniciar la aplicación
