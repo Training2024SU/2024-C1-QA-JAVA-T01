@@ -33,7 +33,6 @@ public class MainMenu {
     public void menu() {
         System.out.println("Welcome to La Pingüinera library!!");
         while (true) {
-            userService.login("a","b");
             User user = userService.getLoggedUser();
             String menuMessage = buildMenuMessage(user);
 

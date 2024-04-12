@@ -23,7 +23,7 @@ public class UserDAO {
     }
 
     public User validateUserCredentials(String userEmail, String password) throws SQLException {
-        String sql = "SELECT * FROM Users WHERE email= ?";
+        String sql = "SELECT * FROM Users WHERE is_deleted = 0 AND email= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, userEmail);
             try (ResultSet rs = statement.executeQuery()) {
@@ -35,8 +35,25 @@ public class UserDAO {
         return null;
     }
 
+    public User getUserById(int userId) throws SQLException {
+        String sql = "SELECT * FROM Users WHERE is_deleted = 0 AND id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                User user = buildUserFromResult(rs);
+                rs.close();
+                return user;
+            } else {
+                rs.close();
+                throw new SQLException("User with id " + userId + " Not found");
+            }
+        }
+    }
+
     public List<User> getAllUsers() throws SQLException {
-        String sql = "SELECT id, name, email, role FROM Users"; // avoid selecting passwords
+        // Avoid selecting passwords
+        String sql = "SELECT id, name, email, role FROM Users WHERE is_deleted = 0";
         ArrayList<User> users = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs =
                 statement.executeQuery()) {
@@ -64,14 +81,15 @@ public class UserDAO {
     }
 
     public void updateUser(User user) throws SQLException {
-        if (!containsId(user)) {
+        if (missingId(user)) {
             throw new IllegalArgumentException("Cant update a User without an id");
         }
-        String sql = "UPDATE Users SET name= ?, email= ?, role= ? WHERE id=" + user.getId();
+        String sql = "UPDATE Users SET name= ?, email= ?, role= ? WHERE is_deleted = 0 AND id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getRole().getValue());
+            statement.setInt(4, user.getId()); // WHERE
 
             int updatedRows = statement.executeUpdate();
             if (updatedRows == 0) {
@@ -80,9 +98,24 @@ public class UserDAO {
         }
     }
 
-    public void deleteUser(User userId) throws SQLException {
-        String sql = "DELETE FROM Users WHERE id=" + userId;
+    public void deleteUser(User user) throws SQLException {
+        if (missingId(user)) {
+            throw new IllegalArgumentException("Cant delete a User without an id");
+        }
+        String sql = "DELETE FROM Users WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, user.getId());
+            int deletedRows = statement.executeUpdate();
+            if (deletedRows == 0) {
+                throw new SQLException("User with id " + user.getId() + " not found, can't delete");
+            }
+        }
+    }
+
+    public void softDeleteUser(int userId) throws SQLException {
+        String sql = "UPDATE Users SET is_deleted=1 WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
             int deletedRows = statement.executeUpdate();
             if (deletedRows == 0) {
                 throw new SQLException("User with id " + userId + " not found, can't delete");
@@ -90,8 +123,7 @@ public class UserDAO {
         }
     }
 
-    private boolean containsId(User user) {
-        return user.getId() != 0;
+    private boolean missingId(User user) {
+        return user.getId() == 0;
     }
-
 }
