@@ -62,10 +62,10 @@ public class Utils {
             try {
                 date = LocalDate.parse(input);
             } catch (Exception ignored) {
+                System.out.println("Invalid input. Please enter a date in the format YYYY-MM-DD");
+                System.out.print(prompt);
+                input = scanner.nextLine().trim();
             }
-            System.out.println("Invalid input. Please enter a date in the format YYYY-MM-DD");
-            System.out.print(prompt);
-            input = scanner.nextLine().trim();
         }
         return date;
     }
