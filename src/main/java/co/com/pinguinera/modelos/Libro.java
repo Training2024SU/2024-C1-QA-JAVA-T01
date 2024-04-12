@@ -70,14 +70,30 @@ public class Libro {
     // Sobrescribe el método toString() para mostrar la información del libro de forma legible
     @Override
     public String toString() {
-        return "Libro{" +
-                "ID: " + libroID +
-                ", Título: '" + titulo + '\'' +
-                ", Autor: '" + autor + '\'' +
-                ", Área de conocimiento: '" + areaConocimiento + '\'' +
-                ", Número de páginas: " + numPaginas +
-                ", Cantidad de ejemplares: " + cantEjemplares +
-                ", Cantidad de ejemplares prestados: " + cantEjemplaresPrestados + // Mostrar el nuevo atributo
-                '}';
+        // Define los anchos de las columnas (ajusta estos valores según sea necesario)
+        int anchoID = 8;
+        int anchoTitulo = 30;
+        int anchoAutor = 30;
+        int anchoAreaConocimiento = 20;
+        int anchoNumPaginas = 10;
+        int anchoCantEjemplares = 10;
+        int anchoCantPrestados = 10;
+
+        // Devuelve una cadena formateada como una tabla con columnas alineadas
+        return String.format("%-" + anchoID + "d | %-"
+                        + anchoTitulo + "s | %-"
+                        + anchoAutor + "s | %-"
+                        + anchoAreaConocimiento + "s | %-"
+                        + anchoNumPaginas + "d | %-"
+                        + anchoCantEjemplares + "d | %-"
+                        + anchoCantPrestados + "d",
+                libroID,
+                titulo,
+                autor,
+                areaConocimiento,
+                numPaginas,
+                cantEjemplares,
+                cantEjemplaresPrestados);
     }
+
 }
