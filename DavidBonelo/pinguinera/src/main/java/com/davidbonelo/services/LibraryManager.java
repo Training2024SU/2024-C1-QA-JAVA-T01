@@ -86,4 +86,12 @@ public class LibraryManager {
             System.out.println("Couldn't delete book, " + e.getLocalizedMessage());
         }
     }
+
+    public void deleteNovel(int novelId) {
+        try {
+            novelDAO.deleteNovel(novelId);
+        } catch (SQLException e) {
+            System.out.println("Couldn't delete novel, " + e.getLocalizedMessage());
+        }
+    }
 }

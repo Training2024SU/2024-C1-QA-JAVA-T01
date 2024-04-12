@@ -19,8 +19,21 @@ public class NovelDAO {
 
     static Novel buildNovelFromResult(ResultSet rs) throws SQLException {
         return new Novel(rs.getInt("id"), rs.getString("title"), rs.getString("author"),
-                rs.getInt("copies"), rs.getInt("copies_borrowed"), rs.getString("field"),
-                rs.getInt("pages"));
+                rs.getInt("copies"), rs.getInt("copies_borrowed"), rs.getString("genre"),
+                rs.getInt("recommended_age"));
+    }
+
+    public Novel getNovelById(int itemId) throws SQLException {
+        String sql = "SELECT * FROM Novels WHERE id= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, itemId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return buildNovelFromResult(rs);
+            }
+            rs.close();
+        }
+        return null;
     }
 
     public List<Novel> getAllNovels() throws SQLException {

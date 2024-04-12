@@ -24,7 +24,7 @@ public class MainMenu {
         NovelDAO novelDAO = new NovelDAO(connection);
         BorrowingDAO borrowingDAO = new BorrowingDAO(connection);
         this.userService = new UserService(userDAO);
-        this.libraryManager = new LibraryManager(bookDAO,novelDAO, borrowingDAO);
+        this.libraryManager = new LibraryManager(bookDAO, novelDAO, borrowingDAO);
     }
 
     public void menu() {
@@ -36,8 +36,8 @@ public class MainMenu {
             int menuChoice = askNumber(menuMessage);
             switch (menuChoice) {
                 case 1 -> new LoginMenu(userService).menu();
-                case 2 -> new BooksMenu(libraryManager,user).menu();
-//                case 3 -> novelsMenu();
+                case 2 -> new BooksMenu(libraryManager, user).menu();
+                case 3 -> new NovelsMenu(libraryManager, user).menu();
                 case 9 -> logout();
                 case 0 -> {
                     closeScanner();
