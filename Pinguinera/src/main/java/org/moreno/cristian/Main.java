@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        System.out.println("Hello world!");
+        System.out.println("Hello world! ñññ");
         MenuPrincipal.menuInicial();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

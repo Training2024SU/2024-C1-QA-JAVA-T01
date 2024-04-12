@@ -1,7 +1,6 @@
 package org.moreno.cristian.ui;
 
 import org.moreno.cristian.modelos.Usuario;
-import org.moreno.cristian.modelos.enums.Rol;
 import org.moreno.cristian.servicios.ServicioUsuario;
 
 import java.util.Optional;
@@ -28,7 +27,7 @@ public class MenuPrincipal {
                     registroUsuario();
                     break;
                 default:
-                    // code block
+                    System.out.println("Respuesta no válida");
             }
         }
     }
@@ -45,17 +44,17 @@ public class MenuPrincipal {
 
             Optional<Usuario> usuarioDb = servicioUsuario.validarCredenciales(correoUsuario, contraseniaUsuario);
             if (usuarioDb.isPresent()) {
-                System.out.println(usuarioDb.get().toString());
+                System.out.println(usuarioDb.get());
                 System.out.println("Bienvenido ");
                 switch(usuarioDb.get().getRol()) {
                     case LECTOR:
-                        menuLector();
+                        MenuLector.home(usuarioDb.get());
                         break;
                     case ADMIN:
-                        menuAdmin();
+                        MenuAdmin.home(usuarioDb.get());
                         break;
                     case ASISTENTE:
-                        menuAsistente();
+                        MenuAsistente.home(usuarioDb.get());
                         break;
                 }
             } else {
@@ -88,40 +87,4 @@ public class MenuPrincipal {
         }
     }
 
-    public static void menuAdmin() {
-
-        while (true) {
-            System.out.println("\nQué desea hacer?\n" +
-                    "1. Crear asistente \n" +
-                    "2. Ver usuarios \n" +
-                    "3. CRUD libros \n" +
-                    "4. Ver préstamos");
-
-            String respuestaAdmin = scan.nextLine();
-
-            switch(respuestaAdmin) {
-                case "1":
-                    // code block
-                    break;
-                case "2":
-                    // code block
-                    break;
-                case "3":
-                    // code block
-                    break;
-                case "4":
-                    // code block
-                    break;
-                default:
-                    // code block
-            }
-        }
-
-    }
-    public static void menuAsistente() {
-
-    }
-    public static void menuLector() {
-
-    }
 }

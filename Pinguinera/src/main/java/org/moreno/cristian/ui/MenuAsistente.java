@@ -1,12 +1,14 @@
 package org.moreno.cristian.ui;
 
+import org.moreno.cristian.modelos.Usuario;
+
 import java.util.Scanner;
 
 public class MenuAsistente {
 
     private static Scanner scan = new Scanner(System.in);
 
-    public static void menuInicial() {
+    public static void home(Usuario asistente) {
         while (true) {
             System.out.println("\nQué desea hacer?\n" +
                     "   1. Iniciar sesión \n" +

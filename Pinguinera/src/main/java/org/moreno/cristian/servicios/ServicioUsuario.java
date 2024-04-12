@@ -4,6 +4,7 @@ import org.moreno.cristian.modelos.Usuario;
 import org.moreno.cristian.modelos.enums.Rol;
 import org.moreno.cristian.repositorios.RepositorioUsuario;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,9 +31,8 @@ public class ServicioUsuario implements RepositorioUsuario {
         try {
             PreparedStatement pstmt = conn.prepareStatement(sqlConsulta);
 
-            pstmt.setString(1, correo);
-            pstmt.setString(2, contrasenia);
-
+            pstmt.setString(1, new String(correo.getBytes(), "UTF-8"));
+            pstmt.setString(2, new String(contrasenia.getBytes(), "UTF-8"));
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -46,7 +46,7 @@ public class ServicioUsuario implements RepositorioUsuario {
                         Rol.valueOf(rs.getString("rol"))
                 ));
             }
-        } catch (SQLException e) {
+        } catch (SQLException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return Optional.empty();
@@ -54,7 +54,33 @@ public class ServicioUsuario implements RepositorioUsuario {
 
     @Override
     public Optional<ArrayList<Usuario>> listarUsuarios() {
-        return Optional.empty();
+
+        String sqlConsulta = "SELECT * FROM usuario";
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sqlConsulta);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario(
+                        rs.getString("id"),
+                        rs.getString("nombre"),
+                        rs.getString("correo"),
+                        rs.getString("contrasenia"),
+                        Rol.valueOf(rs.getString("rol"))
+                );
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (!usuarios.isEmpty()) {
+            return Optional.of(usuarios);
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
