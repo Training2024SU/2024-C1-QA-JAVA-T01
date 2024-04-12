@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import static com.davidbonelo.Utils.askNumber;
 import static com.davidbonelo.Utils.askText;
 import static com.davidbonelo.Utils.validMenuAccess;
+import static com.davidbonelo.Utils.validPermission;
 
 public class BooksMenu {
     private final LibraryManager libraryManager;
@@ -98,9 +99,8 @@ public class BooksMenu {
         menuMessage.append(" 1. List Books | 2. List authors | 3. Search by author |");
 
         if (user != null) {
-            UserRole role = user.getRole();
             menuMessage.append(" 4. Borrow a Book |");
-            if (role == UserRole.EMPLOYEE) {
+            if (validPermission(user, UserRole.EMPLOYEE)) {
                 menuMessage.append(" 5. Register Book | 6. Update Book | 7. Delete Book |");
             }
         }

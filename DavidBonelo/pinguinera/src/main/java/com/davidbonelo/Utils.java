@@ -51,17 +51,20 @@ public class Utils {
     }
 
     public static boolean validMenuAccess(User user, UserRole requiredRole) {
-        if (user == null) {
+        boolean valid = validPermission(user, requiredRole);
+        if (!valid) {
             System.out.println("Unknown menu option");
+        }
+        return valid;
+    }
+
+    public static boolean validPermission(User user, UserRole requiredRole) {
+        if (user == null) {
             return false;
         }
         if (user.getRole().equals(UserRole.ADMINISTRATOR)) {
             return true;
         }
-        if (user.getRole().equals(requiredRole)) {
-            return true;
-        }
-        System.out.println("Unknown menu option");
-        return false;
+        return user.getRole().equals(requiredRole);
     }
 }
