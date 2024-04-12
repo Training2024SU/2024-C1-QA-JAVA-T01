@@ -17,6 +17,10 @@ public class MenuLector {
     private static final int REALIZAR_PRESTAMO = 3;
     private static final int DEVOLVER_PRESTAMO = 4;
     private static final int VER_PRESTAMOS = 5;
+    private static final int BUSCAR_NOVELA_POR_TITULO = 7;
+    private static final int BUSCAR_LIBRO_POR_TITULO = 8;
+    private static final int LISTAR_AUTORES_DE_NOVELAS = 9;
+    private static final int LISTAR_AUTORES_DE_LIBROS = 10;
     private static final int SALIR = 6;
 
     private final Scanner scanner;
@@ -44,6 +48,10 @@ public class MenuLector {
             System.out.println("3. Realizar un préstamo");
             System.out.println("4. Devolver un préstamo");
             System.out.println("5. Ver mis préstamos");
+            System.out.println("7. Buscar novela por título");
+            System.out.println("8. Buscar libro por título");
+            System.out.println("9. Listar autores de novelas");
+            System.out.println("10. Listar autores de libros");
             System.out.println("6. Salir");
             System.out.println("Elige una opción:");
 
@@ -96,6 +104,22 @@ public class MenuLector {
                         break;
                     case VER_PRESTAMOS:
                         menuLectorControlador.verMisPrestamos();
+                        break;
+                    case BUSCAR_NOVELA_POR_TITULO:
+                        System.out.println("Ingrese el título de la novela:");
+                        String tituloNovela = scanner.nextLine();
+                        menuLectorControlador.buscarNovelaPorTitulo(tituloNovela);
+                        break;
+                    case BUSCAR_LIBRO_POR_TITULO:
+                        System.out.println("Ingrese el título del libro:");
+                        String tituloLibro = scanner.nextLine();
+                        menuLectorControlador.buscarLibroPorTitulo(tituloLibro);
+                        break;
+                    case LISTAR_AUTORES_DE_NOVELAS:
+                        menuLectorControlador.listarAutoresDeNovelas();
+                        break;
+                    case LISTAR_AUTORES_DE_LIBROS:
+                        menuLectorControlador.listarAutoresDeLibros();
                         break;
                     case SALIR:
                         System.out.println("Saliendo del menú Lector...");
