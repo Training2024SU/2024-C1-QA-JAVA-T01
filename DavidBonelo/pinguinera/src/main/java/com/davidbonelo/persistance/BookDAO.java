@@ -23,6 +23,19 @@ public class BookDAO {
                 rs.getInt("pages"));
     }
 
+    public Book getBookById(int itemId) throws SQLException {
+        String sql = "SELECT * FROM Books WHERE id= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, itemId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return buildBookFromResult(rs);
+            }
+            rs.close();
+        }
+        return null;
+    }
+
     public List<Book> getAllBooks() throws SQLException {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM Books";

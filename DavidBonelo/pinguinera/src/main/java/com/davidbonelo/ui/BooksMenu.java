@@ -5,6 +5,8 @@ import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
 import com.davidbonelo.services.LibraryManager;
 
+import java.sql.SQLException;
+
 import static com.davidbonelo.Utils.askNumber;
 import static com.davidbonelo.Utils.askText;
 import static com.davidbonelo.Utils.validMenuAccess;
@@ -27,6 +29,7 @@ public class BooksMenu {
                 case 1 -> listBooks();
                 case 2 -> listAuthors();
                 case 3 -> searchByAuthor();
+                case 4 -> addToBorrowing();
                 case 5 -> registerBook();
                 case 6 -> updateBook();
                 case 7 -> deleteBook();
@@ -77,12 +80,26 @@ public class BooksMenu {
         libraryManager.deleteBook(bookId);
     }
 
+    private void addToBorrowing() {
+        if (!validMenuAccess(user, UserRole.READER)) {
+            return;
+        }
+        int bookId = askNumber("Type the id of the book you want to borrow: ");
+        try {
+            libraryManager.addBorrowingBook(bookId);
+            System.out.println("Book added, go to the Borrowings menu to complete the request");
+        } catch (SQLException e) {
+            System.out.println("Can't borrow this book. " + e.getLocalizedMessage());
+        }
+    }
+
     private String buildMenuMessage(User user) {
         final StringBuilder menuMessage = new StringBuilder("Books menu:");
         menuMessage.append(" 1. List Books | 2. List authors | 3. Search by author |");
 
         if (user != null) {
             UserRole role = user.getRole();
+            menuMessage.append(" 4. Borrow a Book |");
             if (role == UserRole.EMPLOYEE) {
                 menuMessage.append(" 5. Register Book | 6. Update Book | 7. Delete Book |");
             }
