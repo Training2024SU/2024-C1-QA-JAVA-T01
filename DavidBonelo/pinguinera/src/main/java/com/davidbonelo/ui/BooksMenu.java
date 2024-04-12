@@ -55,7 +55,7 @@ public class BooksMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        libraryManager.registerBook(Book.createBookFromInput());
+        libraryManager.registerItem(Book.createBookFromInput());
     }
 
     private void updateBook() {
@@ -66,7 +66,7 @@ public class BooksMenu {
         System.out.println("Type the new data for the book: ");
         Book book = Book.createBookFromInput();
         book.setId(bookId);
-        libraryManager.updateBook(book);
+        libraryManager.updateItem(book);
     }
 
     private void deleteBook() {

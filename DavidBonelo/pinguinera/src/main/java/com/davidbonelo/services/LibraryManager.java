@@ -53,19 +53,29 @@ public class LibraryManager {
         return items.stream().filter(item -> item.getAuthor().equalsIgnoreCase(author)).toList();
     }
 
-    public void registerBook(Book book) {
+    public void registerItem(LibraryItem item) {
         try {
-            bookDAO.createBook(book);
+            if (item.getClass().equals(Book.class)) {
+                bookDAO.createBook((Book) item);
+            } else if (item.getClass().equals(Novel.class)) {
+                novelDAO.createNovel((Novel) item);
+            }
+            System.out.println("Successful item registration " + item);
         } catch (SQLException e) {
-            System.out.println("Couldn't register book, " + e.getLocalizedMessage());
+            System.out.println("Couldn't register item, " + e.getLocalizedMessage());
         }
     }
 
-    public void updateBook(Book book) {
+    public void updateItem(LibraryItem item) {
         try {
-            bookDAO.updateBook(book);
+            if (item.getClass().equals(Book.class)) {
+                bookDAO.updateBook((Book) item);
+            } else if (item.getClass().equals(Novel.class)) {
+                novelDAO.updateNovel((Novel) item);
+            }
+            System.out.println("Successful item update " + item);
         } catch (SQLException e) {
-            System.out.println("Couldn't update book, " + e.getLocalizedMessage());
+            System.out.println("Couldn't update item, " + e.getLocalizedMessage());
         }
     }
 
