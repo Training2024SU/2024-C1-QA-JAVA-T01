@@ -59,11 +59,11 @@ public class Libro {
         this.cantEjemplares = cantEjemplares;
     }
 
-    public int getCantEjemplaresPrestados() {
+    public int getCantPrestados() {
         return cantEjemplaresPrestados;
     }
 
-    public void setCantEjemplaresPrestados(int cantEjemplaresPrestados) {
+    public void setCantPrestados(int cantEjemplaresPrestados) {
         this.cantEjemplaresPrestados = cantEjemplaresPrestados;
     }
 

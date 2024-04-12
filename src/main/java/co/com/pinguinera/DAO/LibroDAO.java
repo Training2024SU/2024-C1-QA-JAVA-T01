@@ -61,7 +61,9 @@ public class LibroDAO implements LibroRepositorio {
     @Override
     public List<Libro> obtenerTodosLosLibros() {
         List<Libro> libros = new ArrayList<>();
-        String sql = "SELECT * FROM Libros";
+        // Consulta actualizada para filtrar los libros donde la diferencia entre CantEjemplares y CantPrestados es mayor a cero
+        String sql = "SELECT * FROM Libros WHERE CantEjemplares - CantPrestados > 0";
+
         try (Statement statement = conexion.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
@@ -72,6 +74,8 @@ public class LibroDAO implements LibroRepositorio {
                 libro.setAreaConocimiento(resultSet.getString("AreaConocimiento"));
                 libro.setNumPaginas(resultSet.getInt("NumPaginas"));
                 libro.setCantEjemplares(resultSet.getInt("CantEjemplares"));
+                libro.setCantPrestados(resultSet.getInt("CantPrestados")); // Cambiar a CantPrestados
+
                 libros.add(libro);
             }
         } catch (SQLException e) {
@@ -80,9 +84,12 @@ public class LibroDAO implements LibroRepositorio {
         return libros;
     }
 
+
     @Override
     public Libro buscarLibroPorTitulo(String titulo) {
-        String sql = "SELECT * FROM Libros WHERE Titulo LIKE ?";
+        // Consulta actualizada para filtrar los libros por título y donde la diferencia entre CantEjemplares y CantPrestados es mayor a cero
+        String sql = "SELECT * FROM Libros WHERE Titulo LIKE ? AND CantEjemplares - CantPrestados > 0";
+
         try (PreparedStatement statement = conexion.prepareStatement(sql)) {
             statement.setString(1, "%" + titulo + "%");
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -94,6 +101,8 @@ public class LibroDAO implements LibroRepositorio {
                     libro.setAreaConocimiento(resultSet.getString("AreaConocimiento"));
                     libro.setNumPaginas(resultSet.getInt("NumPaginas"));
                     libro.setCantEjemplares(resultSet.getInt("CantEjemplares"));
+                    libro.setCantPrestados(resultSet.getInt("CantPrestados")); // Cambiar a CantPrestados
+
                     return libro;
                 }
             }
@@ -102,6 +111,7 @@ public class LibroDAO implements LibroRepositorio {
         }
         return null;
     }
+
 
     @Override
     public List<String> listarAutoresDeLibros() {
