@@ -8,13 +8,16 @@ import net.datafaker.Faker;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.sofka.integration.database.mysql.MySqlOperation;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 import javax.swing.JOptionPane;
+
 
 @SpringBootApplication
 @Data
@@ -35,52 +38,47 @@ public class BibliotecaLaPinguinera {
     private static final MySqlOperation mySqlOperation = new MySqlOperation();
     public static BufferedReader bufEntrada = new BufferedReader(new InputStreamReader(System.in));
     private static Usuario usuarioAdministrador;
-    // Crear el usuario administrador
 
-    public static void main(String[] args) throws SQLException, IOException,NumberFormatException {
-    usuarioAdministrador = new Usuario("John Doe", "administrador@pingu.com.co", "contrasenasegura123456", "ADMINISTRADOR");
-            System.out.println("Bienvenido a la Biblioteca la Pingüinera");
+    public static void main(String[] args) throws SQLException, IOException, NumberFormatException {
+        // Crear el usuario administrador
+        usuarioAdministrador = new Usuario("John Doe", "administrador@pingu.com.co", "contrasenasegura123456", "ADMINISTRADOR");
+        System.out.println("Bienvenido a la Biblioteca la Pingüinera\n");
         do {
-
             openConnection();
             menuInicio();
             closeConnection();
-
         } while (!(preguntarSalir().equals("s")));
     }
+
     private static void menuInicio() throws NumberFormatException, SQLException {
         String opcion = (JOptionPane.showInputDialog(null,
-                "Menú de Inicio de la Biblioteca la Pingüinela\n\n" +
+                "Menú de Inicio de la Biblioteca la Pingüinela \n\n" +
                         "1. Iniciar Sesión o Registro\n" +
                         "2. Mostrar Libros\n" +
                         "3. Mostrar Novelas\n" +
                         "4. Mostrar Prestamos\n" +
-                        "5. Salir"));
-
+                        "5. Salir de la Biblioteca"));
         switch (opcion) {
             case "1":
                 menuInicioSesionComo();
                 break;
             case "2":
                 selectAllFromLibro();
-                menuInicio();
                 break;
             case "3":
                 selectAllFromNovela();
-                menuInicio();
                 break;
             case "4":
                 selectAllFromPrestamo();
-                menuInicio();
                 break;
             case "5":
-                JOptionPane.showMessageDialog(null, "¡Cerrando Biblioteca!");
+                JOptionPane.showMessageDialog(null, "¡OjO, Va a salir de la Biblioteca!");
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Opción incorrecta, por favor seleccione correctamente");
-                menuInicio();
                 break;
         }
+        if (!(opcion.equals("5"))) menuInicio();
     }
 
     private static void menuInicioSesionComo() throws NumberFormatException, SQLException {
@@ -92,141 +90,97 @@ public class BibliotecaLaPinguinera {
                         "4. Atras"));
 
         switch (opcion) {
-            case "1":
-                menuInicioSesion();
-                break;
-            case "2":
-                menuInicioSesion();
-                break;
-            case "3":
-                menuInicioSesion();
+            case "1", "2", "3":
+                iniciarSesion(opcion);
                 break;
             case "4":
                 JOptionPane.showMessageDialog(null, "¡No se inicio Sesión!");
-                menuInicio();
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Opción incorrecta, por favor seleccione correctamente");
-                menuInicioSesion();
-                break;
-        }
-    }
-
-    private static void menuInicioSesion() throws NumberFormatException, SQLException {
-        String opcion = (JOptionPane.showInputDialog(null,
-                "Menú de Inicio de Sesión\n\n" +
-                        "1. Iniciar Sesión\n" +
-                        "2. Registrarse\n" +
-                        "3. Salir"));
-
-        switch (opcion) {
-            case "1":
-                iniciarSesion(opcion);
-                break;
-            case "2":
-                registrarUsuario();
-                break;
-            case "3":
-                JOptionPane.showMessageDialog(null, "¡No se inicio Sesión!");
                 menuInicioSesionComo();
                 break;
-            default:
-                JOptionPane.showMessageDialog(null, "Opción incorrecta, por favor seleccione correctamente");
-                menuInicioSesion();
-                break;
         }
     }
-
 
     private static void iniciarSesion(String rol) throws SQLException {
         String usuario = JOptionPane.showInputDialog(null, "Ingrese su nombre de usuario:");
         String contrasena = JOptionPane.showInputDialog(null, "Ingrese su contraseña:");
+        if (Objects.equals(rol, "1")) validarAdministrador(usuario, contrasena);
+        if (rol.equals("2") || rol.equals("3")) validarUsuario(usuario, contrasena, rol);
+    }
 
+    private static void validarUsuario(String usuario, String contrasena, String rol) throws SQLException {
         // Aquí se procede a validar las credenciales con una base de datos o lógica adicional
         if (usuario.equals(usuarioAdministrador.getNombre()) && contrasena.equals(usuarioAdministrador.getContrasena())) {
             JOptionPane.showMessageDialog(null, "¡Inicio de sesión exitoso para el usuario: " + usuario + "!");
-            switch (rol){
-                case "1":
-                    menuAdministrador();
-                    break;
-                case "2":
-                    //menuAsistente();
-                    break;
-                case "3":
-                    //menuLector();
-                    break;
-            }
-            // Redirige al usuario a la página principal aquí
+            if (rol.equals("2")) menuAsistente();
+            if (rol.equals("3")) menuAsistente();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
-            menuInicioSesion();
+            menuInicioSesionComo();
         }
     }
 
-    private static void menuAdministrador() throws NumberFormatException, SQLException {
+    private static void validarAdministrador(String usuario, String contrasena) throws SQLException {
+        if (usuario.equals(usuarioAdministrador.getNombre()) && contrasena.equals(usuarioAdministrador.getContrasena())) {
+            JOptionPane.showMessageDialog(null, "¡Inicio de sesión exitoso para el usuario: " + usuario + "!");
+            menuAdministrador();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+            menuInicioSesionComo();
+        }
+    }
+
+    private static void menuAsistente() throws NumberFormatException, SQLException {
         String opcion = (JOptionPane.showInputDialog(null,
-                "Menú de Inicio del Administrador\n\n" +
-                        "1. Registrar Usuarios\n" +
-                        "2. Registrar Libros\n" +
-                        "3. Registrar Novelas\n" +
-                        "4. Registrar Prestamos\n" +
+                "Menú del Asistente\n\n" +
+                        "1. Buscar libro por autor\n" +
+                        "2. Registrar Libro\n" +
+                        "3. Registrar Novela\n" +
+                        "4. Registrar Prestamo\n" +
                         "5. Mostrar Usuarios\n" +
                         "6. Mostrar Libros\n" +
                         "7. Mostrar Novelas\n" +
                         "8. Mostrar Prestamos\n" +
-                        "9. Generar Usuarios\n" +
-                        "10. Generar Libros\n" +
-                        "11. Generar Novelas\n" +
-                        "12. Generar Prestamos\n" +
-                        "14. Salir"));
+                        "10. Salir"));
 
         switch (opcion) {
             case "1":
-                menuAdministrador();
+                //buscarporautor
                 break;
             case "2":
-                selectAllFromUsuario();
-                menuAdministrador();
+
                 break;
             case "3":
-                selectAllFromLibro();
-                menuAdministrador();
+
                 break;
             case "4":
-                selectAllFromNovela();
-                menuAdministrador();
+
                 break;
             case "5":
                 selectAllFromUsuario();
-                menuAdministrador();
                 break;
             case "6":
                 selectAllFromLibro();
-                menuAdministrador();
                 break;
             case "7":
                 selectAllFromNovela();
-                menuAdministrador();
                 break;
             case "8":
                 selectAllFromPrestamo();
-                menuAdministrador();
                 break;
             case "9":
                 insertarUsuarioEnBd(preguntarAlUsuario());
-                menuAdministrador();
                 break;
             case "10":
                 insertarLibrosEnBd(preguntarAlUsuario());
-                menuAdministrador();
                 break;
             case "11":
                 insertarNovelaEnBd(preguntarAlUsuario());
-                menuAdministrador();
                 break;
             case "12":
                 insertarPrestamoEnBd(preguntarAlUsuario());
-                menuAdministrador();
                 break;
             case "14":
                 JOptionPane.showMessageDialog(null, "¡Cerrando Sesion!");
@@ -234,18 +188,74 @@ public class BibliotecaLaPinguinera {
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Opción incorrecta, por favor seleccione correctamente");
-                menuAdministrador();
                 break;
         }
+        menuAsistente();
     }
 
-    private static void registrarUsuario() {
-        String nuevoUsuario = JOptionPane.showInputDialog(null, "Ingrese un nuevo nombre de usuario:");
-        String nuevaContrasena = JOptionPane.showInputDialog(null, "Ingrese una nueva contraseña:");
+    private static void menuAdministrador() throws NumberFormatException, SQLException {
+        String opcion = (JOptionPane.showInputDialog(null,
+                "Menú del Administrador John Doe\n\n" +
+                        "1.  Registrar Usuario\n" +
+                        "2.  Registrar Libro\n" +
+                        "3.  Registrar Novela\n" +
+                        "4.  Registrar Prestamo\n" +
+                        "5.  Mostrar Usuarios\n" +
+                        "6.  Mostrar Libros\n" +
+                        "7.  Mostrar Novelas\n" +
+                        "8.  Mostrar Prestamos\n" +
+                        "9.  Generar Usuarios con Faker\n" +
+                        "10. Generar Libros con Faker\n" +
+                        "11. Generar Novelas con Faker\n" +
+                        "12. Generar Prestamos con Faker\n" +
+                        "14. Cerrar Sesión"));
 
-        // Aquí puedes guardar las credenciales en una base de datos o realizar otras acciones
-        // Por ahora, simplemente mostraremos un mensaje de éxito.
-        JOptionPane.showMessageDialog(null, "¡Usuario registrado exitosamente: " + nuevoUsuario + "!");
+        switch (opcion) {
+            case "1":
+                insertIntoBd(registrarUsuario());
+                break;
+            case "2":
+                insertIntoBd(registrarLibro());
+                break;
+            case "3":
+                insertIntoBd(registrarNovela());
+                break;
+            case "4":
+                insertIntoBd(registrarPrestamo());
+                break;
+            case "5":
+                selectAllFromUsuario();
+                break;
+            case "6":
+                selectAllFromLibro();
+                break;
+            case "7":
+                selectAllFromNovela();
+                break;
+            case "8":
+                selectAllFromPrestamo();
+                break;
+            case "9":
+                insertarUsuarioEnBd(preguntarAlUsuario());
+                break;
+            case "10":
+                insertarLibrosEnBd(preguntarAlUsuario());
+                break;
+            case "11":
+                insertarNovelaEnBd(preguntarAlUsuario());
+                break;
+            case "12":
+                insertarPrestamoEnBd(preguntarAlUsuario());
+                break;
+            case "14":
+                JOptionPane.showMessageDialog(null, "¡Cerrando Sesion!");
+                menuInicioSesionComo();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Opción incorrecta, por favor seleccione correctamente");
+                break;
+        }
+        menuAdministrador();
     }
 
     public static String preguntarSalir() throws IOException {
@@ -282,6 +292,48 @@ public class BibliotecaLaPinguinera {
         }
     }
 
+
+    private static String registrarLibro() {
+        String titulo = JOptionPane.showInputDialog(null, "Ingrese el titulo del libro: ");
+        String autor = JOptionPane.showInputDialog(null, "Ingrese el autor del libro: ");
+        String areaConocimiento = JOptionPane.showInputDialog(null, "Ingrese el area de conocimineto del libro: ");
+        String numeroPaginas = JOptionPane.showInputDialog(null, "Ingrese el numero de pag. del libro: ");
+        String cantidadEjemplares = JOptionPane.showInputDialog(null, "Ingrese la cantidad de ejemplares del libro: ");
+        String cantidadPrestados = JOptionPane.showInputDialog(null, "Ingrese la cantidad prestada del libro: ");
+        String cantidadDisponibles = Integer.toString(Integer.parseInt(cantidadEjemplares) - Integer.parseInt(cantidadPrestados));
+        return String.format(INSERT_LIBRO, titulo, autor, areaConocimiento, numeroPaginas, cantidadEjemplares, cantidadPrestados, cantidadDisponibles);
+    }
+
+    private static String registrarNovela() {
+        String titulo = JOptionPane.showInputDialog(null, "Ingrese el titulo de la Novela: ");
+        String autor = JOptionPane.showInputDialog(null, "Ingrese el autor de la Novela: ");
+        String genero = JOptionPane.showInputDialog(null, "Ingrese el género de la Novela: ");
+        String edadSugerida = JOptionPane.showInputDialog(null, "Ingrese la edad sugerida de la Novela: ");
+        String cantidadEjemplares = JOptionPane.showInputDialog(null, "Ingrese la cantidad de ejemplares de la Novela: ");
+        String cantidadPrestados = JOptionPane.showInputDialog(null, "Ingrese la cantidad prestada de la Novela: ");
+        String cantidadDisponibles = Integer.toString(Integer.parseInt(cantidadEjemplares) - Integer.parseInt(cantidadPrestados));
+        return String.format(INSERT_NOVELA, titulo, autor, genero, edadSugerida, cantidadEjemplares, cantidadPrestados, cantidadDisponibles);
+    }
+
+    private static String registrarPrestamo() {
+        String correo = JOptionPane.showInputDialog(null, "Ingrese el correo del Lector: ");
+        String documento = JOptionPane.showInputDialog(null, "Ingrese el titulo del libro/novela: ");
+        String fechaPrestamo = JOptionPane.showInputDialog(null, "Ingrese la fecha del prestamo: ");
+        String fechaDevolucion = JOptionPane.showInputDialog(null, "Ingrese la fecha de devolucion: ");
+        String estado = JOptionPane.showInputDialog(null, "Ingrese el estado del prestamo: ");
+        return String.format(INSERT_PRESTAMO, correo, documento, fechaPrestamo, fechaDevolucion, estado);
+    }
+
+    private static String registrarUsuario() {
+        String nombre = JOptionPane.showInputDialog(null, "Ingrese un nuevo nombre de usuario: ");
+        String correo = JOptionPane.showInputDialog(null, "Ingrese una nueva correo: ");
+        String contrasena = JOptionPane.showInputDialog(null, "Ingrese una nueva contraseña: ");
+        String rol = JOptionPane.showInputDialog(null, "Ingrese el Rol del usuario: ");
+
+        JOptionPane.showMessageDialog(null, "¡Usuario registrado exitosamente: " + nombre + "!");
+        return String.format(INSERT_USUARIO, nombre, correo, contrasena, rol);
+    }
+
     private static String crearLibro() {
         String titulo;
         String autor;
@@ -290,7 +342,6 @@ public class BibliotecaLaPinguinera {
         String cantidadEjemplares;
         String cantidadPrestados;
         String cantidadDisponibles;
-        String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
         titulo = faker.book().title().replace("'", "");
@@ -300,8 +351,7 @@ public class BibliotecaLaPinguinera {
         cantidadEjemplares = faker.bothify("###");
         cantidadPrestados = "0";
         cantidadDisponibles = cantidadEjemplares;
-        sentencia = String.format(INSERT_LIBRO, titulo, autor, areaConocimiento, numeroPaginas, cantidadEjemplares, cantidadPrestados, cantidadDisponibles);
-        return sentencia;
+        return String.format(INSERT_LIBRO, titulo, autor, areaConocimiento, numeroPaginas, cantidadEjemplares, cantidadPrestados, cantidadDisponibles);
     }
 
     private static String crearNovela() {
@@ -312,7 +362,6 @@ public class BibliotecaLaPinguinera {
         String cantidadEjemplares;
         String cantidadPrestados;
         String cantidadDisponibles;
-        String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
         titulo = faker.book().title().replace("'", "");
@@ -322,8 +371,7 @@ public class BibliotecaLaPinguinera {
         cantidadEjemplares = faker.bothify("###");
         cantidadPrestados = "0";
         cantidadDisponibles = cantidadEjemplares;
-        sentencia = String.format(INSERT_NOVELA, titulo, autor, genero, edadSugerida, cantidadEjemplares, cantidadPrestados, cantidadDisponibles);
-        return sentencia;
+        return String.format(INSERT_NOVELA, titulo, autor, genero, edadSugerida, cantidadEjemplares, cantidadPrestados, cantidadDisponibles);
     }
 
     private static String crearPrestamo() {
@@ -332,17 +380,14 @@ public class BibliotecaLaPinguinera {
         String fechaPrestamo;
         String fechaDevolucion;
         String estado;
-        String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
-
         correo = faker.internet().emailAddress();
         documento = faker.book().title().replace("'", "");
-        fechaPrestamo = faker.date().birthday().toString();
-        fechaDevolucion = faker.date().birthday().toString();
+        fechaPrestamo = faker.date().birthday(0, 10, "YYYY/MM/dd");
+        fechaDevolucion = faker.date().birthday(0, 10, "YYYY/MM/dd");
         estado = String.valueOf(Estado.values()[new Random().nextInt(Estado.values().length)]);
-        sentencia = String.format(INSERT_PRESTAMO, correo, documento, fechaPrestamo, fechaDevolucion, estado);
-        return sentencia;
+        return String.format(INSERT_PRESTAMO, correo, documento, fechaPrestamo, fechaDevolucion, estado);
     }
 
     private static String crearUsuario() {
@@ -350,15 +395,13 @@ public class BibliotecaLaPinguinera {
         String correo;
         String contrasena;
         String rol;
-        String sentencia;
 
         Faker faker = new Faker(new Locale("es"));
         nombre = faker.name().name().replace("'", "");
         correo = faker.internet().emailAddress();
         contrasena = faker.passport().valid();
         rol = String.valueOf(Rol.values()[new Random().nextInt(Rol.values().length)]);
-        sentencia = String.format(INSERT_USUARIO, nombre, correo, contrasena, rol);
-        return sentencia;
+        return String.format(INSERT_USUARIO, nombre, correo, contrasena, rol);
     }
 
     public static void selectAllFromUsuario() throws SQLException {
