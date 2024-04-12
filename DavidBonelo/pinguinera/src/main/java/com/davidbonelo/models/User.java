@@ -1,5 +1,7 @@
 package com.davidbonelo.models;
 
+import static com.davidbonelo.Utils.askText;
+
 public class User {
     private int id;
     private String name;
@@ -17,6 +19,12 @@ public class User {
         this.name = name;
         this.email = email;
         this.role = role;
+    }
+
+    public static User createUserFromInput() {
+        String name = askText("Name: ");
+        String email = askText("Email: ");
+        return new User(name, email, UserRole.READER);
     }
 
     public int getId() {

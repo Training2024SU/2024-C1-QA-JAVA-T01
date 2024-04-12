@@ -24,7 +24,8 @@ public class Utils {
         System.out.print(prompt);
         // Invalid integer handling
         while (!scanner.hasNextInt()) {
-            System.out.print("Invalid input. Please enter an integer.\n>");
+            System.out.print("Invalid input. Please enter an integer.");
+            System.out.println(prompt);
             scanner.next(); // clear invalid input
         }
         int input = scanner.nextInt();
@@ -44,7 +45,7 @@ public class Utils {
         String input = scanner.nextLine().trim();
         // Invalid input handling
         while (input.isEmpty()) {
-            System.out.print("Invalid input. Please enter a non-empty string.\n>");
+            System.out.print("Invalid input. Please enter a non-empty string.");
             System.out.print(prompt);
             input = scanner.nextLine().trim();
         }

@@ -14,6 +14,7 @@ import java.sql.Connection;
 
 import static com.davidbonelo.Utils.askNumber;
 import static com.davidbonelo.Utils.closeScanner;
+import static com.davidbonelo.Utils.validPermission;
 
 public class MainMenu {
     private final UserService userService;
@@ -42,7 +43,8 @@ public class MainMenu {
                 case 2 -> new BooksMenu(libraryManager, borrowingsService, user).menu();
                 case 3 -> new NovelsMenu(libraryManager, borrowingsService, user).menu();
                 case 4 -> new BorrowingMenu(borrowingsService, user).menu();
-                case 9 -> logout();
+                case 5 -> new AdminMenu(userService, user).menu();
+                case 9 -> logout(user);
                 case 0 -> {
                     closeScanner();
                     return;
@@ -52,8 +54,8 @@ public class MainMenu {
         }
     }
 
-    private void logout() {
-        if (userService.getLoggedUser() == null) {
+    private void logout(User user) {
+        if (user == null) {
             System.out.println("Unknown menu option");
         } else {
             userService.logOut();
@@ -68,13 +70,9 @@ public class MainMenu {
             menuMessage.insert(5, " 1. Login |");
         } else {
             // Logged in user
-            UserRole role = user.getRole();
             menuMessage.append(" 4. Borrowings |");
-            if (role == UserRole.EMPLOYEE) {
-//                menuMessage.append("Employee options");
-            }
-            if (role == UserRole.ADMINISTRATOR) {
-//                menuMessage.append(" 3. Admin options");
+            if (validPermission(user, UserRole.ADMINISTRATOR)) {
+                menuMessage.append(" 5. Admin menu |");
             }
             menuMessage.append(" 9. Log out |");
         }
