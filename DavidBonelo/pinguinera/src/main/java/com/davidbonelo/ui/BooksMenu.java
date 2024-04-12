@@ -3,6 +3,7 @@ package com.davidbonelo.ui;
 import com.davidbonelo.models.Book;
 import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
+import com.davidbonelo.services.BorrowingsService;
 import com.davidbonelo.services.LibraryManager;
 
 import java.sql.SQLException;
@@ -14,10 +15,13 @@ import static com.davidbonelo.Utils.validPermission;
 
 public class BooksMenu {
     private final LibraryManager libraryManager;
+    private final BorrowingsService borrowingsService;
     private final User user;
 
-    public BooksMenu(LibraryManager libraryManager, User user) {
+    public BooksMenu(LibraryManager libraryManager, BorrowingsService borrowingsService,
+                     User user) {
         this.libraryManager = libraryManager;
+        this.borrowingsService = borrowingsService;
         this.user = user;
     }
 
@@ -87,7 +91,7 @@ public class BooksMenu {
         }
         int bookId = askNumber("Type the id of the book you want to borrow: ");
         try {
-            libraryManager.addBorrowingBook(bookId);
+            borrowingsService.addBorrowingBook(bookId);
             System.out.println("Book added, go to the Borrowings menu to complete the request");
         } catch (SQLException e) {
             System.out.println("Can't borrow this book. " + e.getLocalizedMessage());

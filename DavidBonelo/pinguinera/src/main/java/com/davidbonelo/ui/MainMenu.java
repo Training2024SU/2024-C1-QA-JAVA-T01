@@ -6,6 +6,7 @@ import com.davidbonelo.persistance.BookDAO;
 import com.davidbonelo.persistance.BorrowingDAO;
 import com.davidbonelo.persistance.NovelDAO;
 import com.davidbonelo.persistance.UserDAO;
+import com.davidbonelo.services.BorrowingsService;
 import com.davidbonelo.services.LibraryManager;
 import com.davidbonelo.services.UserService;
 
@@ -17,6 +18,7 @@ import static com.davidbonelo.Utils.closeScanner;
 public class MainMenu {
     private final UserService userService;
     private final LibraryManager libraryManager;
+    private final BorrowingsService borrowingsService;
 
     public MainMenu(Connection connection) {
         UserDAO userDAO = new UserDAO(connection);
@@ -24,20 +26,23 @@ public class MainMenu {
         NovelDAO novelDAO = new NovelDAO(connection);
         BorrowingDAO borrowingDAO = new BorrowingDAO(connection);
         this.userService = new UserService(userDAO);
-        this.libraryManager = new LibraryManager(bookDAO, novelDAO, borrowingDAO);
+        this.libraryManager = new LibraryManager(bookDAO, novelDAO);
+        this.borrowingsService = new BorrowingsService(bookDAO, novelDAO, borrowingDAO, connection);
     }
 
     public void menu() {
         System.out.println("Welcome to La Pingüinera library!!");
         while (true) {
+            userService.login("a","b");
             User user = userService.getLoggedUser();
             String menuMessage = buildMenuMessage(user);
 
             int menuChoice = askNumber(menuMessage);
             switch (menuChoice) {
                 case 1 -> new LoginMenu(userService).menu();
-                case 2 -> new BooksMenu(libraryManager, user).menu();
-                case 3 -> new NovelsMenu(libraryManager, user).menu();
+                case 2 -> new BooksMenu(libraryManager, borrowingsService, user).menu();
+                case 3 -> new NovelsMenu(libraryManager, borrowingsService, user).menu();
+                case 4 -> new BorrowingMenu(borrowingsService, user).menu();
                 case 9 -> logout();
                 case 0 -> {
                     closeScanner();
@@ -65,7 +70,7 @@ public class MainMenu {
         } else {
             // Logged in user
             UserRole role = user.getRole();
-//            menuMessage.append("Reader options");
+            menuMessage.append(" 4. Borrowings |");
             if (role == UserRole.EMPLOYEE) {
 //                menuMessage.append("Employee options");
             }

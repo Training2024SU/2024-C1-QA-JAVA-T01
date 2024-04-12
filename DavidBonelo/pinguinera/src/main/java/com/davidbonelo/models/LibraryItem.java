@@ -66,6 +66,10 @@ public class LibraryItem {
         checkCopies();
     }
 
+    public int getAvailableCopies() {
+        return copies - copiesBorrowed;
+    }
+
     private void checkCopies() {
         if (copiesBorrowed > copies) {
             // Allow but show a warning

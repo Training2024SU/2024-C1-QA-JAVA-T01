@@ -3,6 +3,7 @@ package com.davidbonelo;
 import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Utils {
@@ -48,6 +49,24 @@ public class Utils {
             input = scanner.nextLine().trim();
         }
         return input;
+    }
+
+    public static LocalDate askDate(String prompt) {
+        prompt += " (YYYY-MM-DD)\n> ";
+        System.out.print(prompt);
+        String input = scanner.nextLine().trim();
+        LocalDate date = null;
+        // Invalid input handling
+        while (input.isEmpty() || date == null) {
+            try {
+                date = LocalDate.parse(input);
+            } catch (Exception ignored) {
+            }
+            System.out.println("Invalid input. Please enter a date in the format YYYY-MM-DD");
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+        }
+        return date;
     }
 
     public static boolean validMenuAccess(User user, UserRole requiredRole) {

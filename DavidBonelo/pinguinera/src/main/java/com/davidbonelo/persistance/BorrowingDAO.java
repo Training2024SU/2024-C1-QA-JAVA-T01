@@ -29,8 +29,8 @@ public class BorrowingDAO {
     private static Borrowing buildBorrowingFromResult(ResultSet rs) throws SQLException {
         UserRole role = UserRole.valueOf(rs.getString("role"));
         User user = new User(rs.getString("name"), rs.getString("email"), role);
-        return new Borrowing(rs.getInt("id"), rs.getDate("return_date").toLocalDate(),
-                rs.getDate("returned_date").toLocalDate(), user);
+        return new Borrowing(rs.getInt("id"), rs.getDate("returned_date").toLocalDate(),
+                rs.getDate("requested_date").toLocalDate(), user);
     }
 
     public Borrowing getBorrowingWithItems(int borrowingId) throws SQLException {
@@ -148,7 +148,7 @@ public class BorrowingDAO {
         }
     }
 
-    public void updateBorrowingState(Borrowing borrowing) throws SQLException {
+    public void updateBorrowingStatus(Borrowing borrowing) throws SQLException {
         if (missingId(borrowing)) {
             throw new IllegalArgumentException("Can't update a borrowing without a id");
         }
@@ -164,17 +164,14 @@ public class BorrowingDAO {
         }
     }
 
-    public void deleteBorrowing(Borrowing borrowing) throws SQLException {
-        if (missingId(borrowing)) {
-            throw new IllegalArgumentException("Can't delete a borrowing without a id");
-        }
+    public void deleteBorrowing(int borrowingId) throws SQLException {
         String sql = "DELETE FROM Borrowing WHERE id= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, borrowing.getId()); // WHERE
+            statement.setInt(1, borrowingId); // WHERE
 
             int deletedRows = statement.executeUpdate();
             if (deletedRows == 0) {
-                throw new SQLException("Couldn't delete borrowing with id " + borrowing.getId());
+                throw new SQLException("Couldn't delete borrowing with id " + borrowingId);
             }
         }
     }

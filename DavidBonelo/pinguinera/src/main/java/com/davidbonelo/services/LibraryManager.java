@@ -8,7 +8,6 @@ import com.davidbonelo.persistance.BorrowingDAO;
 import com.davidbonelo.persistance.NovelDAO;
 
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,17 +16,14 @@ public class LibraryManager {
 
     private final BookDAO bookDAO;
     private final NovelDAO novelDAO;
-    private final BorrowingDAO borrowingDAO;
-    private final Set<LibraryItem> borrowingItems;
 
-    public LibraryManager(BookDAO bookDAO, NovelDAO novelDAO, BorrowingDAO borrowingDAO) {
+    public LibraryManager(BookDAO bookDAO, NovelDAO novelDAO) {
         this.bookDAO = bookDAO;
         this.novelDAO = novelDAO;
-        this.borrowingDAO = borrowingDAO;
-        this.borrowingItems = new HashSet<>();
     }
 
     public List<Book> getAllBooks() {
+        // TODO: Filter unavailable items for users
         try {
             return bookDAO.getAllBooks();
         } catch (SQLException e) {
@@ -94,23 +90,5 @@ public class LibraryManager {
         } catch (SQLException e) {
             System.out.println("Couldn't delete novel, " + e.getLocalizedMessage());
         }
-    }
-
-    public void addBorrowingBook(int itemId) throws SQLException {
-        Book book = bookDAO.getBookById(itemId);
-        if (book == null) {
-            throw new SQLException("Book with id " + itemId + " not found");
-        }
-        this.borrowingItems.add(book);
-        borrowingItems.forEach(System.out::println);
-    }
-
-    public void addBorrowingNovel(int itemId) throws SQLException {
-        Novel novel = novelDAO.getNovelById(itemId);
-        if (novel == null) {
-            throw new SQLException("Novel with id " + itemId + " not found");
-        }
-        this.borrowingItems.add(novel);
-        borrowingItems.forEach(System.out::println);
     }
 }

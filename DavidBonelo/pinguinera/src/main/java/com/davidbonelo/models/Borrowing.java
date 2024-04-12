@@ -82,4 +82,22 @@ public class Borrowing {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Borrowing{" +
+                "borrowerId=" + borrower.getId() +
+                "borrower=" + borrower.getName() +
+                ", id=" + id +
+                ", requestedDate=" + requestedDate +
+                ", returnDate=" + returnDate +
+                ", status=" + status +
+                '}';
+    }
+
+    public String toStringWithItems() {
+        StringBuilder stringBuilder = new StringBuilder(this + "Items: \n");
+        borrowedItems.forEach(stringBuilder::append);
+        return stringBuilder.toString();
+    }
 }
