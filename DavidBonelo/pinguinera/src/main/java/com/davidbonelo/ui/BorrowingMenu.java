@@ -77,7 +77,7 @@ public class BorrowingMenu {
         try {
             borrowingsService.createBorrowing(new Borrowing(returnDate, user));
             System.out.println("Successful request, find an employee to borrow the items from");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Couldn't request the borrowing, " + e.getLocalizedMessage());
         }
     }
