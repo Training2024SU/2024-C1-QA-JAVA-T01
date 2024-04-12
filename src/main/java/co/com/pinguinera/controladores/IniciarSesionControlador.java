@@ -43,65 +43,108 @@ public class IniciarSesionControlador {
         this.prestamoRepositorio = prestamoRepositorio;
     }
 
+    // Método para iniciar sesión
     public void iniciarSesion() {
-        System.out.println("Iniciar sesión");
-        System.out.print("Correo: ");
-        String correo = scanner.nextLine();
-        System.out.print("Contraseña: ");
-        String contraseña = scanner.nextLine();
+        String correo = solicitarCorreo();
+        String contraseña = solicitarContraseña();
 
-        // Autenticar el usuario
-        boolean autenticado = autenticacionDAO.autenticarUsuario(correo, contraseña);
+        boolean autenticado = autenticarUsuario(correo, contraseña);
 
         if (autenticado) {
-            // Autenticación exitosa
-            Notificaciones.mostrarMensajeExito();
-
-            // Obtén el rol del usuario autenticado
-            TipoRol rol = autenticacionDAO.obtenerRolUsuario(correo);
-
-            if (rol != null) {
-                Notificaciones.mostrarRol(rol);
-
-                // Manejar el rol del usuario autenticado
-                if (rol == TipoRol.ADMINISTRADOR) {
-                    // Crear instancia de MenuAdministrador y llamar a mostrarMenuAdministrador
-                    MenuAdministrador menuAdministrador = new MenuAdministrador(
-                            scanner,
-                            usuarioRepositorio,
-                            rolesRepositorio,
-                            libroRepositorio,
-                            novelaRepositorio
-                    );
-                    menuAdministrador.mostrarMenuAdministrador();
-                } else if (rol == TipoRol.LECTOR) {
-                    // Crear instancia de MenuLector y llamar a mostrarMenuLector
-                    MenuLector menuLector = new MenuLector(
-                            scanner,
-                            libroRepositorio,
-                            novelaRepositorio,
-                            prestamoRepositorio,
-                            usuarioRepositorio.buscarUsuarioPorCorreo(correo).getUsuarioID()
-                    );
-                    menuLector.mostrarMenuLector();
-                } else if (rol == TipoRol.ASISTENTE) {
-                    // Crear instancia de MenuAsistente y llamar a mostrarMenuAsistente
-                    MenuAsistente menuAsistente = new MenuAsistente(
-                            scanner,
-                            libroRepositorio,
-                            novelaRepositorio,
-                            prestamoRepositorio
-                    );
-                    menuAsistente.mostrarMenuAsistente();
-                } else {
-                    System.out.println("El usuario no tiene rol válido. Acceso restringido.");
-                }
-            } else {
-                System.out.println("No se pudo determinar el rol del usuario.");
-            }
+            manejarAutenticacionExitosa(correo);
         } else {
-            // Autenticación fallida
             Notificaciones.procesoFallido();
         }
+    }
+
+    // Solicitar el correo del usuario
+    private String solicitarCorreo() {
+        System.out.println("Iniciar sesión");
+        System.out.print("Correo: ");
+        return scanner.nextLine();
+    }
+
+    // Solicitar la contraseña del usuario
+    private String solicitarContraseña() {
+        System.out.print("Contraseña: ");
+        return scanner.nextLine();
+    }
+
+    // Autenticar al usuario
+    private boolean autenticarUsuario(String correo, String contraseña) {
+        return autenticacionDAO.autenticarUsuario(correo, contraseña);
+    }
+
+    // Manejar una autenticación exitosa
+    private void manejarAutenticacionExitosa(String correo) {
+        Notificaciones.mostrarMensajeExito();
+
+        TipoRol rol = autenticacionDAO.obtenerRolUsuario(correo);
+        Notificaciones.mostrarRol(rol);
+
+        if (rol != null) {
+            manejarRolUsuario(correo, rol);
+        } else {
+            System.out.println("No se pudo determinar el rol del usuario.");
+        }
+    }
+
+    // Manejar el rol del usuario
+    private void manejarRolUsuario(String correo, TipoRol rol) {
+        switch (rol) {
+            case ADMINISTRADOR:
+                mostrarMenuAdministrador();
+                break;
+            case LECTOR:
+                mostrarMenuLector(correo);
+                break;
+            case ASISTENTE:
+                mostrarMenuAsistente();
+                break;
+            default:
+                System.out.println("El usuario no tiene rol válido. Acceso restringido.");
+                break;
+        }
+    }
+
+    // Mostrar el menú del administrador
+    private void mostrarMenuAdministrador() {
+        MenuAdministrador menuAdministrador = new MenuAdministrador(
+                scanner,
+                usuarioRepositorio,
+                rolesRepositorio,
+                libroRepositorio,
+                novelaRepositorio
+        );
+        menuAdministrador.mostrarMenuAdministrador();
+    }
+
+    // Mostrar el menú del lector
+    private void mostrarMenuLector(String correo) {
+        int usuarioId = obtenerUsuarioIdPorCorreo(correo);
+        MenuLector menuLector = new MenuLector(
+                scanner,
+                libroRepositorio,
+                novelaRepositorio,
+                prestamoRepositorio,
+                usuarioId
+        );
+        menuLector.mostrarMenuLector();
+    }
+
+    // Mostrar el menú del asistente
+    private void mostrarMenuAsistente() {
+        MenuAsistente menuAsistente = new MenuAsistente(
+                scanner,
+                libroRepositorio,
+                novelaRepositorio,
+                prestamoRepositorio
+        );
+        menuAsistente.mostrarMenuAsistente();
+    }
+
+    // Obtener el ID del usuario por correo
+    private int obtenerUsuarioIdPorCorreo(String correo) {
+        return usuarioRepositorio.buscarUsuarioPorCorreo(correo).getUsuarioID();
     }
 }
