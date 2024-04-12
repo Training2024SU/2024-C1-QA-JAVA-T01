@@ -1,6 +1,8 @@
 package co.com.sofka.modelo;
 
 import lombok.*;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -14,5 +16,7 @@ public abstract class Material {
     protected int cantidadEjemplares;
     protected int cantidadPrestados;
     protected int cantidadDisponible;
+
+    protected boolean fueBorrado = false;
 
 }

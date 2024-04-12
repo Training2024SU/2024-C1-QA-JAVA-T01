@@ -39,6 +39,7 @@ public class ServicioLibro {
     public void listarLibrosDisponibles() {
         List<Libro> libros = repositorioLibro.listarLibros()
                 .stream()
+                .filter(libro -> libro.isFueBorrado() == false)
                 .filter(libro -> libro.sePuedePrestar())
                 .collect(Collectors.toList());
 
@@ -61,6 +62,7 @@ public class ServicioLibro {
 
     public void listarAutores(){
         repositorioLibro.listarLibros().stream()
+                .filter(libro -> !libro.isFueBorrado())
                 .map(libro -> libro.getAutor())
                 .filter(autor -> autor != null)
                 .distinct()
@@ -70,8 +72,24 @@ public class ServicioLibro {
 
     public void listarLibroPorAutor(String autor){
         repositorioLibro.listarLibros().stream()
+                .filter(libro -> !libro.isFueBorrado())
                 .filter(libro -> autor.equals(libro.getAutor()))
                 .forEach(libro -> System.out.println(libro));
 
+    }
+
+    public void borrarLibroPorId(Long libroId){
+        Libro libro = repositorioLibro.obtenerLibro(libroId);
+
+        if(libro == null){
+            System.out.println("Id ingresado no existe");
+            return;
+        }
+
+        libro.setFueBorrado(true);
+
+        repositorioLibro.modificar(libro);
+
+        System.out.println("Libro borrado exitosamente");
     }
 }

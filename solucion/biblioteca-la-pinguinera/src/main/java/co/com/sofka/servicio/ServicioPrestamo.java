@@ -69,14 +69,16 @@ public class ServicioPrestamo {
         }
     }
 
-    public void listarPrestamosSolicitados(){
+    public void listarPrestamosSolicitados(String correoUsuario){
         repositorioPrestamo.listarPrestamos().stream()
+                .filter(prestamo -> correoUsuario.equals(prestamo.getUsuario().getCorreo()))
                 .filter(prestamo -> EstadoPrestamo.SOLICITADO == prestamo.getEstadoPrestamo())
                 .forEach(prestamo -> System.out.println(prestamo));
     }
 
-    public void listarPrestamosRealizados(){
+    public void listarPrestamosRealizados(String correoUsuario){
         repositorioPrestamo.listarPrestamos().stream()
+                .filter(prestamo -> correoUsuario.equals(prestamo.getUsuario().getCorreo()))
                 .filter(prestamo -> EstadoPrestamo.REALIZADO == prestamo.getEstadoPrestamo())
                 .forEach(prestamo -> System.out.println(prestamo));
     }

@@ -20,7 +20,7 @@ public class ConstantesMenu {
     static String OPCIONES_ADMINISTRADOR = "1.Crear Asistentes\n2.Listar Asistentes\n";
     static String OPCIONES_LECTOR = "1.Listar Autores de Libros\n2.Listar Autores de Novelas \n3.Listar Libros disponibles \n4.Listar Novelas disponibles \n5.Realizar Prestamo Libro \n6.Realizar Prestamo Novela";
 
-    static String OPCIONES_ASISTENTE = "1.Crear Libro \n2.Crear Novela\n3.Listar Autores de Libros\n4.Listar Autores de Novelas\n5.Listar Libros por Autor\n6.Listar Novelas por Autor\n7.Consultar Prestamos\n8.Confirmar Devoluciones\n9.Modificar un libro\n10.Modificar una novela";
+    static String OPCIONES_ASISTENTE = "1.Crear Libro \n2.Crear Novela\n3.Listar Autores de Libros\n4.Listar Autores de Novelas\n5.Listar Libros por Autor\n6.Listar Novelas por Autor\n7.Listar Prestamos solicitados \n8.Realizar prestamos solicitados \n9.Listar prestamos realizados \n10.Finalizar pestamos realizados \n11.Modificar un libro \n12.Modificar una novela \n13.Borrar Libro \n14.Borrar Novela";
     static String PRIMER_MENSAJE_GUARDAR_LIBRO = "Guardar libro ...\nPor favor ingrese el titulo del libro a guardar";
     static String SEGUNDO_MENSAJE_GUARDAR_LIBRO = "Por favor ingrese el nombre del autor del libro";
     static String TERCER_MENSAJE_GUARDAR_LIBRO = "Por favor ingrese la cantidad de ejemplares del libro";

@@ -34,6 +34,7 @@ public class ServicioNovela {
 
     public void listarNovelasDisponibles() {
         List<Novela> novelas = repositorioNovela.listarNovelas().stream()
+                .filter(novela -> novela.isFueBorrado() == false) // traiga todo lo que tenga fueBorrado = false
                 .filter(novela -> novela.sePuedePrestar())
                 .collect(Collectors.toList());
 
@@ -56,6 +57,7 @@ public class ServicioNovela {
 
     public void listarAutores(){
         repositorioNovela.listarNovelas().stream()
+                .filter(novela -> !novela.isFueBorrado())
                 .map(novela -> novela.getAutor())
                 .filter(autor -> autor != null)
                 .distinct()
@@ -65,8 +67,23 @@ public class ServicioNovela {
 
     public void listarNovelaPorAutor(String autor){
         repositorioNovela.listarNovelas().stream()
+                .filter(novela -> !novela.isFueBorrado())
                 .filter(novela -> autor.equals(novela.getAutor()))
                 .forEach(novela -> System.out.println(novela));
 
+    }
+
+    public void borrarNovelaPorId(Long novelaId){
+        Novela novela = repositorioNovela.obtenerNovela(novelaId);
+
+        if(novela == null){
+            System.out.println("Esa novela no existe");
+            return;
+        }
+
+        novela.setFueBorrado(true);
+        repositorioNovela.modificar(novela);
+
+        System.out.println("Novela borrada exitosamente");
     }
 }

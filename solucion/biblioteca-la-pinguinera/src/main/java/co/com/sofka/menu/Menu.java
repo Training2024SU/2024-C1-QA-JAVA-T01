@@ -45,7 +45,7 @@ public class Menu {
     }
 
     private static void imprimirMenuUsuarioIngresado(Scanner scanner){
-        System.out.println("Bienvenido " + usuarioIngresado.getNombre());
+        System.out.println("\nBienvenido " + usuarioIngresado.getNombre() + " ...");
 
         if(usuarioIngresado.getRol().equals(RolUsuario.ADMINISTRADOR)){
             imprimirMenuAdministrador(scanner);
@@ -143,16 +143,28 @@ public class Menu {
                 buscarNovelaPorAutor(scanner);
                 break;
             case 7:
-                revisarPrestamosSolicitados(scanner);
+                listarPrestamosSolicitados(scanner);
                 break;
             case 8:
-                finalizarPrestamoRealizado(scanner);
+                realizarPrestamosSolicitados(scanner);
                 break;
             case 9:
-                modificarLibro(scanner);
+                listarPrestamosRealizados(scanner);
                 break;
             case 10:
+                finalizarPrestamoRealizado(scanner);
+                break;
+            case 11:
+                modificarLibro(scanner);
+                break;
+            case 12:
                 modificarNovela(scanner);
+                break;
+            case 13:
+                borrarLibro(scanner);
+                break;
+            case 14:
+                borrarNovela(scanner);
                 break;
             case 0:
                 seguirEjecucion = false;
@@ -324,6 +336,22 @@ public class Menu {
         servicioNovela.modificarNovela(id, titulo, autor, cantidadEjemplares, genero, edadDeLecturaSugerida);
     }
 
+    public static void borrarLibro(Scanner scanner){
+        System.out.println("Ingresar el id del libro a borrar");
+        Long libroId = scanner.nextLong();
+        scanner.nextLine();
+
+        servicioLibro.borrarLibroPorId(libroId);
+    }
+
+    public static void borrarNovela(Scanner scanner){
+        System.out.println("Ingresar el id de la novela a borrar");
+        Long novelaId = scanner.nextLong();
+        scanner.nextLine();
+
+        servicioNovela.borrarNovelaPorId(novelaId);
+    }
+
     public static void buscarLibroPorAutor(Scanner scanner){
         System.out.println(PRIMER_MENSAJE_BUSCAR_LIBRO_POR_AUTOR);
         String autor = scanner.nextLine();
@@ -354,22 +382,28 @@ public class Menu {
         System.out.println(SEGUNDO_MENSAJE_PRESTAR_NOVELA);
     }
 
-    public static void revisarPrestamosSolicitados(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_PRESTAMO_SOLICITADO);
-        servicioPrestamo.listarPrestamosSolicitados();
+    public static void listarPrestamosSolicitados(Scanner scanner){
+        System.out.println("Listando prestamos en estado SOLICITADO \nIngrese el correo del usuario");
+        String correoUsuarioPrestamos = scanner.nextLine();
 
+        servicioPrestamo.listarPrestamosSolicitados(correoUsuarioPrestamos);
+    }
+    public static void realizarPrestamosSolicitados(Scanner scanner){
         System.out.println(SEGUNDO_MENSAJE_PRESTAMO_SOLICITADO);
         Long prestamoId = scanner.nextLong();
         scanner.nextLine();
 
         servicioPrestamo.realizarPrestamo(prestamoId);
-        System.out.println(SEGUNDO_MENSAJE_GUARDAR_LIBRO);
+    }
+
+    public static void listarPrestamosRealizados(Scanner scanner){
+        System.out.println("Listando prestamos en estado REALIZADO \nIngrese el correo del usuario");
+        String correoUsuarioPrestamos = scanner.nextLine();
+
+        servicioPrestamo.listarPrestamosRealizados(correoUsuarioPrestamos);
     }
 
     public static void finalizarPrestamoRealizado(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_PRESTAMO_REALIZADO);
-        servicioPrestamo.listarPrestamosRealizados();
-
         System.out.println(PRIMER_MENSAJE_PRESTAMO_FINALIZADO);
         Long prestamoId = scanner.nextLong();
         scanner.nextLine();
