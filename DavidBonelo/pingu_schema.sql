@@ -7,10 +7,12 @@ CREATE TABLE IF NOT EXISTS Users (
     name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(20) NOT NULL DEFAULT 'VISITOR'
+    role VARCHAR(20) NOT NULL DEFAULT 'VISITOR',
+    is_deleted BOOLEAN DEFAULT 0
 )  ENGINE=INNODB;
 
-INSERT INTO Users VALUES (0, "John Doe", "administrador@pingu.com.co", "contraseñasegura123456", "ADMINISTRATOR");
+-- default admin user
+INSERT INTO Users VALUES (1, "John Doe", "administrador@pingu.com.co", "contraseniasegura123456", "ADMINISTRATOR", 0);
 
 CREATE TABLE IF NOT EXISTS Books (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -20,7 +22,8 @@ CREATE TABLE IF NOT EXISTS Books (
     copies_borrowed INT NOT NULL,
     
     field VARCHAR(100) NOT NULL,
-    pages INT NOT NULL
+    pages INT NOT NULL,
+    is_deleted BOOLEAN DEFAULT 0
 )  ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Novels (
@@ -31,7 +34,8 @@ CREATE TABLE IF NOT EXISTS Novels (
     copies_borrowed INT NOT NULL,
     
     genre VARCHAR(50) NOT NULL,
-    recommended_age INT NOT NULL
+    recommended_age INT NOT NULL,
+    is_deleted BOOLEAN DEFAULT 0
 )  ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Borrowings (
@@ -40,6 +44,7 @@ CREATE TABLE IF NOT EXISTS Borrowings (
     requested_date DATE NOT NULL,
     returned_date DATE NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'REQUESTED',
+    is_deleted BOOLEAN DEFAULT 0,
     FOREIGN KEY (user_id)
         REFERENCES Users (id)
 )  ENGINE=INNODB;
