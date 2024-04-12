@@ -5,7 +5,6 @@ public class Novela {
     private String titulo;
     private String autor;
     private String genero;
-    private int edad;
     private int edadLecturaSugerida;
     private int cantEjemplares;
     private int cantPrestados;
@@ -44,13 +43,6 @@ public class Novela {
         this.genero = genero;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 
     public int getEdadLecturaSugerida() {
         return edadLecturaSugerida;
@@ -79,15 +71,30 @@ public class Novela {
     // Sobrescribe el método toString() para mostrar la información de la novela de forma legible
     @Override
     public String toString() {
-        return "Novela{" +
-                "ID: " + novelaID +
-                ", Título: '" + titulo + '\'' +
-                ", Autor: '" + autor + '\'' +
-                ", Género: '" + genero + '\'' +
-                ", Edad: " + edad +
-                ", Edad de lectura sugerida: " + edadLecturaSugerida +
-                ", Cantidad de ejemplares: " + cantEjemplares +
-                ", Cantidad de ejemplares prestados: " + cantPrestados +
-                '}';
+        // Define los anchos de las columnas (ajusta estos valores según sea necesario)
+        int anchoID = 8;
+        int anchoTitulo = 30;
+        int anchoAutor = 30;
+        int anchoGenero = 20;
+        int anchoEdadLectura = 15;
+        int anchoCantEjemplares = 10;
+        int anchoCantPrestados = 10;
+
+        // Devuelve una cadena formateada como una tabla con columnas alineadas
+        return String.format("%-" + anchoID + "d | %-"
+                        + anchoTitulo + "s | %-"
+                        + anchoAutor + "s | %-"
+                        + anchoGenero + "s | %-"
+                        + anchoEdadLectura + "d | %-"
+                        + anchoCantEjemplares + "d | %-"
+                        + anchoCantPrestados + "d",
+                novelaID,
+                titulo,
+                autor,
+                genero,
+                edadLecturaSugerida,
+                cantEjemplares,
+                cantPrestados);
     }
+
 }

@@ -64,7 +64,8 @@ public class NovelaDAO implements NovelaRepositorio {
     @Override
     public List<Novela> obtenerTodasLasNovelas() {
         List<Novela> novelas = new ArrayList<>();
-        String sql = "SELECT * FROM Novelas";
+        // Modifica la consulta para incluir la condición que verifica la disponibilidad
+        String sql = "SELECT * FROM Novelas WHERE CantEjemplares - CantPrestados > 0";
         try (PreparedStatement statement = conexion.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
@@ -75,6 +76,7 @@ public class NovelaDAO implements NovelaRepositorio {
                 novela.setGenero(resultSet.getString("Genero"));
                 novela.setEdadLecturaSugerida(resultSet.getInt("EdadLecturaSugerida"));
                 novela.setCantEjemplares(resultSet.getInt("CantEjemplares"));
+                novela.setCantPrestados(resultSet.getInt("CantPrestados"));
                 novelas.add(novela);
             }
         } catch (SQLException e) {
@@ -86,7 +88,8 @@ public class NovelaDAO implements NovelaRepositorio {
     @Override
     public List<Novela> buscarNovelaPorTitulo(String titulo) {
         List<Novela> novelas = new ArrayList<>();
-        String sql = "SELECT * FROM Novelas WHERE Titulo LIKE ?";
+        // Modifica la consulta para incluir la condición de disponibilidad
+        String sql = "SELECT * FROM Novelas WHERE Titulo LIKE ? AND CantEjemplares - CantPrestados > 0";
         try (PreparedStatement statement = conexion.prepareStatement(sql)) {
             statement.setString(1, "%" + titulo + "%");
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -98,6 +101,7 @@ public class NovelaDAO implements NovelaRepositorio {
                     novela.setGenero(resultSet.getString("Genero"));
                     novela.setEdadLecturaSugerida(resultSet.getInt("EdadLecturaSugerida"));
                     novela.setCantEjemplares(resultSet.getInt("CantEjemplares"));
+                    novela.setCantPrestados(resultSet.getInt("CantPrestados"));
                     novelas.add(novela);
                 }
             }
