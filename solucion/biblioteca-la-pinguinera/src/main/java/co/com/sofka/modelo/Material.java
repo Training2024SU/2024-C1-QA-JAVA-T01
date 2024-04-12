@@ -16,7 +16,6 @@ public abstract class Material {
     protected int cantidadEjemplares;
     protected int cantidadPrestados;
     protected int cantidadDisponible;
-
     protected boolean fueBorrado = false;
 
 }

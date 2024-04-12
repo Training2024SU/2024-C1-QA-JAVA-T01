@@ -1,10 +1,8 @@
 package co.com.sofka.servicio;
 
-import co.com.sofka.modelo.RolUsuario;
+import co.com.sofka.util.RolUsuario;
 import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.RepositorioUsuario;
-
-import java.util.List;
 
 public class ServicioUsuario {
 

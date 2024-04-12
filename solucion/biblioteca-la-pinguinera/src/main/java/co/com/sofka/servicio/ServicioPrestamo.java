@@ -4,6 +4,7 @@ import co.com.sofka.modelo.*;
 import co.com.sofka.repositorio.RepositorioLibro;
 import co.com.sofka.repositorio.RepositorioNovela;
 import co.com.sofka.repositorio.RepositorioPrestamo;
+import co.com.sofka.util.EstadoPrestamo;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;

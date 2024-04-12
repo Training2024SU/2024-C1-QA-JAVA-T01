@@ -1,5 +1,6 @@
 package co.com.sofka.modelo;
 
+import co.com.sofka.util.EstadoPrestamo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

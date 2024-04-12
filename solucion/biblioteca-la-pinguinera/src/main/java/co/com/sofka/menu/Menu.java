@@ -1,6 +1,6 @@
 package co.com.sofka.menu;
 
-import co.com.sofka.modelo.RolUsuario;
+import co.com.sofka.util.RolUsuario;
 import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.*;
 import co.com.sofka.servicio.ServicioNovela;
@@ -397,7 +397,7 @@ public class Menu {
     }
 
     public static void listarPrestamosRealizados(Scanner scanner){
-        System.out.println("Listando prestamos en estado REALIZADO \nIngrese el correo del usuario");
+        System.out.println(PRIMER_MENSAJE_PRESTAMO_REALIZADO);
         String correoUsuarioPrestamos = scanner.nextLine();
 
         servicioPrestamo.listarPrestamosRealizados(correoUsuarioPrestamos);

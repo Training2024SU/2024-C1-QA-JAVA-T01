@@ -15,12 +15,12 @@ public class ConstantesMenu {
 
     static String MENSAJE_INGRESO_EXITOSO = "Ingreso exitoso, bienvenido ";
     static String MENSAJE_INGRESO_FALLIDO = "Usuario o contraseña incorrectos";
-
     static String MENSAJE_MENU_CUALQUIER_ROL = "Seleccione una de las siguientes opciones, presione 0 para cerrar la aplicacion";
+
     static String OPCIONES_ADMINISTRADOR = "1.Crear Asistentes\n2.Listar Asistentes\n";
     static String OPCIONES_LECTOR = "1.Listar Autores de Libros\n2.Listar Autores de Novelas \n3.Listar Libros disponibles \n4.Listar Novelas disponibles \n5.Realizar Prestamo Libro \n6.Realizar Prestamo Novela";
-
     static String OPCIONES_ASISTENTE = "1.Crear Libro \n2.Crear Novela\n3.Listar Autores de Libros\n4.Listar Autores de Novelas\n5.Listar Libros por Autor\n6.Listar Novelas por Autor\n7.Listar Prestamos solicitados \n8.Realizar prestamos solicitados \n9.Listar prestamos realizados \n10.Finalizar pestamos realizados \n11.Modificar un libro \n12.Modificar una novela \n13.Borrar Libro \n14.Borrar Novela";
+
     static String PRIMER_MENSAJE_GUARDAR_LIBRO = "Guardar libro ...\nPor favor ingrese el titulo del libro a guardar";
     static String SEGUNDO_MENSAJE_GUARDAR_LIBRO = "Por favor ingrese el nombre del autor del libro";
     static String TERCER_MENSAJE_GUARDAR_LIBRO = "Por favor ingrese la cantidad de ejemplares del libro";
@@ -53,7 +53,9 @@ public class ConstantesMenu {
     static String PRIMER_MENSAJE_PRESTAMO_SOLICITADO = "A continuacion, se listan los prestamos en estado de solicitado";
 
     static String SEGUNDO_MENSAJE_PRESTAMO_SOLICITADO = "Ingrese el id del prestamo para realizarlo";
-    static String PRIMER_MENSAJE_PRESTAMO_REALIZADO = "A continuacion, se listan los prestamos en estado de realizado";
+    //Mensajes prestamos en estado realizado
+    static String PRIMER_MENSAJE_PRESTAMO_REALIZADO = "Listando prestamos en estado REALIZADO \nIngrese el correo del usuario";
+      //  "A continuacion, se listan los prestamos en estado de realizado";
     static String SEGUNDO_MENSAJE_PRESTAMO_REALIZADO= "Prestamo realizado con exito";
     static String PRIMER_MENSAJE_PRESTAMO_FINALIZADO = "Ingrese el id del prestamo para finalizarlo";
     static String SEGUNDO_MENSAJE_PRESTAMO_FINALIZADO ="Prestamo finalizado con exito";

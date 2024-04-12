@@ -1,4 +1,4 @@
-package co.com.sofka.modelo;
+package co.com.sofka.util;
 
 public enum RolUsuario {
     ADMINISTRADOR,
