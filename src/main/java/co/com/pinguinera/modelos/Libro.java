@@ -7,6 +7,7 @@ public class Libro {
     private String areaConocimiento;
     private int numPaginas;
     private int cantEjemplares;
+    private int cantEjemplaresPrestados; // Nuevo atributo
 
     // Getters y setters
 
@@ -58,6 +59,14 @@ public class Libro {
         this.cantEjemplares = cantEjemplares;
     }
 
+    public int getCantEjemplaresPrestados() {
+        return cantEjemplaresPrestados;
+    }
+
+    public void setCantEjemplaresPrestados(int cantEjemplaresPrestados) {
+        this.cantEjemplaresPrestados = cantEjemplaresPrestados;
+    }
+
     // Sobrescribe el método toString() para mostrar la información del libro de forma legible
     @Override
     public String toString() {
@@ -68,6 +77,7 @@ public class Libro {
                 ", Área de conocimiento: '" + areaConocimiento + '\'' +
                 ", Número de páginas: " + numPaginas +
                 ", Cantidad de ejemplares: " + cantEjemplares +
+                ", Cantidad de ejemplares prestados: " + cantEjemplaresPrestados + // Mostrar el nuevo atributo
                 '}';
     }
 }
