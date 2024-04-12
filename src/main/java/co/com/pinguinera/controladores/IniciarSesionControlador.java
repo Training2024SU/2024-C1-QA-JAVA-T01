@@ -4,8 +4,8 @@ import co.com.pinguinera.DAO.AutenticacionDAO;
 import co.com.pinguinera.interfaces.LibroRepositorio;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
 import co.com.pinguinera.interfaces.PrestamoRepositorio;
+import co.com.pinguinera.interfaces.RolesRepositorio;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
 import co.com.pinguinera.modelos.TipoRol;
 import co.com.pinguinera.vistas.MenuAdministrador;
 import co.com.pinguinera.vistas.MenuAsistente;
@@ -19,23 +19,28 @@ public class IniciarSesionControlador {
     private final Scanner scanner;
     private final AutenticacionDAO autenticacionDAO;
     private final UsuarioRepositorio usuarioRepositorio;
-    private final UsuarioRolesRepositorio usuarioRolesRepositorio;
+    private final RolesRepositorio rolesRepositorio;
     private final LibroRepositorio libroRepositorio;
     private final NovelaRepositorio novelaRepositorio;
     private final PrestamoRepositorio prestamoRepositorio;
 
     // Constructor del controlador
-    public IniciarSesionControlador(Scanner scanner, AutenticacionDAO autenticacionDAO,
-                                    UsuarioRepositorio usuarioRepositorio, UsuarioRolesRepositorio usuarioRolesRepositorio,
-                                    LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio,
-                                    PrestamoRepositorio prestamoRepositorio) {
+    public IniciarSesionControlador(
+            Scanner scanner,
+            AutenticacionDAO autenticacionDAO,
+            UsuarioRepositorio usuarioRepositorio,
+            RolesRepositorio rolesRepositorio,
+            LibroRepositorio libroRepositorio,
+            NovelaRepositorio novelaRepositorio,
+            PrestamoRepositorio prestamoRepositorio
+    ) {
         this.scanner = scanner;
         this.autenticacionDAO = autenticacionDAO;
         this.usuarioRepositorio = usuarioRepositorio;
-        this.usuarioRolesRepositorio = usuarioRolesRepositorio;
+        this.rolesRepositorio = rolesRepositorio;
         this.libroRepositorio = libroRepositorio;
         this.novelaRepositorio = novelaRepositorio;
-        this.prestamoRepositorio = prestamoRepositorio; // Inicialización de prestamoRepositorio
+        this.prestamoRepositorio = prestamoRepositorio;
     }
 
     public void iniciarSesion() {
@@ -64,7 +69,7 @@ public class IniciarSesionControlador {
                     MenuAdministrador menuAdministrador = new MenuAdministrador(
                             scanner,
                             usuarioRepositorio,
-                            usuarioRolesRepositorio,
+                            rolesRepositorio,
                             libroRepositorio,
                             novelaRepositorio
                     );
@@ -75,7 +80,7 @@ public class IniciarSesionControlador {
                             scanner,
                             libroRepositorio,
                             novelaRepositorio,
-                            prestamoRepositorio, // Añadir prestamoRepositorio
+                            prestamoRepositorio,
                             usuarioRepositorio.buscarUsuarioPorCorreo(correo).getUsuarioID()
                     );
                     menuLector.mostrarMenuLector();
@@ -85,7 +90,7 @@ public class IniciarSesionControlador {
                             scanner,
                             libroRepositorio,
                             novelaRepositorio,
-                            prestamoRepositorio // Añadir prestamoRepositorio
+                            prestamoRepositorio
                     );
                     menuAsistente.mostrarMenuAsistente();
                 } else {

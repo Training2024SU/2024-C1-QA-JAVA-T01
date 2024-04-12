@@ -1,48 +1,48 @@
 package co.com.pinguinera.vistas;
 
 import co.com.pinguinera.controladores.IniciarSesionControlador;
-import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
+import co.com.pinguinera.controladores.RegistrarLectorControlador;
 import co.com.pinguinera.DAO.AutenticacionDAO;
 import co.com.pinguinera.interfaces.LibroRepositorio;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
 import co.com.pinguinera.interfaces.PrestamoRepositorio;
+import co.com.pinguinera.interfaces.RolesRepositorio;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
 
 import java.util.Scanner;
 
 public class MenuPrincipal {
     private final Scanner scanner;
-    private final RegistrarUsuarioControlador registrarUsuarioControlador;
+    private final RegistrarLectorControlador registrarLectorControlador;
     private final AutenticacionDAO autenticacionDAO;
 
     // Declarar dependencias
     private final UsuarioRepositorio usuarioRepositorio;
-    private final UsuarioRolesRepositorio usuarioRolesRepositorio;
+    private final RolesRepositorio rolesRepositorio;
     private final LibroRepositorio libroRepositorio;
     private final NovelaRepositorio novelaRepositorio;
-    private final PrestamoRepositorio prestamoRepositorio; // Agregar PrestamoRepositorio
+    private final PrestamoRepositorio prestamoRepositorio;
 
     // Constructor
     public MenuPrincipal(
-            RegistrarUsuarioControlador registrarUsuarioControlador,
+            RegistrarLectorControlador registrarLectorControlador,
             AutenticacionDAO autenticacionDAO,
             Scanner scanner,
             UsuarioRepositorio usuarioRepositorio,
-            UsuarioRolesRepositorio usuarioRolesRepositorio,
+            RolesRepositorio rolesRepositorio,
             LibroRepositorio libroRepositorio,
             NovelaRepositorio novelaRepositorio,
-            PrestamoRepositorio prestamoRepositorio // Recibir PrestamoRepositorio
+            PrestamoRepositorio prestamoRepositorio
     ) {
-        this.scanner = scanner; // Usar la instancia de `Scanner` pasada como argumento
-        this.registrarUsuarioControlador = registrarUsuarioControlador;
+        this.scanner = scanner;
+        this.registrarLectorControlador = registrarLectorControlador;
         this.autenticacionDAO = autenticacionDAO;
         // Inicializar las dependencias
         this.usuarioRepositorio = usuarioRepositorio;
-        this.usuarioRolesRepositorio = usuarioRolesRepositorio;
+        this.rolesRepositorio = rolesRepositorio;
         this.libroRepositorio = libroRepositorio;
         this.novelaRepositorio = novelaRepositorio;
-        this.prestamoRepositorio = prestamoRepositorio; // Inicializar PrestamoRepositorio
+        this.prestamoRepositorio = prestamoRepositorio;
     }
 
     public void mostrarMenuPrincipal() {
@@ -51,10 +51,10 @@ public class MenuPrincipal {
                 scanner,
                 autenticacionDAO,
                 usuarioRepositorio,
-                usuarioRolesRepositorio,
+                rolesRepositorio,
                 libroRepositorio,
                 novelaRepositorio,
-                prestamoRepositorio // Pasar PrestamoRepositorio
+                prestamoRepositorio
         );
 
         while (true) {
@@ -71,10 +71,10 @@ public class MenuPrincipal {
 
                 switch (opcion) {
                     case 1:
-                        iniciarSesionControlador.iniciarSesion(); // Llamar al método iniciarSesionControlador
+                        iniciarSesionControlador.iniciarSesion();
                         break;
                     case 2:
-                        registrarUsuarioControlador.registrarLector();
+                        registrarLectorControlador.registrarLector();
                         break;
                     case 0:
                         System.out.println("Saliendo del programa...");

@@ -1,46 +1,27 @@
 package co.com.pinguinera.controladores;
-
-import co.com.pinguinera.interfaces.LibroRepositorio;
-import co.com.pinguinera.interfaces.NovelaRepositorio;
+import co.com.pinguinera.interfaces.RolesRepositorio;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
+import co.com.pinguinera.modelos.Usuario;
 
 public class MenuAdministradorControlador {
 
     private UsuarioRepositorio usuarioRepositorio;
-    private UsuarioRolesRepositorio usuarioRolesRepositorio;
-    private LibroRepositorio libroRepositorio;
-    private NovelaRepositorio novelaRepositorio;
+    private RolesRepositorio rolesRepositorio;
 
-    public MenuAdministradorControlador(UsuarioRepositorio usuarioRepositorio, UsuarioRolesRepositorio usuarioRolesRepositorio,
-                                        LibroRepositorio libroRepositorio, NovelaRepositorio novelaRepositorio) {
+    public MenuAdministradorControlador(UsuarioRepositorio usuarioRepositorio, RolesRepositorio rolesRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
-        this.usuarioRolesRepositorio = usuarioRolesRepositorio;
-        this.libroRepositorio = libroRepositorio;
-        this.novelaRepositorio = novelaRepositorio;
+        this.rolesRepositorio = rolesRepositorio;
+    }
+    // Método para actualizar un usuario
+    public void actualizarUsuario(Usuario usuario) {
+        usuarioRepositorio.actualizarUsuario(usuario);
+        System.out.println("Usuario actualizado con éxito.");
     }
 
-    public void gestionarAsistentes() {
-        // Lógica para gestionar asistentes
-        System.out.println("Gestión de asistentes...");
-        // Implementar lógica de negocio aquí
+    // Método para eliminar un usuario
+    public void eliminarUsuario(int usuarioId) {
+        usuarioRepositorio.eliminarUsuario(usuarioId);
+        System.out.println("Usuario eliminado con éxito.");
     }
 
-    public void gestionarLibros() {
-        // Lógica para gestionar libros
-        System.out.println("Gestión de libros...");
-        // Implementar lógica de negocio aquí
-    }
-
-    public void gestionarNovelas() {
-        // Lógica para gestionar novelas
-        System.out.println("Gestión de novelas...");
-        // Implementar lógica de negocio aquí
-    }
-
-    public void listarAutores() {
-        // Lógica para listar autores de libros y novelas
-        System.out.println("Listando autores...");
-        // Implementar lógica de negocio aquí
-    }
 }

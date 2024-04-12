@@ -1,14 +1,9 @@
 package co.com.pinguinera.interfaces;
 
-import co.com.pinguinera.modelos.TipoRol;
-
-import java.util.List;
-
 public interface RolesRepositorio {
-    void agregarRol(TipoRol rol);
-    void actualizarRol(int rolId, TipoRol nuevoRol);
-    void eliminarRol(int rolId);
-    List<TipoRol> obtenerTodosLosRoles();
-    TipoRol buscarRolPorNombre(String rolNombre);
+    // Métodos de RolesRepositorio
     boolean existeUsuarioConRolAdministrador();
+    // Métodos de UsuarioRolesRepositorio
+    void asignarRolAUsuario(int usuarioId, int rolId);
+
 }

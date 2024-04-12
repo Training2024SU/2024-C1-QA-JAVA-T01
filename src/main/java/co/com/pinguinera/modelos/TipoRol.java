@@ -15,6 +15,10 @@ public enum TipoRol {
         return rolID;
     }
 
+    public String getName() {
+        return this.name();  //
+    }
+
     // Método estático para obtener un objeto TipoRol a partir del nombre del rol
     public static TipoRol obtenerPorNombre(String nombre) {
         for (TipoRol rol : values()) {

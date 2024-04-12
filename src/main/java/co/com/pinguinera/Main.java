@@ -1,12 +1,12 @@
 package co.com.pinguinera;
 
 import co.com.pinguinera.DAO.*;
+import co.com.pinguinera.controladores.RegistrarLectorControlador;
 import co.com.pinguinera.interfaces.LibroRepositorio;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
-import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.interfaces.UsuarioRolesRepositorio;
 import co.com.pinguinera.interfaces.PrestamoRepositorio;
-import co.com.pinguinera.controladores.RegistrarUsuarioControlador;
+import co.com.pinguinera.interfaces.UsuarioRepositorio;
+import co.com.pinguinera.interfaces.RolesRepositorio; // Importar RolesRepositorio
 import co.com.pinguinera.vistas.MenuPrincipal;
 
 import java.sql.Connection;
@@ -22,8 +22,7 @@ public class Main {
 
             // Crear instancias de los DAOs necesarios
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
-            RolDAO rolDAO = new RolDAO(conexion);
-            UsuarioRolesDAO usuarioRolesDAO = new UsuarioRolesDAO(conexion);
+            RolesDAO rolesDAO = new RolesDAO(conexion);
             AutenticacionDAO autenticacionDAO = new AutenticacionDAO(conexion);
             LibroDAO libroDAO = new LibroDAO(conexion);
             NovelaDAO novelaDAO = new NovelaDAO(conexion);
@@ -31,7 +30,7 @@ public class Main {
 
             // Crear las interfaces necesarias a partir de los DAOs
             UsuarioRepositorio usuarioRepositorio = usuarioDAO;
-            UsuarioRolesRepositorio usuarioRolesRepositorio = usuarioRolesDAO;
+            RolesRepositorio rolesRepositorio = rolesDAO; // Asignar rolesDAO a rolesRepositorio
             LibroRepositorio libroRepositorio = libroDAO;
             NovelaRepositorio novelaRepositorio = novelaDAO;
             PrestamoRepositorio prestamoRepositorio = prestamoDAO; // Crear PrestamoRepositorio
@@ -39,16 +38,18 @@ public class Main {
             // Crear una instancia de Scanner para usar en toda la aplicación
             Scanner scanner = new Scanner(System.in);
 
-            // Crear instancia de RegistrarUsuarioControlador
-            RegistrarUsuarioControlador registrarUsuarioControlador = new RegistrarUsuarioControlador(usuarioDAO, rolDAO, usuarioRolesDAO, scanner);
+            // Crear instancia de RegistrarLectorControlador
+            RegistrarLectorControlador registrarLectorControlador = new RegistrarLectorControlador(
+                    usuarioDAO, rolesDAO, scanner
+            );
 
             // Crear instancia de MenuPrincipal y pasar todas las dependencias requeridas
             MenuPrincipal menuPrincipal = new MenuPrincipal(
-                    registrarUsuarioControlador,
+                    registrarLectorControlador,
                     autenticacionDAO,
                     scanner,
                     usuarioRepositorio,
-                    usuarioRolesRepositorio,
+                    rolesRepositorio, // Pasar rolesRepositorio
                     libroRepositorio,
                     novelaRepositorio,
                     prestamoRepositorio // Pasar PrestamoRepositorio a MenuPrincipal
