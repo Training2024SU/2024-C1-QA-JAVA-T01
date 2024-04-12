@@ -39,6 +39,7 @@ public class BorrowingMenu {
                 case 4 -> createRequest();
                 case 5 -> searchByEmail();
                 case 6 -> confirmBorrowing();
+                case 7 -> finalizeBorrowing();
                 case 8 -> deleteBorrowing();
                 case 0 -> {
                     return;
@@ -102,6 +103,19 @@ public class BorrowingMenu {
             System.out.println("Borrowing confirmed successfully");
         } catch (SQLException e) {
             System.out.println("Couldn't confirm this borrowing, " + e.getLocalizedMessage());
+        }
+    }
+
+    private void finalizeBorrowing() {
+        if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
+            return;
+        }
+        int borrowingId = askNumber("Type the id of the borrowing you want to finalize");
+        try {
+            borrowingsService.finalizeBorrowing(user, borrowingId);
+            System.out.println("Borrowing finalized successfully");
+        } catch (SQLException e) {
+            System.out.println("Couldn't finalize this borrowing, " + e.getLocalizedMessage());
         }
     }
 

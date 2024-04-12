@@ -93,7 +93,7 @@ public class BorrowingsService {
             borrowing.setBorrowedItems(itemsToBorrow.stream().toList());
 
             borrowingDAO.createBorrowing(borrowing);
-            updateItemsCopies(borrowing.getBorrowedItems(), 1);
+            updateItemsBorrowedCopies(borrowing.getBorrowedItems(), 1);
 
             connection.commit(); // commit transaction
             itemsToBorrow.clear(); // Clean this class set
@@ -118,7 +118,7 @@ public class BorrowingsService {
     /**
      * @param factor the amount of copies to sum (or rest if negative)
      */
-    private void updateItemsCopies(List<LibraryItem> items, int factor) throws SQLException {
+    private void updateItemsBorrowedCopies(List<LibraryItem> items, int factor) throws SQLException {
         for (LibraryItem li : items) {
             li.setCopiesBorrowed(li.getCopiesBorrowed() + factor);
             if (li instanceof Book) {
@@ -141,6 +141,24 @@ public class BorrowingsService {
             System.out.println("Borrowing deleted successfully");
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
+        }
+    }
+
+    public void finalizeBorrowing(User user, int borrowingId) throws SQLException {
+        try {
+            connection.setAutoCommit(false);
+
+            Borrowing borrowing = getBorrowingDetails(user, borrowingId);
+            borrowing.setStatusFinalized();
+            borrowingDAO.updateBorrowingStatus(borrowing);
+            updateItemsBorrowedCopies(borrowing.getBorrowedItems(), -1);
+
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
         }
     }
 }
