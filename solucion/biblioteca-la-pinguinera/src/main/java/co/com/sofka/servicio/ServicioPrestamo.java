@@ -115,7 +115,7 @@ public class ServicioPrestamo {
         }
 
         if(LocalDateTime.now().isAfter(prestamo.getFeachaDeEntrega())){
-            System.out.println("Usuario devolvio libro despues de la fecha de entrega");
+            System.out.println("Lector devuelve el libro despues de la fecha de entrega");
         }
 
         prestamo.setEstadoPrestamo(EstadoPrestamo.FINALIZADO);
