@@ -1,4 +1,4 @@
-package co.com.pinguinera.modelado.tipoPublicaciones;
+package co.com.pinguinera.modelado.herencia_publicacion;
 
 import co.com.pinguinera.modelado.AreaGenero;
 import co.com.pinguinera.modelado.EdadSugerida;

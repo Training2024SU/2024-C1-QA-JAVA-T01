@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_servicios;
 
-import co.com.pinguinera.modelado.tipoPublicaciones.Libro;
+import co.com.pinguinera.modelado.herencia_publicacion.Libro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,16 +20,15 @@ public class ServicioCRUDLibros {
 
     // Consultas SQL
     private static final String CONSULTA_LIBROS = "SELECT * FROM Publicacion WHERE tipo_publicacion = 'LIBRO'";
-    private static final String INSERTAR_LIBRO = "INSERT INTO Publicacion (titulo, autor, num_paginas, cant_ejemplares, cant_prestados, cant_disponible, tipo_publicacion) VALUES (?, ?, ?, ?, ?, ?, 'LIBRO')";
-    private static final String ACTUALIZAR_LIBRO = "UPDATE Publicacion SET titulo = ?, autor = ?, num_paginas = ?, cant_ejemplares = ?, cant_prestados = ?, cant_disponible = ? WHERE id = ? AND tipo_publicacion = 'LIBRO'";
-    private static final String ELIMINAR_LIBRO = "DELETE FROM Publicacion WHERE id = ? AND tipo_publicacion = 'LIBRO'";
+    private static final String INSERTAR_LIBRO = "INSERT INTO Publicacion (titulo, autor, num_paginas, cant_ejemplares, cant_prestados, tipo_publicacion) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String ACTUALIZAR_LIBRO = "UPDATE Publicacion SET titulo = ?, autor = ?, num_paginas = ?, cant_ejemplares = ?, cant_prestados = ? WHERE titulo = ? AND tipo_publicacion = 'LIBRO'";
+    private static final String ELIMINAR_LIBRO = "DELETE FROM Publicacion WHERE titulo = ? AND tipo_publicacion = 'LIBRO'";
+
 
     // Método para agregar un nuevo libro a la base de datos
     public void agregar(Libro libro) throws SQLException {
-        // Ajusta la consulta INSERT para excluir la columna cant_disponible
-        String sql = "INSERT INTO Publicacion (titulo, autor, num_paginas, cant_ejemplares, cant_prestados, tipo_publicacion) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(INSERTAR_LIBRO)) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
             statement.setInt(3, libro.getNumPaginas());
@@ -77,17 +76,17 @@ public class ServicioCRUDLibros {
             statement.setInt(3, libro.getNumPaginas());
             statement.setInt(4, libro.getCantEjemplares());
             statement.setInt(5, libro.getCantPrestados());
-            statement.setInt(6, libro.getCantDisponible());
-            statement.setInt(7, libro.getId());
+            statement.setString(6, libro.getTitulo());
             statement.executeUpdate();
         }
     }
 
     // Método para eliminar un libro de la base de datos
-    public void eliminar(int libroId) throws SQLException {
+    public void eliminar(String tituloLibro) throws SQLException {
         try (PreparedStatement statement = conexion.prepareStatement(ELIMINAR_LIBRO)) {
-            statement.setInt(1, libroId);
+            statement.setString(1, tituloLibro); // Usa el título en lugar de un ID numérico
             statement.executeUpdate();
         }
     }
+
 }

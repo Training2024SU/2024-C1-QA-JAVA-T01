@@ -1,7 +1,7 @@
 package co.com.pinguinera.capa_datos;
 
 import co.com.pinguinera.capa_datos.conexionBD.DataBase;
-import co.com.pinguinera.modelado.tipoPublicaciones.Novela;
+import co.com.pinguinera.modelado.herencia_publicacion.Novela;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -4,7 +4,7 @@ import co.com.pinguinera.capa_datos.conexionBD.DataBase;
 import co.com.pinguinera.capa_servicios.ServicioCRUDLibros;
 import co.com.pinguinera.modelado.AreaGenero;
 import co.com.pinguinera.modelado.EdadSugerida;
-import co.com.pinguinera.modelado.tipoPublicaciones.Libro;
+import co.com.pinguinera.modelado.herencia_publicacion.Libro;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,10 +20,10 @@ public class Main {
             ServicioCRUDLibros servicioCRUDLibros = new ServicioCRUDLibros(conexion);
 
             // Crea una instancia de Libro para agregar
-            String titulo = "El Quijote";
-            String autor = "Miguel de Cervantes";
-            int numPaginas = 1000;
-            int cantEjemplares = 5;
+            String titulo = "Amor profundo";
+            String autor = "Gabriel Garcia Marquez";
+            int numPaginas = 1200;
+            int cantEjemplares = 20;
             int cantPrestados = 0;
             int cantDisponible = cantEjemplares - cantPrestados;
 
@@ -56,10 +56,11 @@ public class Main {
 
             // Elimina el primer libro de la lista
             if (!libros.isEmpty()) {
-                int idLibroAEliminar = libros.get(0).getId(); // Asegúrate de tener un método getId() en Libro
-                servicioCRUDLibros.eliminar(idLibroAEliminar);
-                System.out.println("\nLibro eliminado con ID: " + idLibroAEliminar);
+                String tituloLibroAEliminar = libros.get(0).getTitulo(); // Obtén el título del primer libro en la lista
+                servicioCRUDLibros.eliminar(tituloLibroAEliminar); // Llama a eliminar con el título del libro
+                System.out.println("\nLibro eliminado con título: " + tituloLibroAEliminar);
             }
+
 
             // Vuelve a obtener todos los libros para ver los cambios
             System.out.println("\nLista actualizada de libros en la base de datos:");
