@@ -24,6 +24,37 @@ public class SincronizacionLibros {
         this.libroDAO = new LibroDAO();
     }
 
+    // Sincroniza la colección local de libros con la base de datos
+    public void sincronizarConBaseDatos(List<Libro> librosLocales) throws SQLException {
+        List<Libro> librosBD = libroDAO.obtenerTodosLosLibros();
+        Map<String, Libro> mapaLibrosLocales = new HashMap<>();
+
+        // Crear un mapa de libros locales por título
+        for (Libro libroLocal : librosLocales) {
+            mapaLibrosLocales.put(libroLocal.getTitulo(), libroLocal);
+        }
+
+        // Sincronizar libros existentes en la base de datos con la colección local
+        for (Libro libroBD : librosBD) {
+            String titulo = libroBD.getTitulo();
+            Libro libroLocal = mapaLibrosLocales.get(titulo);
+
+            if (libroLocal != null) {
+                // Actualizar libro existente
+                actualizarLibro(libroLocal);
+                mapaLibrosLocales.remove(titulo);
+            } else {
+                // Eliminar libro no presente en la colección local
+                eliminarLibro(titulo);
+            }
+        }
+
+        // Insertar libros restantes de la colección local a la base de datos
+        for (Libro libro : mapaLibrosLocales.values()) {
+            insertarLibro(libro);
+        }
+    }
+
     // Inserta un nuevo libro en la base de datos
     private void insertarLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = gestorBD.prepararConsulta(INSERTAR_LIBRO)) {
@@ -58,37 +89,6 @@ public class SincronizacionLibros {
             }
         } catch (SQLException e) {
             System.out.println("No se puede eliminar el libro '" + titulo + "' porque está relacionado con otros registros.");
-        }
-    }
-
-    // Sincroniza la colección local de libros con la base de datos
-    public void sincronizarConBaseDatos(List<Libro> librosLocales) throws SQLException {
-        List<Libro> librosBD = libroDAO.obtenerTodosLosLibros();
-        Map<String, Libro> mapaLibrosLocales = new HashMap<>();
-
-        // Crear un mapa de libros locales por título
-        for (Libro libroLocal : librosLocales) {
-            mapaLibrosLocales.put(libroLocal.getTitulo(), libroLocal);
-        }
-
-        // Sincronizar libros existentes en la base de datos con la colección local
-        for (Libro libroBD : librosBD) {
-            String titulo = libroBD.getTitulo();
-            Libro libroLocal = mapaLibrosLocales.get(titulo);
-
-            if (libroLocal != null) {
-                // Actualizar libro existente
-                actualizarLibro(libroLocal);
-                mapaLibrosLocales.remove(titulo);
-            } else {
-                // Eliminar libro no presente en la colección local
-                eliminarLibro(titulo);
-            }
-        }
-
-        // Insertar libros restantes de la colección local a la base de datos
-        for (Libro libro : mapaLibrosLocales.values()) {
-            insertarLibro(libro);
         }
     }
 
