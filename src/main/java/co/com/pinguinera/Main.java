@@ -1,10 +1,10 @@
 package co.com.pinguinera;
 
-import co.com.pinguinera.capa_datos.conexionBD.DataBase;
+import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.capa_servicios.ServicioCRUDLibros;
 import co.com.pinguinera.modelado.AreaGenero;
 import co.com.pinguinera.modelado.EdadSugerida;
-import co.com.pinguinera.modelado.herencia_publicacion.Libro;
+import co.com.pinguinera.modelado.publicaciones.Libro;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // Inicia la conexión a la base de datos
-        try (Connection conexion = DataBase.conectar()) {
+        try (Connection conexion = ConexionBD.conectar()) {
 
             // Crea una instancia de ServicioCRUDLibros y pasa la conexión
             ServicioCRUDLibros servicioCRUDLibros = new ServicioCRUDLibros(conexion);

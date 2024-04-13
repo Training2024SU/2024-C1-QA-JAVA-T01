@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_servicios;
 
-import co.com.pinguinera.modelado.herencia_publicacion.Libro;
+import co.com.pinguinera.modelado.publicaciones.Libro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

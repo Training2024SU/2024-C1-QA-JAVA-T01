@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataBase {
+public class ConexionBD {
     // URL de conexión a la base de datos
     private static final String URL = "jdbc:mysql://localhost:3306/pinguinera";
 
@@ -16,7 +16,7 @@ public class DataBase {
     private static Connection conexion;
 
     // Constructor privado para evitar instanciación externa
-    private DataBase() {}
+    private ConexionBD() {}
 
     // Método estático para obtener la conexión única a la base de datos
     public static Connection conectar() throws SQLException {

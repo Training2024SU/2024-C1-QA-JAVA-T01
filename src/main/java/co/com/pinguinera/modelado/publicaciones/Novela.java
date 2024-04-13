@@ -1,4 +1,4 @@
-package co.com.pinguinera.modelado.herencia_publicacion;
+package co.com.pinguinera.modelado.publicaciones;
 
 import co.com.pinguinera.modelado.enums.TipoPublicacion;
 import co.com.pinguinera.modelado.AreaGenero;

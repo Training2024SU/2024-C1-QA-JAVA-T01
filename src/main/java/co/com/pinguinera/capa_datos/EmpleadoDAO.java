@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.DataBase;
+import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.modelado.Empleado;
 
 import java.sql.Connection;
@@ -16,7 +16,7 @@ public class EmpleadoDAO {
     public List<Empleado> obtenerTodosLosEmpleados() throws SQLException {
         List<Empleado> empleados = new ArrayList<>();
 
-        Connection conexion = DataBase.conectar();
+        Connection conexion = ConexionBD.conectar();
 
         try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_EMPLEADOS);
              ResultSet resultSet = statement.executeQuery()) {

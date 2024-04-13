@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.DataBase;
+import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.modelado.AreaGenero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ public class AreaGeneroDAO {
     public List<AreaGenero> obtenerTodasLasAreasGeneros() throws SQLException {
         List<AreaGenero> areasGeneros = new ArrayList<>();
 
-        Connection conexion = DataBase.conectar();
+        Connection conexion = ConexionBD.conectar();
 
         try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_AREAS_GENERO);
              ResultSet resultSet = statement.executeQuery()) {

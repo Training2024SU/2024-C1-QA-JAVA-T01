@@ -1,7 +1,7 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.DataBase;
-import co.com.pinguinera.modelado.herencia_publicacion.Novela;
+import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
+import co.com.pinguinera.modelado.publicaciones.Novela;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +16,7 @@ public class NovelaDAO {
     public List<Novela> obtenerTodasLasNovelas() throws SQLException {
         List<Novela> novelas = new ArrayList<>();
 
-        Connection conexion = DataBase.conectar();
+        Connection conexion = ConexionBD.conectar();
         try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_NOVELAS);
              ResultSet resultSet = statement.executeQuery()) {
 

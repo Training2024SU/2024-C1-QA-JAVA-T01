@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.DataBase;
+import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.modelado.EdadSugerida;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ public class EdadSugeridaDAO {
     public List<EdadSugerida> obtenerTodasLasEdadesSugeridas() throws SQLException {
         List<EdadSugerida> edadesSugeridas = new ArrayList<>();
 
-        Connection conexion = DataBase.conectar();
+        Connection conexion = ConexionBD.conectar();
 
         try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_EDADES_SUGERIDAS);
              ResultSet resultSet = statement.executeQuery()) {

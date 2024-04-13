@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.DataBase;
+import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.modelado.Prestamo;
 import co.com.pinguinera.modelado.enums.EstadoPrestamo;
 
@@ -17,7 +17,7 @@ public class PrestamoDAO {
     public List<Prestamo> obtenerTodosLosPrestamos() throws SQLException {
         List<Prestamo> prestamos = new ArrayList<>();
 
-        Connection conexion = DataBase.conectar();
+        Connection conexion = ConexionBD.conectar();
 
         try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_PRESTAMOS);
              ResultSet resultSet = statement.executeQuery()) {
