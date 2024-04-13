@@ -2,21 +2,21 @@ package org.moreno.cristian.repositorios;
 
 import org.moreno.cristian.modelos.Libro;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface RepositorioLibro {
 
-    Optional<ArrayList<Libro>> todosLibros();
-    Optional<ArrayList<Libro>> todosPorAutor(String autor);
+    Optional<List<Libro>> todosLibros();
+    Optional<List<Libro>> todosPorAutor(String autor);
 
-    Optional<ArrayList<Libro>> todosDisponibles();
-    Optional<Libro> disponiblePorNombre(String nombreLibro);
-    Optional<ArrayList<Libro>> disponiblesPorAutor(String nombreAutor);
+    Optional<List<Libro>> todosDisponibles();
+    Optional<List<Libro>> disponiblePorNombreLibro(String nombreLibro);
+    Optional<List<Libro>> disponiblesPorAutor(String nombreAutor);
 
 
-    Optional<Libro> guardarLibro(Libro nuevoLibro);
-    Optional<Libro> eliminarLibro(Libro libro);
-    Optional<Libro> actualizarLibro(Libro libro);
+    boolean guardarLibro(Libro nuevoLibro);
+    boolean eliminarLibro(Libro libro);
+    boolean actualizarLibro(Libro libro);
 }
 

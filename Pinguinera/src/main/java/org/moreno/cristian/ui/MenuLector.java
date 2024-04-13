@@ -2,16 +2,28 @@ package org.moreno.cristian.ui;
 
 import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.Usuario;
+import org.moreno.cristian.servicios.ConexionBD;
 import org.moreno.cristian.servicios.ServicioLibro;
+import org.moreno.cristian.servicios.ServicioPublicacion;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class MenuLector {
 
     private static Scanner scan = new Scanner(System.in);
-    private static ServicioLibro servicioLibro = new ServicioLibro();
+    private static ServicioLibro servicioLibro;
+
+    static {
+        try {
+            servicioLibro = new ServicioLibro(new ServicioPublicacion(ConexionBD.obtenerConexion()), ConexionBD.obtenerConexion());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public static void home (Usuario lector) {
@@ -53,11 +65,11 @@ public class MenuLector {
             System.out.println(respuestaLector);
 
             if (respuestaLector.equals("1")) {
-                Optional<ArrayList<Libro>> librosOptional = servicioLibro.todosDisponibles();
+                Optional<List<Libro>> librosOptional = servicioLibro.todosDisponibles();
 
                 if (librosOptional.isPresent()) {
 
-                    ArrayList<Libro> libros = librosOptional.get();
+                    List<Libro> libros = librosOptional.get();
 
                     for (Libro libro : libros) {
                         System.out.println("Título: " + libro.getTitulo());
@@ -73,10 +85,10 @@ public class MenuLector {
 
                 System.out.print("Ingrese el nombre del autor: ");
                 String nombreAutor = scan.nextLine();
-                Optional<ArrayList<Libro>> librosOptional = servicioLibro.disponiblesPorAutor(nombreAutor);
+                Optional<List<Libro>> librosOptional = servicioLibro.disponiblesPorAutor(nombreAutor);
 
                 if (librosOptional.isPresent()) {
-                    ArrayList<Libro> libros = librosOptional.get();
+                    List<Libro> libros = librosOptional.get();
 
                     for (Libro libro : libros) {
                         System.out.println("\nTítulo: " + libro.getTitulo());
