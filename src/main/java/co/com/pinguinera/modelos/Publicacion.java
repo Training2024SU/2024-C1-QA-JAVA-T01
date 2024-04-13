@@ -1,10 +1,9 @@
 package co.com.pinguinera.modelos;
 
 import co.com.pinguinera.enums.TipoPublicacion;
-
 import java.util.List;
 
-public class Publicacion {
+public abstract class Publicacion {
     private String titulo;
     private TipoPublicacion tipoPublicacion; // Usa el enum TipoPublicacion
     private String autor;
