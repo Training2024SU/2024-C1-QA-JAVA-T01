@@ -28,5 +28,4 @@ public class BaseDatosImpl implements GestorBD {
         }
     }
 
-    // Puedes agregar otros métodos adicionales para interactuar con la base de datos si es necesario
 }
