@@ -17,7 +17,7 @@ public class LibroDAO implements LibroRepositorio {
 
     @Override
     public void agregarLibro(Libro libro) {
-        String sql = "INSERT INTO Libros (Titulo, Autor, AreaConocimiento, NumPaginas, CantEjemplares) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Libros (Titulo, Autor, AreaGenero, NumPaginas, CantEjemplares) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = conexion.prepareStatement(sql)) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
@@ -32,7 +32,7 @@ public class LibroDAO implements LibroRepositorio {
 
     @Override
     public void actualizarLibro(Libro libro) {
-        String sql = "UPDATE Libros SET Titulo = ?, Autor = ?, AreaConocimiento = ?, NumPaginas = ?, CantEjemplares = ? WHERE LibroID = ?";
+        String sql = "UPDATE Libros SET Titulo = ?, Autor = ?, AreaGenero = ?, NumPaginas = ?, CantEjemplares = ? WHERE LibroID = ?";
         try (PreparedStatement statement = conexion.prepareStatement(sql)) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
@@ -70,7 +70,7 @@ public class LibroDAO implements LibroRepositorio {
                 libro.setLibroID(resultSet.getInt("LibroID"));
                 libro.setTitulo(resultSet.getString("Titulo"));
                 libro.setAutor(resultSet.getString("Autor"));
-                libro.setAreaConocimiento(resultSet.getString("AreaConocimiento"));
+                libro.setAreaConocimiento(resultSet.getString("AreaGenero"));
                 libro.setNumPaginas(resultSet.getInt("NumPaginas"));
                 libro.setCantEjemplares(resultSet.getInt("CantEjemplares"));
                 libro.setCantPrestados(resultSet.getInt("CantPrestados")); // Cambiar a CantPrestados
@@ -97,7 +97,7 @@ public class LibroDAO implements LibroRepositorio {
                     libro.setLibroID(resultSet.getInt("LibroID"));
                     libro.setTitulo(resultSet.getString("Titulo"));
                     libro.setAutor(resultSet.getString("Autor"));
-                    libro.setAreaConocimiento(resultSet.getString("AreaConocimiento"));
+                    libro.setAreaConocimiento(resultSet.getString("AreaGenero"));
                     libro.setNumPaginas(resultSet.getInt("NumPaginas"));
                     libro.setCantEjemplares(resultSet.getInt("CantEjemplares"));
                     libro.setCantPrestados(resultSet.getInt("CantPrestados")); // Cambiar a CantPrestados
