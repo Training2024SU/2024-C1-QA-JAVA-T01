@@ -1,6 +1,6 @@
 package com.davidbonelo.models;
 
-public class LibraryItem {
+public abstract class LibraryItem {
     private int id;
     private String title;
     private String author;

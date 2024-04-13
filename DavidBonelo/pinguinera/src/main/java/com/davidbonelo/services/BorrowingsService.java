@@ -45,8 +45,10 @@ public class BorrowingsService {
     public Borrowing getBorrowingDetails(User user, int borrowingId) throws SQLException {
         Borrowing borrowing = borrowingDAO.getBorrowingWithItems(borrowingId);
         if (validPermission(user, UserRole.EMPLOYEE)) {
+            // Allow if is employee
             return borrowing;
-        } else if (user.getId() == borrowing.getBorrower().getId()) { // Is the owner
+        } else if (user.getId() == borrowing.getBorrower().getId()) {
+            // Allow if is the owner
             return borrowing;
         }
         return null;

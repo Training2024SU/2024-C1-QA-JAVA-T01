@@ -96,8 +96,10 @@ public class Borrowing {
     }
 
     public String toStringWithItems() {
-        StringBuilder stringBuilder = new StringBuilder(this + "Items: \n");
-        borrowedItems.forEach(stringBuilder::append);
+        StringBuilder stringBuilder = new StringBuilder(this + "\nItems list: \n");
+        if (borrowedItems != null) {
+            borrowedItems.forEach(stringBuilder::append);
+        }
         return stringBuilder.toString();
     }
 }

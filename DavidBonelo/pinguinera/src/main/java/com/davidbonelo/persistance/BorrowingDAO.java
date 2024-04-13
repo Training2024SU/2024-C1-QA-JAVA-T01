@@ -28,21 +28,25 @@ public class BorrowingDAO {
 
     private static Borrowing buildBorrowingFromResult(ResultSet rs) throws SQLException {
         UserRole role = UserRole.valueOf(rs.getString("role"));
-        User user = new User(rs.getString("name"), rs.getString("email"), role);
+        User user = new User(rs.getInt("user_id"), rs.getString("name"), rs.getString("email"),
+                role);
         return new Borrowing(rs.getInt("id"), rs.getDate("returned_date").toLocalDate(),
                 rs.getDate("requested_date").toLocalDate(), user);
     }
 
     public Borrowing getBorrowingWithItems(int borrowingId) throws SQLException {
-        String sql = "SELECT * FROM Borrowings b WHERE b.id = ?";
+        String sql = "SELECT b.*, u.name, u.email, u.role FROM (SELECT * FROM Borrowings b WHERE "
+                + "b.id " + "= ? ) AS b LEFT JOIN Users u ON b.user_id = u.id;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, borrowingId);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 Borrowing borrowing = buildBorrowingFromResult(rs);
                 borrowing.setBorrowedItems(getAllItemsForABorrowing(borrowing.getId()));
+                rs.close();
                 return borrowing;
             } else {
+                rs.close();
                 throw new SQLException("Borrowing with id " + borrowingId + " Not found");
             }
         }
@@ -66,11 +70,13 @@ public class BorrowingDAO {
      */
     public List<Borrowing> getAllBorrowingsAndItems() throws SQLException {
         List<Borrowing> borrowings = getAllBorrowings();
-        borrowings.forEach(b -> b.setBorrowedItems(getAllItemsForABorrowing(b.getId())));
+        for (Borrowing b : borrowings) {
+            b.setBorrowedItems(getAllItemsForABorrowing(b.getId()));
+        }
         return borrowings;
     }
 
-    public List<LibraryItem> getAllItemsForABorrowing(int borrowingId) {
+    public List<LibraryItem> getAllItemsForABorrowing(int borrowingId) throws SQLException {
         List<LibraryItem> items = new ArrayList<>();
         // Note to self: Don't try to optimize by joining this 2 queries because then it will not
         // be possible to diferenciate Books and Novels
@@ -79,7 +85,7 @@ public class BorrowingDAO {
                 "SELECT b.* FROM (SELECT * FROM borrowings_books bb WHERE bb.borrowing_id " + "=" + " ?) AS bb LEFT JOIN Books b ON bb.book_id = b.id";
         // SubQuery a borrowing and join its novels
         String sqlN = "SELECT n.* FROM (SELECT * FROM borrowings_novels bn WHERE bn.borrowing_id "
-                + "= ?) AS bn LEFT JOIN Novels n ON bb.novel_id = n.id";
+                + "= ?) AS bn LEFT JOIN Novels n ON bn.novel_id = n.id";
 
         try (PreparedStatement statementB = connection.prepareStatement(sqlB); PreparedStatement statementN = connection.prepareStatement(sqlN)) {
             statementB.setInt(1, borrowingId);
@@ -95,8 +101,6 @@ public class BorrowingDAO {
                     items.add(buildNovelFromResult(rsB));
                 }
             }
-        } catch (SQLException e) {
-            return null;
         }
         return items;
     }
