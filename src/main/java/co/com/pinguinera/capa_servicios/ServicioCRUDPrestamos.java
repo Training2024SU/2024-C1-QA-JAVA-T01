@@ -21,16 +21,10 @@ public class ServicioCRUDPrestamos {
         this.prestamoDAO = new PrestamoDAO();  // Crear una instancia de PrestamoDAO
     }
 
-    // Consulta SQL para insertar un préstamo
+
     private static final String INSERTAR_PRESTAMO = "INSERT INTO Prestamo (Fecha_prestamo, Fecha_devolucion, Estado, correo_usuario, titulo_publicacion) VALUES (?, ?, ?, ?, ?)";
-
-    // Consulta SQL para actualizar un préstamo
     private static final String ACTUALIZAR_PRESTAMO = "UPDATE Prestamo SET Fecha_prestamo = ?, Fecha_devolucion = ?, Estado = ?, correo_usuario = ?, titulo_publicacion = ? WHERE idPrestamo = ?";
-
-    // Consulta SQL para eliminar un préstamo
     private static final String ELIMINAR_PRESTAMO = "DELETE FROM Prestamo WHERE idPrestamo = ?";
-
-
 
     // Método para obtener todos los préstamos desde la base de datos utilizando PrestamoDAO
     public List<Prestamo> obtenerTodos() throws SQLException {

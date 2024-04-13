@@ -1,51 +1,53 @@
 package co.com.pinguinera;
 
 import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
-
-
-import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
-import co.com.pinguinera.capa_servicios.ServicioCRUDPrestamos;
-import co.com.pinguinera.capa_servicios.interfaces.GestorBD;
-import co.com.pinguinera.modelado.Prestamo;
-import co.com.pinguinera.modelado.enums.EstadoPrestamo;
 import co.com.pinguinera.capa_datos.ImplBD.BaseDatosImpl;
-
+import co.com.pinguinera.capa_servicios.ServicioCRUDLibros;
+import co.com.pinguinera.capa_servicios.SincronizacionLibros;
+import co.com.pinguinera.modelado.publicaciones.Libro;
+import co.com.pinguinera.modelado.AreaGenero;
+import co.com.pinguinera.modelado.EdadSugerida;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         try (Connection conexion = ConexionBD.conectar()) {
-            // La conexión a la base de datos se ha abierto exitosamente.
             System.out.println("Conexión a la base de datos abierta con éxito.");
 
             // Crea una instancia de BaseDatosImpl
             BaseDatosImpl baseDatosImpl = new BaseDatosImpl(conexion);
 
-            // Crea una instancia de ServicioCRUDPrestamos usando BaseDatosImpl
-            ServicioCRUDPrestamos servicioPrestamos = new ServicioCRUDPrestamos(baseDatosImpl);
+            // Crea una instancia de ServicioCRUDLibros
+            ServicioCRUDLibros servicioLibros = new ServicioCRUDLibros();
 
-            // Probar agregar() con datos realistas
-            Prestamo nuevoPrestamo = new Prestamo();
-            nuevoPrestamo.setFechaPrestamo(LocalDate.now());
-            nuevoPrestamo.setFechaDevolucion(LocalDate.now().plusWeeks(2)); // Devuelve el préstamo en 2 semanas
-            nuevoPrestamo.setEstado(EstadoPrestamo.SOLICITADO); // Estado inicial: SOLICITADO
-            nuevoPrestamo.setCorreoUsuario("mariana.sandoval@example.com"); // Correo existente en tu base de datos
-            nuevoPrestamo.setTituloPublicacion("100 años de soledad"); // Título existente en tu base de datos
-            servicioPrestamos.agregar(nuevoPrestamo);
-            System.out.println("Nuevo préstamo agregado con éxito.");
+            // Crea una instancia de SincronizacionLibros
+            SincronizacionLibros sincronizacionLibros = new SincronizacionLibros(baseDatosImpl);
 
-            // Probar obtenerTodos()
-            List<Prestamo> prestamos = servicioPrestamos.obtenerTodos();
-            System.out.println("Lista de todos los préstamos:");
-            for (Prestamo prestamo : prestamos) {
-                System.out.println(prestamo);
+            List<AreaGenero> areas = List.of();
+            List<EdadSugerida> edades = List.of();
+
+            // Añadir nuevos libros a la colección local
+            servicioLibros.agregar(new Libro("The Hobbit", "J.R.R. Tolkien", 310, 25, 12, 13, areas, edades));
+            servicioLibros.agregar(new Libro("Moby Dick", "Herman Melville", 635, 10, 4, 6, areas, edades));
+            servicioLibros.agregar(new Libro("The Lord of the Rings", "J.R.R. Tolkien", 1216, 15, 7, 8, areas, edades));
+            servicioLibros.agregar(new Libro("Brave New World", "Aldous Huxley", 268, 20, 10, 10, areas, edades));
+            servicioLibros.agregar(new Libro("The Old Man and the Sea", "Ernest Hemingway", 127, 12, 5, 7, areas, edades));
+            servicioLibros.agregar(new Libro("Wuthering Heights", "Emily Bronte", 400, 18, 8, 10, areas, edades));
+            servicioLibros.agregar(new Libro("Great Expectations", "Charles Dickens", 544, 16, 6, 10, areas, edades));
+
+            // Muestra todos los libros de la colección local
+            List<Libro> libros = servicioLibros.obtenerTodos();
+            System.out.println("Lista de libros en la colección local:");
+            for (Libro libro : libros) {
+                System.out.println(libro);
             }
 
-
+            // Sincroniza los cambios en la colección local con la base de datos
+            sincronizacionLibros.sincronizarConBaseDatos(libros);
+            System.out.println("Colección local sincronizada con la base de datos.");
 
         } catch (SQLException e) {
             System.err.println("Error al interactuar con la base de datos: " + e.getMessage());
