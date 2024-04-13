@@ -9,6 +9,9 @@ import java.util.List;
 
 public class Libro extends Publicacion {
 
+    // Campo de identificación
+    private int id;
+
     public Libro() {
         // Establecer tipo de publicación a LIBRO de forma predeterminada
         super();
@@ -20,4 +23,13 @@ public class Libro extends Publicacion {
         super(titulo, TipoPublicacion.LIBRO, autor, numPaginas, cantEjemplares, cantPrestados, cantDisponible, areas, edades);
     }
 
+    // Agregar método getter para ID
+    public int getId() {
+        return id;
+    }
+
+    // Agregar método setter para ID
+    public void setId(int id) {
+        this.id = id;
+    }
 }
