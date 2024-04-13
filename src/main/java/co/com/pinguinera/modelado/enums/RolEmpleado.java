@@ -1,6 +1,6 @@
 package co.com.pinguinera.modelado.enums;
 
-public enum RolUsuario {
+public enum RolEmpleado {
     ADMINISTRATIVO,
     ASISTENTE
 }

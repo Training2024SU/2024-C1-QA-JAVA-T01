@@ -1,7 +1,7 @@
 package co.com.pinguinera.capa_datos;
 
 import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
-import co.com.pinguinera.modelado.enums.RolUsuario;
+import co.com.pinguinera.modelado.enums.RolEmpleado;
 import co.com.pinguinera.modelado.Usuario;
 
 import java.sql.Connection;
@@ -26,7 +26,6 @@ public class UsuarioDAO {
                 usuario.setCorreo(resultSet.getString("Correo"));
                 usuario.setNombre(resultSet.getString("Nombre"));
                 usuario.setContrasena(resultSet.getString("Contraseña"));
-                usuario.setRol(RolUsuario.valueOf(resultSet.getString("Rol")));
 
                 usuarios.add(usuario);
             }

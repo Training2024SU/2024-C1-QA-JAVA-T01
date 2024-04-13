@@ -1,32 +1,26 @@
 package co.com.pinguinera.capa_servicios;
 
-import co.com.pinguinera.modelado.publicaciones.Libro;
+import co.com.pinguinera.capa_datos.LibroDAO; // Importa LibroDAO
 import co.com.pinguinera.capa_servicios.interfaces.GestorBD;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import co.com.pinguinera.modelado.publicaciones.Libro;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioCRUDLibros {
 
     private GestorBD gestorBD;
+    private LibroDAO libroDAO; // Declara la variable LibroDAO
 
     // Constructor que recibe una instancia de GestorBD
     public ServicioCRUDLibros(GestorBD gestorBD) {
         this.gestorBD = gestorBD;
+        // Inicializa LibroDAO
+        this.libroDAO = new LibroDAO();
     }
-
-    // Consultas SQL
-    private static final String CONSULTA_LIBROS = "SELECT * FROM Publicacion WHERE tipo_publicacion = 'LIBRO'";
-    private static final String INSERTAR_LIBRO = "INSERT INTO Publicacion (titulo, autor, num_paginas, cant_ejemplares, cant_prestados, tipo_publicacion) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String ACTUALIZAR_LIBRO = "UPDATE Publicacion SET titulo = ?, autor = ?, num_paginas = ?, cant_ejemplares = ?, cant_prestados = ? WHERE titulo = ? AND tipo_publicacion = 'LIBRO'";
-    private static final String ELIMINAR_LIBRO = "DELETE FROM Publicacion WHERE titulo = ? AND tipo_publicacion = 'LIBRO'";
 
     // Método para agregar un nuevo libro a la base de datos
     public void agregar(Libro libro) throws SQLException {
-        try (PreparedStatement statement = gestorBD.prepararConsulta(INSERTAR_LIBRO)) {
+        try (var statement = gestorBD.prepararConsulta("INSERT INTO Publicacion (titulo, autor, num_paginas, cant_ejemplares, cant_prestados, tipo_publicacion) VALUES (?, ?, ?, ?, ?, ?)")) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
             statement.setInt(3, libro.getNumPaginas());
@@ -41,34 +35,13 @@ public class ServicioCRUDLibros {
 
     // Método para obtener todos los libros desde la base de datos
     public List<Libro> obtenerTodos() throws SQLException {
-        List<Libro> libros = new ArrayList<>();
-
-        try (PreparedStatement statement = gestorBD.prepararConsulta(CONSULTA_LIBROS);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                // Crear una instancia de Libro
-                Libro libro = new Libro(
-                        resultSet.getString("titulo"),
-                        resultSet.getString("autor"),
-                        resultSet.getInt("num_paginas"),
-                        resultSet.getInt("cant_ejemplares"),
-                        resultSet.getInt("cant_prestados"),
-                        resultSet.getInt("cant_disponible"),
-                        null, // áreas (debes consultar otra tabla si hay datos adicionales)
-                        null  // edades (lo mismo que áreas)
-                );
-
-                // Añadir el libro a la lista
-                libros.add(libro);
-            }
-        }
-
-        return libros;
+        // Reutiliza el método de LibroDAO
+        return libroDAO.obtenerTodosLosLibros();
     }
 
     // Método para actualizar un libro existente en la base de datos
     public void actualizar(Libro libro) throws SQLException {
-        try (PreparedStatement statement = gestorBD.prepararConsulta(ACTUALIZAR_LIBRO)) {
+        try (var statement = gestorBD.prepararConsulta("UPDATE Publicacion SET titulo = ?, autor = ?, num_paginas = ?, cant_ejemplares = ?, cant_prestados = ? WHERE titulo = ? AND tipo_publicacion = 'LIBRO'")) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
             statement.setInt(3, libro.getNumPaginas());
@@ -81,8 +54,8 @@ public class ServicioCRUDLibros {
 
     // Método para eliminar un libro de la base de datos
     public void eliminar(String tituloLibro) throws SQLException {
-        try (PreparedStatement statement = gestorBD.prepararConsulta(ELIMINAR_LIBRO)) {
-            statement.setString(1, tituloLibro); // Usa el título en lugar de un ID numérico
+        try (var statement = gestorBD.prepararConsulta("DELETE FROM Publicacion WHERE titulo = ? AND tipo_publicacion = 'LIBRO'")) {
+            statement.setString(1, tituloLibro);
             statement.executeUpdate();
         }
     }

@@ -1,23 +1,19 @@
 package co.com.pinguinera.modelado;
 
-import co.com.pinguinera.modelado.enums.RolUsuario;
-
 public class Usuario {
     private String correo;
     private String nombre;
     private String contrasena;
-    private RolUsuario rol; // Atributo para el rol del usuario
 
     public Usuario() {
         // Constructor vacío
     }
 
     // Constructor con todos los campos
-    public Usuario(String correo, String nombre, String contrasena, RolUsuario rol) {
+    public Usuario(String correo, String nombre, String contrasena) {
         this.correo = correo;
         this.nombre = nombre;
         this.contrasena = contrasena;
-        this.rol = rol; // Inicializa el rol
     }
 
     // Getters y Setters
@@ -45,21 +41,12 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public RolUsuario getRol() {
-        return rol;
-    }
-
-    public void setRol(RolUsuario rol) {
-        this.rol = rol;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
                 "correo='" + correo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", contrasena='" + contrasena + '\'' +
-                ", rol=" + rol + // Incluye el rol en la representación textual
                 '}';
     }
 }
