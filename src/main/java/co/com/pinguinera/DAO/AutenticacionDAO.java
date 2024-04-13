@@ -1,7 +1,5 @@
 package co.com.pinguinera.DAO;
 
-import co.com.pinguinera.modelos.TipoRol;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,7 +1,5 @@
 package co.com.pinguinera.interfaces;
 
-import co.com.pinguinera.modelos.Novela;
-
 import java.util.List;
 
 public interface NovelaRepositorio {

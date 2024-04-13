@@ -3,8 +3,6 @@ package co.com.pinguinera.controladores;
 import java.util.Scanner;
 import co.com.pinguinera.interfaces.RolesRepositorio;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.modelos.TipoRol;
-import co.com.pinguinera.modelos.Usuario;
 import co.com.pinguinera.vistas.Notificaciones;
 
 public class GestionarUsuariosAdministradorControlador {

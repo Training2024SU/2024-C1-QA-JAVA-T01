@@ -1,7 +1,5 @@
 package co.com.pinguinera.vistas;
 
-import co.com.pinguinera.modelos.TipoRol;
-
 public class Notificaciones {
 
     // Método para mostrar mensaje de autenticación exitosa

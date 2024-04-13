@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DataBase {
     // URL de conexión a la base de datos
-    private static final String URL = "jdbc:mysql://localhost:3306/biblioteca_la_pinguinera";
+    private static final String URL = "jdbc:mysql://localhost:3306/pinguinera";
 
     // Nombre de usuario y contraseña para acceder a la base de datos
     private static final String USUARIO = "root";

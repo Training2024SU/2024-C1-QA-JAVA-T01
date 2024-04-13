@@ -1,6 +1,5 @@
 package co.com.pinguinera.DAO;
 
-import co.com.pinguinera.modelos.Novela;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
 
 import java.sql.Connection;

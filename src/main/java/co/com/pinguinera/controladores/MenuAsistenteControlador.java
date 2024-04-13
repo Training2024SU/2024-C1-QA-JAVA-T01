@@ -3,9 +3,6 @@ package co.com.pinguinera.controladores;
 import co.com.pinguinera.interfaces.LibroRepositorio;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
 import co.com.pinguinera.interfaces.PrestamoRepositorio;
-import co.com.pinguinera.modelos.Libro;
-import co.com.pinguinera.modelos.Novela;
-import co.com.pinguinera.modelos.Prestamo;
 
 import java.util.Date;
 import java.util.List;

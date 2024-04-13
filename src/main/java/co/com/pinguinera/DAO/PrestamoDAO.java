@@ -1,6 +1,5 @@
 package co.com.pinguinera.DAO;
 
-import co.com.pinguinera.modelos.Prestamo;
 import co.com.pinguinera.interfaces.PrestamoRepositorio;
 
 import java.sql.Connection;

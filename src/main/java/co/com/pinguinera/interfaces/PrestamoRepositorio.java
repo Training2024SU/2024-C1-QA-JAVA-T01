@@ -1,7 +1,5 @@
 package co.com.pinguinera.interfaces;
 
-import co.com.pinguinera.modelos.Prestamo;
-
 import java.util.List;
 import java.util.Date;
 

@@ -6,7 +6,6 @@ import co.com.pinguinera.interfaces.LibroRepositorio;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
 import co.com.pinguinera.interfaces.RolesRepositorio;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.modelos.Usuario;
 
 import java.util.Scanner;
 

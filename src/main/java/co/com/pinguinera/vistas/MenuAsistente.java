@@ -4,8 +4,6 @@ import co.com.pinguinera.controladores.MenuAsistenteControlador;
 import co.com.pinguinera.interfaces.LibroRepositorio;
 import co.com.pinguinera.interfaces.NovelaRepositorio;
 import co.com.pinguinera.interfaces.PrestamoRepositorio;
-import co.com.pinguinera.modelos.Libro;
-import co.com.pinguinera.modelos.Novela;
 
 import java.sql.Date;
 import java.util.InputMismatchException;

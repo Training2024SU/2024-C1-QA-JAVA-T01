@@ -1,6 +1,5 @@
 package co.com.pinguinera.DAO;
 
-import co.com.pinguinera.modelos.Usuario;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
 
 import java.sql.Connection;

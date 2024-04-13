@@ -1,7 +1,6 @@
 package co.com.pinguinera.controladores;
 import co.com.pinguinera.interfaces.RolesRepositorio;
 import co.com.pinguinera.interfaces.UsuarioRepositorio;
-import co.com.pinguinera.modelos.Usuario;
 
 public class MenuAdministradorControlador {
 

@@ -1,7 +1,5 @@
 package co.com.pinguinera.interfaces;
 
-import co.com.pinguinera.modelos.Usuario;
-
 import java.util.List;
 
 public interface UsuarioRepositorio {

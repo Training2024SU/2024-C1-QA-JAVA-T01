@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import co.com.pinguinera.DAO.RolesDAO;
 import co.com.pinguinera.DAO.UsuarioDAO;
-import co.com.pinguinera.modelos.TipoRol;
-import co.com.pinguinera.modelos.Usuario;
 import co.com.pinguinera.vistas.Notificaciones;
 
 public class RegistrarLectorControlador {

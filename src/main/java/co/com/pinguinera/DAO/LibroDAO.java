@@ -1,6 +1,5 @@
 package co.com.pinguinera.DAO;
 
-import co.com.pinguinera.modelos.Libro;
 import co.com.pinguinera.interfaces.LibroRepositorio;
 
 import java.sql.*;
