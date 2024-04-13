@@ -1,12 +1,13 @@
 package co.com.pinguinera.modelos;
 
+import co.com.pinguinera.enums.EstadoPrestamo;
 import java.time.LocalDate;
 
 public class Prestamo {
     private int idPrestamo;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
-    private String estado;
+    private EstadoPrestamo estado; // Usamos la clase EstadoPrestamo
     private String correoUsuario;
     private String tituloPublicacion;
 
@@ -15,7 +16,7 @@ public class Prestamo {
     }
 
     // Constructor con todos los campos
-    public Prestamo(int idPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String estado, String correoUsuario, String tituloPublicacion) {
+    public Prestamo(int idPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, EstadoPrestamo estado, String correoUsuario, String tituloPublicacion) {
         this.idPrestamo = idPrestamo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
@@ -49,11 +50,11 @@ public class Prestamo {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    public String getEstado() {
+    public EstadoPrestamo getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPrestamo estado) {
         this.estado = estado;
     }
 
@@ -79,7 +80,7 @@ public class Prestamo {
                 "idPrestamo=" + idPrestamo +
                 ", fechaPrestamo=" + fechaPrestamo +
                 ", fechaDevolucion=" + fechaDevolucion +
-                ", estado='" + estado + '\'' +
+                ", estado=" + estado +
                 ", correoUsuario='" + correoUsuario + '\'' +
                 ", tituloPublicacion='" + tituloPublicacion + '\'' +
                 '}';

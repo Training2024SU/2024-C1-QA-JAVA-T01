@@ -1,5 +1,7 @@
 package co.com.pinguinera.modelos;
 
+import co.com.pinguinera.enums.RolUsuario;
+
 public class Usuario {
     private String correo;
     private String nombre;

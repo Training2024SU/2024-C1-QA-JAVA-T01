@@ -1,4 +1,4 @@
-package co.com.pinguinera.util;
+package co.com.pinguinera.enums;
 
 public enum RolUsuario {
     ADMINISTRATIVO,
