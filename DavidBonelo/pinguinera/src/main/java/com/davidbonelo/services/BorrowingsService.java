@@ -79,8 +79,8 @@ public class BorrowingsService {
             if (validPermission(user, UserRole.EMPLOYEE)) {
                 return borrowings;
             } else {
-                // Filter if user isn't owner
-                return borrowings.stream().filter(b -> b.getId() == user.getId()).toList();
+                // Filter only the ones where user is owner
+                return borrowings.stream().filter(b -> b.getBorrower().getId() == user.getId()).toList();
             }
         } catch (SQLException e) {
             e.printStackTrace();

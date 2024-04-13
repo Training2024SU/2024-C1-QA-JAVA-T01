@@ -18,8 +18,7 @@ public class Borrowing {
         this.borrower = borrower;
     }
 
-    public Borrowing(int id, LocalDate returnDate,
-                     LocalDate requestedDate, User borrower) {
+    public Borrowing(int id, LocalDate returnDate, LocalDate requestedDate, User borrower) {
         this.id = id;
         this.requestedDate = requestedDate;
         setReturnDate(returnDate);
@@ -85,14 +84,8 @@ public class Borrowing {
 
     @Override
     public String toString() {
-        return "Borrowing{" +
-                "borrowerId=" + borrower.getId() +
-                "borrower=" + borrower.getName() +
-                ", id=" + id +
-                ", requestedDate=" + requestedDate +
-                ", returnDate=" + returnDate +
-                ", status=" + status +
-                '}';
+        return "Borrowing{borrowerId=" + borrower.getId() + ", borrower=" + borrower.getName() +
+                ", id=" + id + ", requestedDate=" + requestedDate + ", returnDate=" + returnDate + ", status=" + status + '}';
     }
 
     public String toStringWithItems() {
