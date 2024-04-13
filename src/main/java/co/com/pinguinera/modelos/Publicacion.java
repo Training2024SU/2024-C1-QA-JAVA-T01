@@ -1,10 +1,12 @@
 package co.com.pinguinera.modelos;
 
+import co.com.pinguinera.enums.TipoPublicacion;
+
 import java.util.List;
 
 public class Publicacion {
     private String titulo;
-    private String tipoPublicacion;
+    private TipoPublicacion tipoPublicacion; // Usa el enum TipoPublicacion
     private String autor;
     private int numPaginas;
     private int cantEjemplares;
@@ -18,7 +20,7 @@ public class Publicacion {
     }
 
     // Constructor con todos los campos
-    public Publicacion(String titulo, String tipoPublicacion, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
+    public Publicacion(String titulo, TipoPublicacion tipoPublicacion, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
         this.titulo = titulo;
         this.tipoPublicacion = tipoPublicacion;
         this.autor = autor;
@@ -39,11 +41,11 @@ public class Publicacion {
         this.titulo = titulo;
     }
 
-    public String getTipoPublicacion() {
+    public TipoPublicacion getTipoPublicacion() {
         return tipoPublicacion;
     }
 
-    public void setTipoPublicacion(String tipoPublicacion) {
+    public void setTipoPublicacion(TipoPublicacion tipoPublicacion) {
         this.tipoPublicacion = tipoPublicacion;
     }
 
@@ -107,7 +109,7 @@ public class Publicacion {
     public String toString() {
         return "Publicacion{" +
                 "titulo='" + titulo + '\'' +
-                ", tipoPublicacion='" + tipoPublicacion + '\'' +
+                ", tipoPublicacion=" + tipoPublicacion +
                 ", autor='" + autor + '\'' +
                 ", numPaginas=" + numPaginas +
                 ", cantEjemplares=" + cantEjemplares +
