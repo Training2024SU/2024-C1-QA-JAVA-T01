@@ -1,11 +1,10 @@
 package co.com.pinguinera;
 
-import co.com.pinguinera.DAO.UsuarioDAO;
-import co.com.pinguinera.modelos.Usuario;
+import co.com.pinguinera.capa_datos.conexionBD.DataBase;
+import co.com.pinguinera.capa_datos.UsuarioDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
