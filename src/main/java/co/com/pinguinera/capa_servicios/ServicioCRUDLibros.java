@@ -1,8 +1,8 @@
 package co.com.pinguinera.capa_servicios;
 
 import co.com.pinguinera.modelado.publicaciones.Libro;
+import co.com.pinguinera.capa_servicios.interfaces.GestorBD;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,11 +11,11 @@ import java.util.List;
 
 public class ServicioCRUDLibros {
 
-    private Connection conexion;
+    private GestorBD gestorBD;
 
-    // Constructor que recibe una conexión
-    public ServicioCRUDLibros(Connection conexion) {
-        this.conexion = conexion;
+    // Constructor que recibe una instancia de GestorBD
+    public ServicioCRUDLibros(GestorBD gestorBD) {
+        this.gestorBD = gestorBD;
     }
 
     // Consultas SQL
@@ -24,11 +24,9 @@ public class ServicioCRUDLibros {
     private static final String ACTUALIZAR_LIBRO = "UPDATE Publicacion SET titulo = ?, autor = ?, num_paginas = ?, cant_ejemplares = ?, cant_prestados = ? WHERE titulo = ? AND tipo_publicacion = 'LIBRO'";
     private static final String ELIMINAR_LIBRO = "DELETE FROM Publicacion WHERE titulo = ? AND tipo_publicacion = 'LIBRO'";
 
-
     // Método para agregar un nuevo libro a la base de datos
     public void agregar(Libro libro) throws SQLException {
-
-        try (PreparedStatement statement = conexion.prepareStatement(INSERTAR_LIBRO)) {
+        try (PreparedStatement statement = gestorBD.prepararConsulta(INSERTAR_LIBRO)) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
             statement.setInt(3, libro.getNumPaginas());
@@ -45,7 +43,7 @@ public class ServicioCRUDLibros {
     public List<Libro> obtenerTodos() throws SQLException {
         List<Libro> libros = new ArrayList<>();
 
-        try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_LIBROS);
+        try (PreparedStatement statement = gestorBD.prepararConsulta(CONSULTA_LIBROS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 // Crear una instancia de Libro
@@ -70,7 +68,7 @@ public class ServicioCRUDLibros {
 
     // Método para actualizar un libro existente en la base de datos
     public void actualizar(Libro libro) throws SQLException {
-        try (PreparedStatement statement = conexion.prepareStatement(ACTUALIZAR_LIBRO)) {
+        try (PreparedStatement statement = gestorBD.prepararConsulta(ACTUALIZAR_LIBRO)) {
             statement.setString(1, libro.getTitulo());
             statement.setString(2, libro.getAutor());
             statement.setInt(3, libro.getNumPaginas());
@@ -83,10 +81,9 @@ public class ServicioCRUDLibros {
 
     // Método para eliminar un libro de la base de datos
     public void eliminar(String tituloLibro) throws SQLException {
-        try (PreparedStatement statement = conexion.prepareStatement(ELIMINAR_LIBRO)) {
+        try (PreparedStatement statement = gestorBD.prepararConsulta(ELIMINAR_LIBRO)) {
             statement.setString(1, tituloLibro); // Usa el título en lugar de un ID numérico
             statement.executeUpdate();
         }
     }
-
 }

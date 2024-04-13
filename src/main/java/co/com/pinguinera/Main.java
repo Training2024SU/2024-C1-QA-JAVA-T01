@@ -1,7 +1,9 @@
 package co.com.pinguinera;
 
 import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
+import co.com.pinguinera.capa_datos.ImplBD.BaseDatosImpl;
 import co.com.pinguinera.capa_servicios.ServicioCRUDLibros;
+import co.com.pinguinera.capa_servicios.interfaces.GestorBD;
 import co.com.pinguinera.modelado.AreaGenero;
 import co.com.pinguinera.modelado.EdadSugerida;
 import co.com.pinguinera.modelado.publicaciones.Libro;
@@ -13,17 +15,21 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicia la conexión a la base de datos
-        try (Connection conexion = ConexionBD.conectar()) {
+        try {
+            // Inicia la conexión a la base de datos
+            Connection conexion = ConexionBD.conectar();
 
-            // Crea una instancia de ServicioCRUDLibros y pasa la conexión
-            ServicioCRUDLibros servicioCRUDLibros = new ServicioCRUDLibros(conexion);
+            // Inicializa la implementación de GestorBD pasando la conexión
+            GestorBD gestorBD = new BaseDatosImpl(conexion);
+
+            // Crea una instancia de ServicioCRUDLibros y pasa el gestorBD
+            ServicioCRUDLibros servicioCRUDLibros = new ServicioCRUDLibros(gestorBD);
 
             // Crea una instancia de Libro para agregar
-            String titulo = "Amor profundo";
-            String autor = "Gabriel Garcia Marquez";
-            int numPaginas = 1200;
-            int cantEjemplares = 20;
+            String titulo = "Cien años de soledad";
+            String autor = "Gabriel García Márquez";
+            int numPaginas = 417;
+            int cantEjemplares = 10;
             int cantPrestados = 0;
             int cantDisponible = cantEjemplares - cantPrestados;
 
@@ -56,11 +62,10 @@ public class Main {
 
             // Elimina el primer libro de la lista
             if (!libros.isEmpty()) {
-                String tituloLibroAEliminar = libros.get(0).getTitulo(); // Obtén el título del primer libro en la lista
-                servicioCRUDLibros.eliminar(tituloLibroAEliminar); // Llama a eliminar con el título del libro
+                String tituloLibroAEliminar = libros.get(0).getTitulo();
+                servicioCRUDLibros.eliminar(tituloLibroAEliminar);
                 System.out.println("\nLibro eliminado con título: " + tituloLibroAEliminar);
             }
-
 
             // Vuelve a obtener todos los libros para ver los cambios
             System.out.println("\nLista actualizada de libros en la base de datos:");
@@ -69,8 +74,11 @@ public class Main {
                 System.out.println(l);
             }
 
+            // Cierra la conexión a la base de datos
+            conexion.close();
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error al interactuar con la base de datos: " + e.getMessage());
         }
     }
 }
