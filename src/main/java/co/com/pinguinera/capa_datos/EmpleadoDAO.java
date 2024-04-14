@@ -80,10 +80,4 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
         }
     }
 
-    @Override
-    public int obtenerId(Empleado empleado) throws SQLException {
-        // Devuelve el ID del objeto Empleado
-        return empleado.getIdEmpleado();
-    }
-
 }

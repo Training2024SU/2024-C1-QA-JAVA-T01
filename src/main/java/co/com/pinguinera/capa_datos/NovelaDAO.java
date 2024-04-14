@@ -84,9 +84,4 @@ public class NovelaDAO extends AbstractDAO<Novela> {
         }
     }
 
-    @Override
-    public int obtenerId(Novela novela) throws SQLException {
-        // Devuelve el ID del objeto Novela
-        return novela.getIdPublicacion();
-    }
 }

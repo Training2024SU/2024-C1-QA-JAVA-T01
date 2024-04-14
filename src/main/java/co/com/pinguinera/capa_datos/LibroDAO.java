@@ -88,9 +88,4 @@ public class LibroDAO extends AbstractDAO<Libro> {
         }
     }
 
-    public int obtenerId(Libro libro) throws SQLException {
-        // Devuelve el ID del objeto Libro
-        return libro.getIdPublicacion();
-    }
-
 }

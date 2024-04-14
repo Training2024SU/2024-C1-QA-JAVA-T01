@@ -36,7 +36,6 @@ public interface DAO<T> {
      */
     void eliminar(int id) throws SQLException;
 
-    int obtenerId(T objeto) throws SQLException;
 }
 
 

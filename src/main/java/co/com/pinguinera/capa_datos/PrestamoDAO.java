@@ -73,9 +73,4 @@ public class PrestamoDAO extends AbstractDAO<Prestamo> {
         }
     }
 
-    @Override
-    public int obtenerId(Prestamo prestamo) throws SQLException {
-        // Devuelve el ID del objeto Prestamo
-        return prestamo.getIdPrestamo();
-    }
 }
