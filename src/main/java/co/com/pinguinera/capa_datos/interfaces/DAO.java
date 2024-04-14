@@ -35,4 +35,8 @@ public interface DAO<T> {
      * @throws SQLException Si ocurre un error al interactuar con la base de datos.
      */
     void eliminar(int id) throws SQLException;
+
+    int obtenerId(T objeto) throws SQLException;
 }
+
+

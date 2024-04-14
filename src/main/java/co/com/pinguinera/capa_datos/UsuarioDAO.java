@@ -68,4 +68,11 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
             statement.executeUpdate();
         }
     }
+
+    @Override
+    public int obtenerId(Usuario usuario) throws SQLException {
+        // Devuelve el ID del objeto Usuario
+        return usuario.getIdUsuario();
+    }
+
 }

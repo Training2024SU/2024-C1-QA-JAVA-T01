@@ -1,12 +1,11 @@
 package co.com.pinguinera.modelado;
 
 public class AreaGenero {
-    private int idPublicacion; // Cambia a tipo int para coincidir con idPublicacion en la base de datos
-    private String areaGenero;
+    private int idPublicacion;  // Clave externa que se refiere a Publicacion
+    private String areaGenero;  // Clave primaria compuesta con idPublicacion
 
     // Constructor vacío
-    public AreaGenero() {
-    }
+    public AreaGenero() {}
 
     // Constructor con todos los campos
     public AreaGenero(int idPublicacion, String areaGenero) {

@@ -66,4 +66,10 @@ public class EdadSugeridaDAO extends AbstractDAO<EdadSugerida> {
             statement.executeUpdate();
         }
     }
+
+    @Override
+    public int obtenerId(EdadSugerida edadSugerida) throws SQLException {
+        // Devuelve el ID de la publicación asociada a la edad sugerida
+        return edadSugerida.getIdPublicacion();
+    }
 }

@@ -62,4 +62,9 @@ public class AreaGeneroDAO extends AbstractDAO<AreaGenero> {
             statement.executeUpdate();
         }
     }
+
+    @Override
+    public int obtenerId(AreaGenero areaGenero) throws SQLException {
+        return areaGenero.getIdPublicacion() * 31 + areaGenero.getAreaGenero().hashCode();
+    }
 }
