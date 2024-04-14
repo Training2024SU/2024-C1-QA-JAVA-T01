@@ -3,14 +3,17 @@ package com.davidbonelo.services;
 import com.davidbonelo.models.Book;
 import com.davidbonelo.models.LibraryItem;
 import com.davidbonelo.models.Novel;
+import com.davidbonelo.models.User;
+import com.davidbonelo.models.UserRole;
 import com.davidbonelo.persistance.BookDAO;
-import com.davidbonelo.persistance.BorrowingDAO;
 import com.davidbonelo.persistance.NovelDAO;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.davidbonelo.Utils.validPermission;
 
 public class LibraryManager {
 
@@ -22,19 +25,29 @@ public class LibraryManager {
         this.novelDAO = novelDAO;
     }
 
-    public List<Book> getAllBooks() {
-        // TODO: Filter unavailable items for users
+    public List<Book> getAllBooks(User user) {
         try {
-            return bookDAO.getAllBooks();
+            List<Book> books = bookDAO.getAllBooks();
+            if (validPermission(user, UserRole.EMPLOYEE)) {
+                return books;
+            } else {
+                // Filter unavailable items for users
+                return books.stream().filter(b -> b.getAvailableCopies() >= 1).toList();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public List<Novel> getAllNovels() {
+    public List<Novel> getAllNovels(User user) {
         try {
-            return novelDAO.getAllNovels();
+            List<Novel> novels = novelDAO.getAllNovels();
+            if (validPermission(user, UserRole.EMPLOYEE)) {
+                return novels;
+            } else {
+                return novels.stream().filter(n -> n.getAvailableCopies() >= 1).toList();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

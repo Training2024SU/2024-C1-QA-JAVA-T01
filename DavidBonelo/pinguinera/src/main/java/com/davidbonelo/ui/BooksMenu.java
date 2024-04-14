@@ -48,15 +48,15 @@ public class BooksMenu {
 
     private void searchByAuthor() {
         String author = askText("Type the name of the author you want to search: ");
-        libraryManager.filterItemsByAuthor(libraryManager.getAllBooks(), author).forEach(System.out::println);
+        libraryManager.filterItemsByAuthor(libraryManager.getAllBooks(user), author).forEach(System.out::println);
     }
 
     private void listBooks() {
-        libraryManager.getAllBooks().forEach(System.out::println);
+        libraryManager.getAllBooks(user).forEach(System.out::println);
     }
 
     private void listAuthors() {
-        libraryManager.getAuthorsList(libraryManager.getAllBooks()).forEach(System.out::println);
+        libraryManager.getAuthorsList(libraryManager.getAllBooks(user)).forEach(System.out::println);
     }
 
     private void registerBook() {
