@@ -16,7 +16,6 @@ public class Main {
         //Se abre la conexion
         ConexionDatabase.openConnection();
 
-
     }
 
     private static int preguntarAlUsuario() {
@@ -26,7 +25,6 @@ public class Main {
         cantidad = Integer.parseInt(scanner.nextLine());
         return cantidad;
     }
-
 
 
 /*    private static void insertarLibrosEnBd(int cantidadLibros) {
