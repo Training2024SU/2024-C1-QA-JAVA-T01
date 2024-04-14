@@ -1,21 +1,18 @@
 package com.sofkau;
 
 import com.sofkau.integration.database.ConexionDatabase;
-import com.sofkau.integration.database.mysql.MySqlOperation;
+import com.sofkau.logica.control.ControlIngreso;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 import static com.sofkau.integration.database.mysql.Constantes.*;
-import static com.sofkau.logica.control.MetodosMain.implementarLogica;
-import static com.sofkau.logica.publicacion.CrudLibro.crearLibro;
-import static com.sofkau.logica.publicacion.CrudLibro.crearLibro;
+
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-
         //Se abre la conexion
         ConexionDatabase.openConnection();
-
+        ControlIngreso.implementarLogica();
     }
 
     private static int preguntarAlUsuario() {

@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import static com.sofkau.dialogo.Menu.menuPrincipal;
 
-public class MetodosMain {
 
 
+public class InicioSesion {
+
+    private boolean bandera = true;
     public static void implementarLogica() {
         int option;
         boolean bandera = true;
@@ -44,4 +46,5 @@ public class MetodosMain {
         }
         return option;
     }
+
 }
