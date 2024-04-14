@@ -1,6 +1,6 @@
 package co.com.pinguinera.capa_datos.ImplBD;
 
-import co.com.pinguinera.capa_servicios.interfaces.GestorBD;
+import co.com.pinguinera.capa_datos.interfaces.GestorBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

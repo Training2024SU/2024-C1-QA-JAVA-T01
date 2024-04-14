@@ -1,36 +1,38 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
-import co.com.pinguinera.modelado.enums.RolEmpleado;
+import co.com.pinguinera.capa_datos.interfaces.GestorBD;
 import co.com.pinguinera.modelado.Usuario;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDAO {
+public class UsuarioDAO extends AbstractDAO<Usuario> {
+
     private static final String CONSULTA_USUARIOS = "SELECT * FROM Usuario";
 
-    public List<Usuario> obtenerTodosLosUsuarios() throws SQLException {
-        List<Usuario> usuarios = new ArrayList<>();
+    // Constructor que recibe un objeto GestorBD para establecer la conexión
+    public UsuarioDAO(GestorBD gestorBD) {
+        super(gestorBD);
+    }
 
-        Connection conexion = ConexionBD.conectar();
+    @Override
+    protected String obtenerConsultaTodos() {
+        // Devuelve la consulta SQL específica para obtener todos los registros de la tabla Usuario
+        return CONSULTA_USUARIOS;
+    }
 
-        try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_USUARIOS);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setCorreo(resultSet.getString("Correo"));
-                usuario.setNombre(resultSet.getString("Nombre"));
-                usuario.setContrasena(resultSet.getString("Contraseña"));
+    @Override
+    protected Usuario convertirFilaAObjeto(ResultSet resultSet) throws SQLException {
+        // Crea un objeto Usuario a partir de una fila del ResultSet
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(resultSet.getString("Correo"));
+        usuario.setNombre(resultSet.getString("Nombre"));
+        usuario.setContrasena(resultSet.getString("Contraseña"));
+        // Otros campos de Usuario se pueden establecer aquí
 
-                usuarios.add(usuario);
-            }
-        }
-
-        return usuarios;
+        return usuario;
     }
 }

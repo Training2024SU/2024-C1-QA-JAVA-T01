@@ -1,4 +1,4 @@
-package co.com.pinguinera.capa_servicios.interfaces;
+package co.com.pinguinera.capa_datos.interfaces;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

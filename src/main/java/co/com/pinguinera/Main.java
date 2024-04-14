@@ -3,7 +3,6 @@ package co.com.pinguinera;
 import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.capa_datos.ImplBD.BaseDatosImpl;
 import co.com.pinguinera.capa_servicios.ServicioCRUDLibros;
-import co.com.pinguinera.capa_servicios.SincronizacionLibros;
 import co.com.pinguinera.modelado.publicaciones.Libro;
 import co.com.pinguinera.modelado.AreaGenero;
 import co.com.pinguinera.modelado.EdadSugerida;

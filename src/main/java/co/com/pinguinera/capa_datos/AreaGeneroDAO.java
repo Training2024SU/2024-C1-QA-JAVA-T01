@@ -1,36 +1,32 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
+import co.com.pinguinera.capa_datos.interfaces.GestorBD;
 import co.com.pinguinera.modelado.AreaGenero;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class AreaGeneroDAO {
+public class AreaGeneroDAO extends AbstractDAO<AreaGenero> {
+
     private static final String CONSULTA_AREAS_GENERO = "SELECT * FROM AreaGenero";
 
-    public List<AreaGenero> obtenerTodasLasAreasGeneros() throws SQLException {
-        List<AreaGenero> areasGeneros = new ArrayList<>();
+    // Constructor que recibe un objeto GestorBD para establecer la conexión
+    public AreaGeneroDAO(GestorBD gestorBD) {
+        super(gestorBD);
+    }
 
-        Connection conexion = ConexionBD.conectar();
+    @Override
+    protected String obtenerConsultaTodos() {
+        // Devuelve la consulta SQL específica para obtener todas las áreas y géneros
+        return CONSULTA_AREAS_GENERO;
+    }
 
-        try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_AREAS_GENERO);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                AreaGenero areaGenero = new AreaGenero(
-                        resultSet.getString("tituloPublicacion"),
-                        resultSet.getString("areaGenero")
-                );
-
-                // Añadir el área o género a la lista
-                areasGeneros.add(areaGenero);
-            }
-        }
-
-        return areasGeneros;
+    @Override
+    protected AreaGenero convertirFilaAObjeto(ResultSet resultSet) throws SQLException {
+        // Crea un objeto AreaGenero a partir de una fila del ResultSet
+        return new AreaGenero(
+                resultSet.getString("tituloPublicacion"),
+                resultSet.getString("areaGenero")
+        );
     }
 }

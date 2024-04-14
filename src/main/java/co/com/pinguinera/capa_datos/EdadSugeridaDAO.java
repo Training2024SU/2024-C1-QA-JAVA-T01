@@ -1,36 +1,35 @@
 package co.com.pinguinera.capa_datos;
 
-import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
+import co.com.pinguinera.capa_datos.interfaces.GestorBD;
 import co.com.pinguinera.modelado.EdadSugerida;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EdadSugeridaDAO {
+public class EdadSugeridaDAO extends AbstractDAO<EdadSugerida> {
+
     private static final String CONSULTA_EDADES_SUGERIDAS = "SELECT * FROM EdadSugerida";
 
-    public List<EdadSugerida> obtenerTodasLasEdadesSugeridas() throws SQLException {
-        List<EdadSugerida> edadesSugeridas = new ArrayList<>();
+    // Constructor que recibe un objeto GestorBD para establecer la conexión
+    public EdadSugeridaDAO(GestorBD gestorBD) {
+        super(gestorBD);
+    }
 
-        Connection conexion = ConexionBD.conectar();
+    @Override
+    protected String obtenerConsultaTodos() {
+        // Devuelve la consulta SQL específica para obtener todas las edades sugeridas
+        return CONSULTA_EDADES_SUGERIDAS;
+    }
 
-        try (PreparedStatement statement = conexion.prepareStatement(CONSULTA_EDADES_SUGERIDAS);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                EdadSugerida edadSugerida = new EdadSugerida(
-                        resultSet.getString("tituloPublicacion"),
-                        resultSet.getString("edad")
-                );
-
-                // Añadir la edad sugerida a la lista
-                edadesSugeridas.add(edadSugerida);
-            }
-        }
-
-        return edadesSugeridas;
+    @Override
+    protected EdadSugerida convertirFilaAObjeto(ResultSet resultSet) throws SQLException {
+        // Crea un objeto EdadSugerida a partir de una fila del ResultSet
+        EdadSugerida edadSugerida = new EdadSugerida(
+                resultSet.getString("tituloPublicacion"),
+                resultSet.getString("edad")
+        );
+        return edadSugerida;
     }
 }

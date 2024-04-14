@@ -1,63 +1,40 @@
 package co.com.pinguinera.capa_servicios;
 
-import co.com.pinguinera.capa_datos.EmpleadoDAO;
-import co.com.pinguinera.capa_servicios.interfaces.GestorBD;
 import co.com.pinguinera.modelado.Empleado;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioCRUDEmpleado {
-    private GestorBD gestorBD;
-    private EmpleadoDAO empleadoDAO;
+    private List<Empleado> empleados; // Colección local para almacenar los empleados
 
-    // Constructor que recibe una instancia de GestorBD
-    public ServicioCRUDEmpleado(GestorBD gestorBD) {
-        this.gestorBD = gestorBD;
-        this.empleadoDAO = new EmpleadoDAO(); // Crear una instancia de EmpleadoDAO
+    public ServicioCRUDEmpleado() {
+        this.empleados = new ArrayList<>(); // Inicializa la colección local
     }
 
+    // Método para agregar un nuevo empleado a la colección local
+    public void agregar(Empleado empleado) {
+        empleados.add(empleado);
+    }
 
-    private static final String INSERTAR_EMPLEADO = "INSERT INTO Empleado (Nombre, Contraseña, Correo, Rol, EsAdministrativo) VALUES (?, ?, ?, ?, ?)";
-    private static final String ACTUALIZAR_EMPLEADO = "UPDATE Empleado SET Nombre = ?, Contraseña = ?, Correo = ?, Rol = ?, EsAdministrativo = ? WHERE idEmpleado = ?";
-    private static final String ELIMINAR_EMPLEADO = "DELETE FROM Empleado WHERE idEmpleado = ?";
+    // Método para obtener todos los empleados desde la colección local
+    public List<Empleado> obtenerTodos() {
+        return empleados;
+    }
 
-    // Método para agregar un nuevo empleado a la base de datos
-    public void agregar(Empleado empleado) throws SQLException {
-        try (PreparedStatement statement = gestorBD.prepararConsulta(INSERTAR_EMPLEADO)) {
-            statement.setString(1, empleado.getNombre());
-            statement.setString(2, empleado.getContrasena());
-            statement.setString(3, empleado.getCorreo());
-            statement.setString(4, empleado.getRol());
-            statement.setBoolean(5, empleado.isEsAdministrativo());
-            statement.executeUpdate();
+    // Método para actualizar un empleado existente en la colección local
+    public void actualizar(Empleado empleado) {
+        for (int i = 0; i < empleados.size(); i++) {
+            if (empleados.get(i).getIdEmpleado() == empleado.getIdEmpleado()) {
+                empleados.set(i, empleado);
+                break;
+            }
         }
     }
 
-    // Método para actualizar un empleado existente en la base de datos
-    public void actualizar(Empleado empleado) throws SQLException {
-        try (PreparedStatement statement = gestorBD.prepararConsulta(ACTUALIZAR_EMPLEADO)) {
-            statement.setString(1, empleado.getNombre());
-            statement.setString(2, empleado.getContrasena());
-            statement.setString(3, empleado.getCorreo());
-            statement.setString(4, empleado.getRol());
-            statement.setBoolean(5, empleado.isEsAdministrativo());
-            statement.setInt(6, empleado.getIdEmpleado());
-            statement.executeUpdate();
-        }
-    }
-
-    // Método para eliminar un empleado de la base de datos
-    public void eliminar(int idEmpleado) throws SQLException {
-        try (PreparedStatement statement = gestorBD.prepararConsulta(ELIMINAR_EMPLEADO)) {
-            statement.setInt(1, idEmpleado);
-            statement.executeUpdate();
-        }
-    }
-
-    // Para obtener todos los empleados, puedes usar el método del DAO directamente
-    public List<Empleado> obtenerTodos() throws SQLException {
-        return empleadoDAO.obtenerTodosLosEmpleados();
+    // Método para eliminar un empleado de la colección local
+    public void eliminar(int idEmpleado) {
+        empleados.removeIf(empleado -> empleado.getIdEmpleado() == idEmpleado);
     }
 }
+
