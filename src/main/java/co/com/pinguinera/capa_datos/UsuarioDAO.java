@@ -20,7 +20,7 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
     }
 
     @Override
-    protected String obtenerConsultaTodos() {
+    public String obtenerConsultaTodos() {
         // Devuelve la consulta SQL específica para obtener todos los registros de la tabla Usuario
         return CONSULTA_USUARIOS;
     }
