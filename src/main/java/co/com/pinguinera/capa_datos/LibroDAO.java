@@ -49,7 +49,7 @@ public class LibroDAO extends AbstractDAO<Libro> {
         return libro;
     }
 
-    // Implementación de los métodos CRUD
+    // Implementación de los métodos LocalCRUD
 
     // Método para insertar un nuevo libro en la base de datos
     @Override

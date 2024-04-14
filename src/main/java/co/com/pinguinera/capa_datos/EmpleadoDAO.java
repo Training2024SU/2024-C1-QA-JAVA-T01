@@ -41,7 +41,7 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
         return empleado;
     }
 
-    // Implementación de los métodos CRUD
+    // Implementación de los métodos LocalCRUD
 
     // Método para insertar un nuevo empleado en la base de datos
     @Override

@@ -4,13 +4,13 @@ import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.capa_datos.interfaces.GestorBD;
 import co.com.pinguinera.capa_datos.ImplBD.BaseDatosImpl;
 import co.com.pinguinera.capa_datos.LibroDAO;
+import co.com.pinguinera.capa_servicios.CRUBBD.ConsultasLibros;
+import co.com.pinguinera.capa_servicios.CRUD.ServicioLocalCRUDLibros;
 import co.com.pinguinera.capa_servicios.sincronizacionBD.SincronizadorLibros;
 import co.com.pinguinera.modelado.publicaciones.Libro;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,24 +20,23 @@ public class Main {
             // Crea una instancia de `BaseDatosImpl` como `GestorBD`
             GestorBD gestorBD = new BaseDatosImpl(conexion);
 
-            // Crea una instancia de `LibroDAO` con `GestorBD`
-            LibroDAO libroDAO = new LibroDAO(gestorBD);
+            // Crea una instancia de `ConsultasLibros` utilizando `GestorBD`
+            ConsultasLibros consultasLibros = new ConsultasLibros(new LibroDAO(gestorBD));
 
-            // Crea una lista local de libros con datos realistas
-            List<Libro> librosLocales = new ArrayList<>();
+            // Crea una instancia de `ServicioLocalCRUDLibros`
+            ServicioLocalCRUDLibros servicioLocalCRUDLibros = new ServicioLocalCRUDLibros();
 
-            // Añade libros de prueba a la lista local siguiendo la estructura especificada
-            librosLocales.add(new Libro(1, "BlancaNieves", "Walt Disney", 200, 10, 3, 7, null, null));
-            librosLocales.add(new Libro(2, "Libro 2", "Autor 2", 150, 8, 2, 6, null, null));
-            librosLocales.add(new Libro(3, "El Principito", "Antoine de Saint-Exupéry", 96, 20, 5, 15, null, null));
-            librosLocales.add(new Libro(4, "Cien años de soledad", "Gabriel García Márquez", 417, 12, 4, 8, null, null));
-            librosLocales.add(new Libro(5, "Don Quijote de la Mancha", "Miguel de Cervantes", 863, 5, 2, 3, null, null));
-
+            // Simula operaciones de CRUD en la lista local
+            servicioLocalCRUDLibros.agregar(new Libro(1, "Norwegian Wood", "Haruki Murakami", 296, 15, 4, 11, null, null));
+            servicioLocalCRUDLibros.agregar(new Libro(2, "The Tale of Genji", "Murasaki Shikibu", 1184, 20, 6, 14, null, null));
+            servicioLocalCRUDLibros.agregar(new Libro(3, "Battle Royale", "Koushun Takami", 576, 12, 3, 9, null, null));
+            servicioLocalCRUDLibros.agregar(new Libro(4, "Kafka on the Shore", "Haruki Murakami", 624, 18, 5, 13, null, null));
+            servicioLocalCRUDLibros.agregar(new Libro(5, "Snow Country", "Yasunari Kawabata", 180, 10, 2, 8, null, null));
             // Crea una instancia de `SincronizadorLibros`
-            SincronizadorLibros sincronizadorLibros = new SincronizadorLibros(libroDAO, librosLocales);
+            SincronizadorLibros sincronizadorLibros = new SincronizadorLibros(consultasLibros, servicioLocalCRUDLibros);
 
             // Ejecuta la sincronización
-            sincronizadorLibros.sincronizar();
+            sincronizadorLibros.sincronizarLibros();
 
             System.out.println("Sincronización completada con éxito.");
         } catch (SQLException e) {

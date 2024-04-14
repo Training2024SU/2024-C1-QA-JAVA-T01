@@ -36,7 +36,7 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         return usuario;
     }
 
-    // Implementación de los métodos CRUD
+    // Implementación de los métodos LocalCRUD
 
     // Método para insertar un nuevo usuario en la base de datos
     @Override

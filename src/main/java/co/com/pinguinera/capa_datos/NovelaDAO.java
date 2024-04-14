@@ -45,7 +45,7 @@ public class NovelaDAO extends AbstractDAO<Novela> {
         return novela;
     }
 
-    // Implementación de los métodos CRUD
+    // Implementación de los métodos LocalCRUD
 
     // Método para insertar una nueva novela en la base de datos
     @Override
