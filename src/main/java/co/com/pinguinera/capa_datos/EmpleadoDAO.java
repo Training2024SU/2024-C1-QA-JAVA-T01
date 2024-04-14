@@ -22,7 +22,7 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
     }
 
     @Override
-    protected String obtenerConsultaTodos() {
+    public String obtenerConsultaTodos() {
         // Devuelve la consulta SQL específica para obtener todos los empleados
         return CONSULTA_EMPLEADOS;
     }

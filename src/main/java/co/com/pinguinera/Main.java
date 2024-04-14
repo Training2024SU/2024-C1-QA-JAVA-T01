@@ -3,8 +3,9 @@ package co.com.pinguinera;
 import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
 import co.com.pinguinera.capa_datos.interfaces.GestorBD;
 import co.com.pinguinera.capa_datos.ImplBD.BaseDatosImpl;
-import co.com.pinguinera.capa_datos.UsuarioDAO;
-import co.com.pinguinera.capa_servicios.GestorAccesoUsuarios;
+import co.com.pinguinera.capa_datos.EmpleadoDAO;
+import co.com.pinguinera.capa_servicios.GestorAccesoEmpleados;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,25 +19,25 @@ public class Main {
             // Crear una instancia de `BaseDatosImpl` implementando `GestorBD` usando la conexión
             GestorBD gestorBD = new BaseDatosImpl(conexion);
 
-            // Crear una instancia de `UsuarioDAO` utilizando `gestorBD`
-            UsuarioDAO usuarioDAO = new UsuarioDAO(gestorBD);
+            // Crear una instancia de `EmpleadoDAO` utilizando `gestorBD`
+            EmpleadoDAO empleadoDAO = new EmpleadoDAO(gestorBD);
 
-            // Crear una instancia de `GestorAccesoUsuarios` utilizando `usuarioDAO`
-            GestorAccesoUsuarios gestorAccesoUsuarios = new GestorAccesoUsuarios(usuarioDAO);
+            // Crear una instancia de `GestorAccesoEmpleados` utilizando `empleadoDAO`
+            GestorAccesoEmpleados gestorAccesoEmpleados = new GestorAccesoEmpleados(empleadoDAO);
 
-            // Prueba de verificar si un usuario específico existe
+            // Prueba de verificar si un empleado específico existe y obtener su rol
             // Ejemplo de credenciales
-            String correo = "juan.perez@example.com";
-            String contrasena = "1233453424";
+            String correo = "administrador@pingu.com.co";
+            String contrasena = "contraseñasegura123456";
 
-            // Verificar si el usuario con las credenciales dadas existe
-            boolean accesoConcedido = gestorAccesoUsuarios.verificarUsuario(correo, contrasena);
+            // Verificar si el empleado con las credenciales dadas existe y obtener su rol
+            String rolEmpleado = gestorAccesoEmpleados.verificarEmpleado(correo, contrasena);
 
             // Mostrar el resultado de la verificación
-            if (accesoConcedido) {
-                System.out.println("Acceso concedido al usuario con correo: " + correo);
+            if (rolEmpleado != null) {
+                System.out.println("Acceso concedido al empleado con correo: " + correo + ". Rol: " + rolEmpleado);
             } else {
-                System.out.println("Acceso denegado para el usuario con correo: " + correo);
+                System.out.println("Acceso denegado para el empleado con correo: " + correo);
             }
         } catch (SQLException e) {
             System.err.println("Error al interactuar con la base de datos: " + e.getMessage());
