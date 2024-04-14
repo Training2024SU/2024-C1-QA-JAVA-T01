@@ -4,6 +4,7 @@ import co.com.pinguinera.modelado.enums.TipoPublicacion;
 import java.util.List;
 
 public class Publicacion {
+    private int idPublicacion; // Nuevo atributo `idPublicacion`
     private String titulo;
     private TipoPublicacion tipoPublicacion; // Usa el enum TipoPublicacion
     private String autor;
@@ -18,8 +19,9 @@ public class Publicacion {
         // Constructor vacío
     }
 
-    // Constructor con todos los campos
-    public Publicacion(String titulo, TipoPublicacion tipoPublicacion, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
+    // Constructor con todos los campos, incluyendo `idPublicacion`
+    public Publicacion(int idPublicacion, String titulo, TipoPublicacion tipoPublicacion, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
+        this.idPublicacion = idPublicacion;
         this.titulo = titulo;
         this.tipoPublicacion = tipoPublicacion;
         this.autor = autor;
@@ -32,6 +34,14 @@ public class Publicacion {
     }
 
     // Getters y Setters
+    public int getIdPublicacion() {
+        return idPublicacion;
+    }
+
+    public void setIdPublicacion(int idPublicacion) {
+        this.idPublicacion = idPublicacion;
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -107,7 +117,8 @@ public class Publicacion {
     @Override
     public String toString() {
         return "Publicacion{" +
-                "titulo='" + titulo + '\'' +
+                "idPublicacion=" + idPublicacion +
+                ", titulo='" + titulo + '\'' +
                 ", tipoPublicacion=" + tipoPublicacion +
                 ", autor='" + autor + '\'' +
                 ", numPaginas=" + numPaginas +

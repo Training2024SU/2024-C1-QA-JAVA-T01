@@ -2,7 +2,7 @@ package co.com.pinguinera.capa_servicios.interfaces;
 
 import java.util.List;
 
-public interface CRUDLocal<T> {
+public interface CRUD<T> {
     /**
      * Agrega un nuevo objeto a la colección local.
      *

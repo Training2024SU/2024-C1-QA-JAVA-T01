@@ -1,6 +1,7 @@
 package co.com.pinguinera.modelado;
 
 public class Usuario {
+    private int idUsuario; // Nuevo campo `idUsuario`
     private String correo;
     private String nombre;
     private String contrasena;
@@ -10,13 +11,22 @@ public class Usuario {
     }
 
     // Constructor con todos los campos
-    public Usuario(String correo, String nombre, String contrasena) {
+    public Usuario(int idUsuario, String correo, String nombre, String contrasena) {
+        this.idUsuario = idUsuario;
         this.correo = correo;
         this.nombre = nombre;
         this.contrasena = contrasena;
     }
 
     // Getters y Setters
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getCorreo() {
         return correo;
     }
@@ -44,7 +54,8 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "correo='" + correo + '\'' +
+                "idUsuario=" + idUsuario +
+                ", correo='" + correo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 '}';

@@ -1,7 +1,7 @@
 package co.com.pinguinera.modelado;
 
 public class AreaGenero {
-    private String tituloPublicacion;
+    private int idPublicacion; // Cambia a tipo int para coincidir con idPublicacion en la base de datos
     private String areaGenero;
 
     // Constructor vacío
@@ -9,18 +9,18 @@ public class AreaGenero {
     }
 
     // Constructor con todos los campos
-    public AreaGenero(String tituloPublicacion, String areaGenero) {
-        this.tituloPublicacion = tituloPublicacion;
+    public AreaGenero(int idPublicacion, String areaGenero) {
+        this.idPublicacion = idPublicacion;
         this.areaGenero = areaGenero;
     }
 
     // Getters y Setters
-    public String getTituloPublicacion() {
-        return tituloPublicacion;
+    public int getIdPublicacion() {
+        return idPublicacion;
     }
 
-    public void setTituloPublicacion(String tituloPublicacion) {
-        this.tituloPublicacion = tituloPublicacion;
+    public void setIdPublicacion(int idPublicacion) {
+        this.idPublicacion = idPublicacion;
     }
 
     public String getAreaGenero() {
@@ -34,7 +34,7 @@ public class AreaGenero {
     @Override
     public String toString() {
         return "AreaGenero{" +
-                "tituloPublicacion='" + tituloPublicacion + '\'' +
+                "idPublicacion=" + idPublicacion +
                 ", areaGenero='" + areaGenero + '\'' +
                 '}';
     }

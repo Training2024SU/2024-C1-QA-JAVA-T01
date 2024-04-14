@@ -1,7 +1,7 @@
 package co.com.pinguinera.modelado;
 
 public class EdadSugerida {
-    private String tituloPublicacion;
+    private int idPublicacion;
     private String edad;
 
     public EdadSugerida() {
@@ -9,18 +9,18 @@ public class EdadSugerida {
     }
 
     // Constructor con todos los campos
-    public EdadSugerida(String tituloPublicacion, String edad) {
-        this.tituloPublicacion = tituloPublicacion;
+    public EdadSugerida(int idPublicacion, String edad) {
+        this.idPublicacion = idPublicacion;
         this.edad = edad;
     }
 
     // Getters y Setters
-    public String getTituloPublicacion() {
-        return tituloPublicacion;
+    public int getIdPublicacion() {
+        return idPublicacion;
     }
 
-    public void setTituloPublicacion(String tituloPublicacion) {
-        this.tituloPublicacion = tituloPublicacion;
+    public void setIdPublicacion(int idPublicacion) {
+        this.idPublicacion = idPublicacion;
     }
 
     public String getEdad() {
@@ -34,7 +34,7 @@ public class EdadSugerida {
     @Override
     public String toString() {
         return "EdadSugerida{" +
-                "tituloPublicacion='" + tituloPublicacion + '\'' +
+                "idPublicacion=" + idPublicacion +
                 ", edad='" + edad + '\'' +
                 '}';
     }

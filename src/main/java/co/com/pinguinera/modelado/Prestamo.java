@@ -1,6 +1,7 @@
 package co.com.pinguinera.modelado;
 
 import co.com.pinguinera.modelado.enums.EstadoPrestamo;
+
 import java.time.LocalDate;
 
 public class Prestamo {
@@ -8,21 +9,21 @@ public class Prestamo {
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
     private EstadoPrestamo estado; // Usamos la clase EstadoPrestamo
-    private String correoUsuario;
-    private String tituloPublicacion;
+    private int idUsuario; // Cambiado a idUsuario
+    private int idPublicacion; // Cambiado a idPublicacion
 
     public Prestamo() {
         // Constructor vacío
     }
 
     // Constructor con todos los campos
-    public Prestamo(int idPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, EstadoPrestamo estado, String correoUsuario, String tituloPublicacion) {
+    public Prestamo(int idPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, EstadoPrestamo estado, int idUsuario, int idPublicacion) {
         this.idPrestamo = idPrestamo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
         this.estado = estado;
-        this.correoUsuario = correoUsuario;
-        this.tituloPublicacion = tituloPublicacion;
+        this.idUsuario = idUsuario; // Usamos idUsuario
+        this.idPublicacion = idPublicacion; // Usamos idPublicacion
     }
 
     // Getters y Setters
@@ -58,20 +59,20 @@ public class Prestamo {
         this.estado = estado;
     }
 
-    public String getCorreoUsuario() {
-        return correoUsuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setCorreoUsuario(String correoUsuario) {
-        this.correoUsuario = correoUsuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getTituloPublicacion() {
-        return tituloPublicacion;
+    public int getIdPublicacion() {
+        return idPublicacion;
     }
 
-    public void setTituloPublicacion(String tituloPublicacion) {
-        this.tituloPublicacion = tituloPublicacion;
+    public void setIdPublicacion(int idPublicacion) {
+        this.idPublicacion = idPublicacion;
     }
 
     @Override
@@ -81,8 +82,8 @@ public class Prestamo {
                 ", fechaPrestamo=" + fechaPrestamo +
                 ", fechaDevolucion=" + fechaDevolucion +
                 ", estado=" + estado +
-                ", correoUsuario='" + correoUsuario + '\'' +
-                ", tituloPublicacion='" + tituloPublicacion + '\'' +
+                ", idUsuario=" + idUsuario +
+                ", idPublicacion=" + idPublicacion +
                 '}';
     }
 }
