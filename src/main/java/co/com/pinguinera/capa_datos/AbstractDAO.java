@@ -45,9 +45,4 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     protected PreparedStatement prepararConsulta(String consulta) throws SQLException {
         return gestorBD.prepararConsulta(consulta);
     }
-
-    // Método auxiliar para cerrar la conexión
-    protected void cerrarConexion() throws SQLException {
-        gestorBD.cerrarConexion();
-    }
 }

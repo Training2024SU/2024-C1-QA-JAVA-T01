@@ -1,4 +1,4 @@
-package co.com.pinguinera.capa_servicios;
+package co.com.pinguinera.capa_servicios.CRUD;
 
 import co.com.pinguinera.capa_datos.UsuarioDAO;
 import co.com.pinguinera.capa_servicios.interfaces.CRUD;
@@ -52,8 +52,4 @@ public class ServicioCRUDUsuarios implements CRUD<Usuario> {
         usuarios.remove(usuario);
     }
 
-    @Override
-    public List<Usuario> obtenerTodos() {
-        return new ArrayList<>(usuarios);
-    }
 }

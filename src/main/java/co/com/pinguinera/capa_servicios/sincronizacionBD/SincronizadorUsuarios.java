@@ -1,4 +1,4 @@
-package co.com.pinguinera.capa_servicios;
+package co.com.pinguinera.capa_servicios.sincronizacionBD;
 
 import co.com.pinguinera.capa_datos.UsuarioDAO;
 import co.com.pinguinera.modelado.Usuario;
@@ -18,35 +18,40 @@ public class SincronizadorUsuarios {
     }
 
     public void sincronizar() throws SQLException {
-        // Obtén todos los registros de Usuario de la base de datos
-        List<Usuario> usuariosBD = usuarioDAO.obtenerTodos();
+        // Obtener todos los registros de Usuario de la base de datos
+        List<Usuario> usuariosDeBaseDeDatos = usuarioDAO.obtenerTodos();
 
-        // Sincronización: agregar, actualizar, eliminar
+        sincronizarUsuariosLocalesConBaseDeDatos(usuariosDeBaseDeDatos);
+        eliminarUsuariosNoLocalesDeBaseDeDatos(usuariosDeBaseDeDatos);
+    }
+
+    private void sincronizarUsuariosLocalesConBaseDeDatos(List<Usuario> usuariosDeBaseDeDatos) throws SQLException {
         for (Usuario usuarioLocal : usuariosLocales) {
-            boolean encontradoEnBD = false;
+            Usuario usuarioCorrespondienteEnBD = buscarUsuarioEnBaseDeDatos(usuarioLocal, usuariosDeBaseDeDatos);
 
-            // Buscar si el usuario local existe en la base de datos
-            for (Usuario usuarioBD : usuariosBD) {
-                if (usuarioLocal.getIdUsuario() == usuarioBD.getIdUsuario()) {
-                    encontradoEnBD = true;
-
-                    // Verificar si hay diferencias entre los objetos
-                    if (!Objects.equals(usuarioLocal, usuarioBD)) {
-                        // Actualizar el usuario en la base de datos
-                        usuarioDAO.actualizar(usuarioLocal);
-                    }
-                    break;
+            if (usuarioCorrespondienteEnBD != null) {
+                if (!Objects.equals(usuarioLocal, usuarioCorrespondienteEnBD)) {
+                    // Actualizar el usuario en la base de datos
+                    usuarioDAO.actualizar(usuarioLocal);
                 }
-            }
-
-            if (!encontradoEnBD) {
+            } else {
                 // El usuario local no existe en la base de datos, agregarlo
                 usuarioDAO.insertar(usuarioLocal);
             }
         }
+    }
 
-        // Eliminar los usuarios que existen en la base de datos pero no en la lista local
-        for (Usuario usuarioBD : usuariosBD) {
+    private Usuario buscarUsuarioEnBaseDeDatos(Usuario usuarioLocal, List<Usuario> usuariosDeBaseDeDatos) {
+        for (Usuario usuarioBD : usuariosDeBaseDeDatos) {
+            if (usuarioLocal.getIdUsuario() == usuarioBD.getIdUsuario()) {
+                return usuarioBD;
+            }
+        }
+        return null;
+    }
+
+    private void eliminarUsuariosNoLocalesDeBaseDeDatos(List<Usuario> usuariosDeBaseDeDatos) throws SQLException {
+        for (Usuario usuarioBD : usuariosDeBaseDeDatos) {
             boolean encontradoEnLocal = false;
 
             // Buscar si el usuario de la base de datos existe en la lista local
