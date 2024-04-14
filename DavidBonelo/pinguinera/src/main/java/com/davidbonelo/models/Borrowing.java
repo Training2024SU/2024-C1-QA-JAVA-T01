@@ -18,12 +18,13 @@ public class Borrowing {
         this.borrower = borrower;
     }
 
-    public Borrowing(int id, LocalDate returnDate, LocalDate requestedDate, User borrower) {
+    public Borrowing(int id, LocalDate returnDate, LocalDate requestedDate, User borrower,
+                     BorrowingStatus status) {
         this.id = id;
         this.requestedDate = requestedDate;
         setReturnDate(returnDate);
-        this.status = BorrowingStatus.REQUESTED;
         this.borrower = borrower;
+        this.status = status;
     }
 
     public List<LibraryItem> getBorrowedItems() {

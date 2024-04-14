@@ -2,6 +2,7 @@ package com.davidbonelo.persistance;
 
 import com.davidbonelo.models.Book;
 import com.davidbonelo.models.Borrowing;
+import com.davidbonelo.models.BorrowingStatus;
 import com.davidbonelo.models.LibraryItem;
 import com.davidbonelo.models.Novel;
 import com.davidbonelo.models.User;
@@ -30,8 +31,9 @@ public class BorrowingDAO {
         UserRole role = UserRole.valueOf(rs.getString("role"));
         User user = new User(rs.getInt("user_id"), rs.getString("name"), rs.getString("email"),
                 role);
+        BorrowingStatus status = BorrowingStatus.valueOf(rs.getString("status"));
         return new Borrowing(rs.getInt("id"), rs.getDate("returned_date").toLocalDate(),
-                rs.getDate("requested_date").toLocalDate(), user);
+                rs.getDate("requested_date").toLocalDate(), user, status);
     }
 
     public Borrowing getBorrowingWithItems(int borrowingId) throws SQLException {
@@ -156,7 +158,7 @@ public class BorrowingDAO {
         if (missingId(borrowing)) {
             throw new IllegalArgumentException("Can't update a borrowing without a id");
         }
-        String sql = "UPDATE Borrowing b SET status= ? WHERE id= ?";
+        String sql = "UPDATE Borrowings b SET status= ? WHERE id= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, borrowing.getStatus().getValue());
             statement.setInt(2, borrowing.getId()); // WHERE
