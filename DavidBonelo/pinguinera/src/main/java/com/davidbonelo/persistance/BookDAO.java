@@ -24,7 +24,7 @@ public class BookDAO {
     }
 
     public Book getBookById(int itemId) throws SQLException {
-        String sql = "SELECT * FROM Books WHERE id= ?";
+        String sql = "SELECT * FROM Books WHERE is_deleted = 0 AND id= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, itemId);
             ResultSet rs = statement.executeQuery();
@@ -38,7 +38,7 @@ public class BookDAO {
 
     public List<Book> getAllBooks() throws SQLException {
         List<Book> books = new ArrayList<>();
-        String sql = "SELECT * FROM Books";
+        String sql = "SELECT * FROM Books WHERE is_deleted = 0";
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs =
                 statement.executeQuery()) {
             while (rs.next()) {
@@ -69,7 +69,7 @@ public class BookDAO {
         if (!containsId(book))
             throw new IllegalArgumentException("Cant update a Book without an id");
         String sql = "UPDATE Books b SET title= ?, author= ?, copies= ?, copies_borrowed= ?, " +
-                "field= ?, pages= ? WHERE b.id=" + book.getId();
+                "field= ?, pages= ? WHERE is_deleted = 0 AND b.id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, book.getTitle());
@@ -78,6 +78,7 @@ public class BookDAO {
             statement.setInt(4, book.getCopiesBorrowed());
             statement.setString(5, book.getField());
             statement.setInt(6, book.getPages());
+            statement.setInt(7, book.getId()); // WHERE
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated == 0) {
                 throw new SQLException("Update of book with id " + book.getId() + " failed.");
@@ -86,8 +87,9 @@ public class BookDAO {
     }
 
     public void deleteBook(int bookId) throws SQLException {
-        String sql = "DELETE FROM Books b WHERE b.id=" + bookId;
+        String sql = "UPDATE Books b SET is_deleted = 1 WHERE b.id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, bookId);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted == 0) {
                 throw new SQLException("Book deletion failed, no rows affected");

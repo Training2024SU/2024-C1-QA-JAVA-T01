@@ -24,7 +24,7 @@ public class NovelDAO {
     }
 
     public Novel getNovelById(int itemId) throws SQLException {
-        String sql = "SELECT * FROM Novels WHERE id= ?";
+        String sql = "SELECT * FROM Novels WHERE is_deleted = 0 AND id= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, itemId);
             ResultSet rs = statement.executeQuery();
@@ -38,7 +38,7 @@ public class NovelDAO {
 
     public List<Novel> getAllNovels() throws SQLException {
         List<Novel> novels = new ArrayList<>();
-        String sql = "SELECT * FROM Novels";
+        String sql = "SELECT * FROM Novels WHERE is_deleted = 0";
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs =
                 statement.executeQuery()) {
             while (rs.next()) {
@@ -71,7 +71,7 @@ public class NovelDAO {
         }
         String sql =
                 "UPDATE Novels b SET title= ?, author= ?, copies= ?, copies_borrowed= ?, " +
-                        "genre= ?, recommended_age= ? WHERE b.id= ?" ;
+                        "genre= ?, recommended_age= ? WHERE is_deleted = 0 AND b.id= ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, novel.getTitle());
@@ -89,8 +89,9 @@ public class NovelDAO {
     }
 
     public void deleteNovel(int novelId) throws SQLException {
-        String sql = "DELETE FROM Novels b WHERE b.id=" + novelId;
+        String sql = "UPDATE Novels SET is_deleted = 1 WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, novelId);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted == 0) {
                 throw new SQLException("Novel deletion failed, no rows affected");
