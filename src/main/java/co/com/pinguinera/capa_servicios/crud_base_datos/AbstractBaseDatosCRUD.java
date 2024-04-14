@@ -1,4 +1,4 @@
-package co.com.pinguinera.capa_servicios.CRUBBD;
+package co.com.pinguinera.capa_servicios.crud_base_datos;
 
 import co.com.pinguinera.capa_servicios.interfaces.BaseDatosCRUD;
 import java.sql.SQLException;

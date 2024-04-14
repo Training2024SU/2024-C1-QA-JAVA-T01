@@ -1,4 +1,4 @@
-package co.com.pinguinera.capa_servicios.CRUD;
+package co.com.pinguinera.capa_servicios.crud_local;
 
 import co.com.pinguinera.capa_servicios.interfaces.LocalCRUD;
 

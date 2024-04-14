@@ -1,16 +1,15 @@
-package co.com.pinguinera.capa_servicios.CRUBBD;
+package co.com.pinguinera.capa_servicios.crud_base_datos;
 
 import co.com.pinguinera.capa_datos.LibroDAO;
-import co.com.pinguinera.capa_servicios.CRUBBD.AbstractBaseDatosCRUD;
 import co.com.pinguinera.modelado.publicaciones.Libro;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ConsultasLibros extends AbstractBaseDatosCRUD<Libro> {
+public class LibroPersistencia extends AbstractBaseDatosCRUD<Libro> {
     private final LibroDAO libroDAO;
 
-    public ConsultasLibros(LibroDAO libroDAO) {
+    public LibroPersistencia(LibroDAO libroDAO) {
         this.libroDAO = libroDAO;
     }
 

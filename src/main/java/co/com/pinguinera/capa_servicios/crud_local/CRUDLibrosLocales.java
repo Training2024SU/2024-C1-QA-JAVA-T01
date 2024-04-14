@@ -1,14 +1,13 @@
-package co.com.pinguinera.capa_servicios.CRUD;
+package co.com.pinguinera.capa_servicios.crud_local;
 
-import co.com.pinguinera.capa_servicios.CRUD.AbstractLocalCRUD;
 import co.com.pinguinera.modelado.publicaciones.Libro;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServicioLocalCRUDLibros extends AbstractLocalCRUD<Libro> {
+public class CRUDLibrosLocales extends AbstractLocalCRUD<Libro> {
     // El constructor llama al constructor de la clase base
-    public ServicioLocalCRUDLibros() {
+    public CRUDLibrosLocales() {
         super(); // Llama al constructor de la clase base `AbstractLocalCRUD`
     }
 

@@ -1,7 +1,7 @@
-package co.com.pinguinera.capa_servicios.sincronizacionBD;
+package co.com.pinguinera.capa_servicios.integracion;
 
-import co.com.pinguinera.capa_servicios.CRUBBD.ConsultasLibros;
-import co.com.pinguinera.capa_servicios.CRUD.ServicioLocalCRUDLibros;
+import co.com.pinguinera.capa_servicios.crud_base_datos.LibroPersistencia;
+import co.com.pinguinera.capa_servicios.crud_local.CRUDLibrosLocales;
 import co.com.pinguinera.modelado.publicaciones.Libro;
 
 import java.sql.SQLException;
@@ -11,20 +11,20 @@ import java.util.Map;
 
 public class SincronizadorLibros {
 
-    private final ConsultasLibros consultasLibros;
-    private final ServicioLocalCRUDLibros servicioLocalCRUDLibros;
+    private final LibroPersistencia libroPersistencia;
+    private final CRUDLibrosLocales CRUDLibrosLocales;
 
-    public SincronizadorLibros(ConsultasLibros consultasLibros, ServicioLocalCRUDLibros servicioLocalCRUDLibros) {
-        this.consultasLibros = consultasLibros;
-        this.servicioLocalCRUDLibros = servicioLocalCRUDLibros;
+    public SincronizadorLibros(LibroPersistencia libroPersistencia, CRUDLibrosLocales CRUDLibrosLocales) {
+        this.libroPersistencia = libroPersistencia;
+        this.CRUDLibrosLocales = CRUDLibrosLocales;
     }
 
     public void sincronizarLibros() throws SQLException {
         // Obtén la lista de libros de la base de datos
-        List<Libro> librosBD = consultasLibros.obtenerTodos();
+        List<Libro> librosBD = libroPersistencia.obtenerTodos();
 
         // Obtén la lista de libros local
-        List<Libro> librosLocales = servicioLocalCRUDLibros.obtenerTodos();
+        List<Libro> librosLocales = CRUDLibrosLocales.obtenerTodos();
 
         // Crea un mapa de libros locales para búsquedas rápidas
         Map<Integer, Libro> mapaLibrosLocales = new HashMap<>();
@@ -38,7 +38,7 @@ public class SincronizadorLibros {
             if (libroLocal != null) {
                 // Si el libro local está en la base de datos, actualízalo si hay diferencias
                 if (!libroLocal.equals(libroBD)) {
-                    consultasLibros.actualizar(libroLocal);
+                    libroPersistencia.actualizar(libroLocal);
                 }
                 // Elimina el libro del mapa para que al final sepamos cuáles no estaban en la base de datos
                 mapaLibrosLocales.remove(libroLocal.getIdPublicacion());
@@ -47,7 +47,7 @@ public class SincronizadorLibros {
 
         // Inserta libros locales que no están en la base de datos
         for (Libro libroLocal : mapaLibrosLocales.values()) {
-            consultasLibros.insertar(libroLocal);
+            libroPersistencia.insertar(libroLocal);
         }
     }
 }
