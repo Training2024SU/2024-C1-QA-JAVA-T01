@@ -6,8 +6,8 @@ import com.davidbonelo.services.UserService;
 
 import java.sql.SQLException;
 
-import static com.davidbonelo.Utils.askNumber;
-import static com.davidbonelo.Utils.askText;
+import static com.davidbonelo.utils.UserInteractions.askNumber;
+import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class LoginMenu {
     private final UserService userService;
@@ -18,7 +18,7 @@ public class LoginMenu {
 
     public void menu() {
         while (userService.getLoggedUser() == null) {
-            int menuChoice = askNumber("Login menu: 1. Login with email | 2. Register");
+            int menuChoice = askNumber("Login menu: 1. Login with email | 2. Register | 0. Back");
             switch (menuChoice) {
                 case 1 -> login();
                 case 2 -> register();

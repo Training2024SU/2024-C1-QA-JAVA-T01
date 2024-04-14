@@ -1,6 +1,6 @@
 package com.davidbonelo.models;
 
-import static com.davidbonelo.Utils.askText;
+import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class User {
     private int id;

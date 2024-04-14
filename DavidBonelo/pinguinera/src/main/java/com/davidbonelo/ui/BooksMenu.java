@@ -8,10 +8,9 @@ import com.davidbonelo.services.LibraryManager;
 
 import java.sql.SQLException;
 
-import static com.davidbonelo.Utils.askNumber;
-import static com.davidbonelo.Utils.askText;
-import static com.davidbonelo.Utils.validMenuAccess;
-import static com.davidbonelo.Utils.validPermission;
+import static com.davidbonelo.utils.Permissions.validMenuAccess;
+import static com.davidbonelo.utils.UserInteractions.askNumber;
+import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class BooksMenu {
     private final LibraryManager libraryManager;
@@ -27,9 +26,7 @@ public class BooksMenu {
 
     public void menu() {
         while (true) {
-            String menuMessage = buildMenuMessage(user);
-
-            int menuChoice = askNumber(menuMessage);
+            int menuChoice = showMenu();
             switch (menuChoice) {
                 case 1 -> listBooks();
                 case 2 -> listAuthors();
@@ -44,6 +41,15 @@ public class BooksMenu {
                 default -> System.out.println("Unknown menu option");
             }
         }
+    }
+
+    private int showMenu() {
+        String visitorChoices = " 1. List Books | 2. List authors | 3. Search by author |";
+        String readerChoices = "4. Borrow a Book |";
+        String employeeChoices = "\n5. Register Book | 6. Update Book | 7. Delete Book |";
+        MenuChoices menu = new MenuChoices("Books", visitorChoices, readerChoices,
+                employeeChoices, "");
+        return menu.showMenu(user);
     }
 
     private void searchByAuthor() {
@@ -96,19 +102,5 @@ public class BooksMenu {
         } catch (SQLException e) {
             System.out.println("Can't borrow this book. " + e.getLocalizedMessage());
         }
-    }
-
-    private String buildMenuMessage(User user) {
-        final StringBuilder menuMessage = new StringBuilder("Books menu:");
-        menuMessage.append(" 1. List Books | 2. List authors | 3. Search by author |");
-
-        if (user != null) {
-            menuMessage.append(" 4. Borrow a Book |");
-            if (validPermission(user, UserRole.EMPLOYEE)) {
-                menuMessage.append(" 5. Register Book | 6. Update Book | 7. Delete Book |");
-            }
-        }
-        menuMessage.append(" 0. Back");
-        return menuMessage.toString();
     }
 }

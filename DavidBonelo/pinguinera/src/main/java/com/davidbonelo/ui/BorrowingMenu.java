@@ -11,11 +11,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import static com.davidbonelo.Utils.askDate;
-import static com.davidbonelo.Utils.askNumber;
-import static com.davidbonelo.Utils.askText;
-import static com.davidbonelo.Utils.validMenuAccess;
-import static com.davidbonelo.Utils.validPermission;
+import static com.davidbonelo.utils.Permissions.validMenuAccess;
+import static com.davidbonelo.utils.UserInteractions.askDate;
+import static com.davidbonelo.utils.UserInteractions.askNumber;
+import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class BorrowingMenu {
     private final User user;
@@ -26,12 +25,9 @@ public class BorrowingMenu {
         this.user = user;
     }
 
-
     public void menu() {
         while (true) {
-            String menuMessage = buildMenuMessage(user);
-
-            int menuChoice = askNumber(menuMessage);
+            int menuChoice = showMenu();
             switch (menuChoice) {
                 case 1 -> listBorrowingItems();
                 case 2 -> listBorrowings();
@@ -47,6 +43,15 @@ public class BorrowingMenu {
                 default -> System.out.println("Unknown menu option");
             }
         }
+    }
+
+    private int showMenu() {
+        String readerChoices = " 1. List selected items | 2. List all borrowings | 3. Show " +
+                "borrowing details | 4. Confirm request |";
+        String employeeChoices = "\n5. Search by email | 6. Confirm borrowing | 7. Finalize " +
+                "borrowing | 8. Delete borrowing |";
+        MenuChoices menu = new MenuChoices("Borrowings", "", readerChoices, employeeChoices, "");
+        return menu.showMenu(user);
     }
 
     private void listBorrowings() {
@@ -125,19 +130,5 @@ public class BorrowingMenu {
         }
         int borrowingId = askNumber("Type the id of the borrowing you want to delete");
         borrowingsService.deleteBorrowing(borrowingId);
-    }
-
-    private String buildMenuMessage(User user) {
-        final StringBuilder menuMessage = new StringBuilder("\nBorrowings menu:");
-
-        if (user != null) {
-            menuMessage.append(" 1. List selected items | 2. List all borrowings | 3. Show " +
-                    "borrowing details | 4. Confirm request |");
-            if (validPermission(user, UserRole.EMPLOYEE)) {
-                menuMessage.append("\n5. Search by email | 6. Confirm borrowing | 7. Finalize " + "borrowing | 8. Delete borrowing |");
-            }
-        }
-        menuMessage.append(" 0. Back");
-        return menuMessage.toString();
     }
 }

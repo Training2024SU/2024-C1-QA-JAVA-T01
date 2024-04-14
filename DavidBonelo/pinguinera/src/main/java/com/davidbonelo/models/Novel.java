@@ -1,7 +1,7 @@
 package com.davidbonelo.models;
 
-import static com.davidbonelo.Utils.askNumber;
-import static com.davidbonelo.Utils.askText;
+import static com.davidbonelo.utils.UserInteractions.askNumber;
+import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class Novel extends LibraryItem {
     private String genre;

@@ -12,14 +12,14 @@ import com.davidbonelo.services.UserService;
 
 import java.sql.Connection;
 
-import static com.davidbonelo.Utils.askNumber;
-import static com.davidbonelo.Utils.closeScanner;
-import static com.davidbonelo.Utils.validPermission;
+import static com.davidbonelo.utils.UserInteractions.closeScanner;
+import static com.davidbonelo.utils.Permissions.validMenuAccess;
 
 public class MainMenu {
     private final UserService userService;
     private final LibraryManager libraryManager;
     private final BorrowingsService borrowingsService;
+    private User user;
 
     public MainMenu(Connection connection) {
         UserDAO userDAO = new UserDAO(connection);
@@ -34,10 +34,9 @@ public class MainMenu {
     public void menu() {
         System.out.println("Welcome to La Pingüinera library!!");
         while (true) {
-            User user = userService.getLoggedUser();
-            String menuMessage = buildMenuMessage(user);
+            user = userService.getLoggedUser();
 
-            int menuChoice = askNumber(menuMessage);
+            int menuChoice = showMenu();
             switch (menuChoice) {
                 case 1 -> new LoginMenu(userService).menu();
                 case 2 -> new BooksMenu(libraryManager, borrowingsService, user).menu();
@@ -54,29 +53,16 @@ public class MainMenu {
         }
     }
 
-    private void logout(User user) {
-        if (user == null) {
-            System.out.println("Unknown menu option");
-        } else {
-            userService.logOut();
-        }
+    private int showMenu() {
+        String visitorChoices = " 2. Books | 3. Novels |";
+        String readerChoices = " 4. Borrowings |";
+        String adminChoices = " 5. Admin menu |";
+        return new MenuChoices("Main", visitorChoices, readerChoices, "", adminChoices).showMenu(user);
     }
 
-    private String buildMenuMessage(User user) {
-        final StringBuilder menuMessage = new StringBuilder("Menu:");
-        menuMessage.append(" 2. Books | 3. Novels |");
-
-        if (user == null) {
-            menuMessage.insert(5, " 1. Login |");
-        } else {
-            // Logged in user
-            menuMessage.append(" 4. Borrowings |");
-            if (validPermission(user, UserRole.ADMINISTRATOR)) {
-                menuMessage.append(" 5. Admin menu |");
-            }
-            menuMessage.append(" 9. Log out |");
+    private void logout(User user) {
+        if (validMenuAccess(user, UserRole.READER)) {
+            userService.logOut();
         }
-        menuMessage.append(" 0. Exit");
-        return menuMessage.toString();
     }
 }

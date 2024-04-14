@@ -6,10 +6,9 @@ import com.davidbonelo.services.UserService;
 
 import java.sql.SQLException;
 
-import static com.davidbonelo.Utils.askNumber;
-import static com.davidbonelo.Utils.askText;
-import static com.davidbonelo.Utils.validMenuAccess;
-import static com.davidbonelo.Utils.validPermission;
+import static com.davidbonelo.utils.UserInteractions.askNumber;
+import static com.davidbonelo.utils.UserInteractions.askText;
+import static com.davidbonelo.utils.Permissions.validMenuAccess;
 
 public class AdminMenu {
     private final UserService userService;
@@ -25,9 +24,8 @@ public class AdminMenu {
             if (!validMenuAccess(user, UserRole.ADMINISTRATOR)) {
                 return;
             }
-            String menuMessage = buildMenuMessage(user);
 
-            int menuChoice = askNumber(menuMessage);
+            int menuChoice = showMenu();
             switch (menuChoice) {
                 case 1 -> listUsers();
                 case 2 -> createEmployeeUser();
@@ -41,13 +39,11 @@ public class AdminMenu {
         }
     }
 
-    private String buildMenuMessage(User user) {
-        final StringBuilder menuMessage = new StringBuilder("\nAdmin menu:");
-        if (validPermission(user, UserRole.ADMINISTRATOR)) {
-            menuMessage.append(" 1. List users | 2. Create employee user | 3. Update user | 4. " + "Delete user |");
-        }
-        menuMessage.append(" 0. Back");
-        return menuMessage.toString();
+    private int showMenu() {
+        String adminChoices = " 1. List users | 2. Create employee user | 3. Update user | 4. " +
+                "Delete user |";
+        MenuChoices menu = new MenuChoices("Admin", "", "", "", adminChoices);
+        return menu.showMenu(user);
     }
 
     private void listUsers() {

@@ -1,12 +1,9 @@
-package com.davidbonelo;
-
-import com.davidbonelo.models.User;
-import com.davidbonelo.models.UserRole;
+package com.davidbonelo.utils;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Utils {
+public class UserInteractions {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void closeScanner() {
@@ -24,8 +21,8 @@ public class Utils {
         System.out.print(prompt);
         // Invalid integer handling
         while (!scanner.hasNextInt()) {
-            System.out.print("Invalid input. Please enter an integer.");
-            System.out.println(prompt);
+            System.out.println("Invalid input. Please enter an integer.");
+            System.out.print(prompt);
             scanner.next(); // clear invalid input
         }
         int input = scanner.nextInt();
@@ -68,23 +65,5 @@ public class Utils {
             }
         }
         return date;
-    }
-
-    public static boolean validMenuAccess(User user, UserRole requiredRole) {
-        boolean valid = validPermission(user, requiredRole);
-        if (!valid) {
-            System.out.println("Unknown menu option");
-        }
-        return valid;
-    }
-
-    public static boolean validPermission(User user, UserRole requiredRole) {
-        if (user == null) {
-            return false;
-        }
-        if (user.getRole().equals(UserRole.ADMINISTRATOR)) {
-            return true;
-        }
-        return user.getRole().equals(requiredRole);
     }
 }
