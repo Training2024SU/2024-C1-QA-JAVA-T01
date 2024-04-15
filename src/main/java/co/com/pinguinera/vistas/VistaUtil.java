@@ -17,7 +17,7 @@ public class VistaUtil {
     }
 
     public static void mostrarMensajeExito() {
-        System.out.println("Inicio de sesión exitoso. ¡Bienvenido!");
+        System.out.println("Proceso Exitoso");
     }
 
     public static void mostrarMensajeError() {

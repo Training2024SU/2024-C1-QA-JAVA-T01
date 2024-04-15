@@ -14,7 +14,7 @@ import co.com.pinguinera.datos.crud_local.CRUDUsuariosLocales;
 import co.com.pinguinera.datos.crud_local.CRUDEmpleadosLocales;
 import co.com.pinguinera.servicios.integracion.SincronizadorUsuario;
 import co.com.pinguinera.servicios.integracion.SincronizadorEmpleado;
-import co.com.pinguinera.vistas.vista_usuario.RegistroUsuarioVista;
+import co.com.pinguinera.vistas.vista_usuario.InformacionUsuarioVista;
 import co.com.pinguinera.vistas.MenuPrincipal;
 
 import java.sql.Connection;
@@ -35,14 +35,14 @@ public class Main {
             SincronizadorUsuario sincronizadorUsuario = new SincronizadorUsuario(usuarioDAO, crudUsuariosLocales);
             SincronizadorEmpleado sincronizadorEmpleado = new SincronizadorEmpleado(empleadoDAO, crudEmpleadosLocales);
 
-            RegistroUsuarioVista registroUsuarioVista = new RegistroUsuarioVista();
+            InformacionUsuarioVista informacionUsuarioVista = new InformacionUsuarioVista();
 
             GestorAccesoUsuarios gestorAccesoUsuarios = new GestorAccesoUsuarios(usuarioDAO);
             GestorAccesoEmpleados gestorAccesoEmpleados = new GestorAccesoEmpleados(empleadoDAO);
 
             UsuarioSesionControlador usuarioSesionControlador = new UsuarioSesionControlador(gestorAccesoUsuarios);
             EmpleadoSesionControlador empleadoSesionControlador = new EmpleadoSesionControlador(gestorAccesoEmpleados);
-            ControladorCRUDUsuario controladorCRUDUsuario = new ControladorCRUDUsuario(registroUsuarioVista, crudUsuariosLocales, usuarioDAO, sincronizadorUsuario);
+            ControladorCRUDUsuario controladorCRUDUsuario = new ControladorCRUDUsuario(informacionUsuarioVista, crudUsuariosLocales, usuarioDAO, sincronizadorUsuario);
 
             MenuPrincipal menuPrincipal = new MenuPrincipal(empleadoSesionControlador, usuarioSesionControlador, controladorCRUDUsuario);
             menuPrincipal.mostrarMenu();
