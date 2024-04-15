@@ -1,5 +1,5 @@
 package com.sofka.model;
 
 public enum Rol {
-    ASISTENTE, LECTOR
+    ADMINISTRADOR, ASISTENTE
 }
