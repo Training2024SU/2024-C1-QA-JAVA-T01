@@ -71,11 +71,12 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
 
     // Método para eliminar un empleado de la base de datos
     @Override
-    public void eliminar(int idEmpleado) throws SQLException {
+    public void eliminar(Empleado empleado) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_EMPLEADO)) {
-            statement.setInt(1, idEmpleado);
+            statement.setInt(1, empleado.getIdEmpleado());
             statement.executeUpdate();
         }
     }
+
 
 }

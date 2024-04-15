@@ -1,6 +1,6 @@
 package co.com.pinguinera.servicios.integracion;
 
-import co.com.pinguinera.datos.crud_base_datos.EmpleadoPersistencia;
+import co.com.pinguinera.datos.DAO.EmpleadoDAO;
 import co.com.pinguinera.datos.crud_local.CRUDEmpleadosLocales;
 import co.com.pinguinera.datos.model.Empleado;
 
@@ -11,17 +11,17 @@ import java.util.Map;
 
 public class SincronizadorEmpleado {
 
-    private final EmpleadoPersistencia empleadoPersistencia;
+    private final EmpleadoDAO empleadoDAO;
     private final CRUDEmpleadosLocales crudEmpleadosLocales;
 
-    public SincronizadorEmpleado(EmpleadoPersistencia empleadoPersistencia, CRUDEmpleadosLocales crudEmpleadosLocales) {
-        this.empleadoPersistencia = empleadoPersistencia;
+    public SincronizadorEmpleado(EmpleadoDAO empleadoDAO, CRUDEmpleadosLocales crudEmpleadosLocales) {
+        this.empleadoDAO = empleadoDAO;
         this.crudEmpleadosLocales = crudEmpleadosLocales;
     }
 
     public void sincronizarEmpleados() throws SQLException {
         // Obtén la lista de empleados de la base de datos
-        List<Empleado> empleadosBD = empleadoPersistencia.obtenerTodos();
+        List<Empleado> empleadosBD = empleadoDAO.obtenerTodos();
 
         // Obtén la lista de empleados locales
         List<Empleado> empleadosLocales = crudEmpleadosLocales.obtenerTodos();
@@ -38,7 +38,7 @@ public class SincronizadorEmpleado {
             if (empleadoLocal != null) {
                 // Si el empleado local está en la base de datos, actualízalo si hay diferencias
                 if (!empleadoLocal.equals(empleadoBD)) {
-                    empleadoPersistencia.actualizar(empleadoLocal);
+                    empleadoDAO.actualizar(empleadoLocal);
                 }
                 // Elimina el empleado del mapa para que al final sepamos cuáles no estaban en la base de datos
                 mapaEmpleadosLocales.remove(empleadoLocal.getIdEmpleado());
@@ -47,7 +47,7 @@ public class SincronizadorEmpleado {
 
         // Inserta empleados locales que no están en la base de datos
         for (Empleado empleadoLocal : mapaEmpleadosLocales.values()) {
-            empleadoPersistencia.insertar(empleadoLocal);
+            empleadoDAO.insertar(empleadoLocal);
         }
     }
 }

@@ -1,6 +1,7 @@
 package co.com.pinguinera.datos.DAO;
 
 import co.com.pinguinera.datos.interfaces.GestorBD;
+import co.com.pinguinera.datos.model.Publicacion;
 import co.com.pinguinera.datos.model.publicaciones.Novela;
 
 import java.sql.PreparedStatement;
@@ -75,11 +76,12 @@ public class NovelaDAO extends AbstractDAO<Novela> {
 
     // Método para eliminar una novela de la base de datos
     @Override
-    public void eliminar(int idPublicacion) throws SQLException {
+    public void eliminar(Novela novela) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_NOVELA)) {
-            statement.setInt(1, idPublicacion);
+            statement.setInt(1, novela.getIdPublicacion()); // Usa el ID de la novela para la eliminación
             statement.executeUpdate();
         }
     }
+
 
 }

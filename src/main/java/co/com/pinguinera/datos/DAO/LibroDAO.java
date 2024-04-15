@@ -79,11 +79,12 @@ public class LibroDAO extends AbstractDAO<Libro> {
 
     // Método para eliminar un libro de la base de datos
     @Override
-    public void eliminar(int idPublicacion) throws SQLException {
+    public void eliminar(Libro libro) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_LIBRO)) {
-            statement.setInt(1, idPublicacion);
+            statement.setInt(1, libro.getIdPublicacion()); // Utiliza el ID de la publicación del libro
             statement.executeUpdate();
         }
     }
+
 
 }

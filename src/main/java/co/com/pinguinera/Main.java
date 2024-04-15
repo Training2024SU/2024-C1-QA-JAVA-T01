@@ -10,8 +10,6 @@ import co.com.pinguinera.datos.interfaces.GestorBD;
 import co.com.pinguinera.datos.ImplBD.BaseDatosImpl;
 import co.com.pinguinera.servicios.GestorAccesoUsuarios;
 import co.com.pinguinera.servicios.GestorAccesoEmpleados;
-import co.com.pinguinera.datos.crud_base_datos.UsuarioPersistencia;
-import co.com.pinguinera.datos.crud_base_datos.EmpleadoPersistencia;
 import co.com.pinguinera.datos.crud_local.CRUDUsuariosLocales;
 import co.com.pinguinera.datos.crud_local.CRUDEmpleadosLocales;
 import co.com.pinguinera.servicios.integracion.SincronizadorUsuario;
@@ -24,36 +22,28 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        // Bloque `try-with-resources` para manejar la conexión de base de datos
         try (Connection conexion = ConexionBD.conectar()) {
             System.out.println("Conexión a la base de datos abierta con éxito.");
 
-            // Crear instancias de `BaseDatosImpl` y `UsuarioDAO`
             GestorBD gestorBD = new BaseDatosImpl(conexion);
             UsuarioDAO usuarioDAO = new UsuarioDAO(gestorBD);
             EmpleadoDAO empleadoDAO = new EmpleadoDAO(gestorBD);
 
-            // Crear instancias de CRUD locales y persistencias
             CRUDUsuariosLocales crudUsuariosLocales = new CRUDUsuariosLocales();
-            UsuarioPersistencia usuarioPersistencia = new UsuarioPersistencia(usuarioDAO);
             CRUDEmpleadosLocales crudEmpleadosLocales = new CRUDEmpleadosLocales();
-            EmpleadoPersistencia empleadoPersistencia = new EmpleadoPersistencia(empleadoDAO);
 
-            // Crear instancias de servicios de acceso y sincronizadores
-            GestorAccesoUsuarios gestorAccesoUsuarios = new GestorAccesoUsuarios(usuarioDAO);
-            GestorAccesoEmpleados gestorAccesoEmpleados = new GestorAccesoEmpleados(empleadoDAO);
-            SincronizadorUsuario sincronizadorUsuario = new SincronizadorUsuario(usuarioPersistencia, crudUsuariosLocales);
-            SincronizadorEmpleado sincronizadorEmpleado = new SincronizadorEmpleado(empleadoPersistencia, crudEmpleadosLocales);
+            SincronizadorUsuario sincronizadorUsuario = new SincronizadorUsuario(usuarioDAO, crudUsuariosLocales);
+            SincronizadorEmpleado sincronizadorEmpleado = new SincronizadorEmpleado(empleadoDAO, crudEmpleadosLocales);
 
-            // Crear vistas
             RegistroUsuarioVista registroUsuarioVista = new RegistroUsuarioVista();
 
-            // Crear controladores
+            GestorAccesoUsuarios gestorAccesoUsuarios = new GestorAccesoUsuarios(usuarioDAO);
+            GestorAccesoEmpleados gestorAccesoEmpleados = new GestorAccesoEmpleados(empleadoDAO);
+
             UsuarioSesionControlador usuarioSesionControlador = new UsuarioSesionControlador(gestorAccesoUsuarios);
             EmpleadoSesionControlador empleadoSesionControlador = new EmpleadoSesionControlador(gestorAccesoEmpleados);
-            ControladorCRUDUsuario controladorCRUDUsuario = new ControladorCRUDUsuario(registroUsuarioVista, crudUsuariosLocales, usuarioPersistencia, sincronizadorUsuario);
+            ControladorCRUDUsuario controladorCRUDUsuario = new ControladorCRUDUsuario(registroUsuarioVista, crudUsuariosLocales, usuarioDAO, sincronizadorUsuario);
 
-            // Crear instancia de `MenuPrincipal` y mostrar el menú
             MenuPrincipal menuPrincipal = new MenuPrincipal(empleadoSesionControlador, usuarioSesionControlador, controladorCRUDUsuario);
             menuPrincipal.mostrarMenu();
 

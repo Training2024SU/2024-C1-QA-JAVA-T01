@@ -56,9 +56,10 @@ public class AreaGeneroDAO extends AbstractDAO<AreaGenero> {
 
     // Método para eliminar un AreaGenero de la base de datos
     @Override
-    public void eliminar(int idPublicacion) throws SQLException {
+    public void eliminar(AreaGenero areaGenero) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_AREA_GENERO)) {
-            statement.setInt(1, idPublicacion); // Cambia a setInt para idPublicacion
+            // Usar el ID de la publicación del objeto AreaGenero
+            statement.setInt(1, areaGenero.getIdPublicacion());
             statement.executeUpdate();
         }
     }

@@ -6,6 +6,7 @@ import co.com.pinguinera.datos.model.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UsuarioDAO extends AbstractDAO<Usuario> {
 
@@ -21,22 +22,18 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
 
     @Override
     public String obtenerConsultaTodos() {
-        // Devuelve la consulta SQL específica para obtener todos los registros de la tabla Usuario
         return CONSULTA_USUARIOS;
     }
 
     @Override
     protected Usuario convertirFilaAObjeto(ResultSet resultSet) throws SQLException {
-        // Crea un objeto Usuario a partir de una fila del ResultSet
         Usuario usuario = new Usuario();
-        usuario.setIdUsuario(resultSet.getInt("idUsuario")); // Ajuste para incluir idUsuario
+        usuario.setIdUsuario(resultSet.getInt("idUsuario"));
         usuario.setCorreo(resultSet.getString("Correo"));
         usuario.setNombre(resultSet.getString("Nombre"));
         usuario.setContrasena(resultSet.getString("Contraseña"));
         return usuario;
     }
-
-    // Implementación de los métodos LocalCRUD
 
     // Método para insertar un nuevo usuario en la base de datos
     @Override
@@ -55,18 +52,18 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         try (PreparedStatement statement = prepararConsulta(ACTUALIZAR_USUARIO)) {
             statement.setString(1, usuario.getNombre());
             statement.setString(2, usuario.getContrasena());
-            statement.setInt(3, usuario.getIdUsuario()); // Usar idUsuario en la actualización
+            statement.setInt(3, usuario.getIdUsuario());
             statement.executeUpdate();
         }
     }
 
     // Método para eliminar un usuario de la base de datos
     @Override
-    public void eliminar(int idUsuario) throws SQLException {
+    public void eliminar(Usuario usuario) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_USUARIO)) {
-            statement.setInt(1, idUsuario); // Usar idUsuario en la eliminación
+            statement.setInt(1, usuario.getIdUsuario());
             statement.executeUpdate();
         }
     }
-
 }
+

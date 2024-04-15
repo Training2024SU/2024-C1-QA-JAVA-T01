@@ -64,9 +64,9 @@ public class PrestamoDAO extends AbstractDAO<Prestamo> {
     }
 
     @Override
-    public void eliminar(int idPrestamo) throws SQLException {
+    public void eliminar(Prestamo idPrestamo) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_PRESTAMO)) {
-            statement.setInt(1, idPrestamo);
+            statement.setInt(1, idPrestamo.getIdPrestamo());
             statement.executeUpdate();
         }
     }

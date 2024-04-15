@@ -59,12 +59,13 @@ public class EdadSugeridaDAO extends AbstractDAO<EdadSugerida> {
 
     // Método para eliminar una edad sugerida de la base de datos
     @Override
-    public void eliminar(int idPublicacion) throws SQLException {
+    public void eliminar(EdadSugerida edadSugerida) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_EDAD_SUGERIDA)) {
-            // Usar setInt para un parámetro de tipo int
-            statement.setInt(1, idPublicacion);
+            // Usar el ID de la publicación del objeto EdadSugerida
+            statement.setInt(1, edadSugerida.getIdPublicacion());
             statement.executeUpdate();
         }
     }
+
 
 }

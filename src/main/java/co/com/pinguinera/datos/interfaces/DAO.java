@@ -31,11 +31,8 @@ public interface DAO<T> {
     /**
      * Elimina un objeto de tipo T de la tabla correspondiente en la base de datos.
      *
-     * @param id El identificador del objeto a eliminar de la base de datos.
+     * @param objeto El objeto a eliminar de la base de datos.
      * @throws SQLException Si ocurre un error al interactuar con la base de datos.
      */
-    void eliminar(int id) throws SQLException;
-
+    void eliminar(T objeto) throws SQLException;
 }
-
-
