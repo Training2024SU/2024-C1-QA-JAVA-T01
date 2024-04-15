@@ -30,6 +30,9 @@ public class BorrowingMenu {
 
     public void menu() {
         while (true) {
+            if (!validMenuAccess(user, UserRole.READER)) {
+                return;
+            }
             int menuChoice = showMenu();
             switch (menuChoice) {
                 case 1 -> listBorrowingItems();

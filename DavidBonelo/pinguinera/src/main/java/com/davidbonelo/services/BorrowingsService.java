@@ -65,7 +65,6 @@ public class BorrowingsService {
             throw new SQLException(errMsg);
         }
         this.itemsToBorrow.add(book);
-        itemsToBorrow.forEach(System.out::println);
     }
 
     public void addBorrowingNovel(int itemId) throws SQLException {
@@ -76,7 +75,6 @@ public class BorrowingsService {
             throw new SQLException(errMsg);
         }
         this.itemsToBorrow.add(novel);
-        itemsToBorrow.forEach(System.out::println);
     }
 
     public List<Borrowing> getAllBorrowings(User user) {

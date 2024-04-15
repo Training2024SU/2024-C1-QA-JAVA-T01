@@ -15,6 +15,7 @@ public class Permissions {
     }
 
     public static boolean validPermission(User user, UserRole requiredRole) {
+        if (user == null) return false;
         if (user.getRole().equals(UserRole.ADMINISTRATOR)) {
             return true;
         }
