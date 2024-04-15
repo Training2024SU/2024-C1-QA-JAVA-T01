@@ -1,11 +1,23 @@
 package co.com.pinguinera;
 
-import co.com.pinguinera.capa_datos.conexionBD.ConexionBD;
-import co.com.pinguinera.capa_datos.interfaces.GestorBD;
-import co.com.pinguinera.capa_datos.ImplBD.BaseDatosImpl;
-import co.com.pinguinera.capa_datos.EmpleadoDAO;
-import co.com.pinguinera.capa_servicios.GestorAccesoEmpleados;
-
+import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
+import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
+import co.com.pinguinera.controladores.crud.RegistroUsuarioControlador;
+import co.com.pinguinera.datos.UsuarioDAO;
+import co.com.pinguinera.datos.EmpleadoDAO;
+import co.com.pinguinera.datos.conexionBD.ConexionBD;
+import co.com.pinguinera.datos.interfaces.GestorBD;
+import co.com.pinguinera.datos.ImplBD.BaseDatosImpl;
+import co.com.pinguinera.servicios.GestorAccesoUsuarios;
+import co.com.pinguinera.servicios.GestorAccesoEmpleados;
+import co.com.pinguinera.datos.crud_base_datos.UsuarioPersistencia;
+import co.com.pinguinera.datos.crud_base_datos.EmpleadoPersistencia;
+import co.com.pinguinera.datos.crud_local.CRUDUsuariosLocales;
+import co.com.pinguinera.datos.crud_local.CRUDEmpleadosLocales;
+import co.com.pinguinera.servicios.integracion.SincronizadorUsuario;
+import co.com.pinguinera.servicios.integracion.SincronizadorEmpleado;
+import co.com.pinguinera.vistas.vista_usuario.RegistroUsuarioVista;
+import co.com.pinguinera.vistas.MenuPrincipal;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,29 +28,35 @@ public class Main {
         try (Connection conexion = ConexionBD.conectar()) {
             System.out.println("Conexión a la base de datos abierta con éxito.");
 
-            // Crear una instancia de `BaseDatosImpl` implementando `GestorBD` usando la conexión
+            // Crear instancias de `BaseDatosImpl` y `UsuarioDAO`
             GestorBD gestorBD = new BaseDatosImpl(conexion);
-
-            // Crear una instancia de `EmpleadoDAO` utilizando `gestorBD`
+            UsuarioDAO usuarioDAO = new UsuarioDAO(gestorBD);
             EmpleadoDAO empleadoDAO = new EmpleadoDAO(gestorBD);
 
-            // Crear una instancia de `GestorAccesoEmpleados` utilizando `empleadoDAO`
+            // Crear instancias de CRUD locales y persistencias
+            CRUDUsuariosLocales crudUsuariosLocales = new CRUDUsuariosLocales();
+            UsuarioPersistencia usuarioPersistencia = new UsuarioPersistencia(usuarioDAO);
+            CRUDEmpleadosLocales crudEmpleadosLocales = new CRUDEmpleadosLocales();
+            EmpleadoPersistencia empleadoPersistencia = new EmpleadoPersistencia(empleadoDAO);
+
+            // Crear instancias de servicios de acceso y sincronizadores
+            GestorAccesoUsuarios gestorAccesoUsuarios = new GestorAccesoUsuarios(usuarioDAO);
             GestorAccesoEmpleados gestorAccesoEmpleados = new GestorAccesoEmpleados(empleadoDAO);
+            SincronizadorUsuario sincronizadorUsuario = new SincronizadorUsuario(usuarioPersistencia, crudUsuariosLocales);
+            SincronizadorEmpleado sincronizadorEmpleado = new SincronizadorEmpleado(empleadoPersistencia, crudEmpleadosLocales);
 
-            // Prueba de verificar si un empleado específico existe y obtener su rol
-            // Ejemplo de credenciales
-            String correo = "administrador@pingu.com.co";
-            String contrasena = "contraseñasegura123456";
+            // Crear vistas
+            RegistroUsuarioVista registroUsuarioVista = new RegistroUsuarioVista();
 
-            // Verificar si el empleado con las credenciales dadas existe y obtener su rol
-            String rolEmpleado = gestorAccesoEmpleados.verificarEmpleado(correo, contrasena);
+            // Crear controladores
+            UsuarioSesionControlador usuarioSesionControlador = new UsuarioSesionControlador(gestorAccesoUsuarios);
+            EmpleadoSesionControlador empleadoSesionControlador = new EmpleadoSesionControlador(gestorAccesoEmpleados);
+            RegistroUsuarioControlador registroUsuarioControlador = new RegistroUsuarioControlador(registroUsuarioVista, crudUsuariosLocales, usuarioPersistencia, sincronizadorUsuario);
 
-            // Mostrar el resultado de la verificación
-            if (rolEmpleado != null) {
-                System.out.println("Acceso concedido al empleado con correo: " + correo + ". Rol: " + rolEmpleado);
-            } else {
-                System.out.println("Acceso denegado para el empleado con correo: " + correo);
-            }
+            // Crear instancia de `MenuPrincipal` y mostrar el menú
+            MenuPrincipal menuPrincipal = new MenuPrincipal(empleadoSesionControlador, usuarioSesionControlador, registroUsuarioControlador);
+            menuPrincipal.mostrarMenu();
+
         } catch (SQLException e) {
             System.err.println("Error al interactuar con la base de datos: " + e.getMessage());
         }
