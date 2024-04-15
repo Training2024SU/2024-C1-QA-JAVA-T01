@@ -1,6 +1,6 @@
 package co.com.pinguinera.servicios.integracion;
 
-import co.com.pinguinera.datos.crud_base_datos.PrestamoPersistencia;
+import co.com.pinguinera.datos.DAO.PrestamoDAO;
 import co.com.pinguinera.datos.crud_local.CRUDPrestamosLocales;
 import co.com.pinguinera.datos.model.Prestamo;
 
@@ -11,17 +11,17 @@ import java.util.Map;
 
 public class SincronizadorPrestamos {
 
-    private final PrestamoPersistencia prestamoPersistencia;
+    private final PrestamoDAO prestamoDAO;
     private final CRUDPrestamosLocales crudPrestamosLocales;
 
-    public SincronizadorPrestamos(PrestamoPersistencia prestamoPersistencia, CRUDPrestamosLocales crudPrestamosLocales) {
-        this.prestamoPersistencia = prestamoPersistencia;
+    public SincronizadorPrestamos(PrestamoDAO prestamoDAO, CRUDPrestamosLocales crudPrestamosLocales) {
+        this.prestamoDAO = prestamoDAO;
         this.crudPrestamosLocales = crudPrestamosLocales;
     }
 
     public void sincronizarPrestamos() throws SQLException {
-        // Obtén la lista de préstamos de la base de datos
-        List<Prestamo> prestamosBD = prestamoPersistencia.obtenerTodos();
+        // Obtén la lista de préstamos de la base de datos usando PrestamoDAO
+        List<Prestamo> prestamosBD = prestamoDAO.obtenerTodos();
 
         // Obtén la lista de préstamos locales
         List<Prestamo> prestamosLocales = crudPrestamosLocales.obtenerTodos();
@@ -38,7 +38,7 @@ public class SincronizadorPrestamos {
             if (prestamoLocal != null) {
                 // Si el préstamo local está en la base de datos, actualízalo si hay diferencias
                 if (!prestamoLocal.equals(prestamoBD)) {
-                    prestamoPersistencia.actualizar(prestamoLocal);
+                    prestamoDAO.actualizar(prestamoLocal);
                 }
                 // Elimina el préstamo del mapa para que al final sepamos cuáles no estaban en la base de datos
                 mapaPrestamosLocales.remove(prestamoLocal.getIdPrestamo());
@@ -47,7 +47,7 @@ public class SincronizadorPrestamos {
 
         // Inserta préstamos locales que no están en la base de datos
         for (Prestamo prestamoLocal : mapaPrestamosLocales.values()) {
-            prestamoPersistencia.insertar(prestamoLocal);
+            prestamoDAO.insertar(prestamoLocal);
         }
     }
 }

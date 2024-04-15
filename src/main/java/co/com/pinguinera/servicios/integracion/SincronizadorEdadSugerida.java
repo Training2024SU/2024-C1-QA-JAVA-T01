@@ -1,6 +1,6 @@
 package co.com.pinguinera.servicios.integracion;
 
-import co.com.pinguinera.datos.crud_base_datos.EdadSugeridaPersistencia;
+import co.com.pinguinera.datos.DAO.EdadSugeridaDAO;
 import co.com.pinguinera.datos.crud_local.CRUDEdadesSugeridasLocales;
 import co.com.pinguinera.datos.model.EdadSugerida;
 
@@ -11,19 +11,19 @@ import java.util.Map;
 
 public class SincronizadorEdadSugerida {
 
-    private final EdadSugeridaPersistencia edadSugeridaPersistencia;
+    private final EdadSugeridaDAO edadSugeridaDAO;
     private final CRUDEdadesSugeridasLocales crudEdadesSugeridasLocales;
 
-    public SincronizadorEdadSugerida(EdadSugeridaPersistencia edadSugeridaPersistencia, CRUDEdadesSugeridasLocales crudEdadSugeridaLocales) {
-        this.edadSugeridaPersistencia = edadSugeridaPersistencia;
-        this.crudEdadesSugeridasLocales = crudEdadSugeridaLocales;
+    public SincronizadorEdadSugerida(EdadSugeridaDAO edadSugeridaDAO, CRUDEdadesSugeridasLocales crudEdadesSugeridasLocales) {
+        this.edadSugeridaDAO = edadSugeridaDAO;
+        this.crudEdadesSugeridasLocales = crudEdadesSugeridasLocales;
     }
 
     public void sincronizarEdadSugerida() throws SQLException {
         // Obtén la lista de datos de EdadSugerida de la base de datos
-        List<EdadSugerida> edadesBD = edadSugeridaPersistencia.obtenerTodos();
+        List<EdadSugerida> edadesBD = edadSugeridaDAO.obtenerTodos();
 
-        // Obtén la lista de datos de EdadSugerida local
+        // Obtén la lista de datos de EdadSugerida locales
         List<EdadSugerida> edadesLocales = crudEdadesSugeridasLocales.obtenerTodos();
 
         // Crea un mapa de edades locales para búsquedas rápidas
@@ -38,7 +38,7 @@ public class SincronizadorEdadSugerida {
             if (edadLocal != null) {
                 // Si el dato local está en la base de datos, actualízalo si hay diferencias
                 if (!edadLocal.equals(edadBD)) {
-                    edadSugeridaPersistencia.actualizar(edadLocal);
+                    edadSugeridaDAO.actualizar(edadLocal);
                 }
                 // Elimina el dato del mapa para que al final sepamos cuáles no estaban en la base de datos
                 mapaEdadesLocales.remove(edadLocal.getIdPublicacion());
@@ -47,7 +47,8 @@ public class SincronizadorEdadSugerida {
 
         // Inserta datos locales que no están en la base de datos
         for (EdadSugerida edadLocal : mapaEdadesLocales.values()) {
-            edadSugeridaPersistencia.insertar(edadLocal);
+            edadSugeridaDAO.insertar(edadLocal);
         }
     }
 }
+

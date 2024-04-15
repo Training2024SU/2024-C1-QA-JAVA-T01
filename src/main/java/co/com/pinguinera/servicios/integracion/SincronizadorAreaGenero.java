@@ -1,6 +1,6 @@
 package co.com.pinguinera.servicios.integracion;
 
-import co.com.pinguinera.datos.crud_base_datos.AreaGeneroPersistencia;
+import co.com.pinguinera.datos.DAO.AreaGeneroDAO;
 import co.com.pinguinera.datos.crud_local.CRUDAreaGeneroLocales;
 import co.com.pinguinera.datos.model.AreaGenero;
 
@@ -11,17 +11,17 @@ import java.util.Map;
 
 public class SincronizadorAreaGenero {
 
-    private final AreaGeneroPersistencia areaGeneroPersistencia;
+    private final AreaGeneroDAO areaGeneroDAO;
     private final CRUDAreaGeneroLocales crudAreaGeneroLocales;
 
-    public SincronizadorAreaGenero(AreaGeneroPersistencia areaGeneroPersistencia, CRUDAreaGeneroLocales crudAreaGeneroLocales) {
-        this.areaGeneroPersistencia = areaGeneroPersistencia;
+    public SincronizadorAreaGenero(AreaGeneroDAO areaGeneroDAO, CRUDAreaGeneroLocales crudAreaGeneroLocales) {
+        this.areaGeneroDAO = areaGeneroDAO;
         this.crudAreaGeneroLocales = crudAreaGeneroLocales;
     }
 
     public void sincronizarAreaGenero() throws SQLException {
         // Obtén la lista de AreaGeneros de la base de datos
-        List<AreaGenero> areaGenerosBD = areaGeneroPersistencia.obtenerTodos();
+        List<AreaGenero> areaGenerosBD = areaGeneroDAO.obtenerTodos();
 
         // Obtén la lista de AreaGeneros locales
         List<AreaGenero> areaGenerosLocales = crudAreaGeneroLocales.obtenerTodos();
@@ -38,7 +38,7 @@ public class SincronizadorAreaGenero {
             if (areaGeneroLocal != null) {
                 // Si el AreaGenero local está en la base de datos, actualízalo si hay diferencias
                 if (!areaGeneroLocal.equals(areaGeneroBD)) {
-                    areaGeneroPersistencia.actualizar(areaGeneroLocal);
+                    areaGeneroDAO.actualizar(areaGeneroLocal);
                 }
                 // Elimina el AreaGenero del mapa para que al final sepamos cuáles no estaban en la base de datos
                 mapaAreaGenerosLocales.remove(areaGeneroLocal.getIdPublicacion());
@@ -47,7 +47,7 @@ public class SincronizadorAreaGenero {
 
         // Inserta AreaGeneros locales que no están en la base de datos
         for (AreaGenero areaGeneroLocal : mapaAreaGenerosLocales.values()) {
-            areaGeneroPersistencia.insertar(areaGeneroLocal);
+            areaGeneroDAO.insertar(areaGeneroLocal);
         }
     }
 }
