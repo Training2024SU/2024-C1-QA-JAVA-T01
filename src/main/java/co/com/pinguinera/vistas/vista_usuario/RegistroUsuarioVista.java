@@ -3,11 +3,7 @@ package co.com.pinguinera.vistas.vista_usuario;
 import co.com.pinguinera.datos.model.Usuario;
 import co.com.pinguinera.vistas.VistaUtil;
 
-import java.util.Scanner;
-
 public class RegistroUsuarioVista {
-
-    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Solicita los datos de un nuevo usuario desde la consola.
@@ -16,14 +12,13 @@ public class RegistroUsuarioVista {
     public Usuario pedirDatosUsuario() {
         Usuario usuario = new Usuario();
 
-        // Solicitar nombre del usuario
-        System.out.print("Por favor, introduzca su nombre: ");
-        usuario.setNombre(scanner.nextLine());
+        // Solicitar nombre del usuario usando VistaUtil
+        usuario.setNombre(VistaUtil.pedirNombre());
 
-        // Solicitar correo electrónico del usuario
+        // Solicitar correo electrónico del usuario usando VistaUtil
         usuario.setCorreo(VistaUtil.pedirCorreoElectronico());
 
-        // Solicitar contraseña del usuario
+        // Solicitar contraseña del usuario usando VistaUtil
         usuario.setContrasena(VistaUtil.pedirContrasena());
 
         // Puedes solicitar otros datos necesarios aquí, como dirección, teléfono, etc.
@@ -35,7 +30,7 @@ public class RegistroUsuarioVista {
      * Muestra un mensaje de éxito cuando el registro es exitoso.
      */
     public void mostrarMensajeExitoRegistro() {
-        System.out.println("Registro exitoso. ¡Bienvenido!");
+        VistaUtil.mostrarMensajeExito();
     }
 
     /**
@@ -43,6 +38,6 @@ public class RegistroUsuarioVista {
      * @param mensaje Mensaje de error a mostrar.
      */
     public void mostrarMensajeErrorRegistro(String mensaje) {
-        System.out.println("Error en el registro: " + mensaje);
+        VistaUtil.mostrarMensajeError();
     }
 }

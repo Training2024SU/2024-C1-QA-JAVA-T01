@@ -2,9 +2,9 @@ package co.com.pinguinera;
 
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
-import co.com.pinguinera.controladores.crud.RegistroUsuarioControlador;
-import co.com.pinguinera.datos.UsuarioDAO;
-import co.com.pinguinera.datos.EmpleadoDAO;
+import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
+import co.com.pinguinera.datos.DAO.UsuarioDAO;
+import co.com.pinguinera.datos.DAO.EmpleadoDAO;
 import co.com.pinguinera.datos.conexionBD.ConexionBD;
 import co.com.pinguinera.datos.interfaces.GestorBD;
 import co.com.pinguinera.datos.ImplBD.BaseDatosImpl;
@@ -51,10 +51,10 @@ public class Main {
             // Crear controladores
             UsuarioSesionControlador usuarioSesionControlador = new UsuarioSesionControlador(gestorAccesoUsuarios);
             EmpleadoSesionControlador empleadoSesionControlador = new EmpleadoSesionControlador(gestorAccesoEmpleados);
-            RegistroUsuarioControlador registroUsuarioControlador = new RegistroUsuarioControlador(registroUsuarioVista, crudUsuariosLocales, usuarioPersistencia, sincronizadorUsuario);
+            ControladorCRUDUsuario controladorCRUDUsuario = new ControladorCRUDUsuario(registroUsuarioVista, crudUsuariosLocales, usuarioPersistencia, sincronizadorUsuario);
 
             // Crear instancia de `MenuPrincipal` y mostrar el menú
-            MenuPrincipal menuPrincipal = new MenuPrincipal(empleadoSesionControlador, usuarioSesionControlador, registroUsuarioControlador);
+            MenuPrincipal menuPrincipal = new MenuPrincipal(empleadoSesionControlador, usuarioSesionControlador, controladorCRUDUsuario);
             menuPrincipal.mostrarMenu();
 
         } catch (SQLException e) {

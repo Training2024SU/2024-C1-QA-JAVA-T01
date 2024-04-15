@@ -1,6 +1,6 @@
 package co.com.pinguinera.datos.crud_base_datos;
 
-import co.com.pinguinera.datos.UsuarioDAO;
+import co.com.pinguinera.datos.DAO.UsuarioDAO;
 import co.com.pinguinera.datos.model.Usuario;
 
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 package co.com.pinguinera.datos.crud_base_datos;
 
-import co.com.pinguinera.datos.EdadSugeridaDAO;
+import co.com.pinguinera.datos.DAO.EdadSugeridaDAO;
 import co.com.pinguinera.datos.model.EdadSugerida;
 
 import java.sql.SQLException;

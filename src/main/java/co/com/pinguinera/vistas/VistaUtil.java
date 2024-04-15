@@ -21,8 +21,15 @@ public class VistaUtil {
     }
 
     public static void mostrarMensajeError() {
-        System.out.println("Error en el inicio de sesión. Por favor, inténtelo nuevamente.");
+        System.out.println("Error. Por favor, inténtelo nuevamente.");
     }
+
+    // Método para pedir el nombre del usuario
+    public static String pedirNombre() {
+        System.out.print("Por favor, introduzca su nombre: ");
+        return scanner.nextLine();
+    }
+
 
     // Método para cerrar el Scanner al finalizar la aplicación
     public static void cerrarScanner() {

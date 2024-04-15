@@ -1,7 +1,7 @@
 package co.com.pinguinera.vistas;
 
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
-import co.com.pinguinera.controladores.crud.RegistroUsuarioControlador;
+import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
 
 import java.util.Scanner;
@@ -9,12 +9,12 @@ import java.util.Scanner;
 public class MenuPrincipal {
     private final EmpleadoSesionControlador controladorEmpleadoSesion;
     private final UsuarioSesionControlador controladorUsuarioSesion;
-    private final RegistroUsuarioControlador controladorRegistroUsuario;
+    private final ControladorCRUDUsuario controladorRegistroUsuario;
     private final Scanner scanner;
 
     public MenuPrincipal(EmpleadoSesionControlador controladorEmpleadoSesion,
                          UsuarioSesionControlador controladorUsuarioSesion,
-                         RegistroUsuarioControlador controladorRegistroUsuario) {
+                         ControladorCRUDUsuario controladorRegistroUsuario) {
         this.controladorEmpleadoSesion = controladorEmpleadoSesion;
         this.controladorUsuarioSesion = controladorUsuarioSesion;
         this.controladorRegistroUsuario = controladorRegistroUsuario;

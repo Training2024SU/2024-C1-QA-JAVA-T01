@@ -1,6 +1,6 @@
 package co.com.pinguinera.servicios;
 
-import co.com.pinguinera.datos.EmpleadoDAO;
+import co.com.pinguinera.datos.DAO.EmpleadoDAO;
 import co.com.pinguinera.datos.model.Empleado;
 
 import java.sql.SQLException;

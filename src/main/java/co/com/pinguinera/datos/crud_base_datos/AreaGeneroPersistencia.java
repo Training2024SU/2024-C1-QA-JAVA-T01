@@ -1,5 +1,5 @@
 package co.com.pinguinera.datos.crud_base_datos;
-import co.com.pinguinera.datos.AreaGeneroDAO;
+import co.com.pinguinera.datos.DAO.AreaGeneroDAO;
 import co.com.pinguinera.datos.model.AreaGenero;
 
 import java.sql.SQLException;
