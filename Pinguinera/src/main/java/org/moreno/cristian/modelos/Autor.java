@@ -6,6 +6,10 @@ public class Autor {
     private String id;
     private String nombre;
 
+    public Autor() {
+
+    }
+
     public String getId() {
         return id;
     }

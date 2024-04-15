@@ -1,17 +1,35 @@
 package org.moreno.cristian.ui;
 
+import org.moreno.cristian.modelos.Autor;
+import org.moreno.cristian.modelos.Libro;
+import org.moreno.cristian.modelos.Publicacion;
 import org.moreno.cristian.modelos.Usuario;
+import org.moreno.cristian.modelos.enums.AreaConocimiento;
 import org.moreno.cristian.modelos.enums.Rol;
-import org.moreno.cristian.servicios.ServicioUsuario;
+import org.moreno.cristian.repositorios.RepositorioLibro;
+import org.moreno.cristian.servicios.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
+
+import static org.moreno.cristian.ui.crudLibros.CrudLibros.crudLibros;
+import static org.moreno.cristian.ui.crudNovelas.CrudNovelas.crudNovelas;
 
 public class MenuAdmin {
 
     private static Scanner scan = new Scanner(System.in);
     private static final ServicioUsuario servicioUsuario = new ServicioUsuario();
+    private static final RepositorioLibro servicioLibro;
+
+    static {
+        try {
+            servicioLibro = new ServicioLibro(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())), ConexionBD.obtenerConexion());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public static void home(Usuario admin) {
@@ -23,7 +41,8 @@ public class MenuAdmin {
                     "   1. Crear asistente \n" +
                     "   2. Ver usuarios \n" +
                     "   3. CRUD libros \n" +
-                    "   4. Ver préstamos \n");
+                    "   4. CRUD novelas " +
+                    "   5. Ver préstamos \n");
 
             String respuestaAdmin = scan.nextLine();
 
@@ -38,10 +57,13 @@ public class MenuAdmin {
                     verUsuarios();
                     break;
                 case "3":
-                    // code block
+                    crudLibros();
                     break;
                 case "4":
-                    // code block
+                    crudNovelas();
+                    break;
+                case "5":
+//                    listarPrestamos();
                     break;
                 default:
                     System.out.println("Intentalo de nuevo");
@@ -82,4 +104,7 @@ public class MenuAdmin {
             System.out.println("No se encontró ningún usuario");
         }
     }
+
+
+
 }

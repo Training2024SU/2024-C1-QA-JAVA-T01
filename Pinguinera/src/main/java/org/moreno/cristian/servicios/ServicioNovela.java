@@ -1,9 +1,12 @@
 package org.moreno.cristian.servicios;
 
 import org.moreno.cristian.modelos.Autor;
-import org.moreno.cristian.modelos.Libro;
+import org.moreno.cristian.modelos.Novela;
+
 import org.moreno.cristian.modelos.enums.AreaConocimiento;
-import org.moreno.cristian.repositorios.RepositorioLibro;
+
+import org.moreno.cristian.modelos.enums.Genero;
+import org.moreno.cristian.repositorios.RepositorioNovela;
 import org.moreno.cristian.repositorios.RepositorioPublicacion;
 
 import java.sql.Connection;
@@ -15,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ServicioNovela implements RepositorioLibro {
+public class ServicioNovela implements RepositorioNovela {
 
     private final RepositorioPublicacion servicioPublicacion;
     private final Connection conn;
@@ -26,90 +29,91 @@ public class ServicioNovela implements RepositorioLibro {
     }
 
     @Override
-    public Optional<List<Libro>> todosLibros() {
-        String sqlConsulta = "SELECT l.id AS 'libro_id', p.titulo, l.paginas, l.area, p.nEjemplares, p.nDisponibles, p.nPrestados, p.autor_id, a.nombre AS 'nombre_autor' " +
-                "FROM libro l " +
-                "JOIN publicacion p ON l.id = p.id " +
+    public Optional<List<Novela>> todasNovelas() {
+        String sqlConsulta = "SELECT n.id AS 'novela_id', p.titulo, n.edadLectura, n.genero, p.nEjemplares, " +
+                "p.nPrestados, p.nDisponibles, p.autor_id, a.nombre AS 'nombre_autor' " +
+                "FROM novela n " +
+                "JOIN publicacion p ON n.id = p.id " +
                 "JOIN autor a ON p.autor_id = a.id";
 
         return ejecutarQuery(sqlConsulta);
     }
 
     @Override
-    public Optional<List<Libro>> todosPorAutor(String nombreAutor) {
-        return todosLibros()
-                .map(libros -> filtrarPorAutor(libros, nombreAutor))
-                .filter(libros -> !libros.isEmpty());
+    public Optional<List<Novela>> todasPorAutor(String nombreAutor) {
+        return todasNovelas()
+                .map(novelas -> filtrarPorAutor(novelas, nombreAutor))
+                .filter(novelas -> !novelas.isEmpty());
     }
 
     @Override
-    public Optional<List<Libro>> todosDisponibles() {
-        return todosLibros()
-                .map(libros -> libros.stream()
-                        .filter(libro -> libro.getEjemplaresDisponibles() > 0)
+    public Optional<List<Novela>> todasDisponibles() {
+        return todasNovelas()
+                .map(novelas -> novelas.stream()
+                        .filter(novela -> novela.getEjemplaresDisponibles() > 0)
                         .collect(Collectors.toList())
                 )
-                .filter(libros -> !libros.isEmpty());
+                .filter(novelas -> !novelas.isEmpty());
     }
 
     @Override
-    public Optional<List<Libro>> disponiblePorNombreLibro(String nombreLibro) {
-        return todosLibros()
-                .map(libros -> libros.stream()
-                        .filter(libro -> libro.getEjemplaresDisponibles() > 0)
-                        .filter(libro -> libro.getTitulo().equals(nombreLibro))
+    public Optional<List<Novela>> disponiblePorNombreNovela(String nombreNovela) {
+        return todasNovelas()
+                .map(novelas -> novelas.stream()
+                        .filter(novela -> novela.getEjemplaresDisponibles() > 0)
+                        .filter(novela -> novela.getTitulo().equals(nombreNovela))
                         .collect(Collectors.toList())
                 )
-                .filter(libros -> !libros.isEmpty());
+                .filter(novelas -> !novelas.isEmpty());
     }
 
     @Override
-    public Optional<List<Libro>> disponiblesPorAutor(String nombreAutor) {
-        return todosLibros()
-                .map(libros -> filtrarPorAutorYDisponibles(libros, nombreAutor))
-                .filter(libros -> !libros.isEmpty());
+    public Optional<List<Novela>> disponiblesPorAutor(String nombreAutor) {
+        return todasNovelas()
+                .map(novelas -> filtrarPorAutorYDisponibles(novelas, nombreAutor))
+                .filter(novelas -> !novelas.isEmpty());
     }
 
     @Override
-    public boolean guardarLibro(Libro nuevoLibro) {
-        String sqlInsertLibro = "INSERT INTO libro (id, paginas, area) VALUES (?, ?, ?)";
-        return ejecutarActualizacion(sqlInsertLibro, nuevoLibro.getId(), nuevoLibro.getNumeroPaginas(), nuevoLibro.getAreaConocimiento().toString());
+    public boolean guardarNovela(Novela nuevaNovela) {
+        String sqlInsertNovela = "INSERT INTO novela (id, edadLectura, genero) VALUES (?, ?, ?)";
+        return ejecutarActualizacion(sqlInsertNovela, nuevaNovela.getId(), nuevaNovela.getEdadLectura(), nuevaNovela.getGenero().toString());
     }
 
     @Override
-    public boolean eliminarLibro(Libro libro) {
-        String sqlEliminarLibro = "DELETE FROM libro WHERE id = ?";
-        return ejecutarBorrado(sqlEliminarLibro, libro.getId()) && servicioPublicacion.eliminarPublicacion(libro);
+    public boolean eliminarNovela(Novela novela) {
+        String sqlEliminarNovela = "DELETE FROM novela WHERE id = ?";
+        return ejecutarBorrado(sqlEliminarNovela, novela.getId()) && servicioPublicacion.eliminarPublicacion(novela.getId());
     }
 
     @Override
-    public boolean actualizarLibro(Libro libro) {
-        String sqlActualizarLibro = "UPDATE libro SET paginas = ?, area = ? WHERE id = ?";
-        return ejecutarActualizacion(sqlActualizarLibro, libro.getNumeroPaginas(), libro.getAreaConocimiento().toString(), libro.getId())
-                && servicioPublicacion.actualizarPublicacion(libro);
+    public boolean actualizarNovela(Novela novela) {
+        String sqlActualizarNovela = "UPDATE novela SET edadLectura = ?, genero = ? WHERE id = ?";
+        return ejecutarActualizacion(sqlActualizarNovela, novela.getEdadLectura(), novela.getGenero().toString(), novela.getId())
+                && servicioPublicacion.actualizarPublicacion(novela);
     }
 
-    private Optional<List<Libro>> ejecutarQuery(String sql) {
+    private Optional<List<Novela>> ejecutarQuery(String sql) {
         try (PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            List<Libro> libros = new ArrayList<>();
+            List<Novela> novelas = new ArrayList<>();
             while (rs.next()) {
                 Autor autor = new Autor(rs.getString("autor_id"), rs.getString("nombre_autor"));
-                Libro libro = new Libro(
-                        rs.getString("libro_id"),
+                Novela novela = new Novela(
+                        rs.getString("novela_id"),
                         rs.getString("titulo"),
                         rs.getInt("nEjemplares"),
-                        rs.getInt("nDisponibles"),
                         rs.getInt("nPrestados"),
+                        rs.getInt("nDisponibles"),
                         autor,
-                        rs.getInt("paginas"),
-                        AreaConocimiento.valueOf(rs.getString("area"))
+                        rs.getInt("edadLectura"),
+                        Genero.valueOf(rs.getString("genero"))
                 );
-                libros.add(libro);
+                novelas.add(novela);
             }
 
-            return libros.isEmpty() ? Optional.empty() : Optional.of(libros);
+            return novelas.isEmpty() ? Optional.empty() : Optional.of(novelas);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,16 +121,16 @@ public class ServicioNovela implements RepositorioLibro {
         }
     }
 
-    private List<Libro> filtrarPorAutor(List<Libro> libros, String nombreAutor) {
-        return libros.stream()
-                .filter(libro -> libro.getAutor().getNombre().equals(nombreAutor))
+    private List<Novela> filtrarPorAutor(List<Novela> novelas, String nombreAutor) {
+        return novelas.stream()
+                .filter(novela -> novela.getAutor().getNombre().equals(nombreAutor))
                 .collect(Collectors.toList());
     }
 
-    private List<Libro> filtrarPorAutorYDisponibles(List<Libro> libros, String nombreAutor) {
-        return libros.stream()
-                .filter(libro -> libro.getEjemplaresDisponibles() > 0)
-                .filter(libro -> libro.getAutor().getNombre().equals(nombreAutor))
+    private List<Novela> filtrarPorAutorYDisponibles(List<Novela> novelas, String nombreAutor) {
+        return novelas.stream()
+                .filter(novela -> novela.getEjemplaresDisponibles() > 0)
+                .filter(novela -> novela.getAutor().getNombre().equals(nombreAutor))
                 .collect(Collectors.toList());
     }
 

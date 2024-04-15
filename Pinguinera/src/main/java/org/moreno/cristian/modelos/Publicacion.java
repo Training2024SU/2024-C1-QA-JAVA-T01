@@ -59,7 +59,7 @@ public class Publicacion {
         this.ejemplaresPrestados = ejemplaresPrestados;
     }
 
-    public Publicacion(String id, String titulo, int totalEjemplares, int ejemplaresDisponibles, int ejemplaresPrestados, Autor autor) {
+    public Publicacion(String id, String titulo, int totalEjemplares, int ejemplaresPrestados, int ejemplaresDisponibles, Autor autor) {
         this.id = id;
         this.titulo = titulo;
         this.totalEjemplares = totalEjemplares;

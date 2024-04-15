@@ -10,13 +10,14 @@ public interface RepositorioLibro {
     Optional<List<Libro>> todosLibros();
     Optional<List<Libro>> todosPorAutor(String autor);
 
+    Optional<Libro> libroPorNombre(String nombre);
     Optional<List<Libro>> todosDisponibles();
     Optional<List<Libro>> disponiblePorNombreLibro(String nombreLibro);
     Optional<List<Libro>> disponiblesPorAutor(String nombreAutor);
 
 
     boolean guardarLibro(Libro nuevoLibro);
-    boolean eliminarLibro(Libro libro);
+    boolean eliminarLibro(String libroId);
     boolean actualizarLibro(Libro libro);
 }
 

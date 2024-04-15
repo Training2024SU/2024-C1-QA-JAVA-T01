@@ -43,6 +43,15 @@ public class ServicioLibro implements RepositorioLibro {
     }
 
     @Override
+    public Optional<Libro> libroPorNombre(String nombre) {
+        return todosLibros()
+                .flatMap(libros -> libros.stream()
+                        .filter(libro -> libro.getTitulo().equalsIgnoreCase(nombre))
+                        .findFirst());
+    }
+
+
+    @Override
     public Optional<List<Libro>> todosDisponibles() {
         return todosLibros()
                 .map(libros -> libros.stream()
@@ -73,13 +82,17 @@ public class ServicioLibro implements RepositorioLibro {
     @Override
     public boolean guardarLibro(Libro nuevoLibro) {
         String sqlInsertLibro = "INSERT INTO libro (id, paginas, area) VALUES (?, ?, ?)";
-        return ejecutarActualizacion(sqlInsertLibro, nuevoLibro.getId(), nuevoLibro.getNumeroPaginas(), nuevoLibro.getAreaConocimiento().toString());
+        if (libroPorNombre(nuevoLibro.getTitulo()).isPresent()) {
+            return servicioPublicacion.guardarPublicacion(nuevoLibro)  &&
+                    ejecutarActualizacion(sqlInsertLibro, nuevoLibro.getId(), nuevoLibro.getNumeroPaginas(), nuevoLibro.getAreaConocimiento().toString());
+        }
+        return false;
     }
 
     @Override
-    public boolean eliminarLibro(Libro libro) {
+    public boolean eliminarLibro(String libroId) {
         String sqlEliminarLibro = "DELETE FROM libro WHERE id = ?";
-        return ejecutarBorrado(sqlEliminarLibro, libro.getId()) && servicioPublicacion.eliminarPublicacion(libro);
+        return ejecutarBorrado(sqlEliminarLibro, libroId) && servicioPublicacion.eliminarPublicacion(libroId);
     }
 
     @Override
@@ -100,8 +113,8 @@ public class ServicioLibro implements RepositorioLibro {
                         rs.getString("libro_id"),
                         rs.getString("titulo"),
                         rs.getInt("nEjemplares"),
-                        rs.getInt("nDisponibles"),
                         rs.getInt("nPrestados"),
+                        rs.getInt("nDisponibles"),
                         autor,
                         rs.getInt("paginas"),
                         AreaConocimiento.valueOf(rs.getString("area"))

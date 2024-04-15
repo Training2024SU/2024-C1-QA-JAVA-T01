@@ -1,10 +1,9 @@
 package org.moreno.cristian.ui;
 
 import org.moreno.cristian.modelos.Libro;
+import org.moreno.cristian.modelos.Novela;
 import org.moreno.cristian.modelos.Usuario;
-import org.moreno.cristian.servicios.ConexionBD;
-import org.moreno.cristian.servicios.ServicioLibro;
-import org.moreno.cristian.servicios.ServicioPublicacion;
+import org.moreno.cristian.servicios.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,10 +15,12 @@ public class MenuLector {
 
     private static Scanner scan = new Scanner(System.in);
     private static ServicioLibro servicioLibro;
+    private static ServicioNovela servicioNovela;
 
     static {
         try {
-            servicioLibro = new ServicioLibro(new ServicioPublicacion(ConexionBD.obtenerConexion()), ConexionBD.obtenerConexion());
+            servicioLibro = new ServicioLibro(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())), ConexionBD.obtenerConexion());
+            servicioNovela = new ServicioNovela(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())), ConexionBD.obtenerConexion());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -34,8 +35,11 @@ public class MenuLector {
 
             System.out.println("Qué desea hacer\n" +
                     "   1. Ver libros\n" +
-                    "   2. Prestar libros\n" +
-                    "   3. Devolver libros\n");
+                    "   2. Ver novelas\n" +
+                    "   3. Prestar libros\n" +
+                    "   4. Prestar novelas\n" +
+                    "   5. Devolver libros\n" +
+                    "   6. Devoler novelas\n");
 
             String respuestaLector = scan.nextLine();
 
@@ -44,6 +48,18 @@ public class MenuLector {
                     listarLibros();
                     break;
                 case "2":
+                    listarNovelas();
+                    break;
+                case "3":
+                    prestarLibros();
+                    break;
+                case "4":
+                    prestarLibros();
+                    break;
+                case "5":
+                    prestarLibros();
+                    break;
+                case "6":
                     prestarLibros();
                     break;
                 default:
@@ -98,6 +114,57 @@ public class MenuLector {
                     }
                 } else {
                     System.out.println("No hay libros disponibles con ese autor");
+                }
+            } else {
+                System.out.println("Respuesta no válida, inténtalo de nuevo");
+            }
+        }
+    }
+
+    public static void listarNovelas () {
+        while (true) {
+
+            System.out.println(
+                    "\n   1. Ver todas\n" +
+                    "   2. Filtrar por autor" );
+
+            String respuestaLector = scan.nextLine();
+            System.out.println(respuestaLector);
+
+            if (respuestaLector.equals("1")) {
+                Optional<List<Novela>> novelasOptional = servicioNovela.todasDisponibles();
+
+                if (novelasOptional.isPresent()) {
+
+                    List<Novela> novelas = novelasOptional.get();
+
+                    for (Novela novela : novelas) {
+                        System.out.println("Título: " + novela.getTitulo());
+                        System.out.println("Autor: " + novela.getAutor().getNombre());
+                        System.out.println("Género: " + novela.getGenero());
+                        System.out.println("Copias disponibles: " + novela.getEjemplaresDisponibles());
+                        System.out.println("-----");
+                    }
+                } else {
+                    System.out.println("No hay novelas disponibles.");
+                }
+            } else if (respuestaLector.equals("2")) {
+
+                System.out.print("Ingrese el nombre del autor: ");
+                String nombreAutor = scan.nextLine();
+                Optional<List<Novela>> novelasOptional = servicioNovela.disponiblesPorAutor(nombreAutor);
+
+                if (novelasOptional.isPresent()) {
+                    List<Novela> novelas = novelasOptional.get();
+
+                    for (Novela novela : novelas) {
+                        System.out.println("\nTítulo: " + novela.getTitulo());
+                        System.out.println("Autor: " + novela.getAutor().getNombre());
+                        System.out.println("Género: " + novela.getGenero());
+                        System.out.println("-----");
+                    }
+                } else {
+                    System.out.println("No hay novelas disponibles con ese autor");
                 }
             } else {
                 System.out.println("Respuesta no válida, inténtalo de nuevo");
