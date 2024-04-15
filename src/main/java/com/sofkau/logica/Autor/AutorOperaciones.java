@@ -1,5 +1,6 @@
 package com.sofkau.logica.Autor;
 
+import com.github.javafaker.Faker;
 import com.sofkau.dialogo.MensajeOperacionBd;
 import com.sofkau.integration.repositorio.AutorRepositorio;
 import com.sofkau.integration.repositorio.EmpleadoRepositorio;
@@ -14,13 +15,21 @@ import java.util.Optional;
 public class AutorOperaciones {
 
     private static HashMap<String, Autor> autores = new HashMap<>();
-    public void registrarAutor(Autor autor) throws SQLException {
+
+    public AutorOperaciones() {
+
+            getAutores();
+
+    }
+
+    public void registrarAutor(Autor autor) {
         autor.setId(GenerateUniqueId.generateID());
         AutorRepositorio.crearAutor(autor);
         getAutores();
 
         if(consultarAutorId(autor.getId()) != null){
             MensajeOperacionBd.crearAutor();
+            System.out.println(autor);
         }else{
             MensajeOperacionBd.crearAutor();
         }
@@ -28,7 +37,7 @@ public class AutorOperaciones {
 
 
 
-    public static void getAutores() throws SQLException {
+    public static void getAutores() {
         autores = AutorRepositorio.consultarAutores();
     }
 
@@ -40,8 +49,16 @@ public class AutorOperaciones {
                 .findFirst();
 
        return autorVal.orElse(null);
+    }
 
 
+    public void generateAutores(int numAutores) {
+        Faker faker = new Faker();
+        for (int i = 0; i < numAutores; i++) {
+            String nombre = faker.name().fullName();
+            Autor autor = new Autor(GenerateUniqueId.generateID(), nombre);
+            registrarAutor(autor);
+        }
     }
 
 

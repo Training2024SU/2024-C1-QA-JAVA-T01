@@ -11,11 +11,11 @@ public class UsuarioOperaciones {
 
     private static HashMap<String, Usuario> usuarios = new HashMap<>();
 
-    public static void registrarUsuario(Usuario usuario) throws SQLException {
+    public static void registrarUsuario(Usuario usuario) {
         UsuarioRepositorio.crearUsuario(usuario);
     }
 
-    public static void getUsuarios() throws SQLException {
+    public static void getUsuarios() {
         usuarios = UsuarioRepositorio.consultarUsuarios();
     }
 

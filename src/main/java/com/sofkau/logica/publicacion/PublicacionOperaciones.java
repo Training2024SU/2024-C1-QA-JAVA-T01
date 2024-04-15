@@ -6,7 +6,10 @@ import java.util.Locale;
 
 import static com.sofkau.integration.database.mysql.Constantes.INSERT_LIBRO;
 
-public class CrudLibro {
+public class PublicacionOperaciones {
+
+
+
 
     public static String crearLibro() {
         String id;

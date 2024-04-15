@@ -18,7 +18,7 @@ public class EmpleadoOperaciones {
 
     private static HashMap<String, Empleado> empleados = new HashMap<>();
 
-    public void registrarEmpleado(Empleado empleado, String rol) throws SQLException {
+    public void registrarEmpleado(Empleado empleado, String rol) {
         empleado.setId(GenerateUniqueId.generateID());
         empleado.setRol(rol);
         EmpleadoRepositorio.crearEmpleado(empleado);
@@ -32,15 +32,15 @@ public class EmpleadoOperaciones {
         }
     }
 
-    public EmpleadoOperaciones() throws SQLException {
+    public EmpleadoOperaciones() {
         getEmpleados();
     }
 
-    public static void getEmpleados() throws SQLException {
+    public static void getEmpleados() {
         empleados = EmpleadoRepositorio.consultarEmpleados();
     }
 
-    public boolean inicioSesion(String correo, String contrasena) throws SQLException {
+    public boolean inicioSesion(String correo, String contrasena) {
         getEmpleados();
         Optional<Empleado> empleadoVal;
         empleadoVal = empleados.values().stream()
@@ -55,7 +55,7 @@ public class EmpleadoOperaciones {
        return false;
     }
 
-    private Empleado consultarEmpleado(String Id) throws SQLException {
+    private Empleado consultarEmpleado(String Id){
        return EmpleadoRepositorio.consultarEmpleadoPorId(Id);
     }
 

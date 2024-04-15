@@ -1,6 +1,7 @@
 package com.sofkau.logica.control;
 
 import com.sofkau.dialogo.Menu;
+import com.sofkau.logica.Autor.AutorOperaciones;
 import com.sofkau.logica.empleado.EmpleadoOperaciones;
 import com.sofkau.logica.usuario.UsuarioOperaciones;
 import com.sofkau.model.Empleado;
@@ -19,12 +20,16 @@ public class ControlIngreso {
 
     private static EmpleadoOperaciones empleadoOp;
 
-    public ControlIngreso() throws SQLException {
+    public ControlIngreso() {
     }
 
 
     // Se hace publico para ser el unico metodo que se pueda llamar desde el main
     public static void implementarLogica() {
+
+        AutorOperaciones autorOp = new AutorOperaciones();
+
+            autorOp.generateAutores(5);
 
         int option;
             while (bandera) {
@@ -38,7 +43,7 @@ public class ControlIngreso {
         }
     }
 
-    private static void inicioSesion(int option) throws SQLException {
+    private static void inicioSesion(int option) {
         switch (option) {
             case 1:
 
@@ -77,7 +82,7 @@ public class ControlIngreso {
         }
     }
 
-    private static void menuEmpleado() throws SQLException {
+    private static void menuEmpleado()  {
 
         switch (empleadoOp.getEmpleadoActual().getRol()) {
             case "ADMINISTRADOR" -> {
@@ -103,7 +108,7 @@ public class ControlIngreso {
         }
     }
 
-    private static void menuAdministrador(int op) throws SQLException {
+    private static void menuAdministrador(int op) {
 
         switch (op) {
             case 1 -> {
@@ -148,7 +153,7 @@ public class ControlIngreso {
         }
     }
 
-    private static void menuPropietario(int op) throws SQLException {
+    private static void menuPropietario(int op) {
 
         switch (op) {
             case 1 -> {

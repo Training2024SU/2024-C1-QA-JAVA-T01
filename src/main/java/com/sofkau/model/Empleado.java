@@ -10,6 +10,14 @@ public class Empleado {
     public Empleado() {
     }
 
+    public Empleado(String id, String nombre, String correo, String contrasena, String rol) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.rol = rol;
+    }
+
     public Empleado(String nombre, String correo, String contrasena) {
         this.nombre = nombre;
         this.correo = correo;
