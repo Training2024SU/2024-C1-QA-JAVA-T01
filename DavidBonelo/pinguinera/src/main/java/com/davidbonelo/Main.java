@@ -9,6 +9,9 @@ public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
+        // setup variables from the .env file to System properties
+        Environment.setup();
+
         Connection connection = PinguDatabase.getConnection();
 
         try {
