@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class MenuLector {
 
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = ScannerUtil.obtenerScanner();
     private static ServicioLibro servicioLibro;
     private static ServicioNovela servicioNovela;
 

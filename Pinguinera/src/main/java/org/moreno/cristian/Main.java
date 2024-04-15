@@ -1,10 +1,9 @@
 package org.moreno.cristian;
 
 import org.moreno.cristian.servicios.ConexionBD;
+import org.moreno.cristian.servicios.ScannerUtil;
 import org.moreno.cristian.ui.MenuPrincipal;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
@@ -17,6 +16,10 @@ public class Main {
             ConexionBD.cerrarConexion();
             System.out.println("Database connection closed.");
         }));
+
+
+//        ConexionBD.cerrarConexion();
+        ScannerUtil.cerrarScanner();
     }
 
 }

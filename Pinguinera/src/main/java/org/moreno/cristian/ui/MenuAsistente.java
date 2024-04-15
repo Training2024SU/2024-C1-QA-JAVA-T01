@@ -1,12 +1,13 @@
 package org.moreno.cristian.ui;
 
 import org.moreno.cristian.modelos.Usuario;
+import org.moreno.cristian.servicios.ScannerUtil;
 
 import java.util.Scanner;
 
 public class MenuAsistente {
 
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = ScannerUtil.obtenerScanner();
 
     public static void home(Usuario asistente) {
         while (true) {

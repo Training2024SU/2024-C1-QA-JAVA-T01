@@ -27,13 +27,13 @@ public class CrearLibro {
             try {
                 numeroEjemplares = scan.nextInt();
                 scan.nextLine();
-                System.out.print("You entered: " + numeroEjemplares + "\n");
+                break;
             } catch (java.util.InputMismatchException e) {
                 System.out.print("Invalid input. Please enter an integer.");
                 // Clear the scanner buffer
                 scan.next(); // Read and discard the invalid input
             }
-            break;
+
         }
 
         System.out.print("Ingresa el nombre del autor: ");

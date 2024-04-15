@@ -17,7 +17,7 @@ import static org.moreno.cristian.ui.crudLibros.VerLibro.verLibro;
 
 public class CrudLibros {
 
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = ScannerUtil.obtenerScanner();
     private static final RepositorioAutor servicioAutor;
     private static final RepositorioLibro servicioLibro;
 

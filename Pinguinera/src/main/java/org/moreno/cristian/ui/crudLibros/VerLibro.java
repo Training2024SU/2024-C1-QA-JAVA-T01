@@ -14,8 +14,8 @@ public class VerLibro {
         System.out.print("Ingresa el título del libro: ");
         String titulo = scan.nextLine();
 
-        if (servicioLibro.libroPorNombre(titulo).isPresent()) {
-            System.out.println("Ya existe un libro con este título ");
+        if (servicioLibro.libroPorNombre(titulo).isEmpty()) {
+            System.out.println("Libro no encontrado ");
             return;
         }
 
@@ -26,13 +26,18 @@ public class VerLibro {
             try {
                 numeroEjemplares = scan.nextInt();
                 scan.nextLine();
-                System.out.print("You entered: " + numeroEjemplares + "\n");
+
             } catch (java.util.InputMismatchException e) {
                 System.out.print("Invalid input. Please enter an integer.");
                 // Clear the scanner buffer
                 scan.next(); // Read and discard the invalid input
             }
-            break;
+            if (numeroEjemplares <= 0) {
+                System.out.println("El número de ejemplares deber ser mayor que cero");
+            } else {
+                break;
+            }
+
         }
 
         System.out.print("Ingresa el nombre del autor: ");

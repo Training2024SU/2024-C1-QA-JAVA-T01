@@ -1,6 +1,7 @@
 package org.moreno.cristian.ui;
 
 import org.moreno.cristian.modelos.Usuario;
+import org.moreno.cristian.servicios.ScannerUtil;
 import org.moreno.cristian.servicios.ServicioUsuario;
 
 import java.util.Optional;
@@ -8,14 +9,15 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = ScannerUtil.obtenerScanner();
     private static final ServicioUsuario servicioUsuario = new ServicioUsuario();
 
     public static void menuInicial() {
         while (true) {
             System.out.println("\nQué desea hacer?\n" +
                     "   1. Iniciar sesión \n" +
-                    "   2. Registrarme \n");
+                    "   2. Registrarme \n" +
+                    "   3. Salir \n");
 
             String respuestaUsuario = scan.nextLine();
 
@@ -26,6 +28,8 @@ public class MenuPrincipal {
                 case "2":
                     registroUsuario();
                     break;
+                case "3":
+                    return;
                 default:
                     System.out.println("Respuesta no válida");
             }
@@ -44,8 +48,8 @@ public class MenuPrincipal {
 
             Optional<Usuario> usuarioDb = servicioUsuario.validarCredenciales(correoUsuario, contraseniaUsuario);
             if (usuarioDb.isPresent()) {
-                System.out.println(usuarioDb.get());
-                System.out.println("Bienvenido ");
+
+                System.out.println("Bienvenido " + usuarioDb.get().getNombre() + "\n");
                 switch(usuarioDb.get().getRol()) {
                     case LECTOR:
                         MenuLector.home(usuarioDb.get());

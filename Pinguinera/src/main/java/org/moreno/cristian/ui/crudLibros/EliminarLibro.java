@@ -8,10 +8,10 @@ public class EliminarLibro {
 
     public static void eliminarLibro (Scanner scan, RepositorioLibro servicioLibro) {
 
-        System.out.print("Ingresa el nombre del libro: ");
-        String nombreLibro = scan.nextLine();
+        System.out.print("Ingresa el id del libro: ");
+        String libroId = scan.nextLine();
 
-        if (servicioLibro.eliminarLibro(nombreLibro)) {
+        if (servicioLibro.eliminarLibro(libroId)) {
             System.out.println("Libro eliminado");
         } else {
             System.out.println("Libro no encontrado");

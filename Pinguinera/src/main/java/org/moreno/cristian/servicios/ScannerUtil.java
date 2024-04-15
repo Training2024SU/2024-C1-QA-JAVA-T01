@@ -9,7 +9,7 @@ public class ScannerUtil {
         return scanner;
     }
 
-    public static void closeScanner() {
+    public static void cerrarScanner() {
         if (scanner != null) {
             scanner.close();
         }

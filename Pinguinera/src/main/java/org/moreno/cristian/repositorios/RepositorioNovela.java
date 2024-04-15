@@ -11,11 +11,12 @@ public interface RepositorioNovela {
     Optional<List<Novela>> todasPorAutor(String autor);
 
     Optional<List<Novela>> todasDisponibles();
+    Optional<Novela> novelaPorNombre(String nombre);
     Optional<List<Novela>> disponiblePorNombreNovela(String nombreNovela);
     Optional<List<Novela>> disponiblesPorAutor(String nombreAutor);
 
 
     boolean guardarNovela(Novela nuevaNovela);
-    boolean eliminarNovela(Novela novela);
+    boolean eliminarNovela(String nombreNovela);
     boolean actualizarNovela(Novela novela);
 }

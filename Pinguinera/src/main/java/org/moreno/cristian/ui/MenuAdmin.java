@@ -19,7 +19,7 @@ import static org.moreno.cristian.ui.crudNovelas.CrudNovelas.crudNovelas;
 
 public class MenuAdmin {
 
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = ScannerUtil.obtenerScanner();
     private static final ServicioUsuario servicioUsuario = new ServicioUsuario();
     private static final RepositorioLibro servicioLibro;
 
@@ -50,7 +50,6 @@ public class MenuAdmin {
 
             switch(respuestaAdmin) {
                 case "1":
-                    System.out.println("opcion 1 elegida");
                     crearAsistente();
                     break;
                 case "2":
@@ -63,7 +62,7 @@ public class MenuAdmin {
                     crudNovelas();
                     break;
                 case "5":
-//                    listarPrestamos();
+//                    listarPrestamos(scan);
                     break;
                 default:
                     System.out.println("Intentalo de nuevo");

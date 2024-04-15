@@ -1,5 +1,6 @@
 package org.moreno.cristian.modelos;
 
+import com.github.javafaker.Faker;
 import org.moreno.cristian.modelos.enums.Genero;
 
 public class Novela extends Publicacion{
@@ -10,6 +11,13 @@ public class Novela extends Publicacion{
     public Novela(String id, String titulo, int totalEjemplares, int ejemplaresPrestados, int ejemplaresDisponibles, Autor autor, int edadLectura, Genero genero) {
         super(id, titulo, totalEjemplares, ejemplaresDisponibles, ejemplaresPrestados, autor);
         this.id = id;
+        this.edadLectura = edadLectura;
+        this.genero = genero;
+    }
+
+    public Novela(String titulo, int totalEjemplares, int ejemplaresPrestados, int ejemplaresDisponibles, Autor autor, int edadLectura, Genero genero) {
+        super(new Faker().bothify("#####"), titulo, totalEjemplares, ejemplaresDisponibles, ejemplaresPrestados, autor);
+        this.id = super.getId();
         this.edadLectura = edadLectura;
         this.genero = genero;
     }

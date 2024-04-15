@@ -1,6 +1,7 @@
 package org.moreno.cristian.servicios;
 
 import org.moreno.cristian.modelos.Autor;
+import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.Novela;
 
 import org.moreno.cristian.modelos.enums.AreaConocimiento;
@@ -47,6 +48,14 @@ public class ServicioNovela implements RepositorioNovela {
     }
 
     @Override
+    public Optional<Novela> novelaPorNombre(String nombre) {
+        return todasNovelas()
+                .flatMap(novelas -> novelas.stream()
+                        .filter(novela -> novela.getTitulo().equalsIgnoreCase(nombre))
+                        .findFirst());
+    }
+
+    @Override
     public Optional<List<Novela>> todasDisponibles() {
         return todasNovelas()
                 .map(novelas -> novelas.stream()
@@ -81,9 +90,9 @@ public class ServicioNovela implements RepositorioNovela {
     }
 
     @Override
-    public boolean eliminarNovela(Novela novela) {
+    public boolean eliminarNovela(String novelaId) {
         String sqlEliminarNovela = "DELETE FROM novela WHERE id = ?";
-        return ejecutarBorrado(sqlEliminarNovela, novela.getId()) && servicioPublicacion.eliminarPublicacion(novela.getId());
+        return ejecutarBorrado(sqlEliminarNovela, novelaId) && servicioPublicacion.eliminarPublicacion(novelaId);
     }
 
     @Override

@@ -16,12 +16,14 @@ public class ActualizarLibro {
         System.out.print("Ingresa el título del libro actualizar: ");
         String titulo = scan.nextLine();
 
-        Libro libroViejo = servicioLibro.libroPorNombre(titulo).get();
+        Optional<Libro> libroOptional = servicioLibro.libroPorNombre(titulo);
 
-        if (!servicioLibro.libroPorNombre(titulo).isPresent()) {
+        if (!libroOptional.isPresent()) {
             System.out.println("No existe un libro con este nombre ");
             return;
         }
+        Libro libroViejo = libroOptional.get();
+
 
         System.out.print("Ingresa el nuevo título del libro actualizar: ");
         String nuevoTitulo = scan.nextLine();
@@ -62,13 +64,12 @@ public class ActualizarLibro {
             try {
                 nuevoNumeroPaginas = scan.nextInt();
                 scan.nextLine();
-                System.out.print("You entered: " + nuevoNumeroPaginas);
+                break;
             } catch (java.util.InputMismatchException e) {
                 System.out.print("Invalid input. Please enter an integer.");
                 // Clear the scanner buffer
                 scan.next(); // Read and discard the invalid input
             }
-            break;
         }
 
         System.out.print("Ingresa el nuevo área de conocimiento: ");
