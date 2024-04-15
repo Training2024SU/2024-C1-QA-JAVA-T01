@@ -29,10 +29,10 @@ public class MetodosMenuAsistenteLibro {
         int cantidadEjemplares = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_LIBRO);
+        System.out.println(ConstantesMenu.CUARTO_MENSAJE_GUARDAR_LIBRO);
         String areaDelConocimiento = scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_LIBRO);
+        System.out.println(ConstantesMenu.QUINTO_MENSAJE_GUARDAR_LIBRO);
         int numeroDePaginas = scanner.nextInt();
         scanner.nextLine();
 
@@ -61,10 +61,10 @@ public class MetodosMenuAsistenteLibro {
         int cantidadEjemplares = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_LIBRO);
+        System.out.println(ConstantesMenu.CUARTO_MENSAJE_GUARDAR_LIBRO);
         String areaDelConocimiento = scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_LIBRO);
+        System.out.println(ConstantesMenu.QUINTO_MENSAJE_GUARDAR_LIBRO);
         int numeroDePaginas = scanner.nextInt();
         scanner.nextLine();
 

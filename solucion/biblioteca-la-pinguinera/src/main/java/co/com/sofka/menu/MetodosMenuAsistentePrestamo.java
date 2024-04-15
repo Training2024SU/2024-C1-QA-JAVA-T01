@@ -24,7 +24,7 @@ public class MetodosMenuAsistentePrestamo {
     }
 
     public void realizarPrestamosSolicitados(){
-        System.out.println(SEGUNDO_MENSAJE_PRESTAMO_SOLICITADO);
+        System.out.println(PRIMER_MENSAJE_PRESTAMO_SOLICITADO);
         Long prestamoId = scanner.nextLong();
         scanner.nextLine();
 

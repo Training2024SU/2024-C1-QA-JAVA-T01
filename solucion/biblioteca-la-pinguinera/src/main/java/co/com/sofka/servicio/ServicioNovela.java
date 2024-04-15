@@ -16,7 +16,7 @@ public class ServicioNovela {
     public void guardarNovela(String titulo, String autor, int cantidadEjemplares, String genero, int edadDeLecturaSugerida){
         Novela novela = new Novela(titulo, autor, cantidadEjemplares, genero, edadDeLecturaSugerida);
         repositorioNovela.guardar(novela);
-        System.out.println(OCTAVO_MENSAJE_GUARDAR_NOVELA);
+        System.out.println(SEXTO_MENSAJE_GUARDAR_NOVELA);
     }
     public void modificarNovela(Long idNovela, String titulo, String autor, int cantidadEjemplares, String genero, int edadDeLecturaSugerida){
         Novela novelaModificar = repositorioNovela.obtenerNovela(idNovela);
@@ -28,7 +28,7 @@ public class ServicioNovela {
         novelaModificar.setEdadDeLecturaSugerida(edadDeLecturaSugerida);
 
         repositorioNovela.modificar(novelaModificar);
-        System.out.println(NOVENO_MENSAJE_MODIFICAR_NOVELA);
+        System.out.println(SEPTIMO_MENSAJE_MODIFICAR_NOVELA);
 
     }
 

@@ -27,10 +27,10 @@ public class MetodosMenuAsistenteNovela {
         int cantidadEjemplares = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_NOVELA);
+        System.out.println(ConstantesMenu.CUARTO_MENSAJE_GUARDAR_NOVELA);
         String genero = scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_NOVELA);
+        System.out.println(ConstantesMenu.QUINTO_MENSAJE_GUARDAR_NOVELA);
         int edadDeLecturaSugerida = scanner.nextInt();
         scanner.nextLine();
 
@@ -59,10 +59,10 @@ public class MetodosMenuAsistenteNovela {
         int cantidadEjemplares = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_NOVELA);
+        System.out.println(ConstantesMenu.CUARTO_MENSAJE_GUARDAR_NOVELA);
         String genero = scanner.nextLine();
 
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_NOVELA);
+        System.out.println(ConstantesMenu.QUINTO_MENSAJE_GUARDAR_NOVELA);
         int edadDeLecturaSugerida = scanner.nextInt();
         scanner.nextLine();
 

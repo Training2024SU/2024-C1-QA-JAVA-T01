@@ -20,7 +20,7 @@ public class ServicioLibro {
 
         System.out.println(libro.toString());
         repositorioLibro.guardar(libro);
-        System.out.println(OCTAVO_MENSAJE_GUARDAR_LIBRO);
+        System.out.println(SEXTO_MENSAJE_GUARDAR_LIBRO);
     }
 
     public void modificarLibro(Long idLibro, String titulo, String autor, int cantidadEjemplares, String areaDelConocimiento, int numeroDePaginas){
@@ -33,7 +33,7 @@ public class ServicioLibro {
         libroModificar.setNumeroDePaginas(numeroDePaginas);
 
         repositorioLibro.modificar(libroModificar);
-        System.out.println(NOVENO_MENSAJE_MODIFICAR_LIBRO);
+        System.out.println(SEPTIMO_MENSAJE_MODIFICAR_LIBRO);
 
     }
     public void listarLibrosDisponibles() {
