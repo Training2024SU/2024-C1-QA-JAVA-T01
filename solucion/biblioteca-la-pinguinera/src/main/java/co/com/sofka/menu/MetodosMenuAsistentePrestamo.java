@@ -1,6 +1,7 @@
 package co.com.sofka.menu;
 
 import co.com.sofka.servicio.ServicioPrestamo;
+import co.com.sofka.util.EstadoPrestamo;
 
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class MetodosMenuAsistentePrestamo {
         System.out.println("Listando prestamos en estado SOLICITADO \nIngrese el correo del usuario");
         String correoUsuarioPrestamos = scanner.nextLine();
 
-        servicioPrestamo.listarPrestamosSolicitados(correoUsuarioPrestamos);
+        servicioPrestamo.listarPorCorreoYEstado(correoUsuarioPrestamos, EstadoPrestamo.SOLICITADO);
     }
 
     public void realizarPrestamosSolicitados(){
@@ -35,7 +36,7 @@ public class MetodosMenuAsistentePrestamo {
         System.out.println(PRIMER_MENSAJE_PRESTAMO_REALIZADO);
         String correoUsuarioPrestamos = scanner.nextLine();
 
-        servicioPrestamo.listarPrestamosRealizados(correoUsuarioPrestamos);
+        servicioPrestamo.listarPorCorreoYEstado(correoUsuarioPrestamos, EstadoPrestamo.REALIZADO);
     }
 
     public void finalizarPrestamoRealizado(){

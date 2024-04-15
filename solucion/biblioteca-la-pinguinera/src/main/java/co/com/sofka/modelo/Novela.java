@@ -27,4 +27,12 @@ public class Novela extends Material{
     }
 
 
+    @Override
+    public void imprimirDetalles(){
+        super.imprimirDetalles();
+        System.out.println("Género: " + getGenero());
+        System.out.println("Edad de lectura sugerida: " + getEdadDeLecturaSugerida());
+    }
+
+
 }

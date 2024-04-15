@@ -11,29 +11,30 @@ import org.hibernate.SessionFactory;
 import static co.com.sofka.menu.ConstantesMenu.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Menu {
-
     static Scanner scanner = new Scanner(System.in);
     static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
     static RepositorioUsuario repositorioUsuario = new RepositorioUsuario(sessionFactory);
-
     static ServicioUsuario servicioUsuario = new ServicioUsuario(repositorioUsuario);
     static RepositorioLibro repositorioLibro = new RepositorioLibro(sessionFactory);
     static ServicioLibro servicioLibro = new ServicioLibro(repositorioLibro);
     static RepositorioNovela repositorioNovela = new RepositorioNovela(sessionFactory);
     static ServicioNovela servicioNovela = new ServicioNovela(repositorioNovela);
-
     static RepositorioPrestamo repositorioPrestamo = new RepositorioPrestamo(sessionFactory);
     static ServicioPrestamo servicioPrestamo = new ServicioPrestamo(repositorioPrestamo, repositorioLibro, repositorioNovela);
-
     static MenuAdministrador menuAdministrador = new MenuAdministrador(servicioUsuario, scanner);
-
     static MenuLector menuLector = new MenuLector(servicioLibro, servicioNovela, servicioPrestamo, scanner);
-
     static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner);
     static Usuario usuarioIngresado = null;
+//    private static final Logger logger = Logger.getLogger(Menu.class.getName());
+//
+//    public static void menu(String[] args) {
+//        logger.info("Este es un mensaje de información.");
+//        logger.warning("Este es un mensaje de advertencia.");
+//        logger.severe("Este es un mensaje de error grave.");
+
 
     // Al iniciar la aplicacion se desea ejecutar el menu, una vez el usuario desee, se asigna a false y se sale del menu
     static boolean seguirEjecucion = true;
@@ -45,7 +46,6 @@ public class Menu {
                 imprimirMenuUsuarioSinIngresar(scanner);
             }
         }
-
     }
 
     private static void imprimirMenuUsuarioIngresado(Scanner scanner){

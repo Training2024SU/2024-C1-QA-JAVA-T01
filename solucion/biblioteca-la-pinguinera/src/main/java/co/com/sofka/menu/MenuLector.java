@@ -63,7 +63,7 @@ public class MenuLector {
                     System.out.println(ConstantesMenu.OPCION_NO_VALIDA);
             }
         } catch (InputMismatchException e){
-            System.out.println("Opcion ingresada no es valida");
+            System.out.println(OPCION_NO_VALIDA);
             scanner.nextLine();
             return;
         }

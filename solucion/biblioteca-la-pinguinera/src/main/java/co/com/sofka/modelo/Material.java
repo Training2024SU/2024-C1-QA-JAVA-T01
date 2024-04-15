@@ -1,8 +1,6 @@
 package co.com.sofka.modelo;
 
 import lombok.*;
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -17,5 +15,15 @@ public abstract class Material {
     protected int cantidadPrestados;
     protected int cantidadDisponible;
     protected boolean fueBorrado = false;
+
+ protected void imprimirDetalles(){
+     System.out.println("Título: " + getTitulo());
+     System.out.println("Autor: " + getAutor());
+     System.out.println("Cantidad de ejemplares: " + getCantidadEjemplares());
+     System.out.println("Cantidad de prestados: " + getCantidadPrestados());
+     System.out.println("Cantidad de disponible: " + getCantidadDisponible());
+
+ }
+
 
 }

@@ -3,7 +3,7 @@ package co.com.sofka.servicio;
 import co.com.sofka.util.RolUsuario;
 import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.RepositorioUsuario;
-
+import java.util.logging.Logger;
 public class ServicioUsuario {
 
     private RepositorioUsuario repositorioUsuario;

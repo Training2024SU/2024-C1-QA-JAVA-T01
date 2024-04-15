@@ -26,4 +26,10 @@ public class Libro extends Material{
         return (cantidadEjemplares - cantidadPrestados) > 0;
     }
 
+    @Override
+    public void imprimirDetalles(){
+        super.imprimirDetalles();
+        System.out.println("Area del conocimiento: " + getAreaDelConocimiento());
+        System.out.println("Numero de paginas: " + getNumeroDePaginas());
+    }
 }

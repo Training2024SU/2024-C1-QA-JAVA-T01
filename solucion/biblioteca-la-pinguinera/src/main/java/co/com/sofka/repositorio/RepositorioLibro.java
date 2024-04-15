@@ -1,7 +1,6 @@
 package co.com.sofka.repositorio;
 
 import co.com.sofka.modelo.Libro;
-import co.com.sofka.modelo.Prestamo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,9 +19,9 @@ public class RepositorioLibro {
 
     public void guardar(Libro libro) {
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             session.save(libro);
-            tx.commit();
+            //tx.commit();
         }
     }
 
@@ -39,9 +38,9 @@ public class RepositorioLibro {
 
     public void modificar(Libro libro){
         try(Session session = sessionFactory.openSession()){
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             session.update(libro);
-            tx.commit();
+            //tx.commit();
         }
     }
 

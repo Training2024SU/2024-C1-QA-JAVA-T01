@@ -25,7 +25,7 @@ public class Prestamo {
     private Long material_id;
 
     LocalDateTime fechaDePrestamo;
-    private LocalDateTime feachaDeEntrega;
+    private LocalDateTime fechaDeEntrega;
 
     @Enumerated(EnumType.STRING)
     private EstadoPrestamo estadoPrestamo;

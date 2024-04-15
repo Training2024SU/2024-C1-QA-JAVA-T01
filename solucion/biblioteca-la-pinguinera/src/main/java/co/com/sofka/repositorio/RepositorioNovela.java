@@ -18,9 +18,9 @@ public class RepositorioNovela {
 
     public void guardar(Novela novela) {
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
+           //Transaction tx = session.beginTransaction();
             session.save(novela);
-            tx.commit();
+            //tx.commit();
         }
     }
 
@@ -50,9 +50,9 @@ public class RepositorioNovela {
 
     public void modificar(Novela novela){
         try(Session session = sessionFactory.openSession()){
-            Transaction tx = session.beginTransaction();
+            // Transaction tx = session.beginTransaction();
             session.update(novela);
-            tx.commit();
+            //tx.commit();
         }
     }
 }

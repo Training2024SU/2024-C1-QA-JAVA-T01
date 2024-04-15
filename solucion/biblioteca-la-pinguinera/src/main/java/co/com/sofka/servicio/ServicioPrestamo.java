@@ -8,15 +8,16 @@ import co.com.sofka.util.EstadoPrestamo;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
+
 
 public class ServicioPrestamo {
-
     private RepositorioPrestamo repositorioPrestamo;
     private RepositorioLibro repositorioLibro;
-
     private RepositorioNovela repositorioNovela;
+    private final Logger logger = Logger.getLogger(ServicioPrestamo.class.getName());
 
-    public ServicioPrestamo(RepositorioPrestamo repositorioPrestamo, RepositorioLibro repositorioLibro, RepositorioNovela repositorioNovela){
+     public ServicioPrestamo(RepositorioPrestamo repositorioPrestamo, RepositorioLibro repositorioLibro, RepositorioNovela repositorioNovela){
         this.repositorioPrestamo = repositorioPrestamo;
         this.repositorioLibro = repositorioLibro;
         this.repositorioNovela = repositorioNovela;
@@ -29,7 +30,7 @@ public class ServicioPrestamo {
                     .findFirst().orElseThrow();
 
             if(!libro.sePuedePrestar()){
-                System.out.println("Libro con id" + libro.getTitulo() + "no esta disponible");
+                System.out.println("Libro: " + libro.getTitulo() + "no esta disponible");
                 return;
             }
 
@@ -70,18 +71,11 @@ public class ServicioPrestamo {
         }
     }
 
-    public void listarPrestamosSolicitados(String correoUsuario){
+    public void listarPorCorreoYEstado(String correoUsuario, EstadoPrestamo estadoPrestamo){
         repositorioPrestamo.listarPrestamos().stream()
                 .filter(prestamo -> correoUsuario.equals(prestamo.getUsuario().getCorreo()))
-                .filter(prestamo -> EstadoPrestamo.SOLICITADO == prestamo.getEstadoPrestamo())
-                .forEach(prestamo -> System.out.println(prestamo));
-    }
-
-    public void listarPrestamosRealizados(String correoUsuario){
-        repositorioPrestamo.listarPrestamos().stream()
-                .filter(prestamo -> correoUsuario.equals(prestamo.getUsuario().getCorreo()))
-                .filter(prestamo -> EstadoPrestamo.REALIZADO == prestamo.getEstadoPrestamo())
-                .forEach(prestamo -> System.out.println(prestamo));
+                .filter(prestamo -> estadoPrestamo == prestamo.getEstadoPrestamo())
+                .forEach(System.out::println);
     }
 
     public void realizarPrestamo(Long prestamoId){
@@ -92,7 +86,7 @@ public class ServicioPrestamo {
         }
 
         prestamo.setFechaDePrestamo(LocalDateTime.now());
-        prestamo.setFeachaDeEntrega(LocalDateTime.now().plusDays(15));
+        prestamo.setFechaDeEntrega(LocalDateTime.now().plusDays(15));
         prestamo.setEstadoPrestamo(EstadoPrestamo.REALIZADO);
 
         Libro libroDelPrestamo = repositorioLibro.obtenerLibro(prestamo.getMaterial_id());
@@ -108,16 +102,16 @@ public class ServicioPrestamo {
         repositorioPrestamo.modificar(prestamo);
     }
 
-    public void realizarDevolucion(Long prestamoId){
-        Prestamo prestamo = repositorioPrestamo.obtenerPrestamo(prestamoId);
-        if(prestamo == null){
-            System.out.println("Prestamo no existe");
-            return;
-        }
+        public void realizarDevolucion(Long prestamoId) {
+            Prestamo prestamo = repositorioPrestamo.obtenerPrestamo(prestamoId);
+            if (prestamo == null) {
+                logger.warning("Prestamo no existe");
+                return;
+            }
 
-        if(LocalDateTime.now().isAfter(prestamo.getFeachaDeEntrega())){
-            System.out.println("Lector devuelve el libro despues de la fecha de entrega");
-        }
+            if (LocalDateTime.now().isAfter(prestamo.getFechaDeEntrega())) {
+                logger.warning("Lector hace devolucion, despues de la fecha de entrega");
+            }
 
         prestamo.setEstadoPrestamo(EstadoPrestamo.FINALIZADO);
 
@@ -131,6 +125,6 @@ public class ServicioPrestamo {
             novelaDelPrestamo.setCantidadPrestados(novelaDelPrestamo.getCantidadPrestados() - 1);
             repositorioNovela.modificar(novelaDelPrestamo);
         }
-        repositorioPrestamo.modificar(prestamo);
+            repositorioPrestamo.modificar(prestamo);
     }
 }

@@ -1,13 +1,13 @@
 package co.com.sofka.repositorio;
 
+import lombok.Getter;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.util.Scanner;
-
 public class HibernateUtil {
+    @Getter
     private static final SessionFactory sessionFactory;
 
     static {
@@ -20,9 +20,5 @@ public class HibernateUtil {
             StandardServiceRegistryBuilder.destroy(registry);
             throw new ExceptionInInitializerError("Initial SessionFactory creation failed: " + ex);
         }
-    }
-
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
     }
 }

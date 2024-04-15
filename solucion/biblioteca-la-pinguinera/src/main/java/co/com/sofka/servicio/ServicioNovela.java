@@ -43,13 +43,7 @@ public class ServicioNovela {
         } else {
             System.out.println("Lista de novelas:");
             for (Novela novela : novelas) {
-                System.out.println("Título: " + novela.getTitulo());
-                System.out.println("Autor: " + novela.getAutor());
-                System.out.println("Cantidad de ejemplares: " + novela.getCantidadEjemplares());
-                System.out.println("Cantidad prestados: " + novela.getCantidadPrestados());
-                System.out.println("Cantidad disponible: " + novela.getCantidadDisponible());
-                System.out.println("Género: " + novela.getGenero());
-                System.out.println("Edad de lectura sugerida: " + novela.getEdadDeLecturaSugerida());
+                    novela.imprimirDetalles();
                 System.out.println("-----------------------------------");
             }
         }

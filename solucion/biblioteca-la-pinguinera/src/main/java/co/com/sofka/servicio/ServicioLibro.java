@@ -9,7 +9,7 @@ import static co.com.sofka.menu.ConstantesMenu.*;
 
 public class ServicioLibro {
 
-    private RepositorioLibro repositorioLibro;
+    private final RepositorioLibro repositorioLibro;
 
     public ServicioLibro(RepositorioLibro repositorioLibro){
         this.repositorioLibro = repositorioLibro;
@@ -48,15 +48,9 @@ public class ServicioLibro {
         } else {
             System.out.println("Lista de libros:");
             for (Libro libro : libros) {
-                System.out.println("Título: " + libro.getTitulo());
-                System.out.println("Autor: " + libro.getAutor());
-                System.out.println("Cantidad de ejemplares: " + libro.getCantidadEjemplares());
-                System.out.println("Cantidad de prestados: " + libro.getCantidadPrestados());
-                System.out.println("Cantidad de disponible: " + libro.getCantidadDisponible());
-                System.out.println("Area del conocimiento: " + libro.getAreaDelConocimiento());
-                System.out.println("Numero de paginas: " + libro.getNumeroDePaginas());
+                libro.imprimirDetalles();
                 System.out.println("-----------------------------------");
-            }
+          }
         }
     }
 
@@ -67,7 +61,6 @@ public class ServicioLibro {
                 .filter(autor -> autor != null)
                 .distinct()
                 .forEach(autor -> System.out.println(autor));
-
     }
 
     public void listarLibroPorAutor(String autor){
@@ -75,7 +68,6 @@ public class ServicioLibro {
                 .filter(libro -> !libro.isFueBorrado())
                 .filter(libro -> autor.equals(libro.getAutor()))
                 .forEach(libro -> System.out.println(libro));
-
     }
 
     public void borrarLibroPorId(Long libroId){
