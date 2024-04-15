@@ -8,10 +8,9 @@ import co.com.sofka.servicio.ServicioPrestamo;
 import co.com.sofka.servicio.ServicioUsuario;
 import co.com.sofka.servicio.ServicioLibro;
 import org.hibernate.SessionFactory;
-
-import java.util.Scanner;
-
 import static co.com.sofka.menu.ConstantesMenu.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Menu {
 
@@ -29,6 +28,11 @@ public class Menu {
     static RepositorioPrestamo repositorioPrestamo = new RepositorioPrestamo(sessionFactory);
     static ServicioPrestamo servicioPrestamo = new ServicioPrestamo(repositorioPrestamo, repositorioLibro, repositorioNovela);
 
+    static MenuAdministrador menuAdministrador = new MenuAdministrador(servicioUsuario, scanner);
+
+    static MenuLector menuLector = new MenuLector(servicioLibro, servicioNovela, servicioPrestamo, scanner);
+
+    static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner);
     static Usuario usuarioIngresado = null;
 
     // Al iniciar la aplicacion se desea ejecutar el menu, una vez el usuario desee, se asigna a false y se sale del menu
@@ -48,152 +52,44 @@ public class Menu {
         System.out.println("\nBienvenido " + usuarioIngresado.getNombre() + " ...");
 
         if(usuarioIngresado.getRol().equals(RolUsuario.ADMINISTRADOR)){
-            imprimirMenuAdministrador(scanner);
+            menuAdministrador.imprimirMenuAdministrador();
+            seguirEjecucion = menuAdministrador.quieroSeguirEjecucion();
         } else if(usuarioIngresado.getRol().equals(RolUsuario.ASISTENTE)) {
-            imprimirMenuAsistenten(scanner);
+            menuAsistente.imprimirMenuAsistente();
+            seguirEjecucion = menuAsistente.quieroSeguirEjecucion();
         } else {
-            imprimirMenuLectores(scanner);
+            menuLector.imprimirMenuLectores(usuarioIngresado);
+            seguirEjecucion = menuLector.quieroSeguirEjecucion();
         }
 
     }
 
-    private static void imprimirMenuAdministrador(Scanner scanner){
-        System.out.println(ConstantesMenu.MENSAJE_MENU_CUALQUIER_ROL);
-        System.out.println(ConstantesMenu.OPCIONES_ADMINISTRADOR);
-
-        int eleccion = scanner.nextInt();
-        scanner.nextLine();
-
-        switch (eleccion){
-            case 1:
-                registroUsuarioAsistente(scanner);
-                break;
-            case 2:
-                servicioUsuario.listarUsuariosAsistentes();
-                break;
-            case 0:
-                seguirEjecucion = false;
-                System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
-                break;
-            default:
-                System.out.println(ConstantesMenu.OPCION_INVALIDA);
-        }
-    }
-
-    private static void imprimirMenuLectores(Scanner scanner){
-        System.out.println(ConstantesMenu.MENSAJE_MENU_CUALQUIER_ROL);
-        System.out.println(ConstantesMenu.OPCIONES_LECTOR);
-
-        int eleccion = scanner.nextInt();
-        scanner.nextLine();
-
-        switch (eleccion){
-            case 1:
-                servicioLibro.listarAutores();
-                break;
-            case 2:
-                servicioNovela.listarAutores();
-                break;
-            case 3:
-                servicioLibro.listarLibrosDisponibles();
-                break;
-            case 4:
-                servicioNovela.listarNovelasDisponibles();
-                break;
-            case 5:
-                prestarLibros(scanner);
-                break;
-            case 6:
-                prestarNovelas(scanner);
-                break;
-            case 0:
-                seguirEjecucion = false;
-                System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
-                break;
-            default:
-                System.out.println(ConstantesMenu.OPCION_INVALIDA);
-        }
-    }
-
-    private static void imprimirMenuAsistenten(Scanner scanner){
-        System.out.println(ConstantesMenu.MENSAJE_MENU_CUALQUIER_ROL);
-        System.out.println(ConstantesMenu.OPCIONES_ASISTENTE);
-
-        int eleccion = scanner.nextInt();
-        scanner.nextLine();
-
-        switch (eleccion) {
-            case 1:
-                guardarLibro(scanner);
-                break;
-
-            case 2:
-                guardarNovela(scanner);
-                break;
-            case 3:
-                servicioLibro.listarAutores();
-                break;
-            case 4:
-                servicioNovela.listarAutores();
-                break;
-            case 5:
-                buscarLibroPorAutor(scanner);
-                break;
-            case 6:
-                buscarNovelaPorAutor(scanner);
-                break;
-            case 7:
-                listarPrestamosSolicitados(scanner);
-                break;
-            case 8:
-                realizarPrestamosSolicitados(scanner);
-                break;
-            case 9:
-                listarPrestamosRealizados(scanner);
-                break;
-            case 10:
-                finalizarPrestamoRealizado(scanner);
-                break;
-            case 11:
-                modificarLibro(scanner);
-                break;
-            case 12:
-                modificarNovela(scanner);
-                break;
-            case 13:
-                borrarLibro(scanner);
-                break;
-            case 14:
-                borrarNovela(scanner);
-                break;
-            case 0:
-                seguirEjecucion = false;
-                System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
-                break;
-            default:
-                System.out.println(ConstantesMenu.OPCION_INVALIDA);
-        }
-    }
 
     private static void imprimirMenuUsuarioSinIngresar(Scanner scanner){
         imprimirMenuInicial();
 
-        int eleccion = scanner.nextInt();
-        scanner.nextLine();
+        try {
+            int eleccion = scanner.nextInt();
+            scanner.nextLine();
 
-        switch (eleccion){
-            case 1:
-                ingresoUsuario(scanner);
-                break;
-            case 2:
-                registroUsuario(scanner);
-                break;
-            case 0:
-                seguirEjecucion = false;
-                System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
-                break;
-            default:
-                System.out.println(ConstantesMenu.OPCION_INVALIDA);
+            switch (eleccion){
+                case 1:
+                    ingresoUsuario(scanner);
+                    break;
+                case 2:
+                    registroUsuario(scanner);
+                    break;
+                case 0:
+                    seguirEjecucion = false;
+                    System.out.println(ConstantesMenu.MENSAJE_DESPEDIDA);
+                    break;
+                default:
+                    System.out.println(ConstantesMenu.OPCION_NO_VALIDA);
+            }
+        } catch (InputMismatchException e){
+            System.out.println(OPCION_NO_VALIDA);
+            scanner.nextLine();
+            return;
         }
     }
 
@@ -231,184 +127,4 @@ public class Menu {
         servicioUsuario.crearUsuarioLector(nombre, correo, contrasena);
     }
 
-    private static void registroUsuarioAsistente(Scanner scanner){
-        System.out.println(ConstantesMenu.PRIMER_MENSAJE_REGISTRO);
-        String nombre = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEGUNDO_MENSAJE_REGISTRO);
-        String correo = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.TERCER_MENSAJE_REGISTRO);
-        String contrasena = scanner.nextLine();
-
-        servicioUsuario.crearUsuarioAsistente(nombre, correo, contrasena);
-    }
-
-    private static void guardarLibro(Scanner scanner){
-        System.out.println(ConstantesMenu.PRIMER_MENSAJE_GUARDAR_LIBRO);
-        String titulo = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEGUNDO_MENSAJE_GUARDAR_LIBRO);
-        String autor = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.TERCER_MENSAJE_GUARDAR_LIBRO);
-        int cantidadEjemplares = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_LIBRO);
-        String areaDelConocimiento = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_LIBRO);
-        int numeroDePaginas = scanner.nextInt();
-        scanner.nextLine();
-
-        servicioLibro.guardarLibro(titulo, autor, cantidadEjemplares, areaDelConocimiento, numeroDePaginas);
-    }
-
-    public static void modificarLibro(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_MODIFICAR_LIBRO);
-        Long id = scanner.nextLong();
-        scanner.nextLine();
-
-        System.out.println(ConstantesMenu.PRIMER_MENSAJE_GUARDAR_LIBRO);
-        String titulo = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEGUNDO_MENSAJE_GUARDAR_LIBRO);
-        String autor = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.TERCER_MENSAJE_GUARDAR_LIBRO);
-        int cantidadEjemplares = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_LIBRO);
-        String areaDelConocimiento = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_LIBRO);
-        int numeroDePaginas = scanner.nextInt();
-        scanner.nextLine();
-
-        servicioLibro.modificarLibro(id, titulo, autor, cantidadEjemplares, areaDelConocimiento, numeroDePaginas);
-    }
-
-   private static void guardarNovela(Scanner scanner){
-        System.out.println(ConstantesMenu.PRIMER_MENSAJE_GUARDAR_NOVELA);
-        String titulo = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEGUNDO_MENSAJE_GUARDAR_NOVELA);
-        String autor = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.TERCER_MENSAJE_GUARDAR_NOVELA);
-        int cantidadEjemplares = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_NOVELA);
-        String genero = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_NOVELA);
-        int edadDeLecturaSugerida = scanner.nextInt();
-        scanner.nextLine();
-
-        servicioNovela.guardarNovela(titulo, autor, cantidadEjemplares,genero, edadDeLecturaSugerida);
-    }
-
-    public static void modificarNovela(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_MODIFICAR_NOVELA);
-        Long id = scanner.nextLong();
-        scanner.nextLine();
-
-        System.out.println(ConstantesMenu.PRIMER_MENSAJE_GUARDAR_NOVELA);
-        String titulo = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEGUNDO_MENSAJE_GUARDAR_NOVELA);
-        String autor = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.TERCER_MENSAJE_GUARDAR_NOVELA);
-        int cantidadEjemplares = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEXTO_MENSAJE_GUARDAR_NOVELA);
-        String genero = scanner.nextLine();
-
-        System.out.println(ConstantesMenu.SEPTIMO_MENSAJE_GUARDAR_NOVELA);
-        int edadDeLecturaSugerida = scanner.nextInt();
-        scanner.nextLine();
-
-        servicioNovela.modificarNovela(id, titulo, autor, cantidadEjemplares, genero, edadDeLecturaSugerida);
-    }
-
-    public static void borrarLibro(Scanner scanner){
-        System.out.println("Ingresar el id del libro a borrar");
-        Long libroId = scanner.nextLong();
-        scanner.nextLine();
-
-        servicioLibro.borrarLibroPorId(libroId);
-    }
-
-    public static void borrarNovela(Scanner scanner){
-        System.out.println("Ingresar el id de la novela a borrar");
-        Long novelaId = scanner.nextLong();
-        scanner.nextLine();
-
-        servicioNovela.borrarNovelaPorId(novelaId);
-    }
-
-    public static void buscarLibroPorAutor(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_BUSCAR_LIBRO_POR_AUTOR);
-        String autor = scanner.nextLine();
-
-        servicioLibro.listarLibroPorAutor(autor);
-    }
-
-    public static void buscarNovelaPorAutor(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_BUSCAR_NOVELA_POR_AUTOR);
-        String autor = scanner.nextLine();
-
-        servicioNovela.listarNovelaPorAutor(autor);
-    }
-
-    public static void prestarLibros(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_PRESTAR_LIBRO);
-        String titulo = scanner.nextLine();
-
-        servicioPrestamo.solicitarPrestamoLibro(usuarioIngresado, titulo);
-        System.out.println(SEGUNDO_MENSAJE_PRESTAR_LIBRO );
-    }
-
-    public static void prestarNovelas(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_PRESTAR_NOVELA);
-        String titulo = scanner.nextLine();
-
-        servicioPrestamo.solicitarPrestamoNovela(usuarioIngresado, titulo);
-        System.out.println(SEGUNDO_MENSAJE_PRESTAR_NOVELA);
-    }
-
-    public static void listarPrestamosSolicitados(Scanner scanner){
-        System.out.println("Listando prestamos en estado SOLICITADO \nIngrese el correo del usuario");
-        String correoUsuarioPrestamos = scanner.nextLine();
-
-        servicioPrestamo.listarPrestamosSolicitados(correoUsuarioPrestamos);
-    }
-    public static void realizarPrestamosSolicitados(Scanner scanner){
-        System.out.println(SEGUNDO_MENSAJE_PRESTAMO_SOLICITADO);
-        Long prestamoId = scanner.nextLong();
-        scanner.nextLine();
-
-        servicioPrestamo.realizarPrestamo(prestamoId);
-    }
-
-    public static void listarPrestamosRealizados(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_PRESTAMO_REALIZADO);
-        String correoUsuarioPrestamos = scanner.nextLine();
-
-        servicioPrestamo.listarPrestamosRealizados(correoUsuarioPrestamos);
-    }
-
-    public static void finalizarPrestamoRealizado(Scanner scanner){
-        System.out.println(PRIMER_MENSAJE_PRESTAMO_FINALIZADO);
-        Long prestamoId = scanner.nextLong();
-        scanner.nextLine();
-
-        servicioPrestamo.realizarDevolucion(prestamoId);
-        System.out.println(SEGUNDO_MENSAJE_PRESTAMO_FINALIZADO);
-    }
 }

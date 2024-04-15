@@ -3,7 +3,7 @@ package co.com.sofka.menu;
 public class ConstantesMenu {
     public static String MENSAJE_BIENVENIDA = "Bienvenido a Libreria La Pinguinera...\nSeleccione una opcion\n1. Ingresar\n2. Registrarse\n0. Salir";
     public static String MENSAJE_DESPEDIDA = "Gracias por usar la aplicacion";
-    static String OPCION_INVALIDA = "Opcion invalida, por favor seleccione una opcion correcta";
+    static String OPCION_NO_VALIDA = "Opcion no valida, por favor seleccione una opcion correcta";
 
     static String PRIMER_MENSAJE_INGRESO = "Ingreso a la aplicacion...\nPor favor ingrese su correo";
     static String SEGUNDO_MENSAJE_INGRESO = "Por favor ingrese su contraseña";
