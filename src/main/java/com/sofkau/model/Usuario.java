@@ -3,7 +3,17 @@ package com.sofkau.model;
 public class Usuario {
     private String nombre;
     private String correo;
-    private String contrasenna;
+    private String contrasena;
+
+    public Usuario(String nombre, String correo, String contrasenna) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasena = contrasenna;
+    }
+
+    public Usuario() {
+
+    }
 
     public String getNombre() {
         return nombre;
@@ -21,11 +31,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContrasenna() {
-        return contrasenna;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContrasenna(String contrasenna) {
-        this.contrasenna = contrasenna;
+    public void setContrasena(String contrasenna) {
+        this.contrasena = contrasenna;
     }
 }

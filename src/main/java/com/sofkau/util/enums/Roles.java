@@ -1,15 +1,11 @@
 package com.sofkau.util.enums;
 
 public enum Roles {
-    TIPO_UNO("ADMINISTRADOR"),TIPO_DOS("ASISTENTE");
 
-    private String value;
+    ADMINISTRADOR,
 
-    private Roles (String roles){
-        this.value = roles;
-    }
+    ASISTENTE,
 
-    public String getvalue() {
-        return value;
-    }
+    PROPIETARIO
+
 }

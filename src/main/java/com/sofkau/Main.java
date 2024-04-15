@@ -15,13 +15,13 @@ public class Main {
         ControlIngreso.implementarLogica();
     }
 
-    private static int preguntarAlUsuario() {
+/*    private static int preguntarAlUsuario() {
         Scanner scanner = new Scanner(System.in);
         int cantidad;
         System.out.println(MENSAJE_USUARIO);
         cantidad = Integer.parseInt(scanner.nextLine());
         return cantidad;
-    }
+    }*/
 
 
 /*    private static void insertarLibrosEnBd(int cantidadLibros) {

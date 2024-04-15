@@ -1,17 +1,26 @@
 package com.sofkau.model;
 
 public class Empleado {
-    private int id;
+    private String id;
     private String nombre;
     private String correo;
-    private String contrasenna;
+    private String contrasena;
     private String rol;
 
-    public int getId() {
+    public Empleado() {
+    }
+
+    public Empleado(String nombre, String correo, String contrasena) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasena = contrasena;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -31,12 +40,12 @@ public class Empleado {
         this.correo = correo;
     }
 
-    public String getContrasenna() {
-        return contrasenna;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContrasenna(String contrasenna) {
-        this.contrasenna = contrasenna;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getRol() {
@@ -45,5 +54,16 @@ public class Empleado {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", rol='" + rol + '\'' +
+                '}';
     }
 }
