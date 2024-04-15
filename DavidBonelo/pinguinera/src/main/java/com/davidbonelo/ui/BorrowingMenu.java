@@ -7,8 +7,10 @@ import com.davidbonelo.models.UserRole;
 import com.davidbonelo.services.BorrowingsService;
 
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import static com.davidbonelo.utils.Permissions.validMenuAccess;
@@ -19,6 +21,7 @@ import static com.davidbonelo.utils.UserInteractions.askText;
 public class BorrowingMenu {
     private final User user;
     private final BorrowingsService borrowingsService;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public BorrowingMenu(BorrowingsService borrowingsService, User user) {
         this.borrowingsService = borrowingsService;
@@ -40,50 +43,48 @@ public class BorrowingMenu {
                 case 0 -> {
                     return;
                 }
-                default -> System.out.println("Unknown menu option");
+                default -> System.out.println(messages.getString("unknownOption"));
             }
         }
     }
 
     private int showMenu() {
-        String readerChoices = " 1. List selected items | 2. List all borrowings | 3. Show " +
-                "borrowing details | 4. Confirm request |";
-        String employeeChoices = "\n5. Search by email | 6. Confirm borrowing | 7. Finalize " +
-                "borrowing | 8. Delete borrowing |";
+        String readerChoices = messages.getString("borrowings.choices.reader");
+        String employeeChoices = messages.getString("borrowings.choices.employee");
         MenuChoices menu = new MenuChoices("Borrowings", "", readerChoices, employeeChoices, "");
         return menu.showMenu(user);
     }
 
     private void listBorrowings() {
-        System.out.println("Borrowings list: ");
+        System.out.println(messages.getString("borrowings.info.list"));
         borrowingsService.getAllBorrowings(user).forEach(System.out::println);
     }
 
     private void listBorrowingItems() {
         Set<LibraryItem> items = borrowingsService.getItemsToBorrow();
-        System.out.println("Selected items pending to confirm request: " + items.size());
+        System.out.println(messages.getString("borrowings.info.items") + items.size());
         items.forEach(System.out::println);
     }
 
     private void showDetails() {
-        int borrowingId = askNumber("Type the id of the borrowing you want to see its details");
+        int borrowingId = askNumber(messages.getString("borrowings.req.id"));
         try {
             Borrowing borrowing = borrowingsService.getBorrowingDetails(user, borrowingId);
-            System.out.println("Borrowing details: ");
+            System.out.println(messages.getString("borrowings.info.details"));
             System.out.println(borrowing.toStringWithItems());
         } catch (SQLException e) {
-            System.out.println("Couldn't get borrowing details," + e.getLocalizedMessage());
+            System.out.println(messages.getString("borrowings.out.detailsBad") + e.getLocalizedMessage());
         }
     }
 
     private void createRequest() {
-        System.out.println("Requesting selected items");
-        LocalDate returnDate = askDate("Type the due date before all the items must be returned:");
+        System.out.println(messages.getString("borrowings.info.requesting"));
+        LocalDate returnDate = askDate(messages.getString("borrowings.req.dueDate"));
         try {
             borrowingsService.createBorrowing(new Borrowing(returnDate, user));
-            System.out.println("Successful request, find an employee to borrow the items from");
+            System.out.println(messages.getString("borrowings.res.createOk"));
         } catch (Exception e) {
-            System.out.println("Couldn't request the borrowing, " + e.getLocalizedMessage());
+            System.out.println(messages.getString("borrowings.res.createBad") + e.getLocalizedMessage());
         }
     }
 
@@ -91,9 +92,10 @@ public class BorrowingMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        String email = askText("Type the email of the user you want to list its borrowings");
+        String email = askText(messages.getString("borrowings.req.userId"));
         List<Borrowing> borrowings = borrowingsService.getBorrowingsByEmail(user, email);
-        System.out.println("List of borrowings made by: " + email);
+        System.out.println(MessageFormat.format(messages.getString("borrowings.res.userList"),
+                email));
         borrowings.forEach(System.out::println);
     }
 
@@ -101,13 +103,12 @@ public class BorrowingMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int borrowingId = askNumber("Type the id of the borrowing you want to confirm as " +
-                "delivered");
+        int borrowingId = askNumber(messages.getString("borrowings.req.confirmId"));
         try {
             borrowingsService.confirmBorrowing(user, borrowingId);
-            System.out.println("Borrowing confirmed successfully");
+            System.out.println(messages.getString("borrowings.res.confirmOk"));
         } catch (SQLException e) {
-            System.out.println("Couldn't confirm this borrowing, " + e.getLocalizedMessage());
+            System.out.println(messages.getString("borrowings.res.confirmBad") + e.getLocalizedMessage());
         }
     }
 
@@ -115,12 +116,12 @@ public class BorrowingMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int borrowingId = askNumber("Type the id of the borrowing you want to finalize");
+        int borrowingId = askNumber(messages.getString("borrowings.req.finalizeId"));
         try {
             borrowingsService.finalizeBorrowing(user, borrowingId);
-            System.out.println("Borrowing finalized successfully");
+            System.out.println(messages.getString("borrowings.res.finalizeOk"));
         } catch (SQLException e) {
-            System.out.println("Couldn't finalize this borrowing, " + e.getLocalizedMessage());
+            System.out.println(messages.getString("borrowings.res.finalizeBad") + e.getLocalizedMessage());
         }
     }
 
@@ -128,7 +129,7 @@ public class BorrowingMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int borrowingId = askNumber("Type the id of the borrowing you want to delete");
+        int borrowingId = askNumber(messages.getString("borrowings.req.deleteId"));
         borrowingsService.deleteBorrowing(borrowingId);
     }
 }

@@ -1,6 +1,7 @@
 package com.davidbonelo.utils;
 
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class UserInteractions {
@@ -17,11 +18,12 @@ public class UserInteractions {
      * @return an Integer read from stdin.
      */
     public static int askNumber(String prompt) {
+        ResourceBundle messages = ResourceBundle.getBundle("ask");
         prompt += "\n> ";
         System.out.print(prompt);
         // Invalid integer handling
         while (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter an integer.");
+            System.out.println(messages.getString("ask.invalid.int"));
             System.out.print(prompt);
             scanner.next(); // clear invalid input
         }
@@ -37,12 +39,13 @@ public class UserInteractions {
      * @return a String read from stdin
      */
     public static String askText(String prompt) {
+        ResourceBundle messages = ResourceBundle.getBundle("ask");
         prompt += "\n> ";
         System.out.print(prompt);
         String input = scanner.nextLine().trim();
         // Invalid input handling
         while (input.isEmpty()) {
-            System.out.print("Invalid input. Please enter a non-empty string.");
+            System.out.print(messages.getString("ask.invalid.empty"));
             System.out.print(prompt);
             input = scanner.nextLine().trim();
         }
@@ -50,6 +53,7 @@ public class UserInteractions {
     }
 
     public static LocalDate askDate(String prompt) {
+        ResourceBundle messages = ResourceBundle.getBundle("ask");
         prompt += " (YYYY-MM-DD)\n> ";
         System.out.print(prompt);
         String input = scanner.nextLine().trim();
@@ -59,7 +63,7 @@ public class UserInteractions {
             try {
                 date = LocalDate.parse(input);
             } catch (Exception ignored) {
-                System.out.println("Invalid input. Please enter a date in the format YYYY-MM-DD");
+                System.out.println(messages.getString("ask.invalid.date"));
                 System.out.print(prompt);
                 input = scanner.nextLine().trim();
             }

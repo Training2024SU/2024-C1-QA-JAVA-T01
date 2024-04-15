@@ -3,6 +3,8 @@ package com.davidbonelo.ui;
 import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
 
+import java.util.ResourceBundle;
+
 import static com.davidbonelo.utils.UserInteractions.askNumber;
 import static com.davidbonelo.utils.Permissions.validPermission;
 
@@ -12,6 +14,7 @@ public class MenuChoices {
     private final String readerChoices;
     private final String employeeChoices;
     private final String adminChoices;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public MenuChoices(String menuName, String visitorChoices, String readerChoices,
                        String employeeChoices, String adminChoices) {
@@ -35,7 +38,7 @@ public class MenuChoices {
         buildUserChoices(user, menuMessage);
         buildLoginChoices(user, menuMessage);
 
-        menuMessage.append(isMainMenu() ? " 0. Exit" : " 0. Back");
+        menuMessage.append(isMainMenu() ? messages.getString("exit") : messages.getString("back"));
         return menuMessage.toString();
     }
 
@@ -48,9 +51,9 @@ public class MenuChoices {
         if (user == null) {
             int offset = menuName.length() + 6;
             // Inserts as first option after the menu name
-            menuMessage.insert(offset, " 1. Login |");
+            menuMessage.insert(offset, messages.getString("login"));
         } else {
-            menuMessage.append(" 9. Log out |");
+            menuMessage.append(messages.getString("logout"));
         }
     }
 

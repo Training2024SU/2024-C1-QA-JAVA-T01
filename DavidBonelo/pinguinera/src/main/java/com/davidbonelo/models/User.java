@@ -1,5 +1,7 @@
 package com.davidbonelo.models;
 
+import java.util.ResourceBundle;
+
 import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class User {
@@ -22,8 +24,9 @@ public class User {
     }
 
     public static User createUserFromInput() {
-        String name = askText("Name: ");
-        String email = askText("Email: ");
+        ResourceBundle messages = ResourceBundle.getBundle("messages");
+        String name = askText(messages.getString("user.req.name"));
+        String email = askText(messages.getString("user.req.email"));
         return new User(name, email, UserRole.READER);
     }
 

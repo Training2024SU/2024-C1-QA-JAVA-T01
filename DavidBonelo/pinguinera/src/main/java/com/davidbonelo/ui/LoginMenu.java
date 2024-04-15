@@ -1,16 +1,17 @@
 package com.davidbonelo.ui;
 
 import com.davidbonelo.models.User;
-import com.davidbonelo.models.UserRole;
 import com.davidbonelo.services.UserService;
 
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import static com.davidbonelo.utils.UserInteractions.askNumber;
 import static com.davidbonelo.utils.UserInteractions.askText;
 
 public class LoginMenu {
     private final UserService userService;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public LoginMenu(UserService userService) {
         this.userService = userService;
@@ -18,40 +19,38 @@ public class LoginMenu {
 
     public void menu() {
         while (userService.getLoggedUser() == null) {
-            int menuChoice = askNumber("Login menu: 1. Login with email | 2. Register | 0. Back");
+            int menuChoice = askNumber(messages.getString("login.choices.visitor"));
             switch (menuChoice) {
                 case 1 -> login();
                 case 2 -> register();
                 case 0 -> {
                     return;
                 }
-                default -> System.out.println("Unknown menu option");
+                default -> System.out.println(messages.getString("unknownOption"));
             }
         }
     }
 
     private void login() {
-        String email = askText("email: ");
-        String password = askText("password: ");
+        String email = askText(messages.getString("user.req.email"));
+        String password = askText(messages.getString("login.req.password"));
 
         User user = userService.login(email, password);
         if (user == null) {
-            System.out.println("Couldn't login, invalid email or password");
+            System.out.println(messages.getString("login.res.loginBad"));
         } else {
-            System.out.println("Successful login as: " + user);
+            System.out.println(messages.getString("login.res.loginOk") + user);
         }
     }
 
     private void register() {
-        String name = askText("name: ");
-        String email = askText("email: ");
-        String password = askText("password: ");
-        User user = new User(name, email, UserRole.READER);
+        User user = User.createUserFromInput();
+        String password = askText(messages.getString("login.req.password"));
 
         try {
             userService.register(user, password);
         } catch (SQLException e) {
-            System.out.println("Couldn't register user, " + e.getLocalizedMessage());
+            System.out.println(messages.getString("login.res.registerBad") + e.getLocalizedMessage());
         }
     }
 }

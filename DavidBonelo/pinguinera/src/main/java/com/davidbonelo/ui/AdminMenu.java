@@ -5,14 +5,18 @@ import com.davidbonelo.models.UserRole;
 import com.davidbonelo.services.UserService;
 
 import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 
+import static com.davidbonelo.utils.Permissions.validMenuAccess;
 import static com.davidbonelo.utils.UserInteractions.askNumber;
 import static com.davidbonelo.utils.UserInteractions.askText;
-import static com.davidbonelo.utils.Permissions.validMenuAccess;
 
 public class AdminMenu {
     private final UserService userService;
     private final User user;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
+
 
     public AdminMenu(UserService userService, User user) {
         this.userService = userService;
@@ -34,70 +38,70 @@ public class AdminMenu {
                 case 0 -> {
                     return;
                 }
-                default -> System.out.println("Unknown menu option");
+                default -> System.out.println(messages.getString("unknownOption"));
             }
         }
     }
 
     private int showMenu() {
-        String adminChoices = " 1. List users | 2. Create employee user | 3. Update user | 4. " +
-                "Delete user |";
+        String adminChoices = messages.getString("admin.choices.admin");
         MenuChoices menu = new MenuChoices("Admin", "", "", "", adminChoices);
         return menu.showMenu(user);
     }
 
     private void listUsers() {
-        System.out.println("List of users: ");
+        System.out.println(messages.getString("admin.info.usersList"));
         userService.getAllUsers().forEach(System.out::println);
     }
 
     private void createEmployeeUser() {
-        System.out.println("Enter the employee user data: ");
+        System.out.println(messages.getString("admin.req.createId"));
         User user = User.createUserFromInput();
         user.setRole(UserRole.EMPLOYEE);
-        String password = askText("Password: ");
+        String password = askText(messages.getString("login.req.password"));
         try {
             userService.register(user, password);
-            System.out.println("User created successfully");
+            System.out.println(messages.getString("admin.res.registerOk"));
         } catch (SQLException e) {
-            System.out.println("Couldn't register employee user, " + e.getLocalizedMessage());
+            System.out.println(MessageFormat.format(messages.getString("admin.res.registerBad"),
+                    e.getLocalizedMessage()));
         }
     }
 
     private void updateUser() {
-        int userId = askNumber("Type the id of the user you want to update: ");
+        int userId = askNumber(messages.getString("admin.req.updateId"));
         User user = User.createUserFromInput();
         user.setRole(askRole());
         user.setId(userId);
         try {
             userService.updateUser(user);
-            System.out.println("User updated successfully");
+            System.out.println(messages.getString("admin.res.updateOk"));
         } catch (SQLException e) {
-            System.out.println("Couldn't update the user, " + e.getLocalizedMessage());
+            System.out.println(messages.getString("admin.res.updateBad") + e.getLocalizedMessage());
         }
     }
 
     private UserRole askRole() {
         UserRole role = null;
         while (role == null) {
-            int roleChoice = askNumber("Choose a role: 1. READER | 2. EMPLOYEE | 3. ADMIN");
+            int roleChoice = askNumber(messages.getString("admin.req.role"));
             switch (roleChoice) {
                 case 1 -> role = UserRole.READER;
                 case 2 -> role = UserRole.EMPLOYEE;
                 case 3 -> role = UserRole.ADMINISTRATOR;
-                default -> System.out.println("Unknown role choice");
+                default -> System.out.println(messages.getString("admin.res.badRole"));
             }
         }
         return role;
     }
 
     private void deleteUser() {
-        int userId = askNumber("Type the id of the user you want to delete: ");
+        int userId = askNumber(messages.getString("admin.req.deleteId"));
         try {
             userService.deleteUser(userId);
-            System.out.println("User deleted successfully");
+            System.out.println(messages.getString("admin.res.deleteOk"));
         } catch (SQLException e) {
-            System.out.println("Couldn't delete the user, " + e.getLocalizedMessage());
+            System.out.println(MessageFormat.format(messages.getString("admin.res.deleteBad"), e.getLocalizedMessage()));
         }
     }
 }

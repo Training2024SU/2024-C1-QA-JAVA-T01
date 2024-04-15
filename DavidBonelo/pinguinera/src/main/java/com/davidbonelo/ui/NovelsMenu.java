@@ -7,6 +7,7 @@ import com.davidbonelo.services.BorrowingsService;
 import com.davidbonelo.services.LibraryManager;
 
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import static com.davidbonelo.utils.Permissions.validMenuAccess;
 import static com.davidbonelo.utils.UserInteractions.askNumber;
@@ -16,6 +17,7 @@ public class NovelsMenu {
     private final LibraryManager libraryManager;
     private final User user;
     private final BorrowingsService borrowingsService;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public NovelsMenu(LibraryManager libraryManager, BorrowingsService borrowingsService,
                       User user) {
@@ -38,22 +40,22 @@ public class NovelsMenu {
                 case 0 -> {
                     return;
                 }
-                default -> System.out.println("Unknown menu option");
+                default -> System.out.println(messages.getString("unknownOption"));
             }
         }
     }
 
     private int showMenu() {
-        String visitorChoices = " 1. List Novels | 2. List authors | 3. Search by author |";
-        String readerChoices = " 4. Borrow a Novel |";
-        String employeeChoices = "\n5. Register Novel | 6. Update Novel | 7. Delete Novel |";
+        String visitorChoices = messages.getString("novels.choices.visitor");
+        String readerChoices = messages.getString("novels.choices.reader");
+        String employeeChoices = messages.getString("novels.choices.employee");
         MenuChoices menu = new MenuChoices("Novels", visitorChoices, readerChoices,
                 employeeChoices, "");
         return menu.showMenu(user);
     }
 
     private void searchByAuthor() {
-        String author = askText("Type the name of the author you want to search: ");
+        String author = askText(messages.getString("item.req.author"));
         libraryManager.filterItemsByAuthor(libraryManager.getAllNovels(user), author).forEach(System.out::println);
     }
 
@@ -76,8 +78,8 @@ public class NovelsMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int novelId = askNumber("Type the id of the novel you want to update: ");
-        System.out.println("Type the new data for the novel: ");
+        int novelId = askNumber(messages.getString("novels.req.updateId"));
+        System.out.println(messages.getString("novels.req.data"));
         Novel novel = Novel.createNovelFromInput();
         novel.setId(novelId);
         libraryManager.updateItem(novel);
@@ -87,7 +89,7 @@ public class NovelsMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int novelId = askNumber("Type the id of the novel you want to delete: ");
+        int novelId = askNumber(messages.getString("novels.req.deleteId"));
         libraryManager.deleteNovel(novelId);
     }
 
@@ -95,12 +97,12 @@ public class NovelsMenu {
         if (!validMenuAccess(user, UserRole.READER)) {
             return;
         }
-        int novelId = askNumber("Type the id of the novel you want to borrow: ");
+        int novelId = askNumber(messages.getString("novels.req.borrowId"));
         try {
             borrowingsService.addBorrowingNovel(novelId);
-            System.out.println("Novel added, go to the Borrowings menu to complete the request");
+            System.out.println(messages.getString("novels.res.borrowOk"));
         } catch (SQLException e) {
-            System.out.println("Can't borrow this novel. " + e.getLocalizedMessage());
+            System.out.println(messages.getString("novels.res.borrowBad") + e.getLocalizedMessage());
         }
     }
 }

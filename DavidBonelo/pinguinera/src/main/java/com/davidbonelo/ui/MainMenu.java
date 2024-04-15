@@ -11,6 +11,8 @@ import com.davidbonelo.services.LibraryManager;
 import com.davidbonelo.services.UserService;
 
 import java.sql.Connection;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.davidbonelo.utils.UserInteractions.closeScanner;
 import static com.davidbonelo.utils.Permissions.validMenuAccess;
@@ -20,6 +22,7 @@ public class MainMenu {
     private final LibraryManager libraryManager;
     private final BorrowingsService borrowingsService;
     private User user;
+    private ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public MainMenu(Connection connection) {
         UserDAO userDAO = new UserDAO(connection);
@@ -32,8 +35,9 @@ public class MainMenu {
     }
 
     public void menu() {
-        System.out.println("Welcome to La Pingüinera library!!");
+        System.out.println(messages.getString("welcome"));
         while (true) {
+            messages = ResourceBundle.getBundle("messages"); // Refresh if language changed
             user = userService.getLoggedUser();
 
             int menuChoice = showMenu();
@@ -43,20 +47,21 @@ public class MainMenu {
                 case 3 -> new NovelsMenu(libraryManager, borrowingsService, user).menu();
                 case 4 -> new BorrowingMenu(borrowingsService, user).menu();
                 case 5 -> new AdminMenu(userService, user).menu();
+                case 8 -> Locale.setDefault(Locale.forLanguageTag("es"));
                 case 9 -> logout(user);
                 case 0 -> {
                     closeScanner();
                     return;
                 }
-                default -> System.out.println("Unknown menu option");
+                default -> System.out.println(messages.getString("unknownOption"));
             }
         }
     }
 
     private int showMenu() {
-        String visitorChoices = " 2. Books | 3. Novels |";
-        String readerChoices = " 4. Borrowings |";
-        String adminChoices = " 5. Admin menu |";
+        String visitorChoices = messages.getString("main.choices.visitor");
+        String readerChoices = messages.getString("main.choices.reader");
+        String adminChoices = messages.getString("main.choices.admin");
         return new MenuChoices("Main", visitorChoices, readerChoices, "", adminChoices).showMenu(user);
     }
 

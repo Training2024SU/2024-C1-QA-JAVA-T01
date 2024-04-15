@@ -7,6 +7,7 @@ import com.davidbonelo.services.BorrowingsService;
 import com.davidbonelo.services.LibraryManager;
 
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import static com.davidbonelo.utils.Permissions.validMenuAccess;
 import static com.davidbonelo.utils.UserInteractions.askNumber;
@@ -16,6 +17,7 @@ public class BooksMenu {
     private final LibraryManager libraryManager;
     private final BorrowingsService borrowingsService;
     private final User user;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public BooksMenu(LibraryManager libraryManager, BorrowingsService borrowingsService,
                      User user) {
@@ -38,22 +40,22 @@ public class BooksMenu {
                 case 0 -> {
                     return;
                 }
-                default -> System.out.println("Unknown menu option");
+                default -> System.out.println(messages.getString("unknownOption"));
             }
         }
     }
 
     private int showMenu() {
-        String visitorChoices = " 1. List Books | 2. List authors | 3. Search by author |";
-        String readerChoices = "4. Borrow a Book |";
-        String employeeChoices = "\n5. Register Book | 6. Update Book | 7. Delete Book |";
+        String visitorChoices = messages.getString("books.choices.visitor");
+        String readerChoices = messages.getString("books.choices.reader");
+        String employeeChoices = messages.getString("books.choices.employee");
         MenuChoices menu = new MenuChoices("Books", visitorChoices, readerChoices,
                 employeeChoices, "");
         return menu.showMenu(user);
     }
 
     private void searchByAuthor() {
-        String author = askText("Type the name of the author you want to search: ");
+        String author = askText(messages.getString("item.req.author"));
         libraryManager.filterItemsByAuthor(libraryManager.getAllBooks(user), author).forEach(System.out::println);
     }
 
@@ -76,8 +78,8 @@ public class BooksMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int bookId = askNumber("Type the id of the book you want to update: ");
-        System.out.println("Type the new data for the book: ");
+        int bookId = askNumber(messages.getString("books.req.updateId"));
+        System.out.println(messages.getString("books.req.bookData"));
         Book book = Book.createBookFromInput();
         book.setId(bookId);
         libraryManager.updateItem(book);
@@ -87,7 +89,7 @@ public class BooksMenu {
         if (!validMenuAccess(user, UserRole.EMPLOYEE)) {
             return;
         }
-        int bookId = askNumber("Type the id of the book you want to delete: ");
+        int bookId = askNumber(messages.getString("books.req.deleteId"));
         libraryManager.deleteBook(bookId);
     }
 
@@ -95,12 +97,12 @@ public class BooksMenu {
         if (!validMenuAccess(user, UserRole.READER)) {
             return;
         }
-        int bookId = askNumber("Type the id of the book you want to borrow: ");
+        int bookId = askNumber(messages.getString("books.req.toBorrowId"));
         try {
             borrowingsService.addBorrowingBook(bookId);
-            System.out.println("Book added, go to the Borrowings menu to complete the request");
+            System.out.println(messages.getString("books.res.borrowingOk"));
         } catch (SQLException e) {
-            System.out.println("Can't borrow this book. " + e.getLocalizedMessage());
+            System.out.println(messages.getString("books.res.borrowingBad") + e.getLocalizedMessage());
         }
     }
 }

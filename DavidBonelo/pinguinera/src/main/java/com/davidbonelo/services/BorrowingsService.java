@@ -12,8 +12,10 @@ import com.davidbonelo.persistance.NovelDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import static com.davidbonelo.utils.Permissions.validPermission;
@@ -24,6 +26,7 @@ public class BorrowingsService {
     private final BorrowingDAO borrowingDAO;
     private final Set<LibraryItem> itemsToBorrow;
     private final Connection connection;
+    private final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     public BorrowingsService(BookDAO bookDAO, NovelDAO novelDAO, BorrowingDAO borrowingDAO,
                              Connection connection) {
@@ -57,7 +60,9 @@ public class BorrowingsService {
     public void addBorrowingBook(int itemId) throws SQLException {
         Book book = bookDAO.getBookById(itemId);
         if (book == null) {
-            throw new SQLException("Book with id " + itemId + " not found");
+            String errMsg =
+                    MessageFormat.format(messages.getString("borrowings.res.bookNotFound"), itemId);
+            throw new SQLException(errMsg);
         }
         this.itemsToBorrow.add(book);
         itemsToBorrow.forEach(System.out::println);
@@ -66,7 +71,9 @@ public class BorrowingsService {
     public void addBorrowingNovel(int itemId) throws SQLException {
         Novel novel = novelDAO.getNovelById(itemId);
         if (novel == null) {
-            throw new SQLException("Novel with id " + itemId + " not found");
+            String errMsg = MessageFormat.format(messages.getString("borrowings.res" +
+                    ".novelNotFound"), itemId);
+            throw new SQLException(errMsg);
         }
         this.itemsToBorrow.add(novel);
         itemsToBorrow.forEach(System.out::println);
@@ -111,8 +118,7 @@ public class BorrowingsService {
     private void verifyItemsAvailability(Set<LibraryItem> borrowingItems) {
         for (LibraryItem item : borrowingItems) {
             if (item.getAvailableCopies() < 1) {
-                throw new IllegalArgumentException("Item: " + item.getTitle() + " has no " +
-                        "copies available");
+                throw new IllegalArgumentException("Item: " + item.getTitle() + messages.getString("borrowings.res.noCopies"));
             }
         }
     }
@@ -140,7 +146,7 @@ public class BorrowingsService {
     public void deleteBorrowing(int borrowingId) {
         try {
             borrowingDAO.deleteBorrowing(borrowingId);
-            System.out.println("Borrowing deleted successfully");
+            System.out.println(messages.getString("borrowings.res.deleteOk"));
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
         }
