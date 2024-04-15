@@ -1,4 +1,4 @@
-package com.sofka.model;
+package com.sofka.modelo;
 
 import lombok.Data;
 import lombok.Getter;
@@ -10,23 +10,17 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Libro {
+public class Libro extends Publicacion{
     private String titulo;
     private String autor;
-    private String areaConocimiento;
+    private String tipo = "LIBRO";
     private int numeroPaginas;
     private int cantidadEjemplares;
     private int cantidadPrestados;
     private int cantidadDisponibles;
 
-    public Libro(String titulo, String autor, String areaConocimiento, int numeroPaginas, int cantidadEjemplares) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.areaConocimiento = areaConocimiento;
-        this.numeroPaginas = numeroPaginas;
-        this.cantidadEjemplares = cantidadEjemplares;
-        this.cantidadPrestados = 0;
-        this.cantidadDisponibles = cantidadEjemplares;
+    public Libro(String titulo, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantiDisponibles) {
+        super(titulo, autor, numPaginas, cantEjemplares, cantPrestados, cantiDisponibles);
     }
 
     public void prestar() {

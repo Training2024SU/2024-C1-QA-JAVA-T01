@@ -1,9 +1,9 @@
 package com.sofka;
 
-import com.sofka.model.Libro;
-import com.sofka.model.Novela;
-import com.sofka.model.Prestamo;
-import com.sofka.model.Usuario;
+import com.sofka.modelo.Libro;
+import com.sofka.modelo.Novela;
+import com.sofka.modelo.Prestamo;
+import com.sofka.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,43 +12,44 @@ import java.util.Set;
 
 // Clase principal para la Biblioteca La Pingüinera, contiene los métodos principales para gestionar todo lo relacionado con la biblioteca.
 
-public class BibliotecaPinguinera {
-    private static Usuario usuarioAdministrador;
-    private static ArrayList<Usuario> asistentes;
+public class PruebasPOO {
+
+    private static ArrayList<Usuario> empleados;
     private static ArrayList<Libro> libros;
     private static ArrayList<Novela> novelas;
     private static ArrayList<Prestamo> prestamos;
 
+    Usuario usuarioAdministrador = new Usuario("John Doe", "administrador@pingu.com.co", "contrasenasegura123456");
+
     public static void main(String[] args) {
 
 // Crear el usuario administrador
-        usuarioAdministrador = new Usuario("John Doe", "administrador@pingu.com.co", "contrasenasegura123456", "ADMINISTRADOR");
 
         // Crear algunos asistentes
 
-        asistentes = new ArrayList<>();
-        asistentes.add(new Usuario("Asistente 1", "asistente1@pingu.com.co", "contrasena123", "ASISTENTE"));
-        asistentes.add(new Usuario("Asistente 2", "asistente2@pingu.com.co", "contrasena456", "ASISTENTE"));
+        empleados = new ArrayList<>();
+        empleados.add(new Usuario("Asistente 1", "asistente1@pingu.com.co", "contrasena123"));
+        empleados.add(new Usuario("Asistente 2", "asistente2@pingu.com.co", "contrasena456"));
 
         // Crear algunos libros y novelas
 
         libros = new ArrayList<>();
-        libros.add(new Libro("Libro 1", "Autor 1", "Área 1", 200, 10));
-        libros.add(new Libro("Libro 2", "Autor 2", "Área 2", 300, 5));
+        libros.add(new Libro("Libro 1", "Autor 1", 100, 200, 10, 190));
+        libros.add(new Libro("Libro 2", "Autor 2", 110, 300, 5, 295));
         novelas = new ArrayList<>();
-        novelas.add(new Novela("Novela 1", "Autor 1", "Género 1", 12, 8));
-        novelas.add(new Novela("Novela 2", "Autor 2", "Género 2", 16, 4));
+        novelas.add(new Novela("Novela 1", "Autor 1", "NOVELA", 12, 8, 4, 4));
+        novelas.add(new Novela("Novela 2", "Autor 2", "NOVELA", 16, 4, 1, 3));
 
         // Crear algunos préstamos
 
         prestamos = new ArrayList<>();
-        Usuario usuario1 = new Usuario("Usuario 1", "usuario1@ejemplo.com", "contrasena123", "LECTOR");
+        Usuario usuario1 = new Usuario("Usuario 1", "usuario1@ejemplo.com", "contrasena123");
         ArrayList<Libro> librosUsuario1 = new ArrayList<>();
         librosUsuario1.add(libros.get(0));
         librosUsuario1.add(libros.get(1));
         ArrayList<Novela> novelasUsuario1 = new ArrayList<>();
         novelasUsuario1.add(novelas.get(0));
-        prestamos.add(new Prestamo(usuario1, librosUsuario1, novelasUsuario1, "2023-04-01", "2023-04-15","SOLICITADO"));
+        prestamos.add(new Prestamo( "novelasUsuario1", "2023-04-01", "2023-04-15", "SOLICITADO",usuario1.getCorreo(), librosUsuario1.get(0).getTitulo()));
     }
 
     // Métodos para gestionar usuarios, libros, novelas y préstamos
@@ -56,14 +57,14 @@ public class BibliotecaPinguinera {
 // Métodos para gestionar usuarios
 
     public static void agregarAsistente(Usuario asistente) {
-        asistentes.add(asistente);
+        empleados.add(asistente);
     }
 
     public static boolean autenticarUsuario(String correo, String contrasena) {
-        if (usuarioAdministrador.getCorreo().equals(correo) && usuarioAdministrador.getContrasena().equals(contrasena)) {
+        if ("correo".equals(correo) && "usuarioAdministrador".equals(contrasena)) {
             return true;
         }
-        for (Usuario asistente : asistentes) {
+        for (Usuario asistente : empleados) {
             if (asistente.getCorreo().equals(correo) && asistente.getContrasena().equals(contrasena)) {
                 return true;
             }
@@ -72,10 +73,10 @@ public class BibliotecaPinguinera {
     }
 
     public static Usuario obtenerUsuario(String correo) {
-        if (usuarioAdministrador.getCorreo().equals(correo)) {
-            return usuarioAdministrador;
+        if ("usuarioAdministrador".equals(correo)) {
+            return new Usuario();
         }
-        for (Usuario asistente : asistentes) {
+        for (Usuario asistente : empleados) {
             if (asistente.getCorreo().equals(correo)) {
                 return asistente;
             }
@@ -167,8 +168,8 @@ public class BibliotecaPinguinera {
 
 // Métodos para gestionar préstamos
 
-    public static void realizarPrestamo(Usuario usuario, ArrayList<Libro> libros, ArrayList<Novela> novelas, String fechaPrestamo, String fechaDevolucion, String estado) {
-        Prestamo prestamo = new Prestamo(usuario, libros, novelas, fechaPrestamo, fechaDevolucion,estado);
+    public static void realizarPrestamo(String idPrestamos, String fechaPrestamo, String fechaDevolucion, String estado, String correo, String titulo) {
+        Prestamo prestamo = new Prestamo(idPrestamos, fechaPrestamo, fechaDevolucion, estado, correo, titulo);
         prestamos.add(prestamo);
         for (Libro libro : libros) {
             libro.prestar();
@@ -179,19 +180,19 @@ public class BibliotecaPinguinera {
     }
 
     public static void devolverPrestamo(Prestamo prestamo) {
-        for (Libro libro : prestamo.getLibros()) {
-            libro.devolver();
-        }
-        for (Novela novela : prestamo.getNovelas()) {
-            novela.devolver();
-        }
-        prestamos.remove(prestamo);
+//        for (String libros : prestamos) {
+//            libros.devolver();
+//        }
+//        for (Novela novela : prestamo.getNovelas()) {
+//            novela.devolver();
+//        }
+//        prestamos.remove(prestamo);
     }
 
     public static ArrayList<Prestamo> obtenerPrestamosPorUsuario(Usuario usuario) {
         ArrayList<Prestamo> prestamosUsuario = new ArrayList<>();
         for (Prestamo prestamo : prestamos) {
-            if (prestamo.getUsuario().equals(usuario)) {
+            if (prestamo.getCorreoUsuario().equals(usuario)) {
                 prestamosUsuario.add(prestamo);
             }
         }

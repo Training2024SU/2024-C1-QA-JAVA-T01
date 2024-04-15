@@ -1,4 +1,4 @@
-package com.sofka.model;
+package com.sofka.Enums;
 
 public enum Rol {
     ADMINISTRADOR, ASISTENTE

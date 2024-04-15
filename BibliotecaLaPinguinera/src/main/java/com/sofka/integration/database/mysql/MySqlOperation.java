@@ -9,9 +9,9 @@ import static com.sofka.integration.database.mysql.MySqlConstants.MY_SQL_JDBC_DR
 
 public class MySqlOperation implements DataBase {
 
-    private Connection connection= null;
-    private Statement statement=null;
-    private ResultSet resultSet=null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
 
     private String sqlStatement;
     private String server;
@@ -21,6 +21,10 @@ public class MySqlOperation implements DataBase {
 
     public String getSqlStatement() {
         return sqlStatement;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public void setSqlStatement(String sqlStatement) {
@@ -63,16 +67,10 @@ public class MySqlOperation implements DataBase {
     public void configureDataBaseConnection() {
         try {
             Class.forName(MY_SQL_JDBC_DRIVER);
-            connection= DriverManager.getConnection(
-                    String.format(CONNECTION_STRING,
-                            this.server,
-                            this.dataBaseName,
-                            this.user,
-                            this.password)
-            );
-            statement=connection.createStatement();
+            connection = DriverManager.getConnection(String.format(CONNECTION_STRING, this.server, this.dataBaseName, this.user, this.password));
+            statement = connection.createStatement();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             close();
             System.out.println(e.getMessage());
         }
@@ -84,7 +82,7 @@ public class MySqlOperation implements DataBase {
         try {
             configureDataBaseConnection();
             resultSet = statement.executeQuery(sqlStatement);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -95,7 +93,7 @@ public class MySqlOperation implements DataBase {
         try {
             configureDataBaseConnection();
             statement.execute(sqlStatement);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -109,26 +107,23 @@ public class MySqlOperation implements DataBase {
     @Override
     public void close() {
         try {
-            if(resultSet !=null){
+            if (resultSet != null) {
                 resultSet.close();
             }
-            if(statement !=null){
+            if (statement != null) {
                 statement.close();
             }
-            if(connection !=null){
+            if (connection != null) {
                 connection.close();
             }
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     @Override
     public void printResulset() throws SQLException {
-
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int totalColumnNumber = resultSetMetaData.getColumnCount();
         while (resultSet.next()) {
@@ -139,9 +134,7 @@ public class MySqlOperation implements DataBase {
                 String columnValue = resultSet.getString(columnNumber);
                 System.out.print(resultSetMetaData.getColumnName(columnNumber) + ": " + columnValue);
             }
-            System.out.println();
+            System.out.println("");
         }
-
     }
-
 }

@@ -1,4 +1,4 @@
-package com.sofka.model;
+package com.sofka.modelo;
 
 import lombok.*;
 
@@ -8,10 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Usuario {
+public class Empleado {
+    private String idEmpleado;
     private String nombre;
-    private String correo;
     private String contrasena;
+    private String correo;
     private String rol;
-
 }

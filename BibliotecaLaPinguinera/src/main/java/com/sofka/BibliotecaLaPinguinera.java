@@ -1,8 +1,7 @@
 package com.sofka;
 
-import com.sofka.model.Estado;
-import com.sofka.model.Prestamo;
-import com.sofka.model.Rol;
+import com.sofka.Enums.Estados;
+import com.sofka.Enums.Rol;
 import net.datafaker.Faker;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,21 +14,11 @@ import java.time.LocalDate;
 import java.util.*;
 import javax.swing.JOptionPane;
 
+import static com.sofka.Constants.ConectorConstants.*;
+import static com.sofka.Constants.SelectConstants.*;
+
 @SpringBootApplication
 public class BibliotecaLaPinguinera {
-    private static final String SERVER = "localhost";
-    private static final String DATA_BASE_NAME = "bibliotecapingui";
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234";
-
-    private static final String SELECT_ALL_FROM_PUBLICACION = String.format("select * from %s.publicacion", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_NOVELA = String.format("select * from %s.publicacion where tipo='NOVELA'", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_LIBRO = String.format("select * from %s.publicacion where tipo='LIBRO'", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_PRESTAMO = String.format("select * from %s.prestamo", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_EMPLEADO = String.format("select * from %s.empleado", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_USUARIO = String.format("select * from %s.usuario", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_AREAGENERO = String.format("select * from %s.areagenero", DATA_BASE_NAME);
-    private static final String SELECT_ALL_FROM_EDADSUGERIDA = String.format("select * from %s.edadsugerida", DATA_BASE_NAME);
 
     private static final String INSERT_PUBLICACION = "insert into publicacion values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
     private static final String INSERT_PRESTAMO = "insert into prestamo values ('%s', '%s', '%s', '%s', '%s', '%s');";
@@ -44,8 +33,6 @@ public class BibliotecaLaPinguinera {
     public static final String SELECCIONE_CORRECTAMENTE = "Opción incorrecta, por favor seleccione correctamente";
 
     private static final MySqlOperation mySqlOperation = new MySqlOperation();
-
-    private List<Prestamo> prestamos = new ArrayList<>();
 
     public static void main(String[] args) throws SQLException, IOException, NumberFormatException {
         System.out.println("Bienvenido a la Biblioteca la Pingüinera\n");
@@ -564,7 +551,7 @@ public class BibliotecaLaPinguinera {
 
         LocalDate fechaPrestamo = LocalDate.now();
         LocalDate fechaDevolucion = LocalDate.now().plusDays(15);
-        String estado = String.valueOf(Estado.values()[new Random().nextInt(Estado.values().length)]);
+        String estado = String.valueOf(Estados.values()[new Random().nextInt(Estados.values().length)]);
         return String.format(INSERT_PRESTAMO, idPrestamo, fechaPrestamo, fechaDevolucion, estado, correo, titulo);
     }
 

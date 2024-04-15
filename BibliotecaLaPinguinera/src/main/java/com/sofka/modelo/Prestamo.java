@@ -1,9 +1,9 @@
-package com.sofka.model;
+package com.sofka.modelo;
 
 
 import lombok.*;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 // Clase para representar un préstamo
 
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @ToString
 public class Prestamo {
-    private Usuario usuario;
-    private ArrayList<Libro> libros;
-    private ArrayList<Novela> novelas;
+    private String idPrestamo;
     private String fechaPrestamo;
     private String fechaDevolucion;
     private String estado;
+    private String correoUsuario;
+    private String tituloPublicacion;
 }
