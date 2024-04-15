@@ -85,8 +85,7 @@ public class Borrowing {
 
     @Override
     public String toString() {
-        return "Borrowing{borrowerId=" + borrower.getId() + ", borrower=" + borrower.getName() +
-                ", id=" + id + ", requestedDate=" + requestedDate + ", returnDate=" + returnDate + ", status=" + status + '}';
+        return "Borrowing{ id=" + id + ", borrowerId=" + borrower.getId() + ", borrower=" + borrower.getName() + ", requestedDate=" + requestedDate + ", returnDate=" + returnDate + ", status=" + status + '}';
     }
 
     public String toStringWithItems() {

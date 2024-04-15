@@ -38,7 +38,7 @@ public class BorrowingDAO {
 
     public Borrowing getBorrowingWithItems(int borrowingId) throws SQLException {
         String sql = "SELECT b.*, u.name, u.email, u.role FROM (SELECT * FROM Borrowings b WHERE " +
-                "is_deleted = 0 AND b.id = ? ) AS b LEFT JOIN Users u ON b.user_id = u.id;";
+                "b.is_deleted = 0 AND b.id = ? ) AS b LEFT JOIN Users u ON b.user_id = u.id;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, borrowingId);
             ResultSet rs = statement.executeQuery();
@@ -56,8 +56,8 @@ public class BorrowingDAO {
 
     public List<Borrowing> getAllBorrowings() throws SQLException {
         List<Borrowing> borrowings = new ArrayList<>();
-        String sql = "SELECT b.*, u.name, u.email, u.role FROM Borrowings b LEFT JOIN Users u ON "
-                + "b.user_id = u.id WHERE is_deleted = 0";
+        String sql = "SELECT b.*, u.name, u.email, u.role FROM Borrowings b LEFT JOIN Users u ON " +
+                "b.user_id = u.id WHERE b.is_deleted = 0";
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs =
                 statement.executeQuery()) {
             while (rs.next()) {
@@ -133,6 +133,9 @@ public class BorrowingDAO {
         }
     }
 
+    /**
+     * Fills the intermediate tables for the many to many relations
+     */
     private void saveBorrowedItems(Borrowing borrowing) throws SQLException {
         String sqlB = "INSERT INTO borrowings_books (borrowing_id, book_id) VALUES (?, ?)";
         String sqlN = "INSERT INTO borrowings_novels (borrowing_id, novel_id) VALUES (?, ?)";
@@ -158,7 +161,7 @@ public class BorrowingDAO {
         if (missingId(borrowing)) {
             throw new IllegalArgumentException("Can't update a borrowing without a id");
         }
-        String sql = "UPDATE Borrowings b SET status= ? WHERE is_deleted = 0 AND id= ?";
+        String sql = "UPDATE Borrowings SET status= ? WHERE is_deleted = 0 AND id= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, borrowing.getStatus().getValue());
             statement.setInt(2, borrowing.getId()); // WHERE
