@@ -61,6 +61,24 @@ public class AutorOperaciones {
         }
     }
 
+    public Autor buscarAutorNombre(String nombre) {
+        for (Autor autor : autores.values()) {
+            if (autor.getNombre().equalsIgnoreCase(nombre)) {
+                return autor;
+            }
+        }
+        return null; // Retorna null si no se encuentra el autor con el nombre especificado
+    }
+
+    public void listarAutores() {
+        System.out.println("Listado de autores:");
+        for (Autor autor : autores.values()) {
+            System.out.println(autor);
+        }
+    }
+
+
+
 
 
 

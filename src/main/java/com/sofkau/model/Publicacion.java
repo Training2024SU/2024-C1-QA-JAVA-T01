@@ -6,13 +6,30 @@ public class Publicacion {
 
     private String titulo;
     private String tipo;
-    private String autor;
+    private Autor autor;
     private int numeroPaginas;
     private int cantidadEjemplares;
     private int cantidadPrestado;
     private int cantidadDisponible;
     private List<AreaGenero> areas;
     private List<EdadSugerida> edades;
+
+
+    public Publicacion(String titulo, Autor autor, int numeroPaginas, int cantidadEjemplares, int cantidadPrestado) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.numeroPaginas = numeroPaginas;
+        this.cantidadEjemplares = cantidadEjemplares;
+        this.cantidadPrestado = cantidadPrestado;
+    }
+
+    public Publicacion(String titulo, Autor autor, int cantidadEjemplares, int cantidadPrestado) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.numeroPaginas = numeroPaginas;
+        this.cantidadEjemplares = cantidadEjemplares;
+        this.cantidadPrestado = cantidadPrestado;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -30,11 +47,11 @@ public class Publicacion {
         this.tipo = tipo;
     }
 
-    public String getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 
@@ -96,8 +113,6 @@ public class Publicacion {
                 ", cantidadEjemplares=" + cantidadEjemplares +
                 ", cantidadPrestado=" + cantidadPrestado +
                 ", cantidadDisponible=" + cantidadDisponible +
-                ", areas=" + areas +
-                ", edades=" + edades +
                 '}';
     }
 }

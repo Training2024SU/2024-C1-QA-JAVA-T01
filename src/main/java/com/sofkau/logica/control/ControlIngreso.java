@@ -3,10 +3,13 @@ package com.sofkau.logica.control;
 import com.sofkau.dialogo.Menu;
 import com.sofkau.logica.Autor.AutorOperaciones;
 import com.sofkau.logica.empleado.EmpleadoOperaciones;
+import com.sofkau.logica.publicacion.PublicacionOperaciones;
 import com.sofkau.logica.usuario.UsuarioOperaciones;
 import com.sofkau.model.Empleado;
+import com.sofkau.model.Publicacion;
 import com.sofkau.model.Usuario;
 import com.sofkau.util.enums.Roles;
+import com.sofkau.util.enums.TipoPublicacion;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -20,6 +23,13 @@ public class ControlIngreso {
 
     private static EmpleadoOperaciones empleadoOp;
 
+    private static AutorOperaciones autorOp = new AutorOperaciones();
+
+    private static PublicacionOperaciones publicacionOp = new PublicacionOperaciones();
+
+    private static int option = 0;
+    private static int optionEmp = 0;
+
     public ControlIngreso() {
     }
 
@@ -27,16 +37,23 @@ public class ControlIngreso {
     // Se hace publico para ser el unico metodo que se pueda llamar desde el main
     public static void implementarLogica() {
 
-        AutorOperaciones autorOp = new AutorOperaciones();
-
             autorOp.generateAutores(5);
-
-        int option;
             while (bandera) {
                 try {
-                Menu.menuPrincipal();
-                option = Integer.parseInt(scannerGlobal.nextLine());
-                inicioSesion(option);
+                    switch (option) {
+                        case 0 ->{
+                            Menu.menuPrincipal();
+                            String op = scannerGlobal.nextLine();
+                            option = Integer.parseInt(op);
+                            inicioSesion(option);
+                        }case 1 ->{
+
+                        }case 2 ->{
+                            scannerGlobal.nextLine();
+                            menuEmpleado();
+                        }
+                    }
+
             } catch (Exception e) {
                     System.out.println("Error por la razon " + e.getMessage());
                 }
@@ -87,17 +104,20 @@ public class ControlIngreso {
         switch (empleadoOp.getEmpleadoActual().getRol()) {
             case "ADMINISTRADOR" -> {
                 Menu.menuAdministrador();
-                int op = Integer.parseInt(scannerGlobal.nextLine());
+                int op = scannerGlobal.nextInt();
+                scannerGlobal.nextLine();
                 menuAdministrador(op);
             }
             case "ASISTENTE" -> {
                 Menu.ingresoAsistente();
-                int op = Integer.parseInt(scannerGlobal.nextLine());
-
+                int op = scannerGlobal.nextInt();
+                scannerGlobal.nextLine();
+                menuAsistente(op);
             }
             case "PROPIETARIO" -> {
                 Menu.ingresoPropietario();
-                int op = Integer.parseInt(scannerGlobal.nextLine());
+                int op = scannerGlobal.nextInt();
+                scannerGlobal.nextLine();
                 menuPropietario(op);
             }
             default -> {
@@ -120,7 +140,7 @@ public class ControlIngreso {
                 String contrasena = scannerGlobal.nextLine();
                 UsuarioOperaciones.getUsuarios();
 
-                empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.PROPIETARIO.toString());
+                empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ADMINISTRADOR.toString());
 
             }
             case 2 -> {
@@ -167,6 +187,46 @@ public class ControlIngreso {
 
                 empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ASISTENTE.toString());
 
+            }
+            default -> {
+                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
+                bandera = false;
+            }
+
+        }
+    }
+
+    private static void menuAsistente(int op) {
+        switch (op) {
+            case 1 -> {
+                Menu.ingresoLibro();
+                Menu.ingresoTitulo();
+                String titulo = scannerGlobal.nextLine();
+                autorOp.listarAutores();
+                Menu.ingresoAutor();
+                String nombreAutor = scannerGlobal.nextLine();
+                Menu.ingresoCantEjemplar();
+                int cantEjemplar = scannerGlobal.nextInt();
+                Menu.ingresoCantPrestado();
+                int cantPres = scannerGlobal.nextInt();
+                Menu.ingresoNumPaginas();
+                int numPag = scannerGlobal.nextInt();
+                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),numPag,cantEjemplar,cantPres),
+                        TipoPublicacion.Libro);
+            }
+            case 2 -> {
+                Menu.ingresoNovela();
+                Menu.ingresoTitulo();
+                String titulo = scannerGlobal.nextLine();
+                autorOp.listarAutores();
+                Menu.ingresoAutor();
+                String nombreAutor = scannerGlobal.nextLine();
+                Menu.ingresoCantEjemplar();
+                int cantEjemplar = scannerGlobal.nextInt();
+                Menu.ingresoCantPrestado();
+                int cantPres = scannerGlobal.nextInt();
+                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),cantEjemplar,cantPres),
+                        TipoPublicacion.Novela);
             }
             default -> {
                 System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
