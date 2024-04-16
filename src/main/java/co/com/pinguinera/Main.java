@@ -4,24 +4,23 @@ import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
 import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 import co.com.pinguinera.controladores.crud.ControladorCRUDPrestamo;
-import co.com.pinguinera.datos.DAO.UsuarioDAO;
-import co.com.pinguinera.datos.DAO.EmpleadoDAO;
-import co.com.pinguinera.datos.DAO.PrestamoDAO;
+import co.com.pinguinera.datos.DAO.*;
 import co.com.pinguinera.datos.conexionBD.ConexionBD;
+import co.com.pinguinera.datos.crud_local.*;
 import co.com.pinguinera.datos.interfaces.GestorBD;
 import co.com.pinguinera.datos.ImplBD.BaseDatosImpl;
-import co.com.pinguinera.datos.crud_local.CRUDUsuariosLocales;
-import co.com.pinguinera.datos.crud_local.CRUDEmpleadosLocales;
-import co.com.pinguinera.datos.crud_local.CRUDPrestamosLocales;
 import co.com.pinguinera.servicios.GestorAccesoUsuarios;
 import co.com.pinguinera.servicios.GestorAccesoEmpleados;
-import co.com.pinguinera.servicios.integracion.SincronizadorUsuario;
-import co.com.pinguinera.servicios.integracion.SincronizadorEmpleado;
-import co.com.pinguinera.servicios.integracion.SincronizadorPrestamos;
+import co.com.pinguinera.servicios.integracion.*;
 import co.com.pinguinera.vistas.MenuPrincipal;
 import co.com.pinguinera.vistas.vista_usuario.MenuPrincipalUsuario;
 import co.com.pinguinera.vistas.vista_usuario.InformacionUsuarioVista;
+import co.com.pinguinera.vistas.vistas_libro.InformacionLibroVista;
+import co.com.pinguinera.vistas.vistas_novela.InformacionNovelaVista;
 import co.com.pinguinera.vistas.vistas_prestamo.InformacionPrestamoVista;
+import co.com.pinguinera.controladores.crud.ControladorCRUDLibro;
+import co.com.pinguinera.controladores.crud.ControladorCRUDNovela;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -32,27 +31,43 @@ public class Main {
             System.out.println("Conexión a la base de datos abierta con éxito.");
 
             GestorBD gestorBD = new BaseDatosImpl(conexion);
+
+// Crear instancias de los DAOs
             UsuarioDAO usuarioDAO = new UsuarioDAO(gestorBD);
             EmpleadoDAO empleadoDAO = new EmpleadoDAO(gestorBD);
             PrestamoDAO prestamoDAO = new PrestamoDAO(gestorBD);
+            LibroDAO libroDAO = new LibroDAO(gestorBD);
+            NovelaDAO novelaDAO = new NovelaDAO(gestorBD);
 
+// Crear instancias de los CRUD locales
             CRUDUsuariosLocales crudUsuariosLocales = new CRUDUsuariosLocales();
             CRUDEmpleadosLocales crudEmpleadosLocales = new CRUDEmpleadosLocales();
             CRUDPrestamosLocales crudPrestamosLocales = new CRUDPrestamosLocales();
+            CRUDLibrosLocales crudLibrosLocales = new CRUDLibrosLocales();
+            CRUDNovelasLocales crudNovelasLocales = new CRUDNovelasLocales();
 
+// Crear instancias de los sincronizadores
             SincronizadorUsuario sincronizadorUsuario = new SincronizadorUsuario(usuarioDAO, crudUsuariosLocales);
             SincronizadorEmpleado sincronizadorEmpleado = new SincronizadorEmpleado(empleadoDAO, crudEmpleadosLocales);
             SincronizadorPrestamos sincronizadorPrestamos = new SincronizadorPrestamos(prestamoDAO, crudPrestamosLocales);
+            SincronizadorLibros sincronizadorLibros = new SincronizadorLibros(libroDAO, crudLibrosLocales);
+            SincronizadorNovelas sincronizadorNovelas = new SincronizadorNovelas(novelaDAO, crudNovelasLocales);
 
+// Crear instancias de las vistas
             InformacionUsuarioVista informacionUsuarioVista = new InformacionUsuarioVista();
             InformacionPrestamoVista informacionPrestamoVista = new InformacionPrestamoVista();
+            InformacionLibroVista informacionLibroVista = new InformacionLibroVista();
+            InformacionNovelaVista informacionNovelaVista = new InformacionNovelaVista();
 
+// Crear instancias de los gestores de acceso
             GestorAccesoUsuarios gestorAccesoUsuarios = new GestorAccesoUsuarios(usuarioDAO);
             GestorAccesoEmpleados gestorAccesoEmpleados = new GestorAccesoEmpleados(empleadoDAO);
 
+// Crear instancias de los controladores de sesión
             UsuarioSesionControlador usuarioSesionControlador = new UsuarioSesionControlador(gestorAccesoUsuarios);
             EmpleadoSesionControlador empleadoSesionControlador = new EmpleadoSesionControlador(gestorAccesoEmpleados);
 
+// Crear instancias de los controladores CRUD
             ControladorCRUDUsuario controladorCRUDUsuario = new ControladorCRUDUsuario(
                     informacionUsuarioVista,
                     crudUsuariosLocales,
@@ -67,21 +82,40 @@ public class Main {
                     sincronizadorPrestamos
             );
 
-            // Crear instancia de MenuPrincipalUsuario
-            MenuPrincipalUsuario menuPrincipalUsuario = new MenuPrincipalUsuario(
-                    controladorCRUDUsuario,
-                    controladorCRUDPrestamo
+            ControladorCRUDLibro controladorCRUDLibro = new ControladorCRUDLibro(
+                    informacionLibroVista,
+                    crudLibrosLocales,
+                    libroDAO,
+                    sincronizadorLibros
             );
 
-            // Asignar MenuPrincipalUsuario a UsuarioSesionControlador
+            ControladorCRUDNovela controladorCRUDNovela = new ControladorCRUDNovela(
+                    informacionNovelaVista,
+                    crudNovelasLocales,
+                    novelaDAO,
+                    sincronizadorNovelas
+            );
+
+// Crear instancia de MenuPrincipalUsuario con los cuatro controladores: Usuario, Prestamo, Libro y Novela
+            MenuPrincipalUsuario menuPrincipalUsuario = new MenuPrincipalUsuario(
+                    controladorCRUDUsuario,
+                    controladorCRUDPrestamo,
+                    controladorCRUDLibro,
+                    controladorCRUDNovela
+            );
+
+// Asignar MenuPrincipalUsuario a UsuarioSesionControlador
             usuarioSesionControlador.setMenuPrincipalUsuario(menuPrincipalUsuario);
 
+// Crear instancia de MenuPrincipal y mostrar el menú
             MenuPrincipal menuPrincipal = new MenuPrincipal(
                     empleadoSesionControlador,
                     usuarioSesionControlador,
                     controladorCRUDUsuario
             );
+
             menuPrincipal.mostrarMenu();
+
 
         } catch (SQLException e) {
             System.err.println("Error al interactuar con la base de datos: " + e.getMessage());

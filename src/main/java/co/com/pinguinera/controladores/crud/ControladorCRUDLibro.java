@@ -77,9 +77,11 @@ public class ControladorCRUDLibro {
     }
 
     public void obtenerTodosLibros() {
-        List<Libro> librosLocales = crudLibrosLocales.obtenerTodos();
-        for (Libro libro : librosLocales) {
-            System.out.println(libro);
+        try {
+            List<Libro> librosBD = libroDAO.obtenerTodos();
+            librosBD.forEach(System.out::println);
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los libros: " + e.getMessage());
         }
     }
 

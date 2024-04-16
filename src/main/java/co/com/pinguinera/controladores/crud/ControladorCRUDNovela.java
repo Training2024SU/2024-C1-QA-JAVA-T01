@@ -77,9 +77,11 @@ public class ControladorCRUDNovela {
     }
 
     public void obtenerTodasNovelas() {
-        List<Novela> novelasLocales = crudNovelasLocales.obtenerTodos();
-        for (Novela novela : novelasLocales) {
-            System.out.println(novela);
+        try {
+            List<Novela> novelasBD = novelaDAO.obtenerTodos();
+            novelasBD.forEach(System.out::println);
+        } catch (SQLException e) {
+            System.err.println("Error al obtener las novelas: " + e.getMessage());
         }
     }
 

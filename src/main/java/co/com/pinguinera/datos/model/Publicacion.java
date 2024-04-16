@@ -116,17 +116,25 @@ public class Publicacion {
 
     @Override
     public String toString() {
-        return "Publicacion{" +
-                "idPublicacion=" + idPublicacion +
-                ", titulo='" + titulo + '\'' +
-                ", tipoPublicacion=" + tipoPublicacion +
-                ", autor='" + autor + '\'' +
-                ", numPaginas=" + numPaginas +
-                ", cantEjemplares=" + cantEjemplares +
-                ", cantPrestados=" + cantPrestados +
-                ", cantDisponible=" + cantDisponible +
-                ", areas=" + areas +
-                ", edades=" + edades +
-                '}';
+        final String RESET = "\033[0m"; // Restablecer color
+        final String GREEN = "\033[32m"; // Verde
+
+        String columnas = String.format(
+                "%-10s %-40s %-25s %-10s %-12s %-12s %-12s",
+                "ID", "Título", "Autor", "Páginas", "Ejemplares", "Prestados", "Disponible"
+        );
+        String datos = String.format(
+                "%s%-10d%s %s%-40s%s %s%-25s%s %s%-10d%s %s%-12d%s %s%-12d%s %s%-12d%s",
+                GREEN, idPublicacion, RESET,
+                GREEN, titulo, RESET,
+                GREEN, autor, RESET,
+                GREEN, numPaginas, RESET,
+                GREEN, cantEjemplares, RESET,
+                GREEN, cantPrestados, RESET,
+                GREEN, cantDisponible, RESET
+        );
+
+        return "\n" + columnas + "\n" + datos;
     }
+
 }
