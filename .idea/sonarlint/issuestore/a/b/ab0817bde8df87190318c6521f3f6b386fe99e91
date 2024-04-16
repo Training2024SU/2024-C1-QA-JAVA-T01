@@ -1,9 +1,9 @@
 
-|
-java:S1488Š"eImmediately return this expression instead of assigning it to the temporary variable "menuPrincipal".(£Î¡º
-P
-java:S1118":Add a private constructor to hide the implicit public one.(•ÇÌ
-‰
-java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(¡ùË»üÿÿÿÿ
-j
-java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(ÚÑ¸
+¢
+java:S1488‹"eImmediately return this expression instead of assigning it to the temporary variable "menuPrincipal".(£Î¡ºJ$0a84b94f-4996-4d6a-a523-39ee04495393
+v
+java:S1118":Add a private constructor to hide the implicit public one.(•ÇÌJ$29d9d863-5f65-4b18-ba0a-2f57a805f159
+¯
+java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(¡ùË»üÿÿÿÿJ$dac5e217-9de1-4fa9-b562-40b9dc02bce4
+
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(ÚÑ¸J$9953a4a6-08e2-426f-95b7-2653669adda9

@@ -27,3 +27,5 @@ _
 Qsrc/main/java/co/com/pinguinera/vistas/vista_usuario/InformacionUsuarioVista.java,a/9/a9aefbce5b6e8f5006d8737d9ddb28048a313aa5
 ~
 Nsrc/main/java/co/com/pinguinera/vistas/vista_usuario/MenuPrincipalUsuario.java,1/e/1ec1e16d65c9ee29221807432a00ee7a50d7cf3c
+j
+:src/main/java/co/com/pinguinera/vistas/MenuConstantes.java,f/1/f17578c705e7259c7862df29761ae38fbabcf8bc

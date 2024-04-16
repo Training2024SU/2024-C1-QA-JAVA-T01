@@ -1,7 +1,3 @@
 
-l
-java:S1192O"JDefine a constant instead of duplicating this literal "4. Volver" 3 times.(ƒ¸ú†ıÿÿÿÿ8Ù½»î1
-‹
-java:S1192E"iDefine a constant instead of duplicating this literal "OpciÃ³n no vÃ¡lida. IntÃ©ntelo de nuevo." 6 times.(¼™Ëùşÿÿÿÿ8ŸÙ½»î1
-H
-java:S1068"+Remove this unused "scanner" private field.(‚´®8¾Ù½»î1
+N
+java:S1481",Remove this unused "scanner" local variable.(ù ƒ‘üÿÿÿÿ8¢ë¾î1

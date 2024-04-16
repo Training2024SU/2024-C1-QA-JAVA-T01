@@ -4,7 +4,6 @@ import co.com.pinguinera.LoggerUtil;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
 import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
-import co.com.pinguinera.vistas.VistaUtil;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
