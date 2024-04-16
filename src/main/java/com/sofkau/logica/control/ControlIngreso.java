@@ -10,6 +10,9 @@ import com.sofkau.model.*;
 import com.sofkau.util.enums.EstadoPrestamo;
 import com.sofkau.util.enums.Roles;
 import com.sofkau.util.enums.TipoPublicacion;
+import com.sofkau.util.generar.GenerarAutores;
+import com.sofkau.util.generar.GenerarEmpleadoAdmin;
+
 import java.util.logging.Logger;
 
 import java.sql.SQLException;
@@ -45,10 +48,11 @@ public class ControlIngreso {
     public static void implementarLogica() {
 
         // Se generan autores autes de iniciar el programa
-
+        GenerarAutores.generateAutores(5);
 
         // Se genera el empleado administrador si no se encuentra registrado en la base de datos en base a los
         // Datos proporicionado en el .env
+        GenerarEmpleadoAdmin.generarEmpleadoAdministrador();
 
             while (bandera) {
                 try {

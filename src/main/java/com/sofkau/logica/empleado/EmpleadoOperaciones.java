@@ -36,6 +36,16 @@ public class EmpleadoOperaciones {
         getEmpleados();
     }
 
+    //Se crea usuario administrador
+    public void generarEmpleadoAdministrador(Empleado admin){
+        Empleado empleadoVal = consultarEmpleado(admin.getId());
+        if(empleadoVal != null ){
+            return;
+        }
+        EmpleadoRepositorio.crearEmpleado(admin);
+        empleados.put(admin.getId(),admin);
+    }
+
     public static void getEmpleados() {
         empleados = EmpleadoRepositorio.consultarEmpleados();
     }
