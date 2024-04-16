@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    private static final String SERVER = "localhost";
-    private static final String DATA_BASE_NAME = "bibliotecapingu";
-    private static final String USER = "root";
-    private static final String PASSWORD = "Jjga1910*";
+    private static final String SERVER = System.getenv("GRADLE_SERVER");
+    private static final String DATA_BASE_NAME = System.getenv("GRADLE_DB");
+    private static final String USER = System.getenv("GRADLE_USER");
+    private static final String PASSWORD = System.getenv("GRADLE_PASS");
 
     private static MySqlOperation mySqlOperation;
 

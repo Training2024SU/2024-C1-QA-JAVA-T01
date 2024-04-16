@@ -30,9 +30,7 @@ public class Main {
         MetodosProducto metodosProducto = new MetodosProducto(mySqlOperation);
         MetodosPrestamo metodosPrestamo = new MetodosPrestamo(mySqlOperation);
         SesionIniciada sesionIniciada = new SesionIniciada(mySqlOperation);
-        loggerInicio();
         iniciarPrograma(mySqlOperation);
-
         closeConnection(mySqlOperation);
         loggerFinal();
     }

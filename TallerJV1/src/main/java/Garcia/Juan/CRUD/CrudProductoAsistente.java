@@ -12,10 +12,10 @@ public class CrudProductoAsistente {
         this.mySqlOperation = mySqlOperation;
     }
 
-    private static final String INSERT_PRODUCT = "INSERT INTO bibliotecapingu.producto (titulo,tipo, autor,numero_pag,cant_ejemplares,cant_prestados) VALUES ('%s','%s', '%s','%s','%s','%s')";
+    private static final String INSERT_PRODUCT = "INSERT INTO bibliotecapingu.producto (titulo,tipo, autor,numero_pag,cant_ejemplares,cant_prestados, area_genero) VALUES ('%s','%s', '%s','%s','%s','%s','%s')";
     private static final String DELETE_PRODUCT = "DELETE FROM bibliotecapingu.producto where titulo='%s'";
     private static final String OBTAIN_PRODUCT = "DELETE FROM bibliotecapingu.producto where titulo='%s'";
-    private static final String UPDATE_PRODUCT = "UPDATE libro SET titulo = '%s', autor = '%s' area_conocimiento = '%s', nu_paginas = '%s', cantidad_ejemplares = '%s', cantidad_prestados = '%s', cantidad_disponibles = '%s'  WHERE titulo = '%s'";
+    private static final String UPDATE_PRODUCT = "UPDATE libro SET titulo = '%s', autor = '%s' area_conocimiento = '%s', nu_paginas = '%s', cantidad_ejemplares = '%s', cantidad_prestados = '%s', cantidad_disponibles = '%s', area_genero = '%s'  WHERE titulo = '%s'";
 
     public static void insertProduct(MySqlOperation mySqlOperation){
         String statement = obtenerInfoProduct();
@@ -36,7 +36,9 @@ public class CrudProductoAsistente {
         System.out.print("Ingrese el numero de ejemplares del producto: ");
         int cantidadEjemplares = Integer.parseInt(scanner.nextLine());
         int cantidadPrestados = 0;
-        return String.format(INSERT_PRODUCT, titulo, tipo, autor, numeroPaginas ,cantidadEjemplares, cantidadPrestados);
+        System.out.print("Ingrese el area/genero del producto: ");
+        String area = scanner.nextLine();
+        return String.format(INSERT_PRODUCT, titulo, tipo, autor, numeroPaginas ,cantidadEjemplares, cantidadPrestados,area);
     }
 
     protected static String PreguntarAlUsuario() {
@@ -78,6 +80,8 @@ public class CrudProductoAsistente {
         System.out.printf("Inserte el nuevo numero de ejemplares disponibles: ");
         int cantDisp = Integer.parseInt(scanner.nextLine());
         int cantPrest =cantEjemplares-cantDisp;
-        return String.format(UPDATE_PRODUCT, tituloNuevo,areaConocimiento,nuPaginas,cantEjemplares,cantPrest,cantDisp,titulo);
+        System.out.print("Ingrese el area/genero del producto: ");
+        String area = scanner.nextLine();
+        return String.format(UPDATE_PRODUCT, tituloNuevo,areaConocimiento,nuPaginas,cantEjemplares,cantPrest,cantDisp,titulo,area);
     }
 }
