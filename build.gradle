@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'com.sofkau'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation 'com.mysql:mysql-connector-j:8.0.32'
+
+    // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
+
+}
+
+
+test {
+    useJUnitPlatform()
+}
