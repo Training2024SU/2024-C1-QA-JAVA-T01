@@ -6,6 +6,7 @@ import co.com.pinguinera.datos.model.Empleado;
 import co.com.pinguinera.servicios.integracion.SincronizadorEmpleado;
 import co.com.pinguinera.vistas.VistaUtil;
 import co.com.pinguinera.vistas.vista_empleado.InformacionEmpleadoVista;
+import co.com.pinguinera.vistas.vista_usuario.InformacionUsuarioVista;
 
 import java.sql.SQLException;
 
