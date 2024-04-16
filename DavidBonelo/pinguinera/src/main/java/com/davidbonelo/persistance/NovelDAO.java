@@ -2,6 +2,7 @@ package com.davidbonelo.persistance;
 
 import com.davidbonelo.models.LibraryItem;
 import com.davidbonelo.models.Novel;
+import com.mysql.cj.MysqlType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,20 +50,30 @@ public class NovelDAO {
     }
 
     public void createNovel(Novel novel) throws SQLException {
-        String sql = "INSERT INTO Novels ( title, author, copies, copies_borrowed, genre, " +
-                "recommended_age ) VALUES ( ?, ?, ?, ?, ?, ? )";
+        String sql =
+                "INSERT INTO Novels ( id, title, author, copies, copies_borrowed, genre, " +
+                        "recommended_age ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, novel.getTitle());
-            statement.setString(2, novel.getAuthor());
-            statement.setInt(3, novel.getCopies());
-            statement.setInt(4, novel.getCopiesBorrowed());
-            statement.setString(5, novel.getGenre());
-            statement.setInt(6, novel.getRecommendedAge());
+            prepareCreate(statement, novel);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted == 0) {
                 throw new SQLException("Creating novel failed, no rows affected.");
             }
         }
+    }
+
+    public void prepareCreate(PreparedStatement statement, Novel novel) throws SQLException {
+        if (containsId(novel)) {
+            statement.setInt(1, novel.getId());
+        } else {
+            statement.setNull(1, MysqlType.NULL.getJdbcType());
+        }
+        statement.setString(2, novel.getTitle());
+        statement.setString(3, novel.getAuthor());
+        statement.setInt(4, novel.getCopies());
+        statement.setInt(5, novel.getCopiesBorrowed());
+        statement.setString(6, novel.getGenre());
+        statement.setInt(7, novel.getRecommendedAge());
     }
 
     public void updateNovel(Novel novel) throws SQLException {

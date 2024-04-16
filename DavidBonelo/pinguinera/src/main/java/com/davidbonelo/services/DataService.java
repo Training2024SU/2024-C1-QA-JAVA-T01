@@ -46,18 +46,24 @@ public class DataService {
     }
 
     private void batchCreateItems(List<LibraryItem> items) throws SQLException {
-        String sql = "INSERT INTO Books ( id, title, author, copies, copies_borrowed, field, " +
-                "pages ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sqlB =
+                "INSERT INTO Books ( id, title, author, copies, copies_borrowed, field, " +
+                        "pages ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+        String sqlN =
+                "INSERT INTO Novels ( id, title, author, copies, copies_borrowed, genre, " +
+                        "recommended_age ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+        try (PreparedStatement statementB = connection.prepareStatement(sqlB); PreparedStatement statementN = connection.prepareStatement(sqlN)) {
             for (LibraryItem item : items) {
                 if (item instanceof Book book) {
-                    bookDAO.prepareCreate(statement, book);
-                    statement.addBatch();
+                    bookDAO.prepareCreate(statementB, book);
+                    statementB.addBatch();
                 } else if (item instanceof Novel novel) {
-                    novelDAO.createNovel(novel);
+                    novelDAO.prepareCreate(statementN, novel);
+                    statementN.addBatch();
                 }
             }
-            statement.executeBatch();
+            statementB.executeBatch();
+            statementN.executeBatch();
         }
     }
 }
