@@ -37,3 +37,13 @@ Msrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDNovela.java,
 Osrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDPrestamo.java,a/1/a179caf4d65fc5c58aa5579ec1663844a4dce5f2
 ~
 Nsrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDUsuario.java,f/e/feefec31d1b60e502a372503f347f29a44ba36fd
+…
+Usrc/main/java/co/com/pinguinera/vistas/vistas_administrativo/MenuGestionUsuarios.java,b/4/b4836eaa126d5b85f28844fcd106815f87ef50e5
+†
+Vsrc/main/java/co/com/pinguinera/vistas/vistas_administrativo/MenuGestionPrestamos.java,d/7/d783bd0ea5f4a9269e67c8ce4f21898d0dae01fb
+†
+Vsrc/main/java/co/com/pinguinera/vistas/vistas_administrativo/MenuGestionEmpleados.java,3/d/3d8e4be95a8fccd1586715ba6e3eb9724a9648d5
+„
+Tsrc/main/java/co/com/pinguinera/vistas/vistas_administrativo/MenuGestionNovelas.java,a/5/a5b9c02ce9080a806ba47cc200ffacea2356f3c7
+ƒ
+Ssrc/main/java/co/com/pinguinera/vistas/vistas_administrativo/MenuGestionLibros.java,6/7/674794da248bd3c9d94ecf670f09cf4ee88f9a22
