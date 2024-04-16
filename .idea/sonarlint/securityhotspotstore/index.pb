@@ -23,3 +23,7 @@ Nsrc/main/java/co/com/pinguinera/vistas/vistas_libro/InformacionLibroVista.java
 Ssrc/main/java/co/com/pinguinera/vistas/vista_empleado/InformacionEmpleadoVista.java,1/a/1a9c92349071c708e85bb0105b82c68b81471530
 _
 /src/main/java/co/com/pinguinera/LoggerUtil.java,2/d/2d6b0879622b61782f7a618af7a8a62002c95875
+Å
+Qsrc/main/java/co/com/pinguinera/vistas/vista_usuario/InformacionUsuarioVista.java,a/9/a9aefbce5b6e8f5006d8737d9ddb28048a313aa5
+~
+Nsrc/main/java/co/com/pinguinera/vistas/vista_usuario/MenuPrincipalUsuario.java,1/e/1ec1e16d65c9ee29221807432a00ee7a50d7cf3c

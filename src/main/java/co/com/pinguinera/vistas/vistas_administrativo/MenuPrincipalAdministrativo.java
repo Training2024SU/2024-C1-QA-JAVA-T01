@@ -1,11 +1,15 @@
 package co.com.pinguinera.vistas.vistas_administrativo;
 
+import co.com.pinguinera.LoggerUtil;
 import co.com.pinguinera.controladores.crud.*;
 import co.com.pinguinera.vistas.VistaUtil;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MenuPrincipalAdministrativo {
+
+    private static final Logger LOGGER = LoggerUtil.getLogger(); // Usar el logger global desde LoggerUtil
 
     private final ControladorCRUDUsuario controladorCRUDUsuario;
     private final ControladorCRUDPrestamo controladorCRUDPrestamo;
@@ -31,13 +35,13 @@ public class MenuPrincipalAdministrativo {
         boolean continuar = true;
 
         while (continuar) {
-            System.out.println("\nMenú administrativo");
-            System.out.println("1. Gestión de usuarios");
-            System.out.println("2. Gestión de préstamos");
-            System.out.println("3. Gestión de empleados");
-            System.out.println("4. Gestión de novelas");
-            System.out.println("5. Gestión de libros");
-            System.out.println("6. Salir");
+            LOGGER.info("\nMenú administrativo");
+            LOGGER.info("1. Gestión de usuarios");
+            LOGGER.info("2. Gestión de préstamos");
+            LOGGER.info("3. Gestión de empleados");
+            LOGGER.info("4. Gestión de novelas");
+            LOGGER.info("5. Gestión de libros");
+            LOGGER.info("6. Salir");
 
             int opcion = VistaUtil.obtenerOpcion();
 
@@ -58,21 +62,21 @@ public class MenuPrincipalAdministrativo {
                     mostrarMenuGestionLibros();
                     break;
                 case 6:
-                    System.out.println("Saliendo del menú...");
+                    LOGGER.info("Saliendo del menú...");
                     continuar = false;
                     break;
                 default:
-                    System.out.println("Opción no válida. Inténtelo de nuevo.");
+                    LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
             }
         }
     }
 
     private void mostrarMenuGestionUsuarios() {
-        System.out.println("\nGestión de usuarios");
-        System.out.println("1. Agregar usuario");
-        System.out.println("2. Actualizar usuario");
-        System.out.println("3. Eliminar usuario");
-        System.out.println("4. Volver");
+        LOGGER.info("\nGestión de usuarios");
+        LOGGER.info("1. Agregar usuario");
+        LOGGER.info("2. Actualizar usuario");
+        LOGGER.info("3. Eliminar usuario");
+        LOGGER.info("4. Volver");
 
         int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
@@ -88,16 +92,16 @@ public class MenuPrincipalAdministrativo {
             case 4:
                 return;
             default:
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
         }
     }
 
     private void mostrarMenuGestionPrestamos() {
-        System.out.println("\nGestión de préstamos");
-        System.out.println("1. Registrar préstamo");
-        System.out.println("2. Actualizar Prestamo");
-        System.out.println("3. Ver todos los préstamos");
-        System.out.println("4. Volver");
+        LOGGER.info("\nGestión de préstamos");
+        LOGGER.info("1. Registrar préstamo");
+        LOGGER.info("2. Actualizar Prestamo");
+        LOGGER.info("3. Ver todos los préstamos");
+        LOGGER.info("4. Volver");
 
         int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
@@ -113,16 +117,16 @@ public class MenuPrincipalAdministrativo {
             case 4:
                 return;
             default:
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
         }
     }
 
     private void mostrarMenuGestionEmpleados() {
-        System.out.println("\nGestión de empleados");
-        System.out.println("1. Agregar empleado");
-        System.out.println("2. Actualizar empleado");
-        System.out.println("3. Eliminar empleado");
-        System.out.println("4. Volver");
+        LOGGER.info("\nGestión de empleados");
+        LOGGER.info("1. Agregar empleado");
+        LOGGER.info("2. Actualizar empleado");
+        LOGGER.info("3. Eliminar empleado");
+        LOGGER.info("4. Volver");
 
         int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
@@ -138,17 +142,17 @@ public class MenuPrincipalAdministrativo {
             case 4:
                 return;
             default:
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
         }
     }
 
     private void mostrarMenuGestionNovelas() {
-        System.out.println("\nGestión de novelas");
-        System.out.println("1. Agregar novela");
-        System.out.println("2. Actualizar novela");
-        System.out.println("3. Eliminar novela");
-        System.out.println("4. Ver todas las novelas");
-        System.out.println("5. Volver");
+        LOGGER.info("\nGestión de novelas");
+        LOGGER.info("1. Agregar novela");
+        LOGGER.info("2. Actualizar novela");
+        LOGGER.info("3. Eliminar novela");
+        LOGGER.info("4. Ver todas las novelas");
+        LOGGER.info("5. Volver");
 
         int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
@@ -167,17 +171,17 @@ public class MenuPrincipalAdministrativo {
             case 5:
                 return;
             default:
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
         }
     }
 
     private void mostrarMenuGestionLibros() {
-        System.out.println("\nGestión de libros");
-        System.out.println("1. Agregar libro");
-        System.out.println("2. Actualizar libro");
-        System.out.println("3. Eliminar libro");
-        System.out.println("4. Ver todos los libros");
-        System.out.println("5. Volver");
+        LOGGER.info("\nGestión de libros");
+        LOGGER.info("1. Agregar libro");
+        LOGGER.info("2. Actualizar libro");
+        LOGGER.info("3. Eliminar libro");
+        LOGGER.info("4. Ver todos los libros");
+        LOGGER.info("5. Volver");
 
         int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
@@ -196,8 +200,7 @@ public class MenuPrincipalAdministrativo {
             case 5:
                 return;
             default:
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
         }
     }
-
 }

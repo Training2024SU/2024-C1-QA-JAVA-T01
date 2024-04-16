@@ -1,8 +1,12 @@
 package co.com.pinguinera.vistas.vista_usuario;
 
+import co.com.pinguinera.LoggerUtil;
+
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class InformacionUsuarioVista {
+    private static final Logger LOGGER = LoggerUtil.getLogger(); // Usar el logger global desde LoggerUtil
 
     private final Scanner scanner;
 
@@ -11,18 +15,17 @@ public class InformacionUsuarioVista {
     }
 
     public String pedirNombreUsuario() {
-        System.out.print("Ingrese el nombre del usuario: ");
+        LOGGER.info("Ingrese el nombre del usuario:");
         return scanner.nextLine();
     }
 
     public String pedirCorreoUsuario() {
-        System.out.print("Ingrese el correo electrónico del usuario: ");
+        LOGGER.info("Ingrese el correo electrónico del usuario:");
         return scanner.nextLine();
     }
 
     public String pedirContrasenaUsuario() {
-        System.out.print("Ingrese la contraseña del usuario: ");
+        LOGGER.info("Ingrese la contraseña del usuario:");
         return scanner.nextLine();
     }
-
 }

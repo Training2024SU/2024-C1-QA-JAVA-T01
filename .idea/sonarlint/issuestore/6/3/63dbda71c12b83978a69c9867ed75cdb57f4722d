@@ -1,16 +1,0 @@
-
-@	java:S106"+Replace this use of System.out by a logger.(¥³£¶
-E	java:S106"+Replace this use of System.out by a logger.(Áäœ§ûÿÿÿÿ
-@	java:S106"+Replace this use of System.out by a logger.(ê¬¥±
-@	java:S106 "+Replace this use of System.out by a logger.(®Ôö¶
-@	java:S106!"+Replace this use of System.out by a logger.(™î©ñ
-E	java:S106""+Replace this use of System.out by a logger.(§“˜Àúÿÿÿÿ
-@	java:S106#"+Replace this use of System.out by a logger.(ïêËî
-@	java:S106$"+Replace this use of System.out by a logger.(ŞÄ†
-@	java:S106%"+Replace this use of System.out by a logger.(ĞòÖÒ
-@	java:S106&"+Replace this use of System.out by a logger.(öÉ×§
-?	java:S106'"+Replace this use of System.out by a logger.(¨•·v
-E	java:S106H"+Replace this use of System.out by a logger.(³Ø¸ÿÿÿÿÿ
-E	java:S106L"+Replace this use of System.out by a logger.(Ôé¸Çúÿÿÿÿ
-A
-java:S1068"+Remove this unused "scanner" private field.(‚´®

@@ -1,13 +1,17 @@
 package co.com.pinguinera.vistas;
 
+import co.com.pinguinera.LoggerUtil;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
 import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
 import co.com.pinguinera.vistas.VistaUtil;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MenuPrincipal {
+    private static final Logger LOGGER = LoggerUtil.getLogger(); // Usar el logger global desde LoggerUtil
+
     private final EmpleadoSesionControlador controladorEmpleadoSesion;
     private final UsuarioSesionControlador controladorUsuarioSesion;
     private final ControladorCRUDUsuario controladorRegistroUsuario;
@@ -29,14 +33,14 @@ public class MenuPrincipal {
         boolean continuar = true;
 
         while (continuar) {
-            System.out.println("\nBienvenido a la librería Pinguinera");
-            System.out.println("Seleccione una opción:");
-            System.out.println("1. Iniciar sesión como empleado");
-            System.out.println("2. Iniciar sesión como usuario");
-            System.out.println("3. Registrarse como usuario");
-            System.out.println("4. Salir");
+            LOGGER.info("\nBienvenido a la librería Pinguinera");
+            LOGGER.info("Seleccione una opción:");
+            LOGGER.info("1. Iniciar sesión como empleado");
+            LOGGER.info("2. Iniciar sesión como usuario");
+            LOGGER.info("3. Registrarse como usuario");
+            LOGGER.info("4. Salir");
 
-            int eleccion =  VistaUtil.obtenerOpcion();
+            int eleccion = VistaUtil.obtenerOpcion();
             continuar = manejarEleccion(eleccion);
         }
     }
@@ -61,11 +65,10 @@ public class MenuPrincipal {
                 controladorRegistroUsuario.registrarUsuario();
                 break;
             case 4:
-                // Salir
-                System.out.println("Gracias por usar la librería Pinguinera. ¡Hasta luego!");
+                LOGGER.info("Gracias por usar la librería Pinguinera. ¡Hasta luego!");
                 return false;
             default:
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
                 break;
         }
         return true;
