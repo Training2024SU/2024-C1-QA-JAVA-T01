@@ -24,16 +24,16 @@ public class MetodosUsuario {
         List<String> credenciales = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Por favor ingrese un correo electrónio:");//hacer metodo
-        //credenciales.add(scanner.nextLine());
-        credenciales.add("administrador@pingu.com.co");
+        credenciales.add(scanner.nextLine());
+        //credenciales.add("administrador@pingu.com.co");
         System.out.println("Por favor ingrese la contraseña:");//hacer metodo
-        //credenciales.add(scanner.nextLine());
-        credenciales.add("contrasenasegura123456 ");
+        credenciales.add(scanner.nextLine());
+        //credenciales.add("contrasenasegura123456 ");
         if (checkUser(mySqlOperation,credenciales)){
             usuarioIniciado(mySqlOperation,credenciales);
         }
         else {
-            System.out.println("El usuario ingresado no existe");
+            System.out.println("El correo o contraseña son incorrectos");
         }
     }
 
@@ -45,7 +45,7 @@ public class MetodosUsuario {
         for (Usuario usuario : usuarios) {
             if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
                 encontrado = true;
-                break; // No es necesario seguir iterando
+                break; //
             }
         }
         return encontrado;

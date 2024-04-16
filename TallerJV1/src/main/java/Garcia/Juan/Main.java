@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 import static Garcia.Juan.database.ConexionBD.*;
+import static Garcia.Juan.dialogo.Menu.*;
 import static Garcia.Juan.logica.MetodosMain.iniciarPrograma;
 
 public class Main {
@@ -29,9 +30,10 @@ public class Main {
         MetodosProducto metodosProducto = new MetodosProducto(mySqlOperation);
         MetodosPrestamo metodosPrestamo = new MetodosPrestamo(mySqlOperation);
         SesionIniciada sesionIniciada = new SesionIniciada(mySqlOperation);
-
+        loggerInicio();
         iniciarPrograma(mySqlOperation);
 
         closeConnection(mySqlOperation);
+        loggerFinal();
     }
 }

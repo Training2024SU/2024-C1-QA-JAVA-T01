@@ -13,6 +13,8 @@ import java.util.Scanner;
 import static Garcia.Juan.CRUD.CrudPrestamo.getPrestamos;
 import static Garcia.Juan.CRUD.CrudPrestamo.insertarPrestamo;
 import static Garcia.Juan.CRUD.CrudProducto.*;
+import static Garcia.Juan.dialogo.Menu.menuConfirmacion;
+import static Garcia.Juan.logica.MetodosMain.pedirOpcion;
 import static Garcia.Juan.util.EstadoPrestamo.*;
 
 public class MetodosPrestamo {
@@ -40,10 +42,8 @@ public class MetodosPrestamo {
         for (Producto producto : productosSolicitados) {
             System.out.println(producto.toStringLibros());
         }
-        System.out.println("¿Desea confirmar?"); //Meter esto en un menu
-        System.out.println("1. Si");
-        System.out.println("2. No (Eliminar selección)");
-        int confirmacion = scanner.nextInt();
+        menuConfirmacion();
+        int confirmacion = pedirOpcion();
         switch (confirmacion){
             case 1:
                 //Metodo para agregar a la tabla de prestamo
@@ -54,7 +54,6 @@ public class MetodosPrestamo {
                 productosSolicitados.clear();
                 break;
             default:
-
                 break;
         }
     }
@@ -73,9 +72,8 @@ public class MetodosPrestamo {
         System.out.println("Digite la opción:");
         System.out.println("1. Cambiar estado");
         System.out.println("2. Salir");
-        int seleccion = Integer.parseInt(scanner.nextLine()); // por que no funciona con netxInt
+        int seleccion = Integer.parseInt(scanner.nextLine());
         if (seleccion==1){
-            //System.out.println(prestamos);
             System.out.println("Inserte el ID de prestamo:");
             String id = scanner.nextLine();
             System.out.println("------------------");

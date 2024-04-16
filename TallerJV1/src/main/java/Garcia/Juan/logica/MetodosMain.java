@@ -22,8 +22,6 @@ public class MetodosMain {
     public static void iniciarPrograma(MySqlOperation mySqlOperation) throws SQLException, ParseException {
         int option;
         boolean ciclo = true;
-        Scanner scanner = new Scanner(System.in);
-
         while (ciclo){
             menuInicial();
             option=pedirOpcion();

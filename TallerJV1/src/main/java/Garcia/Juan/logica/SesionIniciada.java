@@ -47,7 +47,7 @@ public class SesionIniciada {
     public static void accionesPorRol(String rol,String correo) throws SQLException, ParseException {
         boolean ciclo =true;
         while (ciclo){
-            if (TIPO_TRES.getvalue().equals(rol)){
+            if (TIPO_TRES.getvalue().equals(rol)){//LECTOR
                 menuLector();
                 int opcion = pedirOpcion();
                 switch (opcion){
@@ -82,9 +82,16 @@ public class SesionIniciada {
                 int opcion = pedirOpcion();
                 switch (opcion){
                     case 1:
-                        registrarUsuario(mySqlOperation,1);
+                        gestionarMaterial(mySqlOperation);
+
                         break;
                     case 2:
+                        gestionarPrestamo(mySqlOperation);
+                        break;
+                    case 3:
+                        registrarUsuario(mySqlOperation,1);
+                        break;
+                    case 4:
                         List<Usuario> usuarios = getUsersFromTable(mySqlOperation);//ver info users
                         System.out.println(usuarios);
                         CSVExporter.exportToCSV(usuarios);

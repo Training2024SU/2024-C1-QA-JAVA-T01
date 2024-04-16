@@ -10,6 +10,7 @@ import java.util.Scanner;
 import static Garcia.Juan.CRUD.CrudProducto.getProductos;
 import static Garcia.Juan.CRUD.CrudProductoAsistente.*;
 import static Garcia.Juan.dialogo.Menu.menuProductos;
+import static Garcia.Juan.logica.MetodosMain.pedirOpcion;
 
 
 public class MetodosProducto {
@@ -21,15 +22,14 @@ public class MetodosProducto {
     }
 
     public static void verPublicaciones(MySqlOperation mySqlOperation) throws SQLException {
-        int seleccion;
         Scanner scanner = new Scanner(System.in);
         menuProductos();
-        seleccion = Integer.parseInt(scanner.nextLine());
+        int opcion = pedirOpcion();
         List<Producto> productos = getProductos(mySqlOperation);
-        switch (seleccion){
+        switch (opcion){
             case 1:
                 for (Producto producto : productos) {
-                    if (producto.getCantidadDisponibles() > 0 && producto.getTipo().equals("Libro")) {
+                    if (producto.getCantidadDisponibles() > 0 && producto.getTipo().equals("libro")) {
                         System.out.println(producto.toStringLibros());
                         System.out.println("-----------------------");
                     }
@@ -40,26 +40,23 @@ public class MetodosProducto {
                 System.out.println("Inserte el nombre del autor que busca:");
                 autor=scanner.nextLine();
                 for (Producto producto : productos) {
-                    if (producto.getCantidadDisponibles() > 0 && producto.getAutor().equals(autor) && producto.getTipo().equals("Libro")) {
+                    if (producto.getCantidadDisponibles() > 0 && producto.getAutor().equals(autor) && producto.getTipo().equals("libro")) {
                         System.out.println(producto.toStringAutor());
                     }
                 }
                 break;
             case 3:
                 for (Producto producto : productos) {
-                    if (producto.getCantidadDisponibles() > 0 && producto.getTipo().equals("Novela")) {
+                    if (producto.getCantidadDisponibles() > 0 && producto.getTipo().equals("novela")) {
                         System.out.println(producto.toStringNovelas());
                         System.out.println("-----------------------");
                     }
                 }
                 break;
             case 4:
-                String autorN;
-                System.out.println("Inserte el nombre del autor que busca:");
-                autorN=scanner.nextLine();
                 for (Producto producto : productos) {
-                    if (producto.getCantidadDisponibles() > 0 && producto.getAutor().equals(autorN) && producto.getTipo().equals("Novela")) {
-                        System.out.println(producto.toStringAutor());
+                    if (producto.getCantidadDisponibles() > 0 ) {
+                        System.out.println(producto.getAutor());
                     }
                 }
                 break;
