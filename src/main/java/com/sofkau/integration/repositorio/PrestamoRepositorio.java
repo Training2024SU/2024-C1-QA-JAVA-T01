@@ -7,11 +7,15 @@ import com.sofkau.util.CommonOperacion.IngresoQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class PrestamoRepositorio {
 
     private static MySqlOperation mySqlOperation = ConexionDatabase.getMySqlOperation();
+    static SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void crearPrestamo(Prestamo prestamo) {
         String query = String.format("INSERT INTO Prestamo (id_prestamo, fecha_prestamo, fecha_devolucion, estado, correo_usuario, titulo_publicacion) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
@@ -41,19 +45,18 @@ public class PrestamoRepositorio {
                 String tituloPublicacion = resultSet.getString("titulo_publicacion");
 
                 // Convertir las cadenas de fecha a objetos Date
-                // Date fechaPrestamo = convertirAFecha(fechaPrestamoStr);
-                // Date fechaDevolucion = convertirAFecha(fechaDevolucionStr);
+                Date fechaPrestamo =  formato.parse(fechaPrestamoStr);
+                Date fechaDevolucion = formato.parse(fechaDevolucionStr);
 
-                Prestamo prestamo = new Prestamo();
-                prestamo.setId(id);
+                Prestamo prestamo = new Prestamo(id,fechaPrestamo,fechaDevolucion,estado,correoUsuario,tituloPublicacion);
+
                 // Asignar las demás propiedades al objeto prestamo
 
                 prestamos.put(id, prestamo);
             }
-        } catch (SQLException e) {
+            return prestamos;
+        } catch (SQLException | ParseException e) {
             throw new RuntimeException(e);
         }
-
-        return prestamos;
     }
 }

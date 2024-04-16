@@ -1,5 +1,6 @@
 package com.sofkau.logica.prestamo;
 
+import com.sofkau.dialogo.MensajeOperacionBd;
 import com.sofkau.integration.repositorio.EmpleadoRepositorio;
 import com.sofkau.integration.repositorio.PrestamoRepositorio;
 import com.sofkau.model.Empleado;
@@ -18,10 +19,15 @@ public class PrestamoOperaciones {
 
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
+    public PrestamoOperaciones() {
+        getPrestamos();
+    }
+
     public void RegistrarPrestamo (String titulo, String dateDevolucion, String correoUsuario){
         Prestamo prestamo = new Prestamo();
         prestamo.setId(GenerateUniqueId.generateID());
         prestamo.setCorreoUsuario(correoUsuario);
+        prestamo.setTituloPublicacion(titulo);
         Date fechaPrestamo = new Date();
         Date fechaDevolucion = null;
         try {
@@ -44,11 +50,14 @@ public class PrestamoOperaciones {
 
         PrestamoRepositorio.crearPrestamo(prestamo);
 
+        MensajeOperacionBd.crearPrestamo();
 
+        // Se actualiza el prestamo en la lista
+        prestamos.put(prestamo.getId(), prestamo);
 
     }
 
-    public void getPrestamo() {
+    public void getPrestamos() {
         prestamos = PrestamoRepositorio.consultarPrestamos();
     }
 }

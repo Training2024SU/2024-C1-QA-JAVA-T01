@@ -3,6 +3,7 @@ package com.sofkau.logica.control;
 import com.sofkau.dialogo.Menu;
 import com.sofkau.logica.Autor.AutorOperaciones;
 import com.sofkau.logica.empleado.EmpleadoOperaciones;
+import com.sofkau.logica.prestamo.PrestamoOperaciones;
 import com.sofkau.logica.publicacion.PublicacionOperaciones;
 import com.sofkau.logica.usuario.UsuarioOperaciones;
 import com.sofkau.model.*;
@@ -26,6 +27,8 @@ public class ControlIngreso {
     private static AutorOperaciones autorOp = new AutorOperaciones();
 
     private static PublicacionOperaciones publicacionOp = new PublicacionOperaciones();
+
+    private static PrestamoOperaciones prestamoOp = new PrestamoOperaciones();
 
     private static int option = 0;
     private static int optionEmp = 0;
@@ -60,8 +63,8 @@ public class ControlIngreso {
         }
     }
 
-    private static void inicioSesion(int option) {
-        switch (option) {
+    private static void inicioSesion(int op) {
+        switch (op) {
             case 1 -> {
                 Menu.correo();
                 String correo = scannerGlobal.nextLine();
@@ -73,6 +76,7 @@ public class ControlIngreso {
                 if (usuarioOp.inicioSesion(correo, contrasena)) {
                     menuUsuario();
                 } else {
+                    option = 0;
                     System.out.println("Credenciales incorrectas por favor verifique");
                 }
             }
@@ -88,6 +92,7 @@ public class ControlIngreso {
             if (empleadoOp.inicioSesion(correoEmp, contrasenaEmp)) {
                 menuEmpleado();
             } else {
+                option = 0;
                 System.out.println("Credenciales incorrectas por favor verifique");
             }
 
@@ -98,8 +103,7 @@ public class ControlIngreso {
             String correoU = scannerGlobal.nextLine();
             Menu.contrasena();
             String contrasenaU = scannerGlobal.nextLine();
-            UsuarioOperaciones.getUsuarios();
-            UsuarioOperaciones.registrarUsuario(new Usuario(nombre, correoU, contrasenaU));
+            usuarioOp.registrarUsuario(new Usuario(nombre, correoU, contrasenaU));
 
         }case 4 -> {
             bandera = false;
@@ -124,17 +128,17 @@ public class ControlIngreso {
                 String titulo = scannerGlobal.nextLine();
                 Menu.ingresoFechaDevolucion();
                 String fechaDev = scannerGlobal.nextLine();
-                scannerGlobal.nextLine();
 
+                prestamoOp.RegistrarPrestamo(titulo,fechaDev,usuarioOp.getUsuarioActual().getCorreo());
             }
             case 2-> {
-                System.out.println("d");
+                publicacionOp.imprimirLibros();
             }
             case 3-> {
-                System.out.println("c");
+                publicacionOp.imprimirNovelas();
             }
             case 4-> {
-                System.out.println("a");
+                autorOp.listarAutores();
             }
             case 5-> {
                 System.out.println("b");
@@ -186,7 +190,7 @@ public class ControlIngreso {
                 String correo = scannerGlobal.nextLine();
                 Menu.contrasena();
                 String contrasena = scannerGlobal.nextLine();
-                UsuarioOperaciones.getUsuarios();
+
 
                 empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ADMINISTRADOR.toString());
 
@@ -198,20 +202,19 @@ public class ControlIngreso {
                 String correo = scannerGlobal.nextLine();
                 Menu.contrasena();
                 String contrasena = scannerGlobal.nextLine();
-                UsuarioOperaciones.getUsuarios();
 
                 empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ASISTENTE.toString());
 
             }
             case 3 -> {
-                Menu.nombre();
+                /*Menu.nombre();
                 String nombre = scannerGlobal.nextLine();
                 Menu.correo();
                 String correo = scannerGlobal.nextLine();
                 Menu.contrasena();
                 String contrasena = scannerGlobal.nextLine();
-                UsuarioOperaciones.getUsuarios();
-                UsuarioOperaciones.registrarUsuario(new Usuario(nombre, correo, contrasena));
+
+                UsuarioOperaciones.registrarUsuario(new Usuario(nombre, correo, contrasena));*/
             }
             default -> {
                 System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
@@ -231,7 +234,7 @@ public class ControlIngreso {
                 String correo = scannerGlobal.nextLine();
                 Menu.contrasena();
                 String contrasena = scannerGlobal.nextLine();
-                UsuarioOperaciones.getUsuarios();
+
 
                 empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ASISTENTE.toString());
 

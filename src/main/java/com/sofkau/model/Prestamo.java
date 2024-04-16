@@ -7,17 +7,21 @@ public class Prestamo {
     private Date fechaPrestamo;
     private Date fechaDevolucion;
 
-    public String getEstadoPrestamo() {
-        return estadoPrestamo;
-    }
-
-    public void setEstadoPrestamo(String estadoPrestamo) {
-        this.estadoPrestamo = estadoPrestamo;
-    }
-
     private String estadoPrestamo;
     private String correoUsuario;
     private String tituloPublicacion;
+
+    public Prestamo(String id, Date fechaPrestamo, Date fechaDevolucion, String estadoPrestamo, String correoUsuario, String tituloPublicacion) {
+        this.id = id;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = fechaDevolucion;
+        this.estadoPrestamo = estadoPrestamo;
+        this.correoUsuario = correoUsuario;
+        this.tituloPublicacion = tituloPublicacion;
+    }
+
+    public Prestamo() {
+    }
 
     public String getId() {
         return id;
@@ -43,7 +47,13 @@ public class Prestamo {
         this.fechaDevolucion = fechaDevolucion;
     }
 
+    public String getEstadoPrestamo() {
+        return estadoPrestamo;
+    }
 
+    public void setEstadoPrestamo(String estadoPrestamo) {
+        this.estadoPrestamo = estadoPrestamo;
+    }
 
     public String getCorreoUsuario() {
         return correoUsuario;
@@ -59,5 +69,17 @@ public class Prestamo {
 
     public void setTituloPublicacion(String tituloPublicacion) {
         this.tituloPublicacion = tituloPublicacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Prestamo{" +
+                "id='" + id + '\'' +
+                ", fechaPrestamo=" + fechaPrestamo +
+                ", fechaDevolucion=" + fechaDevolucion +
+                ", estadoPrestamo='" + estadoPrestamo + '\'' +
+                ", correoUsuario='" + correoUsuario + '\'' +
+                ", tituloPublicacion='" + tituloPublicacion + '\'' +
+                '}';
     }
 }

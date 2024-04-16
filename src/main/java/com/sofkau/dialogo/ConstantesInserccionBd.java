@@ -15,4 +15,6 @@ public class ConstantesInserccionBd {
 
     public static String MSN_CREARUSUARIO="Se ha creado el usuario exitosamente";
 
+    public static String MSN_CREARPRESTAMO="Se ha creado el prestamo exitosamente";
+
 }

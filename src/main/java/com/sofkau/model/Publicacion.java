@@ -110,14 +110,10 @@ public class Publicacion {
 
     @Override
     public String toString() {
-        return "Publicacion{" +
-                "titulo='" + titulo + '\'' +
+        return "titulo='" + titulo + '\'' +
                 ", tipo='" + tipo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", numeroPaginas=" + numeroPaginas +
+                ", autor='" + autor.getNombre() + '\'' +
                 ", cantidadEjemplares=" + cantidadEjemplares +
-                ", cantidadPrestado=" + cantidadPrestado +
-                ", cantidadDisponible=" + cantidadDisponible +
-                '}';
+                ", cantidadPrestado=" + cantidadPrestado;
     }
 }

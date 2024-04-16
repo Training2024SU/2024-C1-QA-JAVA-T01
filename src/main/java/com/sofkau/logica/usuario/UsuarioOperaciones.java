@@ -1,13 +1,10 @@
 package com.sofkau.logica.usuario;
 
 import com.sofkau.dialogo.MensajeOperacionBd;
-import com.sofkau.dialogo.Menu;
 import com.sofkau.integration.repositorio.UsuarioRepositorio;
 import com.sofkau.model.Usuario;
 
-import java.sql.ResultSet;
 import java.util.HashMap;
-import java.sql.SQLException;
 import java.util.Optional;
 
 public class UsuarioOperaciones {
@@ -16,17 +13,18 @@ public class UsuarioOperaciones {
         getUsuarios();
     }
 
-    private static Usuario usuarioActual = new Usuario();
-    private static HashMap<String, Usuario> usuarios = new HashMap<>();
+    private Usuario usuarioActual = new Usuario();
+    private HashMap<String, Usuario> usuarios = new HashMap<>();
 
-    public static void registrarUsuario(Usuario usuario) {
+
+    public void registrarUsuario(Usuario usuario) {
         UsuarioRepositorio.crearUsuario(usuario);
         usuarios.put(usuario.getCorreo(),usuario);
         MensajeOperacionBd.crearUsuario();
         System.out.println(usuario);
     }
 
-    public static void getUsuarios() {
+    public void getUsuarios() {
         usuarios = UsuarioRepositorio.consultarUsuarios();
     }
 
@@ -42,5 +40,7 @@ public class UsuarioOperaciones {
         return false;
     }
 
-
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
 }

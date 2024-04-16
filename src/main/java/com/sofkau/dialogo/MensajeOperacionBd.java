@@ -38,5 +38,9 @@ public class MensajeOperacionBd {
         System.out.println(ConstantesInserccionBd.MSN_CREARUSUARIO);
     }
 
+    public static void crearPrestamo() {
+        System.out.println(ConstantesInserccionBd.MSN_CREARPRESTAMO);
+    }
+
 
 }

@@ -167,4 +167,41 @@ public class PublicacionOperaciones {
         }
     }
 
+    public void imprimirNovelas() {
+        // Iterar sobre todas las publicaciones
+        for (Publicacion publicacion : publicaciones.values()) {
+            // Verificar si la publicación es del tipo novela
+            if (publicacion.getTipo().equals(TipoPublicacion.Novela.toString()) && publicacion.getCantidadDisponible() != 0) {
+                // Imprimir información relevante de la novela
+                System.out.println(publicacion);
+                System.out.println("Géneros:");
+                for (AreaGenero areaGenero : publicacion.getAreas()) {
+                    System.out.println("- " + areaGenero.getAreaGenero());
+                }
+                System.out.println("Edades sugeridas:");
+                for (EdadSugerida edadSugerida : publicacion.getEdades()) {
+                    System.out.println("- " + edadSugerida.getEdadSugeridad());
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    public void imprimirLibros() {
+        // Iterar sobre todas las publicaciones
+        for (Publicacion publicacion : publicaciones.values()) {
+            // Verificar si la publicación es del tipo libro y si hay cantidades disponibles
+            if (publicacion.getTipo().equals(TipoPublicacion.Libro.toString()) && publicacion.getCantidadDisponible() > 0) {
+                // Imprimir información relevante del libro
+                System.out.println(publicacion);
+                System.out.println("Número de páginas: "+publicacion.getNumeroPaginas());
+                System.out.println("Areas Conocimiento: ");
+                for (AreaGenero areaGenero : publicacion.getAreas()) {
+                    System.out.println("- " + areaGenero.getAreaGenero());
+                }
+                System.out.println();
+            }
+        }
+    }
+
 }
