@@ -10,6 +10,10 @@ import static com.sofkau.logica.control.ControlIngreso.bandera;
 
 import static com.sofkau.logica.control.ControlIngreso.empleadoOp;
 
+/*        Menu Administrador
+        1. Crear propietario
+        2. Crear asistente*/
+
 public class MenuAdministrador {
     protected static void menuAdministrador(int op) {
 

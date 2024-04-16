@@ -16,6 +16,9 @@ import static com.sofkau.logica.control.ControlIngreso.empleadoOp;
 
 public class MenuPropietario {
 
+/*    Bienvenidos a la libreria pinguinera
+    1. Crear asistente*/
+
     protected static void menuPropietario(int op) {
 
         switch (op) {

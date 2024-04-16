@@ -10,6 +10,13 @@ import static com.sofkau.logica.control.ControlIngreso.publicacionOp;
 import static com.sofkau.logica.control.ControlIngreso.autorOp;
 
 
+/*        Menu Usuario
+        1. Realizar Prestamo
+        2. LISTAR LIBROS
+        3. LISTAR NOVELAS
+        4. LISTAR AUTORES
+        5. LISTAR PUBLICACIONES POR AUTOR*/
+
 public class MenuUsuario {
     protected static void menuUsuario() {
 

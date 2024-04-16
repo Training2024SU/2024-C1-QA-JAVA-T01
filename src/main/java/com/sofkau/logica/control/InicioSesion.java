@@ -17,6 +17,12 @@ import static com.sofkau.logica.control.ControlIngreso.bandera;
 
 public class InicioSesion {
 
+  /*  Menu inicio
+    Bienvenidos a la libreria pinguinera
+    1. iniciar sesión como usuario
+    2. iniciar sesión como empleado
+    3. Registrarse
+    4. Salir*/
 
     protected static void inicioSesion(int op) {
         switch (op) {

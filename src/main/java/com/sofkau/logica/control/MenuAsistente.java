@@ -16,6 +16,17 @@ import static com.sofkau.logica.control.ControlIngreso.autorOp;
 
 public class MenuAsistente {
 
+   /* Menu Asistente
+    1. Crear Libro
+    2. Crear Novela
+    3. Actualizar Libro
+    4. Actualizar Novela
+    5. Entregar Libro usuario
+    6. Ingresar libro devuelto
+    7. Consultar Prestamos lector
+    7. Consultar Prestamos lector
+    8. Ingresar autor*/
+
     protected static void menuAsistente(int op) {
         switch (op) {
             case 1 -> {
