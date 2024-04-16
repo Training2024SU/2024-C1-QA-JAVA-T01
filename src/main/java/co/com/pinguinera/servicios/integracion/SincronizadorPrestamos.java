@@ -32,20 +32,21 @@ public class SincronizadorPrestamos {
             mapaPrestamosLocales.put(prestamoLocal.getIdPrestamo(), prestamoLocal);
         }
 
-        // Actualiza préstamos en la base de datos basados en la lista local
+        // Recorre la lista de préstamos de la base de datos
         for (Prestamo prestamoBD : prestamosBD) {
             Prestamo prestamoLocal = mapaPrestamosLocales.get(prestamoBD.getIdPrestamo());
+
             if (prestamoLocal != null) {
                 // Si el préstamo local está en la base de datos, actualízalo si hay diferencias
                 if (!prestamoLocal.equals(prestamoBD)) {
                     prestamoDAO.actualizar(prestamoLocal);
                 }
-                // Elimina el préstamo del mapa para que al final sepamos cuáles no estaban en la base de datos
+                // Elimina el préstamo del mapa local ya que ha sido procesado
                 mapaPrestamosLocales.remove(prestamoLocal.getIdPrestamo());
             }
         }
 
-        // Inserta préstamos locales que no están en la base de datos
+        // Inserta los préstamos locales restantes que no están en la base de datos
         for (Prestamo prestamoLocal : mapaPrestamosLocales.values()) {
             prestamoDAO.insertar(prestamoLocal);
         }
