@@ -17,9 +17,7 @@ public class AutorOperaciones {
     private static HashMap<String, Autor> autores = new HashMap<>();
 
     public AutorOperaciones() {
-
             getAutores();
-
     }
 
     public void registrarAutor(Autor autor) {
@@ -72,7 +70,7 @@ public class AutorOperaciones {
 
     public Autor buscarAutorId(String id) {
         for (Autor autor : autores.values()) {
-            if (autor.getNombre().equalsIgnoreCase(id)) {
+            if (autor.getId().equalsIgnoreCase(id)) {
                 return autor;
             }
         }

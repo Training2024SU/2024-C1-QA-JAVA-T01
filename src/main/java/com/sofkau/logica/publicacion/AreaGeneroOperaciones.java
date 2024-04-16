@@ -32,7 +32,7 @@ public class AreaGeneroOperaciones {
 
     public void actualizarAreaGenero(String tituloPublicacion, AreaGenero areaGenero) {
         // Actualizar en el repositorio
-        AreaGeneroRepositorio.actualizarAreaGenero(tituloPublicacion, areaGenero);
+        AreaGeneroRepositorio.actualizarAreaGenero(areaGenero);
 
         // Eliminar la entrada antigua de la lista, si existe
         listaAreaGeneros.removeIf(ag -> ag.getTitulo().equals(tituloPublicacion));

@@ -234,10 +234,55 @@ public class ControlIngreso {
                 Menu.ingresoEdadSugerida();
                 String edadSugeridad = scannerGlobal.nextLine();
 
-                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Libro.toString(),
+                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Novela.toString(),
                                 cantEjemplar,cantPres),
                         new AreaGenero(titulo,genero),new EdadSugerida(titulo,edadSugeridad));
 
+            }case 3 ->{
+                Menu.actualizacionLibro();
+                Menu.tituloActualizar();
+                String tituloAntiguo = scannerGlobal.nextLine();
+                Menu.ingresoTitulo();
+                String titulo = scannerGlobal.nextLine();
+                autorOp.listarAutores();
+                Menu.ingresoAutor();
+                String nombreAutor = scannerGlobal.nextLine();
+                Menu.ingresoCantEjemplar();
+                int cantEjemplar = scannerGlobal.nextInt();
+                Menu.ingresoCantPrestado();
+                int cantPres = scannerGlobal.nextInt();
+                Menu.ingresoNumPaginas();
+                int numPag = scannerGlobal.nextInt();
+                scannerGlobal.nextLine();
+                Menu.ingresoAreaConocimiento();
+                String areaConocimiento = scannerGlobal.nextLine();
+                publicacionOp.actualizarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Libro.toString(),
+                                numPag,cantEjemplar,cantPres),
+                        new AreaGenero(titulo,areaConocimiento),
+                        tituloAntiguo);
+            }case 4 ->{
+                Menu.actualizacionNovela();
+                Menu.tituloActualizar();
+                String tituloAntiguo = scannerGlobal.nextLine();
+                Menu.ingresoTitulo();
+                String titulo = scannerGlobal.nextLine();
+                autorOp.listarAutores();
+                Menu.ingresoAutor();
+                String nombreAutor = scannerGlobal.nextLine();
+                Menu.ingresoCantEjemplar();
+                int cantEjemplar = scannerGlobal.nextInt();
+                Menu.ingresoCantPrestado();
+                int cantPres = scannerGlobal.nextInt();
+                scannerGlobal.nextLine();
+                Menu.ingresoGenero();
+                String genero = scannerGlobal.nextLine();
+                Menu.ingresoEdadSugerida();
+                String edadSugeridad = scannerGlobal.nextLine();
+
+                publicacionOp.actualizarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Novela.toString(),
+                        cantEjemplar,cantPres),
+                        new AreaGenero(titulo,genero),new EdadSugerida(titulo,edadSugeridad),
+                        tituloAntiguo);
             }
             default -> {
                 System.out.println("Ha ocurrido un error por favor verifique sus credenciales");

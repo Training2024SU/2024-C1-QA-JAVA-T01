@@ -45,8 +45,8 @@ public class EdadSugeridaRepositorio {
         return edadesSugeridas;
     }
 
-    public static void actualizarEdadSugerida(String tituloPublicacion, EdadSugerida edadSugerida) {
-        String query = String.format("UPDATE edad_sugerida SET titulo_publicacion = '%s', edad = '%s' WHERE titulo_publicacion = '%s'", edadSugerida.getTitulo(), edadSugerida.getEdadSugeridad(), tituloPublicacion);
+    public static void actualizarEdadSugerida(EdadSugerida edadSugerida) {
+        String query = String.format("UPDATE edad_sugerida SET edad = '%s' WHERE titulo_publicacion = '%s'", edadSugerida.getEdadSugeridad(), edadSugerida.getTitulo());
         IngresoQuery.ejecutarIngresoQuery(query);
     }
 }

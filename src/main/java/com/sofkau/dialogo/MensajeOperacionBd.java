@@ -18,6 +18,21 @@ public class MensajeOperacionBd {
         System.out.println(ConstantesInserccionBd.MSN_CREARNOVELA);
     }
 
+    public static void actualizarLibroExitoso() {
+        System.out.println(ConstantesInserccionBd.MSN_ACTUALIZARLIBRO);
+    }
+
+    public static void actualizarNovelaExitoso() {
+        System.out.println(ConstantesInserccionBd.MSN_ACTUALIZARNOVELA);
+    }
+
+    public static void errorActualizarLibro() {
+        System.out.println(ConstantesInserccionBd.MSN_ERRORACTUALIZARLIBRO);
+    }
+
+    public static void errorActualizarNovela() {
+        System.out.println(ConstantesInserccionBd.MSN_ERRORACTUALIZARNOVELA);
+    }
 
 
 }

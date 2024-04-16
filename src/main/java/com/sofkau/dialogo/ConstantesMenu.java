@@ -41,6 +41,7 @@ public class ConstantesMenu {
     public static final String MSN_ACTUALIZARLIBRO="3. Actualizar Libro";
     public static final String MSN_ACTUALIZARNOVELA ="4. Actualizar Novela";
 
+    public static final String MSN_TITULOACTULIZAR ="Por favor el TITULO a ACTUALIZAR";
     public static final String MSN_NOMBREU ="Por favor el ingrese nombre";
     public static final String MSN_CORREOU ="Por favor el ingrese correo";
     public static final String MSN_CONTRASENAU ="Por favor la ingrese contraseña";

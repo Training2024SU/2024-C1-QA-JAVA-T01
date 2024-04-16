@@ -47,6 +47,14 @@ public class Menu {
         System.out.println(ConstantesMenu.MSN_INGRESNOVELA);
     }
 
+    public static void actualizacionNovela(){
+        System.out.println(MSN_ACTUALIZARNOVELA);
+    }
+
+    public static void actualizacionLibro(){
+        System.out.println(MSN_ACTUALIZARLIBRO);
+    }
+
     public static void ingresoTitulo(){
         System.out.println(MSN_TITULO);
     }
@@ -78,10 +86,9 @@ public class Menu {
         System.out.println(MSN_EDADSUGERIDA);
     }
 
-
-
-
-
+    public static void tituloActualizar() {
+        System.out.println(MSN_TITULOACTULIZAR);
+    }
 
     public static void nombre(){
         System.out.println(ConstantesMenu.MSN_NOMBREU );

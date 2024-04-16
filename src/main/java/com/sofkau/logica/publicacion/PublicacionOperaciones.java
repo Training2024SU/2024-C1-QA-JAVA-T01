@@ -25,7 +25,12 @@ public class PublicacionOperaciones {
 
     private EdadSugeridaOperaciones edadSugeridaOperaciones = new EdadSugeridaOperaciones();
 
-// Se hace una sobrecarga de metodos para registrar según sea el tipo de publicacion
+    public PublicacionOperaciones() {
+        getPublicaciones();
+    }
+
+
+    // Se hace una sobrecarga de metodos para registrar según sea el tipo de publicacion
 
     // Se crea un libro
     public void registrarPublicacion(Publicacion publicacion, AreaGenero areaGenero) {
@@ -68,29 +73,69 @@ public class PublicacionOperaciones {
 
     }
 
-    public void actualizarPublicacion(Publicacion publicacion, AreaGenero areaGenero, EdadSugerida edadSugerida) {
+    //Se actualiza el libro
 
-        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares()- publicacion.getCantidadPrestado());
+    public void actualizarPublicacion(Publicacion publicacion, AreaGenero areaGenero, String antiguoTitulo) {
 
-        // Crear el libro en la base de datos
-        PublicacionRepositorio.actualizarPublicacion(publicacion.getTitulo(),publicacion);
+        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares() - publicacion.getCantidadPrestado());
 
-        //Crear Area genero en la base de datos
-        areaGeneroOperaciones.crearAreaGenero(areaGenero);
+        // Se busca la publicacion anterior con el titulo sin actualizar
+        Publicacion publicacionPorActualizar = publicaciones.get(antiguoTitulo);
 
-        // Crear EdadSugeridad en la base de datos
-        edadSugeridaOperaciones.crearEdadSugerida(edadSugerida);
+        if(publicacionPorActualizar != null){
+            // Actualizar el libro en la base de datos
+            PublicacionRepositorio.actualizarPublicacion(antiguoTitulo,publicacion);
 
-        // Agregar la novela al HashMap de publicaciones
-        publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
-        publicaciones.put(publicacion.getTitulo(),relacionarEdadesSugeridas(publicacion));
+            //Actualizar area de conocimineto en la base de datos
+            areaGeneroOperaciones.actualizarAreaGenero(antiguoTitulo,areaGenero);
 
-        MensajeOperacionBd.crearNovela();
+            // Agregar el nuevo libro actualizado al HashMap de publicaciones
+            publicaciones.remove(antiguoTitulo);
+            publicaciones.put(publicacion.getTitulo(),publicacion);
+            publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
+            publicaciones.put(publicacion.getTitulo(),relacionarEdadesSugeridas(publicacion));
+
+            MensajeOperacionBd.actualizarLibroExitoso();
+        }else{
+            MensajeOperacionBd.errorActualizarLibro();
+        }
 
     }
 
 
+    // Se actualiza la novela
+    public void actualizarPublicacion(Publicacion publicacion, AreaGenero areaGenero, EdadSugerida edadSugerida, String antiguoTitulo) {
 
+        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares() - publicacion.getCantidadPrestado());
+
+        // Se busca la publicacion anterior con el titulo sin actualizar
+        Publicacion publicacionPorActualizar = publicaciones.get(antiguoTitulo);
+
+        if(publicacionPorActualizar != null){
+
+            // Actualizar el novela en la base de datos
+            PublicacionRepositorio.actualizarPublicacion(antiguoTitulo,publicacion);
+
+            //Actualizar Area genero en la base de datos
+            areaGeneroOperaciones.actualizarAreaGenero(antiguoTitulo,areaGenero);
+
+            // Actualizar EdadSugeridad en la base de datos
+            edadSugeridaOperaciones.actualizarEdadSugerida(antiguoTitulo,edadSugerida);
+
+
+
+            // Agregar la nueva novela actualizada al HashMap de publicaciones
+            publicaciones.remove(antiguoTitulo);
+            publicaciones.put(publicacion.getTitulo(),publicacion);
+            publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
+            publicaciones.put(publicacion.getTitulo(),relacionarEdadesSugeridas(publicacion));
+
+            MensajeOperacionBd.actualizarNovelaExitoso();
+        }else{
+            MensajeOperacionBd.errorActualizarLibro();
+        }
+
+    }
 
 
     private Publicacion relacionarAreasGenero(Publicacion publicacion) {

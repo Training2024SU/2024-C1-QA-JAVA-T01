@@ -31,7 +31,7 @@ public class EdadSugeridaOperaciones {
     }
 
     public void actualizarEdadSugerida(String tituloPublicacion, EdadSugerida edadSugerida) {
-        EdadSugeridaRepositorio.actualizarEdadSugerida(tituloPublicacion,edadSugerida);
+        EdadSugeridaRepositorio.actualizarEdadSugerida(edadSugerida);
         // Eliminar la entrada antigua de la lista, si existe
         listaEdadesSugeridas.removeIf(edad -> edad.getTitulo().equals(tituloPublicacion));
 
