@@ -7,6 +7,10 @@ import java.util.Scanner;
 public class UserInteractions {
     private static final Scanner scanner = new Scanner(System.in);
 
+    private UserInteractions() {
+        throw new IllegalStateException("Utility Class");
+    }
+
     public static void closeScanner() {
         scanner.close();
     }

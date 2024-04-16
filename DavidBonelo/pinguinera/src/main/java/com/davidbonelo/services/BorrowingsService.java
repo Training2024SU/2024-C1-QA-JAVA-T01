@@ -13,6 +13,7 @@ import com.davidbonelo.persistance.NovelDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -50,7 +51,8 @@ public class BorrowingsService {
         if (validPermission(user, UserRole.EMPLOYEE)) {
             // Allow if is employee
             return borrowing;
-        } else if (user.getId() == borrowing.getBorrower().getId()) {
+        }
+        if (user.getId() == borrowing.getBorrower().getId()) {
             // Allow if is the owner
             return borrowing;
         }
@@ -90,7 +92,7 @@ public class BorrowingsService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public void createBorrowing(Borrowing borrowing) throws SQLException {
@@ -127,10 +129,10 @@ public class BorrowingsService {
     private void updateItemsBorrowedCopies(List<LibraryItem> items, int factor) throws SQLException {
         for (LibraryItem li : items) {
             li.setCopiesBorrowed(li.getCopiesBorrowed() + factor);
-            if (li instanceof Book) {
-                bookDAO.updateBook((Book) li);
-            } else if (li instanceof Novel) {
-                novelDAO.updateNovel((Novel) li);
+            if (li instanceof Book book) {
+                bookDAO.updateBook(book);
+            } else if (li instanceof Novel novel) {
+                novelDAO.updateNovel(novel);
             }
         }
     }

@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-public class BorrowingTest {
+class BorrowingTest {
 
     @Test
-    public void returnDateMoreThan15DaysThrow() {
+    void returnDateMoreThan15DaysThrow() {
         LocalDate returnDate16 = LocalDate.now().plusDays(16);
         User user = new User("Pedro", "p@p", UserRole.READER);
 
@@ -18,7 +18,7 @@ public class BorrowingTest {
     }
 
     @Test
-    public void borrowingFor15Days() {
+    void borrowingFor15Days() {
         LocalDate returnDate15 = LocalDate.now().plusDays(15);
         User user = new User("Pedro", "p@p", UserRole.READER);
         Borrowing newBorrowing = new Borrowing(returnDate15, user);

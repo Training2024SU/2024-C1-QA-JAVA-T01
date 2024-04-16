@@ -9,6 +9,7 @@ import com.davidbonelo.persistance.BookDAO;
 import com.davidbonelo.persistance.NovelDAO;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,7 +38,7 @@ public class LibraryManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public List<Novel> getAllNovels(User user) {
@@ -51,7 +52,7 @@ public class LibraryManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public Set<String> getAuthorsList(List<? extends LibraryItem> items) {
@@ -65,10 +66,10 @@ public class LibraryManager {
 
     public void registerItem(LibraryItem item) {
         try {
-            if (item.getClass().equals(Book.class)) {
-                bookDAO.createBook((Book) item);
-            } else if (item.getClass().equals(Novel.class)) {
-                novelDAO.createNovel((Novel) item);
+            if (item instanceof Book book) {
+                bookDAO.createBook(book);
+            } else if (item instanceof Novel novel) {
+                novelDAO.createNovel(novel);
             }
             System.out.println("Successful item registration " + item);
         } catch (SQLException e) {

@@ -56,11 +56,11 @@ public class AdminMenu {
 
     private void createEmployeeUser() {
         System.out.println(messages.getString("admin.req.createId"));
-        User user = User.createUserFromInput();
-        user.setRole(UserRole.EMPLOYEE);
+        User newUser = User.createUserFromInput();
+        newUser.setRole(UserRole.EMPLOYEE);
         String password = askText(messages.getString("login.req.password"));
         try {
-            userService.register(user, password);
+            userService.register(newUser, password);
             System.out.println(messages.getString("admin.res.registerOk"));
         } catch (SQLException e) {
             System.out.println(MessageFormat.format(messages.getString("admin.res.registerBad"),
@@ -70,11 +70,11 @@ public class AdminMenu {
 
     private void updateUser() {
         int userId = askNumber(messages.getString("admin.req.updateId"));
-        User user = User.createUserFromInput();
-        user.setRole(askRole());
-        user.setId(userId);
+        User newUser = User.createUserFromInput();
+        newUser.setRole(askRole());
+        newUser.setId(userId);
         try {
-            userService.updateUser(user);
+            userService.updateUser(newUser);
             System.out.println(messages.getString("admin.res.updateOk"));
         } catch (SQLException e) {
             System.out.println(messages.getString("admin.res.updateBad") + e.getLocalizedMessage());

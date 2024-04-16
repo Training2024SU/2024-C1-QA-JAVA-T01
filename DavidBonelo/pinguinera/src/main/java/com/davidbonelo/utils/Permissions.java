@@ -6,6 +6,11 @@ import com.davidbonelo.models.UserRole;
 import java.util.ResourceBundle;
 
 public class Permissions {
+
+    private Permissions() {
+        throw new IllegalStateException("Utility Class");
+    }
+
     public static boolean validMenuAccess(User user, UserRole requiredRole) {
         boolean valid = validPermission(user, requiredRole);
         if (!valid) {

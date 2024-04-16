@@ -7,7 +7,7 @@ public abstract class LibraryItem {
     private int copies;
     private int copiesBorrowed;
 
-    public LibraryItem(String title, String author, int copies, int copiesBorrowed) {
+    LibraryItem(String title, String author, int copies, int copiesBorrowed) {
         this.title = title;
         this.author = author;
         this.copies = copies;
@@ -15,7 +15,7 @@ public abstract class LibraryItem {
         checkCopies();
     }
 
-    public LibraryItem(int id, String title, String author, int copies, int copiesBorrowed) {
+    LibraryItem(int id, String title, String author, int copies, int copiesBorrowed) {
         this.id = id;
         this.title = title;
         this.author = author;

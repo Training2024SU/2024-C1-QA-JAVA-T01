@@ -4,6 +4,7 @@ import com.davidbonelo.models.User;
 import com.davidbonelo.persistance.UserDAO;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class UserService {
@@ -41,7 +42,7 @@ public class UserService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public void updateUser(User user) throws SQLException {
