@@ -1,4 +1,4 @@
-package com.sofka;
+package com.sofka.pruebasPOO;
 
 import com.sofka.modelo.Libro;
 import com.sofka.modelo.Novela;
