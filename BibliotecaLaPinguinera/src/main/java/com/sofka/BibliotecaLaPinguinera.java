@@ -1,11 +1,15 @@
 package com.sofka;
 
-import com.sofka.Enums.Estados;
-import com.sofka.Enums.Rol;
+import com.sofka.Enums.Estado;
 import net.datafaker.Faker;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.sofka.integration.database.mysql.MySqlOperation;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static com.sofka.Constants.ConectorConstants.*;
+import static com.sofka.Constants.InsertConstants.*;
+import static com.sofka.Constants.SelectConstants.*;
+import static com.sofka.Constants.UpdateConstants.*;
+import static com.sofka.controller.ControlEmpleado.*;
+import static com.sofka.controller.ControlUsuario.*;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -14,25 +18,11 @@ import java.time.LocalDate;
 import java.util.*;
 import javax.swing.JOptionPane;
 
-import static com.sofka.Constants.ConectorConstants.*;
-import static com.sofka.Constants.SelectConstants.*;
 
 @SpringBootApplication
 public class BibliotecaLaPinguinera {
-
-    private static final String INSERT_PUBLICACION = "insert into publicacion values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
-    private static final String INSERT_PRESTAMO = "insert into prestamo values ('%s', '%s', '%s', '%s', '%s', '%s');";
-    private static final String INSERT_EMPLEADO = "insert into empleado values ('%s', '%s', '%s', '%s', '%s');";
-    private static final String INSERT_USUARIO = "insert into usuario values ('%s', '%s', '%s');";
-    private static final String INSERT_AREAGENERO = "insert into areagenero values ('%s', '%s');";
-    private static final String INSERT_EDADSUGERIDA = "insert into edadsugerida values ('%s', '%s');";
-
-    private static final String UPDATE_PUBLICACION = "UPDATE `publicacion` SET `cantPrestados` = '%s', `cantDisponibles` = '%s' WHERE (`titulo` = '%s')";
-    private static final String UPDATE_PRESTAMO = "UPDATE prestamo SET `estado` = '%s' WHERE (`idPrestamo` = '%s')";
-
     public static final String SELECCIONE_CORRECTAMENTE = "Opción incorrecta, por favor seleccione correctamente";
-
-    private static final MySqlOperation mySqlOperation = new MySqlOperation();
+    public static final MySqlOperation mySqlOperation = new MySqlOperation();
 
     public static void main(String[] args) throws SQLException, IOException, NumberFormatException {
         System.out.println("Bienvenido a la Biblioteca la Pingüinera\n");
@@ -70,7 +60,7 @@ public class BibliotecaLaPinguinera {
                 selectAllFromPrestamo();
                 break;
             case "6":
-                insertIntoBd(registrarUsuario());
+                registrarNuevoUsuario();
                 break;
             case "0":
                 mostrarMensaje("¡OjO, Va a salir de la Biblioteca!");
@@ -256,7 +246,7 @@ public class BibliotecaLaPinguinera {
                 selectAllFromNovela();
                 break;
             case "11":
-                insertIntoBd(registrarUsuario());
+                registrarNuevoUsuario();
                 break;
             case "0":
                 mostrarMensaje("¡Cerrando Sesión!");
@@ -295,13 +285,13 @@ public class BibliotecaLaPinguinera {
     private static void ejecutarMenuAdministrador(String opcion) throws SQLException {
         switch (opcion) {
             case "1":
-                insertIntoBd(registrarUsuario());
+                registrarNuevoUsuario();
                 break;
             case "2":
-                insertIntoBd(registrarEmpleado("ADMINISTRADOR"));
+                registrarNuevoEmpleado("ADMINISTRADOR");
                 break;
             case "3":
-                insertIntoBd(registrarEmpleado("ASISTENTE"));
+                registrarNuevoEmpleado("ASISTENTE");
                 break;
             case "4":
                 insertIntoBd(registrarLibro().get(0));
@@ -492,22 +482,8 @@ public class BibliotecaLaPinguinera {
         return String.format(INSERT_PRESTAMO, idPrestamo, fechaPrestamo, fechaDevolucion, estado, correo, titulo);
     }
 
-    private static String registrarUsuario() {
-        String nombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre de usuario: ");
-        String correo = JOptionPane.showInputDialog(null, "Ingrese un nuevo correo: ");
-        String contrasena = JOptionPane.showInputDialog(null, "Ingrese una nueva contraseña: ");
-        mostrarMensaje("¡Usuario registrado exitosamente: " + nombre + "!");
-        return String.format(INSERT_USUARIO, correo, nombre, contrasena);
-    }
 
-    private static String registrarEmpleado(String rol) {
-        String idEmpleado = JOptionPane.showInputDialog(null, "Ingrese la cedula del empleado: ");
-        String nombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre de empleado: ");
-        String correo = JOptionPane.showInputDialog(null, "Ingrese una nueva direccion de correo: ");
-        String contrasena = JOptionPane.showInputDialog(null, "Ingrese una nueva contraseña: ");
-        mostrarMensaje("¡Empleado registrado exitosamente: " + nombre + "!");
-        return String.format(INSERT_EMPLEADO, idEmpleado, nombre, contrasena, correo, rol);
-    }
+
 
     private static ArrayList<String> crearPublicacion(String tipo) {
         String titulo;
@@ -551,27 +527,11 @@ public class BibliotecaLaPinguinera {
 
         LocalDate fechaPrestamo = LocalDate.now();
         LocalDate fechaDevolucion = LocalDate.now().plusDays(15);
-        String estado = String.valueOf(Estados.values()[new Random().nextInt(Estados.values().length)]);
+        String estado = String.valueOf(Estado.values()[new Random().nextInt(Estado.values().length)]);
         return String.format(INSERT_PRESTAMO, idPrestamo, fechaPrestamo, fechaDevolucion, estado, correo, titulo);
     }
 
-    private static String crearUsuario() {
-        Faker faker = new Faker(new Locale("es"));
-        String nombre = faker.name().name().replace("'", "");
-        String correo = faker.internet().emailAddress();
-        String contrasena = faker.internet().password();
-        return String.format(INSERT_USUARIO, correo, nombre, contrasena);
-    }
 
-    private static String crearEmpleado() {
-        Faker faker = new Faker(new Locale("es"));
-        String idEmpleado = faker.passport().valid();
-        String nombre = faker.name().name().replace("'", "");
-        String correo = faker.internet().emailAddress();
-        String contrasena = faker.passport().valid();
-        String rol = String.valueOf(Rol.values()[new Random().nextInt(Rol.values().length)]);
-        return String.format(INSERT_EMPLEADO, idEmpleado, nombre, contrasena, correo, rol);
-    }
 
     private static void insertarLibrosFaker(int cantidadLibros) {
         for (int i = 0; i < cantidadLibros; i++) {
@@ -590,70 +550,47 @@ public class BibliotecaLaPinguinera {
         }
     }
 
-    private static void insertarLista(ArrayList<String> lista) throws SQLException {
-        for (String elemento : lista) {
-            insertIntoBd(elemento);
-        }
-    }
-
     private static void insertarPrestamoFaker(int cantidad) throws SQLException {
         for (int i = 0; i < cantidad; i++) {
             insertIntoBd(crearPrestamo());
         }
     }
 
-    private static void insertarEmpleadoFaker(int cantidad) {
-        for (int i = 0; i < cantidad; i++) {
-            insertIntoBd(crearEmpleado());
-        }
-    }
 
-    private static void insertarUsuarioFaker(int cantidad) {
-        for (int i = 0; i < cantidad; i++) {
-            insertIntoBd(crearUsuario());
-        }
-    }
-
-    public static void selectAllFromUsuario() throws SQLException {
-        System.out.println("Lista de Usuarios Registrados");
-        mySqlOperation.setSqlStatement(SELECT_ALL_FROM_USUARIO);
-        ejecutarMostrarSQL();
-    }
-
-    public static void selectAllFromEmpleado() throws SQLException {
-        System.out.println("Lista de Empleados Registrados");
-        mySqlOperation.setSqlStatement(SELECT_ALL_FROM_EMPLEADO);
-        ejecutarMostrarSQL();
-    }
 
     public static void selectAllFromPublicacion() throws SQLException {
         System.out.println("Lista de Punlicaciones Registradas");
-        mySqlOperation.setSqlStatement(SELECT_ALL_FROM_PUBLICACION);
+        insertIntoBd(SELECT_ALL_FROM_PUBLICACION);
         ejecutarMostrarSQL();
     }
 
     public static void selectAllFromLibro() throws SQLException {
         System.out.println("Lista de Libros Registrados");
-        mySqlOperation.setSqlStatement(SELECT_ALL_FROM_LIBRO);
+        insertIntoBd(SELECT_ALL_FROM_LIBRO);
         ejecutarMostrarSQL();
     }
 
     public static void selectAllFromNovela() throws SQLException {
         System.out.println("Lista de Novelas Registradas");
-        mySqlOperation.setSqlStatement(SELECT_ALL_FROM_NOVELA);
+        insertIntoBd(SELECT_ALL_FROM_NOVELA);
         ejecutarMostrarSQL();
     }
 
     public static void selectAllFromPrestamo() throws SQLException {
         System.out.println("Lista de Prestamos Registrados");
-        mySqlOperation.setSqlStatement(SELECT_ALL_FROM_PRESTAMO);
+        insertIntoBd(SELECT_ALL_FROM_PRESTAMO);
         ejecutarMostrarSQL();
     }
 
     public static void ejecutarMostrarSQL() throws SQLException {
-        mySqlOperation.executeSqlStatement();
         mySqlOperation.printResulset();
         System.out.println();
+    }
+
+    private static void insertarLista(ArrayList<String> lista) throws SQLException {
+        for (String elemento : lista) {
+            insertIntoBd(elemento);
+        }
     }
 
     public static void insertIntoBd(String insert) {

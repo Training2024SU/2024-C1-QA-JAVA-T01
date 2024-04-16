@@ -4,7 +4,7 @@ package com.sofka.modelo;
 
 import lombok.*;
 
-@Data
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,11 +18,17 @@ public class Novela extends Publicacion {
     private int cantidadPrestados;
     private int cantidadDisponibles;
 
+    public Novela(String titulo, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantiDisponibles) {
+        super(titulo, autor, numPaginas, cantEjemplares, cantPrestados, cantiDisponibles);
+    }
+
+    @Override
     public void prestar() {
         cantidadPrestados++;
         cantidadDisponibles--;
     }
 
+    @Override
     public void devolver() {
         cantidadPrestados--;
         cantidadDisponibles++;

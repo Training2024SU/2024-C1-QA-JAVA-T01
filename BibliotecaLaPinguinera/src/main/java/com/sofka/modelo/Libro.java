@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 // Clase para representar un libro
-@Data
 @Getter
 @NoArgsConstructor
 @ToString
