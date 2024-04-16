@@ -5,7 +5,7 @@ import co.com.pinguinera.datos.crud_local.CRUDNovelasLocales;
 import co.com.pinguinera.datos.model.publicaciones.Novela;
 import co.com.pinguinera.servicios.integracion.SincronizadorNovelas;
 import co.com.pinguinera.vistas.VistaUtil;
-import co.com.pinguinera.vistas.vista_novela.InformacionNovelaVista;
+import co.com.pinguinera.vistas.vistas_novela.InformacionNovelaVista;;
 
 import java.sql.SQLException;
 import java.util.List;

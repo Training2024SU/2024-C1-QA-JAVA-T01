@@ -1,38 +1,26 @@
-package co.com.pinguinera.vistas.vista_novela;
+package co.com.pinguinera.vistas.vistas_novela;
 
-import java.util.Scanner;
+import co.com.pinguinera.vistas.VistaUtil;
 
 public class InformacionNovelaVista {
 
-    private final Scanner scanner;
-
-    public InformacionNovelaVista() {
-        this.scanner = new Scanner(System.in);
-    }
-
     public String pedirTituloNovela() {
-        System.out.print("Ingrese el título de la novela: ");
-        return scanner.nextLine();
+        return VistaUtil.pedirTitulo();
     }
 
     public String pedirAutorNovela() {
-        System.out.print("Ingrese el autor de la novela: ");
-        return scanner.nextLine();
+        return VistaUtil.pedirAutor();
     }
 
     public int pedirNumPaginas() {
-        System.out.print("Ingrese el número de páginas de la novela: ");
-        return Integer.parseInt(scanner.nextLine());
+        return VistaUtil.pedirNumPaginas();
     }
 
     public int pedirCantEjemplares() {
-        System.out.print("Ingrese la cantidad de ejemplares de la novela: ");
-        return Integer.parseInt(scanner.nextLine());
+        return VistaUtil.pedirCantEjemplares();
     }
 
     public int pedirCantPrestados() {
-        System.out.print("Ingrese la cantidad de novelas prestadas: ");
-        return Integer.parseInt(scanner.nextLine());
+        return VistaUtil.pedirCantPrestados();
     }
 }
-

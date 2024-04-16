@@ -30,11 +30,31 @@ public class VistaUtil {
         return scanner.nextLine();
     }
 
-
-    // Método para cerrar el Scanner al finalizar la aplicación
-    public static void cerrarScanner() {
-        if (scanner != null) {
-            scanner.close();
-        }
+    // Métodos adicionales para pedir información relacionada con libros y novelas
+    public static String pedirTitulo() {
+        System.out.print("Por favor, introduzca el título: ");
+        return scanner.nextLine();
     }
+
+    public static String pedirAutor() {
+        System.out.print("Por favor, introduzca el autor: ");
+        return scanner.nextLine();
+    }
+
+    public static int pedirNumPaginas() {
+        System.out.print("Por favor, introduzca el número de páginas: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static int pedirCantEjemplares() {
+        System.out.print("Por favor, introduzca la cantidad de ejemplares: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static int pedirCantPrestados() {
+        System.out.print("Por favor, introduzca la cantidad de ejemplares prestados: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+
 }
