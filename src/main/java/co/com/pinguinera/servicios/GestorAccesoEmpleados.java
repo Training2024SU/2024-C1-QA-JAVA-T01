@@ -36,10 +36,10 @@ public class GestorAccesoEmpleados {
     public String verificarEmpleado(String correo, String contrasena) {
         cargarEmpleados(); // Cargar la lista de empleados desde la base de datos
 
-        // Verificar si un empleado con el correo y contraseña especificados está presente en la lista
+
         for (Empleado empleado : listaEmpleados) {
             if (empleado.getCorreo().equals(correo) && empleado.getContrasena().equals(contrasena)) {
-                return empleado.getRol(); // Devuelve el rol del empleado encontrado
+                return empleado.getRol();
             }
         }
         return null; // Empleado no encontrado

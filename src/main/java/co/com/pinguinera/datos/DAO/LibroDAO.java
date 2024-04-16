@@ -14,22 +14,20 @@ public class LibroDAO extends AbstractDAO<Libro> {
     private static final String ACTUALIZAR_LIBRO = "UPDATE Publicacion SET Titulo = ?, Autor = ?, Num_paginas = ?, Cant_ejemplares = ?, Cant_prestados = ? WHERE idPublicacion = ?";
     private static final String ELIMINAR_LIBRO = "DELETE FROM Publicacion WHERE idPublicacion = ?";
 
-    // Constructor que recibe un objeto GestorBD para establecer la conexión
+
     public LibroDAO(GestorBD gestorBD) {
         super(gestorBD);
     }
 
     @Override
     protected String obtenerConsultaTodos() {
-        // Devuelve la consulta SQL específica para obtener todos los libros de la base de datos
         return CONSULTA_LIBROS;
     }
 
     @Override
     protected Libro convertirFilaAObjeto(ResultSet resultSet) throws SQLException {
-        // Crea un objeto Libro a partir de una fila del ResultSet
         Libro libro = new Libro();
-        libro.setIdPublicacion(resultSet.getInt("idPublicacion")); // Ajuste para incluir idPublicacion
+        libro.setIdPublicacion(resultSet.getInt("idPublicacion"));
         libro.setTitulo(resultSet.getString("Titulo"));
         libro.setAutor(resultSet.getString("Autor"));
         libro.setNumPaginas(resultSet.getInt("Num_paginas"));
@@ -41,9 +39,7 @@ public class LibroDAO extends AbstractDAO<Libro> {
         return libro;
     }
 
-    // Implementación de los métodos LocalCRUD
 
-    // Método para insertar un nuevo libro en la base de datos
     @Override
     public void insertar(Libro libro) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(INSERTAR_LIBRO)) {
@@ -57,7 +53,6 @@ public class LibroDAO extends AbstractDAO<Libro> {
         }
     }
 
-    // Método para actualizar un libro existente en la base de datos
     @Override
     public void actualizar(Libro libro) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ACTUALIZAR_LIBRO)) {
@@ -71,11 +66,11 @@ public class LibroDAO extends AbstractDAO<Libro> {
         }
     }
 
-    // Método para eliminar un libro de la base de datos
+
     @Override
     public void eliminar(Libro libro) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_LIBRO)) {
-            statement.setInt(1, libro.getIdPublicacion()); // Utiliza el ID de la publicación del libro
+            statement.setInt(1, libro.getIdPublicacion());
             statement.executeUpdate();
         }
     }

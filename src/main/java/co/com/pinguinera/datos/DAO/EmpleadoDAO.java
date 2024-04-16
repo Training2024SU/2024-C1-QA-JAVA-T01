@@ -22,7 +22,6 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
 
     @Override
     public String obtenerConsultaTodos() {
-        // Devuelve la consulta SQL específica para obtener todos los empleados
         return CONSULTA_EMPLEADOS;
     }
 
@@ -40,9 +39,7 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
         return empleado;
     }
 
-    // Implementación de los métodos LocalCRUD
 
-    // Método para insertar un nuevo empleado en la base de datos
     @Override
     public void insertar(Empleado empleado) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(INSERTAR_EMPLEADO)) {
@@ -58,7 +55,6 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
     }
 
 
-    // Método para actualizar un empleado existente en la base de datos
     @Override
     public void actualizar(Empleado empleado) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ACTUALIZAR_EMPLEADO)) {
@@ -72,7 +68,7 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
         }
     }
 
-    // Método para eliminar un empleado de la base de datos
+
     @Override
     public void eliminar(Empleado empleado) throws SQLException {
         try (PreparedStatement statement = prepararConsulta(ELIMINAR_EMPLEADO)) {

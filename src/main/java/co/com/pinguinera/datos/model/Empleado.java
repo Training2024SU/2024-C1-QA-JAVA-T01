@@ -12,7 +12,6 @@ public class Empleado {
         // Constructor vacío
     }
 
-    // Constructor con todos los campos
     public Empleado(int idEmpleado, String nombre, String contrasena, String correo, String rol, boolean esAdministrativo) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;

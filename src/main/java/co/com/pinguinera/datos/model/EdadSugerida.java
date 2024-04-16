@@ -1,13 +1,12 @@
 package co.com.pinguinera.datos.model;
 
 public class EdadSugerida {
-    private int idPublicacion;  // Clave externa que se refiere a Publicacion
-    private String edad;  // Clave primaria compuesta con idPublicacion
+    private int idPublicacion;
+    private String edad;
 
     // Constructor vacío
     public EdadSugerida() {}
 
-    // Constructor con todos los campos
     public EdadSugerida(int idPublicacion, String edad) {
         this.idPublicacion = idPublicacion;
         this.edad = edad;

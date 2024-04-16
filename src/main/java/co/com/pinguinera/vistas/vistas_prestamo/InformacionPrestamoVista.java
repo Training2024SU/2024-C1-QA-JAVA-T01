@@ -34,14 +34,18 @@ public class InformacionPrestamoVista {
         logger.info("3. FINALIZADO");
         logger.info("Ingrese el número correspondiente al estado: ");
         int opcion = Integer.parseInt(scanner.nextLine());
-        return switch (opcion) {
-            case 1 -> EstadoPrestamo.SOLICITADO;
-            case 2 -> EstadoPrestamo.REALIZADO;
-            case 3 -> EstadoPrestamo.FINALIZADO;
-            default -> throw new IllegalArgumentException("Opción inválida.");
-        };
-    }
 
+        switch (opcion) {
+            case 1:
+                return EstadoPrestamo.SOLICITADO;
+            case 2:
+                return EstadoPrestamo.REALIZADO;
+            case 3:
+                return EstadoPrestamo.FINALIZADO;
+            default:
+                throw new IllegalArgumentException("Opción inválida.");
+        }
+    }
     public int pedirIdUsuario() {
         logger.info("Ingrese el ID del usuario: ");
         return Integer.parseInt(scanner.nextLine());

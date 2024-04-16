@@ -3,9 +3,9 @@ import co.com.pinguinera.datos.model.enums.TipoPublicacion;
 
 
 public class Publicacion {
-    private int idPublicacion; // Nuevo atributo `idPublicacion`
+    private int idPublicacion;
     private String titulo;
-    private TipoPublicacion tipoPublicacion; // Usa el enum TipoPublicacion
+    private TipoPublicacion tipoPublicacion;
     private String autor;
     private int numPaginas;
     private int cantEjemplares;

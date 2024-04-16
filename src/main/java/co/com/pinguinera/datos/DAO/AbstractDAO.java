@@ -19,7 +19,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
     @Override
     public List<T> obtenerTodos() throws SQLException {
-        String consulta = obtenerConsultaTodos(); // Consulta específica para la tabla
+        String consulta = obtenerConsultaTodos();
 
         try (PreparedStatement statement = prepararConsulta(consulta)) {
             ResultSet resultSet = statement.executeQuery();

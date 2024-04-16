@@ -38,8 +38,4 @@ public class InformacionEmpleadoVista {
         return opcion == 1;
     }
 
-    public int pedirIdEmpleado() {
-        LOGGER.info("Ingrese el ID del empleado:");
-        return Integer.parseInt(scanner.nextLine());
-    }
 }

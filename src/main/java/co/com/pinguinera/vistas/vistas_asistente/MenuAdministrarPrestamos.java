@@ -1,10 +1,10 @@
 package co.com.pinguinera.vistas.vistas_asistente;
 
 import co.com.pinguinera.LoggerUtil;
+import co.com.pinguinera.controladores.ControladorPrestamosCorreo;
 import co.com.pinguinera.controladores.crud.ControladorCRUDPrestamo;
 import co.com.pinguinera.datos.DAO.UsuarioDAO;
 import co.com.pinguinera.datos.DAO.PrestamoDAO;
-import co.com.pinguinera.servicios.PrestamistasCorreo;
 import co.com.pinguinera.vistas.MenuConstantes;
 import co.com.pinguinera.vistas.VistaUtil;
 
@@ -15,11 +15,11 @@ public class MenuAdministrarPrestamos {
     private static final Logger LOGGER = LoggerUtil.getLogger(); // Usar el logger global
 
     private final ControladorCRUDPrestamo controladorCRUDPrestamo;
-    private final PrestamistasCorreo prestamistasCorreo;
+    private final ControladorPrestamosCorreo controladorPrestamosCorreo;
 
     public MenuAdministrarPrestamos(ControladorCRUDPrestamo controladorCRUDPrestamo, UsuarioDAO usuarioDAO, PrestamoDAO prestamosDAO) {
         this.controladorCRUDPrestamo = controladorCRUDPrestamo;
-        this.prestamistasCorreo = new PrestamistasCorreo(usuarioDAO, prestamosDAO);
+        this.controladorPrestamosCorreo = new ControladorPrestamosCorreo(usuarioDAO, prestamosDAO);
     }
 
     public void mostrarMenu() {
@@ -50,9 +50,8 @@ public class MenuAdministrarPrestamos {
                     controladorCRUDPrestamo.actualizarPrestamo();
                     break;
                 case 5:
-                    // Invoca el método listarPrestamosPorCorreo desde la instancia de prestamistasCorreo
-                    String correo = VistaUtil.pedirCorreoElectronico(); // Puedes cambiar esto para obtener el correo de alguna manera
-                    prestamistasCorreo.listarPrestamosPorCorreo(correo);
+                    // Invoca el método `consultarPrestamosPorCorreo` del `ControladorPrestamosCorreo`
+                    controladorPrestamosCorreo.consultarPrestamosPorCorreo();
                     break;
                 case 6:
                     LOGGER.info("Volviendo al menú anterior...");

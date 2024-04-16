@@ -34,14 +34,13 @@ public class GestorAccesoUsuarios {
      * @return true si el usuario está en la lista, false en caso contrario.
      */
     public boolean verificarUsuario(String correo, String contrasena) {
-        cargarUsuarios(); // Cargar la lista de usuarios desde la base de datos
+        cargarUsuarios();
 
-        // Verificar si un usuario con el correo y contraseña especificados está presente en la lista
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
-                return true; // Usuario encontrado
+                return true;
             }
         }
-        return false; // Usuario no encontrado
+        return false;
     }
 }

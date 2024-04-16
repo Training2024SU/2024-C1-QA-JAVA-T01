@@ -12,7 +12,6 @@ public class MenuConstantes {
     public static final String ELIMINAR_LIBRO = "Eliminar libro";
     public static final String ELIMINAR_NOVELA = "Eliminar novela";
     public static final String ACTUALIZAR_LIBRO = "Actualizar libro";
-    public static final String ACTUALIZAR_NOVELA = "Actualizar novela";
     public static final String SALIR = "Salir";
 
     private MenuConstantes() {

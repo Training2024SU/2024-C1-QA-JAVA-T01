@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SincronizadorEmpleado {
-
     private final EmpleadoDAO empleadoDAO;
     private final CRUDEmpleadosLocales crudEmpleadosLocales;
 
@@ -20,33 +19,26 @@ public class SincronizadorEmpleado {
     }
 
     public void sincronizarEmpleados() throws SQLException {
-        // Obtén la lista de empleados de la base de datos
         List<Empleado> empleadosBD = empleadoDAO.obtenerTodos();
-
-        // Obtén la lista de empleados locales
         List<Empleado> empleadosLocales = crudEmpleadosLocales.obtenerTodos();
 
-        // Crea un mapa de empleados locales para búsquedas rápidas
-        Map<Integer, Empleado> mapaEmpleadosLocales = new HashMap<>();
+        Map<Integer, Empleado> mapaLocales = new HashMap<>();
         for (Empleado empleadoLocal : empleadosLocales) {
-            mapaEmpleadosLocales.put(empleadoLocal.getIdEmpleado(), empleadoLocal);
+            mapaLocales.put(empleadoLocal.getIdEmpleado(), empleadoLocal);
         }
 
-        // Actualiza empleados en la base de datos basados en la lista local
         for (Empleado empleadoBD : empleadosBD) {
-            Empleado empleadoLocal = mapaEmpleadosLocales.get(empleadoBD.getIdEmpleado());
+            Empleado empleadoLocal = mapaLocales.get(empleadoBD.getIdEmpleado());
             if (empleadoLocal != null) {
-                // Si el empleado local está en la base de datos, actualízalo si hay diferencias
                 if (!empleadoLocal.equals(empleadoBD)) {
                     empleadoDAO.actualizar(empleadoLocal);
                 }
-                // Elimina el empleado del mapa para que al final sepamos cuáles no estaban en la base de datos
-                mapaEmpleadosLocales.remove(empleadoLocal.getIdEmpleado());
+                mapaLocales.remove(empleadoLocal.getIdEmpleado());
             }
         }
 
         // Inserta empleados locales que no están en la base de datos
-        for (Empleado empleadoLocal : mapaEmpleadosLocales.values()) {
+        for (Empleado empleadoLocal : mapaLocales.values()) {
             empleadoDAO.insertar(empleadoLocal);
         }
     }

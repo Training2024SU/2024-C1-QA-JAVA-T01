@@ -24,29 +24,21 @@ public class EmpleadoSesionControlador {
      * Gestiona el proceso de inicio de sesión para empleados.
      */
     public void iniciarSesion() {
-        // Obtiene las credenciales del empleado desde `VistaUtil`
         String correo = VistaUtil.pedirCorreoElectronico();
         String contrasena = VistaUtil.pedirContrasena();
 
-        // Verifica si el empleado existe y las credenciales son correctas usando el servicio
         RolEmpleado rolEmpleado = RolEmpleado.valueOf(gestorAccesoEmpleados.verificarEmpleado(correo, contrasena));
 
-        // Notifica a la vista del resultado
         if (rolEmpleado != null) {
             VistaUtil.mostrarMensajeExito();
 
-            // Muestra el menú adecuado según el rol del empleado
             if (rolEmpleado == RolEmpleado.ASISTENTE) {
-                // Muestra el menú asistente
                 menuPrincipalAsistente.mostrarMenu();
             } else if (rolEmpleado == RolEmpleado.ADMINISTRATIVO) {
-                // Muestra el menú administrativo
                 menuPrincipalAdministrativo.mostrarMenu();
             } else {
                 System.out.println("Rol del empleado desconocido. No se puede mostrar un menú.");
             }
-        } else {
-            VistaUtil.mostrarMensajeError();
         }
     }
 }

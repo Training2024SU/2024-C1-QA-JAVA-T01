@@ -37,7 +37,7 @@ public class MenuPrincipal {
             LOGGER.info("1. Iniciar sesión como empleado");
             LOGGER.info("2. Iniciar sesión como usuario");
             LOGGER.info("3. Registrarse como usuario");
-            LOGGER.info("4. " + MenuConstantes.OPCION_VOLVER);
+            LOGGER.info("4. " + MenuConstantes.SALIR);
 
             int eleccion = VistaUtil.obtenerOpcion();
             continuar = manejarEleccion(eleccion);

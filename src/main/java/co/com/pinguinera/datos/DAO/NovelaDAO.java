@@ -15,22 +15,19 @@ public class NovelaDAO extends AbstractDAO<Novela> {
     private static final String ACTUALIZAR_NOVELA = "UPDATE Publicacion SET Titulo = ?, Autor = ?, Num_paginas = ?, Cant_ejemplares = ?, Cant_prestados = ? WHERE idPublicacion = ?";
     private static final String ELIMINAR_NOVELA = "DELETE FROM Publicacion WHERE idPublicacion = ?";
 
-    // Constructor que recibe un objeto GestorBD para establecer la conexión
     public NovelaDAO(GestorBD gestorBD) {
         super(gestorBD);
     }
 
     @Override
     protected String obtenerConsultaTodos() {
-        // Devuelve la consulta SQL específica para obtener todas las novelas de la base de datos
         return CONSULTA_NOVELAS;
     }
 
     @Override
     protected Novela convertirFilaAObjeto(ResultSet resultSet) throws SQLException {
-        // Crea un objeto Novela a partir de una fila del ResultSet
         Novela novela = new Novela();
-        novela.setIdPublicacion(resultSet.getInt("idPublicacion")); // Ajuste para incluir idPublicacion
+        novela.setIdPublicacion(resultSet.getInt("idPublicacion"));
         novela.setTitulo(resultSet.getString("Titulo"));
         novela.setAutor(resultSet.getString("Autor"));
         novela.setNumPaginas(resultSet.getInt("Num_paginas"));

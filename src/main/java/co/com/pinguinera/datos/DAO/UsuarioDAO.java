@@ -65,5 +65,7 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
             statement.executeUpdate();
         }
     }
+
+
 }
 

@@ -7,7 +7,6 @@ public class AreaGenero {
     // Constructor vacío
     public AreaGenero() {}
 
-    // Constructor con todos los campos
     public AreaGenero(int idPublicacion, String areaGenero) {
         this.idPublicacion = idPublicacion;
         this.areaGenero = areaGenero;

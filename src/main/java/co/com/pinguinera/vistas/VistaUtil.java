@@ -6,13 +6,10 @@ import java.util.logging.Logger;
 
 public class VistaUtil {
 
-    // Usar el logger global desde LoggerUtil
     private static final Logger LOGGER = LoggerUtil.getLogger();
     private static final Scanner scanner = new Scanner(System.in);
 
-    // Constructor privado para ocultar el constructor público implícito
     private VistaUtil() {
-        // Este constructor se deja vacío para impedir instanciaciones de la clase
     }
 
     public static String pedirCorreoElectronico() {

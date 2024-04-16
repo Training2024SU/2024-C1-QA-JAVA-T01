@@ -16,17 +16,12 @@ public class UsuarioSesionControlador {
      * Gestiona el proceso de inicio de sesión.
      */
     public void iniciarSesion() {
-        // Obtén las credenciales del usuario desde la clase VistaUtil
         String correo = VistaUtil.pedirCorreoElectronico();
         String contrasena = VistaUtil.pedirContrasena();
 
-        // Verifica si el usuario existe y las credenciales son correctas usando el servicio
         boolean esUsuarioValido = gestorAccesoUsuarios.verificarUsuario(correo, contrasena);
-
-        // Notifica a VistaUtil del resultado
         if (esUsuarioValido) {
             VistaUtil.mostrarMensajeExito();
-            // Si el inicio de sesión es exitoso, mostrar el menú principal del usuario
             if (menuPrincipalUsuario != null) {
                 menuPrincipalUsuario.mostrarMenu();
             }
