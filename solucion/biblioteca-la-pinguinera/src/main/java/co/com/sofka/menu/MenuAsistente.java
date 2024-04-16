@@ -1,6 +1,6 @@
 package co.com.sofka.menu;
 
-import co.com.sofka.util.ExportarLibros;
+import co.com.sofka.servicio.ExportarLibro;
 import co.com.sofka.servicio.ServicioLibro;
 import co.com.sofka.servicio.ServicioNovela;
 import co.com.sofka.servicio.ServicioPrestamo;
@@ -21,13 +21,13 @@ public class MenuAsistente {
 
     boolean seguirEjecucion = true;
 
-    public MenuAsistente(ServicioLibro servicioLibro, ServicioNovela servicioNovela, ServicioPrestamo servicioPrestamo, Scanner scanner, ExportarLibros exportarLibros) {
+    public MenuAsistente(ServicioLibro servicioLibro, ServicioNovela servicioNovela, ServicioPrestamo servicioPrestamo, Scanner scanner, ExportarLibro exportarLibro) {
         this.servicioLibro = servicioLibro;
         this.servicioNovela = servicioNovela;
         this.servicioPrestamo = servicioPrestamo;
         this.scanner = scanner;
 
-        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro, exportarLibros);
+        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro, exportarLibro);
         this.metodosMenuAsistenteNovela = new MetodosMenuAsistenteNovela(scanner, servicioNovela);
         this.metodosMenuAsistentePrestamo = new MetodosMenuAsistentePrestamo(scanner, servicioPrestamo);
     }

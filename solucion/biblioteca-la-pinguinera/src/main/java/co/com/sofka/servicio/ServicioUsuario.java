@@ -5,9 +5,7 @@ import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.RepositorioUsuario;
 import java.util.logging.Logger;
 public class ServicioUsuario {
-
-    private RepositorioUsuario repositorioUsuario;
-
+    private final RepositorioUsuario repositorioUsuario;
     private final Logger logger = Logger.getLogger(ServicioUsuario.class.getName());
 
     public ServicioUsuario(RepositorioUsuario repositorioUsuario){
@@ -42,5 +40,4 @@ public class ServicioUsuario {
                 .filter(usuario -> usuario.getRol() == RolUsuario.ASISTENTE)
                 .forEach(usuario -> System.out.println("Nombre: "+ usuario.getNombre() + " y correo " + usuario.getCorreo()));
     }
-
 }

@@ -1,6 +1,6 @@
 package co.com.sofka.menu;
 
-import co.com.sofka.util.ExportarLibros;
+import co.com.sofka.servicio.ExportarLibro;
 import co.com.sofka.util.RolUsuario;
 import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.*;
@@ -25,11 +25,11 @@ public class Menu {
     static RepositorioPrestamo repositorioPrestamo = new RepositorioPrestamo(sessionFactory);
     static ServicioPrestamo servicioPrestamo = new ServicioPrestamo(repositorioPrestamo, repositorioLibro, repositorioNovela);
 
-    static ExportarLibros exportarLibros = new ExportarLibros(sessionFactory);
+    static ExportarLibro exportarLibro = new ExportarLibro(sessionFactory);
 
     static MenuAdministrador menuAdministrador = new MenuAdministrador(servicioUsuario, scanner);
     static MenuLector menuLector = new MenuLector(servicioLibro, servicioNovela, servicioPrestamo, scanner);
-    static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner, exportarLibros);
+    static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner, exportarLibro);
 
 
     static Usuario usuarioIngresado = null;

@@ -1,51 +1,51 @@
-TÃ­tulo,Autor,Numero de Paginas,Area del conocimiento,Cantidad de Ejemplares,Cantidad de prestados,Cantidad Disponible
-Cien anos de soledad,Gabriel Garcia Marquez,432,Literatura,15,5,10
-Asesinato en el Orient Express,Agatha Christie,256,Misterio,25,5,20
-El viejo y el mar,Ernest Hemingway,112,Ficcion,20,6,14
-El gran Gatsby,F. Scott Fitzgerald,180,Ficcion,15,5,10
-Las aventuras de Tom Sawyer,Mark Twain,224,Clásico,30,5,25
-El cuento de la criada,Margaret Atwood,320,Ficción distópica,25,5,20
-Las uvas de la ira,John Steinbeck,464,Ficcion,20,5,15
-El extranjero,Albert Camus,123,Ficcion filosófica,15,5,10
-El principito,Antoine de Saint-Exupéry,96,Infantil,25,5,20
-Grandes esperanzas,Charles Dickens,544,Clásico,30,5,25
-Frankenstein,Mary Shelley,280,Ficcion gótica,20,5,15
-Guerra y paz,Leo Tolstoy,1225,Ficcion histórica,35,5,30
-El amor en los tiempos del cólera,Gabriel Garcia Marquez,368,Ficcion,30,5,25
-El guardián entre el centeno,J.D. Salinger,224,Ficción,25,5,20
-El lobo estepario,Herman Hesse,224,Ficcion filosófica,15,5,10
-Fahrenheit 451,Ray Bradbury,256,Ciencia ficción,20,5,15
-Ficciones,Jorge Luis Borges,224,Ficcion,25,5,20
-1Q84,Haruki Murakami,1312,Ficción,30,5,25
-La señora Dalloway,Virginia Woolf,194,Ficción,20,5,15
-Crimen y castigo,Fyodor Dostoevsky,671,Ficción,25,5,20
-Charlie y la fábrica de chocolate,Roald Dahl,208,Infantil,15,5,10
-El resplandor,Stephen King,512,Terror,35,5,30
-El jilguero,Donna Tartt,864,Ficción,20,5,15
-Cinco panes de cebada,Agustín Fernández Paz,176,Infantil,25,5,20
-Blade Runner,Philip K. Dick,210,Ciencia ficción,30,5,25
-A sangre fría,Truman Capote,368,No ficción,20,5,15
-Los pilares de la tierra,Ken Follett,1104,Histórico,25,5,20
-La campana de cristal,Sylvia Plath,224,Ficción,15,5,10
-Guía del autoestopista galáctico,Douglas Adams,224,Ciencia ficción,20,5,15
-Mort,Terry Pratchett,272,Fantasía,25,5,20
-El hobbit,J.R.R. Tolkien,310,Fantasia,20,5,15
-Adiós a las armas,Ernest Hemingway,354,Ficcion,22,4,18
-Diez negritos,Agatha Christie,256,Misterio,28,6,22
-Moby Dick,Herman Melville,624,Clasico,18,6,12
-La metamorfosis,Franz Kafka,128,Ficcion,13,5,8
-Rebelión en la granja,George Orwell,112,Ciencia ficcion,23,4,19
-Sentido y sensibilidad,Jane Austen,328,Ficcion romantica,28,3,25
-La guerra de los mundos,H.G. Wells,192,Ciencia ficcion,22,5,17
-Cumbres borrascosas,Emily Brontë,342,Romance,18,5,13
-David Copperfield,Charles Dickens,960,Clasico,33,5,28
-El perro de los Baskerville,Arthur Conan Doyle,256,Misterio,21,5,16
-Drácula,Bram Stoker,448,Terror,16,5,11
-Romeo y Julieta,William Shakespeare,288,Tragedia,35,5,30
-Veinte mil leguas de viaje submarino,Jules Verne,504,Aventura,19,5,14
-Alicia en el país de las maravillas,Lewis Carroll,192,Fantasia,28,5,23
-El retrato de Dorian Gray,Oscar Wilde,254,Ficcion,25,5,20
-Madame Bovary,Gustave Flaubert,432,Ficcion,23,5,18
-La Odisea,Homer,374,Epica,15,5,10
-Jane Eyre,Charlotte Bronte,490,Ficcion romantica,20,5,15
-El alquimista,Paulo Coelho,390,Drama,20,0,20
+Titulo;Autor;Numero de Paginas;Area del conocimiento;Cantidad de Ejemplares;Cantidad de prestados;Cantidad Disponible
+Cien anos de soledad;Gabriel Garcia Marquez;432;Literatura;15;5;10
+Asesinato en el Orient Express;Agatha Christie;256;Misterio;25;5;20
+El viejo y el mar;Ernest Hemingway;112;Ficcion;20;6;14
+El gran Gatsby;F. Scott Fitzgerald;180;Ficcion;15;5;10
+Las aventuras de Tom Sawyer;Mark Twain;224;Clásico;30;5;25
+El cuento de la criada;Margaret Atwood;320;Ficción distópica;25;5;20
+Las uvas de la ira;John Steinbeck;464;Ficcion;20;5;15
+El extranjero;Albert Camus;123;Ficcion filosófica;15;5;10
+El principito;Antoine de Saint-Exupéry;96;Infantil;25;5;20
+Grandes esperanzas;Charles Dickens;544;Clásico;30;5;25
+Frankenstein;Mary Shelley;280;Ficcion gótica;20;5;15
+Guerra y paz;Leo Tolstoy;1225;Ficcion histórica;35;5;30
+El amor en los tiempos del cólera;Gabriel Garcia Marquez;368;Ficcion;30;5;25
+El guardián entre el centeno;J.D. Salinger;224;Ficción;25;5;20
+El lobo estepario;Herman Hesse;224;Ficcion filosófica;15;5;10
+Fahrenheit 451;Ray Bradbury;256;Ciencia ficción;20;5;15
+Ficciones;Jorge Luis Borges;224;Ficcion;25;5;20
+1Q84;Haruki Murakami;1312;Ficción;30;5;25
+La señora Dalloway;Virginia Woolf;194;Ficción;20;5;15
+Crimen y castigo;Fyodor Dostoevsky;671;Ficción;25;5;20
+Charlie y la fábrica de chocolate;Roald Dahl;208;Infantil;15;5;10
+El resplandor;Stephen King;512;Terror;35;5;30
+El jilguero;Donna Tartt;864;Ficción;20;5;15
+Cinco panes de cebada;Agustín Fernández Paz;176;Infantil;25;5;20
+Blade Runner;Philip K. Dick;210;Ciencia ficción;30;5;25
+A sangre fría;Truman Capote;368;No ficción;20;5;15
+Los pilares de la tierra;Ken Follett;1104;Histórico;25;5;20
+La campana de cristal;Sylvia Plath;224;Ficción;15;5;10
+Guía del autoestopista galáctico;Douglas Adams;224;Ciencia ficción;20;5;15
+Mort;Terry Pratchett;272;Fantasía;25;5;20
+El hobbit;J.R.R. Tolkien;310;Fantasia;20;5;15
+Adiós a las armas;Ernest Hemingway;354;Ficcion;22;4;18
+Diez negritos;Agatha Christie;256;Misterio;28;6;22
+Moby Dick;Herman Melville;624;Clasico;18;6;12
+La metamorfosis;Franz Kafka;128;Ficcion;13;5;8
+Rebelión en la granja;George Orwell;112;Ciencia ficcion;23;4;19
+Sentido y sensibilidad;Jane Austen;328;Ficcion romantica;28;3;25
+La guerra de los mundos;H.G. Wells;192;Ciencia ficcion;22;5;17
+Cumbres borrascosas;Emily Brontë;342;Romance;18;5;13
+David Copperfield;Charles Dickens;960;Clasico;33;5;28
+El perro de los Baskerville;Arthur Conan Doyle;256;Misterio;21;5;16
+Drácula;Bram Stoker;448;Terror;16;5;11
+Romeo y Julieta;William Shakespeare;288;Tragedia;35;5;30
+Veinte mil leguas de viaje submarino;Jules Verne;504;Aventura;19;5;14
+Alicia en el país de las maravillas;Lewis Carroll;192;Fantasia;28;5;23
+El retrato de Dorian Gray;Oscar Wilde;254;Ficcion;25;5;20
+Madame Bovary;Gustave Flaubert;432;Ficcion;23;5;18
+La Odisea;Homer;374;Epica;15;5;10
+Jane Eyre;Charlotte Bronte;490;Ficcion romantica;20;5;15
+El alquimista;Paulo Coelho;390;Drama;20;0;20

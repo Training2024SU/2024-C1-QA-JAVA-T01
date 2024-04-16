@@ -1,6 +1,7 @@
 package co.com.sofka.menu;
 
-import co.com.sofka.util.ExportarLibros;
+import co.com.sofka.servicio.ExportarLibro;
+import co.com.sofka.servicio.LectorArchivo;
 import co.com.sofka.servicio.ServicioLibro;
 
 import java.util.Scanner;
@@ -11,15 +12,16 @@ import static co.com.sofka.menu.ConstantesMenu.PRIMER_MENSAJE_MODIFICAR_LIBRO;
 public class MetodosMenuAsistenteLibro {
 
     public Scanner scanner;
-
     public ServicioLibro servicioLibro;
 
-    public ExportarLibros exportarLibros;
+    public ExportarLibro exportarLibro;
+    public LectorArchivo lectorArchivo;
 
-    public MetodosMenuAsistenteLibro(Scanner scanner, ServicioLibro servicioLibro, ExportarLibros exportarLibros) {
+    public MetodosMenuAsistenteLibro(Scanner scanner, ServicioLibro servicioLibro, ExportarLibro exportarLibro) {
         this.scanner = scanner;
         this.servicioLibro = servicioLibro;
-        this.exportarLibros = exportarLibros;
+        this.exportarLibro = exportarLibro;
+        this.lectorArchivo = new LectorArchivo();
     }
 
     public void guardarLibro(){
@@ -85,7 +87,7 @@ public class MetodosMenuAsistenteLibro {
 
     public void exportarAExcel(){
         String filePath = "C:\\Users\\User\\OneDrive\\Documents\\sofka\\EntregasSubidasAGitHub\\2024-C1-QA-JAVA-T01\\solucion\\biblioteca-la-pinguinera\\src\\main\\resources";
-        exportarLibros.exportToExcel(filePath);
+        exportarLibro.exportarArchivo(filePath);
     }
 
     public void leerExcel(){
@@ -93,7 +95,7 @@ public class MetodosMenuAsistenteLibro {
 
         System.out.println("Leyendo archivos en " + filePath);
 
-        exportarLibros.leerArchivo(filePath);
+        lectorArchivo.LeerArchivo(filePath);
 
         System.out.println("Lectura archivo completada");
     }
