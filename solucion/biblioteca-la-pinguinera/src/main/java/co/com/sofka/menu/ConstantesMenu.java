@@ -13,7 +13,7 @@ public class ConstantesMenu {
     //Opciones del menu segun el rol de usuario
     static String OPCIONES_ADMINISTRADOR = "1.Crear Asistentes\n2.Listar Asistentes\n";
     static String OPCIONES_LECTOR = "1.Listar Autores de Libros\n2.Listar Autores de Novelas \n3.Listar Libros disponibles \n4.Listar Novelas disponibles \n5.Realizar Prestamo Libro \n6.Realizar Prestamo Novela";
-    static String OPCIONES_ASISTENTE = "1.Crear Libro \n2.Crear Novela\n3.Listar Autores de Libros\n4.Listar Autores de Novelas\n5.Listar Libros por Autor\n6.Listar Novelas por Autor\n7.Listar Prestamos solicitados \n8.Realizar prestamos solicitados \n9.Listar prestamos realizados \n10.Finalizar pestamos realizados \n11.Modificar un libro \n12.Modificar una novela \n13.Borrar Libro \n14.Borrar Novela";
+    static String OPCIONES_ASISTENTE = "1.Crear Libro \n2.Crear Novela\n3.Listar Autores de Libros\n4.Listar Autores de Novelas\n5.Listar Libros por Autor\n6.Listar Novelas por Autor\n7.Listar Prestamos solicitados \n8.Realizar prestamos solicitados \n9.Listar prestamos realizados \n10.Finalizar pestamos realizados \n11.Modificar un libro \n12.Modificar una novela \n13.Borrar Libro \n14.Borrar Novela \n15.Exportar a excel \n16.Leer excel";
 
 
     //Mensajes de ingreso

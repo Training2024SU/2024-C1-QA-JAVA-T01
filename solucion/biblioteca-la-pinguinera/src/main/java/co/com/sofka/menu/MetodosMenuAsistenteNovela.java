@@ -11,6 +11,7 @@ public class MetodosMenuAsistenteNovela {
     public Scanner scanner;
     public ServicioNovela servicioNovela;
 
+
     public MetodosMenuAsistenteNovela(Scanner scanner, ServicioNovela servicioNovela) {
         this.scanner = scanner;
         this.servicioNovela = servicioNovela;
@@ -76,4 +77,5 @@ public class MetodosMenuAsistenteNovela {
 
         servicioNovela.borrarNovelaPorId(novelaId);
     }
+
 }

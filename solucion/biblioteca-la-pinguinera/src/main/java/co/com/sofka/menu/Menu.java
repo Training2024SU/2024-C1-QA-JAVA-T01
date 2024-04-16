@@ -1,5 +1,6 @@
 package co.com.sofka.menu;
 
+import co.com.sofka.ExportarLibros;
 import co.com.sofka.util.RolUsuario;
 import co.com.sofka.modelo.Usuario;
 import co.com.sofka.repositorio.*;
@@ -11,7 +12,6 @@ import org.hibernate.SessionFactory;
 import static co.com.sofka.menu.ConstantesMenu.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class Menu {
     static Scanner scanner = new Scanner(System.in);
@@ -24,17 +24,15 @@ public class Menu {
     static ServicioNovela servicioNovela = new ServicioNovela(repositorioNovela);
     static RepositorioPrestamo repositorioPrestamo = new RepositorioPrestamo(sessionFactory);
     static ServicioPrestamo servicioPrestamo = new ServicioPrestamo(repositorioPrestamo, repositorioLibro, repositorioNovela);
+
+    static ExportarLibros exportarLibros = new ExportarLibros(sessionFactory);
+
     static MenuAdministrador menuAdministrador = new MenuAdministrador(servicioUsuario, scanner);
     static MenuLector menuLector = new MenuLector(servicioLibro, servicioNovela, servicioPrestamo, scanner);
-    static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner);
-    static Usuario usuarioIngresado = null;
-//    private static final Logger logger = Logger.getLogger(Menu.class.getName());
-//
-//    public static void menu(String[] args) {
-//        logger.info("Este es un mensaje de información.");
-//        logger.warning("Este es un mensaje de advertencia.");
-//        logger.severe("Este es un mensaje de error grave.");
+    static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner, exportarLibros);
 
+
+    static Usuario usuarioIngresado = null;
 
     // Al iniciar la aplicacion se desea ejecutar el menu, una vez el usuario desee, se asigna a false y se sale del menu
     static boolean seguirEjecucion = true;
@@ -63,7 +61,6 @@ public class Menu {
         }
 
     }
-
 
     private static void imprimirMenuUsuarioSinIngresar(Scanner scanner){
         imprimirMenuInicial();

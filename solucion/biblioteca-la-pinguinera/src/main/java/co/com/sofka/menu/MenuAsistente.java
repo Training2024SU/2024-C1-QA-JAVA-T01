@@ -1,5 +1,6 @@
 package co.com.sofka.menu;
 
+import co.com.sofka.ExportarLibros;
 import co.com.sofka.servicio.ServicioLibro;
 import co.com.sofka.servicio.ServicioNovela;
 import co.com.sofka.servicio.ServicioPrestamo;
@@ -20,13 +21,13 @@ public class MenuAsistente {
 
     boolean seguirEjecucion = true;
 
-    public MenuAsistente(ServicioLibro servicioLibro, ServicioNovela servicioNovela, ServicioPrestamo servicioPrestamo, Scanner scanner) {
+    public MenuAsistente(ServicioLibro servicioLibro, ServicioNovela servicioNovela, ServicioPrestamo servicioPrestamo, Scanner scanner, ExportarLibros exportarLibros) {
         this.servicioLibro = servicioLibro;
         this.servicioNovela = servicioNovela;
         this.servicioPrestamo = servicioPrestamo;
         this.scanner = scanner;
 
-        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro);
+        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro, exportarLibros);
         this.metodosMenuAsistenteNovela = new MetodosMenuAsistenteNovela(scanner, servicioNovela);
         this.metodosMenuAsistentePrestamo = new MetodosMenuAsistentePrestamo(scanner, servicioPrestamo);
     }
@@ -82,6 +83,12 @@ public class MenuAsistente {
                     break;
                 case 14:
                     metodosMenuAsistenteNovela.borrarNovela();
+                    break;
+                case 15:
+                    metodosMenuAsistenteLibro.exportarAExcel();
+                    break;
+                case 16:
+                    metodosMenuAsistenteLibro.leerExcel();
                     break;
                 case 0:
                     seguirEjecucion = false;

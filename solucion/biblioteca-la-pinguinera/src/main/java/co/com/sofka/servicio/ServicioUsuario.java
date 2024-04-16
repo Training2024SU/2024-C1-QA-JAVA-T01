@@ -8,6 +8,8 @@ public class ServicioUsuario {
 
     private RepositorioUsuario repositorioUsuario;
 
+    private final Logger logger = Logger.getLogger(ServicioUsuario.class.getName());
+
     public ServicioUsuario(RepositorioUsuario repositorioUsuario){
         this.repositorioUsuario = repositorioUsuario;
     }
@@ -20,7 +22,7 @@ public class ServicioUsuario {
         usuario.setRol(RolUsuario.LECTORES);
 
         repositorioUsuario.guardar(usuario);
-        System.out.println("Usuario lector creado exitosamente");
+        logger.info("Usuario lector creado exitosamente");
     }
 
     public void crearUsuarioAsistente(String nombre, String correo, String contrasena){
@@ -31,7 +33,7 @@ public class ServicioUsuario {
         usuario.setRol(RolUsuario.ASISTENTE);
 
         repositorioUsuario.guardar(usuario);
-        System.out.println("Usuario asistente creado exitosamente");
+        logger.info("Usuario asistente creado exitosamente");
     }
 
     public void listarUsuariosAsistentes(){

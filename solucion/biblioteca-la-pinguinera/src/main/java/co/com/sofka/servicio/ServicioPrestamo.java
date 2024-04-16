@@ -105,7 +105,7 @@ public class ServicioPrestamo {
         public void realizarDevolucion(Long prestamoId) {
             Prestamo prestamo = repositorioPrestamo.obtenerPrestamo(prestamoId);
             if (prestamo == null) {
-                logger.warning("Prestamo no existe");
+                System.out.println("Prestamo no existe");
                 return;
             }
 

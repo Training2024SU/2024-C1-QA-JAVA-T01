@@ -19,9 +19,7 @@ public class RepositorioLibro {
 
     public void guardar(Libro libro) {
         try (Session session = sessionFactory.openSession()) {
-            //Transaction tx = session.beginTransaction();
             session.save(libro);
-            //tx.commit();
         }
     }
 
@@ -38,9 +36,7 @@ public class RepositorioLibro {
 
     public void modificar(Libro libro){
         try(Session session = sessionFactory.openSession()){
-            //Transaction tx = session.beginTransaction();
             session.update(libro);
-            //tx.commit();
         }
     }
 
