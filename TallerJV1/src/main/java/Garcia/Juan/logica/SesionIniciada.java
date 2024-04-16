@@ -1,5 +1,6 @@
 package Garcia.Juan.logica;
 
+import Garcia.Juan.Exporter.CSVExporter;
 import Garcia.Juan.database.mysql.MySqlOperation;
 import Garcia.Juan.model.Usuario;
 
@@ -86,6 +87,7 @@ public class SesionIniciada {
                     case 2:
                         List<Usuario> usuarios = getUsersFromTable(mySqlOperation);//ver info users
                         System.out.println(usuarios);
+                        CSVExporter.exportToCSV(usuarios);
                         break;
                     default:
                         ciclo=false;

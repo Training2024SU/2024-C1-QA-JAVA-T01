@@ -18,8 +18,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
     implementation("com.github.javafaker:javafaker:1.0.2")
 
-    implementation("org.apache.poi:poi:5.3.1") // Dependencia principal de Apache POI
-    implementation("org.apache.poi:poi-ooxml:5.3.1")
+    //7implementation(kotlin("stdlib"))
+    implementation("com.opencsv:opencsv:5.5.1")
+
+
 }
 
 tasks.test {
