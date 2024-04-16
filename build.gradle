@@ -17,9 +17,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
     implementation 'com.github.javafaker:javafaker:1.0.2'
-
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 
 }
+
+// Definir variables locales
+ext {
+    databaseName =  project.findProperty("database.databaseName")
+}
+
 
 test {
     useJUnitPlatform()

@@ -1,5 +1,6 @@
 package com.sofkau.integration.database;
 import com.sofkau.integration.database.mysql.MySqlOperation;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,10 +10,13 @@ import java.util.logging.Logger;
 public class ConexionDatabase {
 
 
-    private static final String server = "localhost:3306";;
-    private static final String databaseName = "biblioteca_pinguinera_db";
-    private static final String user = "root";;
-    private static final String password = "1234";;
+    //Instanciar objeto que me permite leer desde archivo .env
+    static Dotenv dotenv = Dotenv.configure().load();
+
+    private static final String server =  dotenv.get("database.server");
+    private static final String databaseName = dotenv.get("database.databaseName");
+    private static final String user = dotenv.get("database.user");
+    private static final String password = dotenv.get("database.password");
 
     private static final MySqlOperation mySqlOperation = new MySqlOperation();
 
