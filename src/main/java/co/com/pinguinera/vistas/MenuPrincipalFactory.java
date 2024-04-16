@@ -14,6 +14,7 @@ import co.com.pinguinera.vistas.vista_empleado.InformacionEmpleadoVista;
 import co.com.pinguinera.vistas.vista_usuario.MenuPrincipalUsuario;
 import co.com.pinguinera.vistas.vista_usuario.InformacionUsuarioVista;
 import co.com.pinguinera.vistas.vistas_administrativo.MenuPrincipalAdministrativo;
+import co.com.pinguinera.vistas.vistas_asistente.MenuAdministrarPrestamos;
 import co.com.pinguinera.vistas.vistas_asistente.MenuPrincipalAsistente;
 import co.com.pinguinera.vistas.vistas_libro.InformacionLibroVista;
 import co.com.pinguinera.vistas.vistas_novela.InformacionNovelaVista;
@@ -111,12 +112,22 @@ public class MenuPrincipalFactory {
         // Asignar MenuPrincipalUsuario a UsuarioSesionControlador
         usuarioSesionControlador.setMenuPrincipalUsuario(menuPrincipalUsuario);
 
-        // Crear instancia de MenuPrincipalAsistente
+
+// Crear instancia de MenuAdministrarPrestamos
+        MenuAdministrarPrestamos menuAdministrarPrestamos = new MenuAdministrarPrestamos(
+                controladorCRUDPrestamo,
+                usuarioDAO,
+                prestamoDAO
+        );
+
+// Crear instancia de MenuPrincipalAsistente
         MenuPrincipalAsistente menuPrincipalAsistente = new MenuPrincipalAsistente(
                 controladorCRUDLibro,
                 controladorCRUDNovela,
-                controladorCRUDPrestamo
+                controladorCRUDPrestamo,
+                menuAdministrarPrestamos // Pasa la instancia de MenuAdministrarPrestamos como argumento
         );
+
 
         // Crear instancia de MenuPrincipalAdministrativo
         MenuPrincipalAdministrativo menuPrincipalAdministrativo = new MenuPrincipalAdministrativo(

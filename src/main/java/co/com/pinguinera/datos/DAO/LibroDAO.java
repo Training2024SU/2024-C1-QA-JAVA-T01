@@ -36,13 +36,7 @@ public class LibroDAO extends AbstractDAO<Libro> {
         libro.setCantEjemplares(resultSet.getInt("Cant_ejemplares"));
         libro.setCantPrestados(resultSet.getInt("Cant_prestados"));
 
-        // `cant_disponible` es un campo calculado, se ajusta automáticamente en la base de datos
-        // pero lo tomamos del resultado para tener la información actualizada
         libro.setCantDisponible(resultSet.getInt("Cant_disponible"));
-
-        // Por ahora, se puede asignar `null` a áreas y edades hasta que se establezca cómo manejarlas
-        libro.setAreas(null);
-        libro.setEdades(null);
 
         return libro;
     }

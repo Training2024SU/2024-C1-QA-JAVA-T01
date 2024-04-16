@@ -51,13 +51,26 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
+
     @Override
     public String toString() {
-        return "Usuario{" +
-                "idUsuario=" + idUsuario +
-                ", correo='" + correo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                '}';
+        final String RESET = "\033[0m";
+        final String GREEN = "\033[32m";
+
+        String columnas = String.format(
+                "%-10s %-30s %-20s %-20s",
+                "ID", "Correo", "Nombre", "Contraseña"
+        );
+
+        String datos = String.format(
+                "%s%-10d%s %s%-30s%s %s%-20s%s %s%-20s%s",
+                GREEN, idUsuario, RESET,
+                GREEN, correo, RESET,
+                GREEN, nombre, RESET,
+                GREEN, contrasena, RESET
+        );
+        return "\n" + columnas + "\n" + datos;
     }
+
 }
+

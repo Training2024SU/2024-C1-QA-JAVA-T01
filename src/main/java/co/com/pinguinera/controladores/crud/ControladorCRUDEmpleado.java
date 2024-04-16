@@ -37,11 +37,12 @@ public class ControladorCRUDEmpleado {
         try {
             empleadoDAO.insertar(nuevoEmpleado);
         } catch (SQLException e) {
-            e.printStackTrace();
+            VistaUtil.mostrarMensajeEmpleadoAdministrativoExistente();
             return;
         }
         sincronizarDatos();
     }
+
 
     public void obtenerTodosEmpleados() {
         try {

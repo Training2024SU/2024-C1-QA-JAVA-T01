@@ -1,7 +1,6 @@
 package co.com.pinguinera.datos.model;
-
 import co.com.pinguinera.datos.model.enums.TipoPublicacion;
-import java.util.List;
+
 
 public class Publicacion {
     private int idPublicacion; // Nuevo atributo `idPublicacion`
@@ -12,15 +11,13 @@ public class Publicacion {
     private int cantEjemplares;
     private int cantPrestados;
     private int cantDisponible;
-    private List<AreaGenero> areas;
-    private List<EdadSugerida> edades;
 
     public Publicacion() {
         // Constructor vacío
     }
 
     // Constructor con todos los campos, incluyendo `idPublicacion`
-    public Publicacion(int idPublicacion, String titulo, TipoPublicacion tipoPublicacion, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
+    public Publicacion(int idPublicacion, String titulo, TipoPublicacion tipoPublicacion, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible) {
         this.idPublicacion = idPublicacion;
         this.titulo = titulo;
         this.tipoPublicacion = tipoPublicacion;
@@ -29,8 +26,7 @@ public class Publicacion {
         this.cantEjemplares = cantEjemplares;
         this.cantPrestados = cantPrestados;
         this.cantDisponible = cantDisponible;
-        this.areas = areas;
-        this.edades = edades;
+
     }
 
     // Getters y Setters
@@ -98,21 +94,6 @@ public class Publicacion {
         this.cantDisponible = cantDisponible;
     }
 
-    public List<AreaGenero> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(List<AreaGenero> areas) {
-        this.areas = areas;
-    }
-
-    public List<EdadSugerida> getEdades() {
-        return edades;
-    }
-
-    public void setEdades(List<EdadSugerida> edades) {
-        this.edades = edades;
-    }
 
     @Override
     public String toString() {

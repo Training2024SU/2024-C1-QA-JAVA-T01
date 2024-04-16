@@ -77,13 +77,22 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo{" +
-                "idPrestamo=" + idPrestamo +
-                ", fechaPrestamo=" + fechaPrestamo +
-                ", fechaDevolucion=" + fechaDevolucion +
-                ", estado=" + estado +
-                ", idUsuario=" + idUsuario +
-                ", idPublicacion=" + idPublicacion +
-                '}';
+        final String RESET = "\033[0m";
+        final String GREEN = "\033[32m";
+        String columnas = String.format(
+                "%-10s %-20s %-20s %-10s %-15s %-15s",
+                "ID", "Fecha Préstamo", "Fecha Devolución", "Estado", "ID Usuario", "ID Publicación"
+        );
+        String datos = String.format(
+                "%s%-10d%s %s%-20s%s %s%-20s%s %s%-10s%s %s%-15d%s %s%-15d%s",
+                GREEN, idPrestamo, RESET,
+                GREEN, fechaPrestamo, RESET,
+                GREEN, fechaDevolucion, RESET,
+                GREEN, estado, RESET,
+                GREEN, idUsuario, RESET,
+                GREEN, idPublicacion, RESET
+        );
+        return "\n" + columnas + "\n" + datos;
     }
+
 }

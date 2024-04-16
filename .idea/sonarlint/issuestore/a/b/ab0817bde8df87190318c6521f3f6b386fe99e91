@@ -1,7 +1,7 @@
 
-¢
-java:S1488Š"eImmediately return this expression instead of assigning it to the temporary variable "menuPrincipal".(£Î¡ºJ$4129e6ab-a311-4d17-b966-5115c2294dd6
-v
-java:S1118":Add a private constructor to hide the implicit public one.(•ÇÌJ$98f80567-c4b4-4713-9aa9-a54c0350f0d9
-¯
-java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(¡ùË»üÿÿÿÿJ$01151f65-fde2-44f7-93d8-31b354dfcf43
+©
+java:S1488•"eImmediately return this expression instead of assigning it to the temporary variable "menuPrincipal".(£Î¡º8ˆÁ²Âî1J$4fba24c1-4a89-4742-8bae-f9b05492dbf9
+}
+java:S1118":Add a private constructor to hide the implicit public one.(•ÇÌ8Á²Âî1J$c93368f0-8ba1-434c-8180-0c477c7313e3
+
+java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(¡ùË»üÿÿÿÿ8¹ü²Âî1

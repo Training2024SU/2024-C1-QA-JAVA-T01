@@ -78,4 +78,8 @@ public class VistaUtil {
         LOGGER.info("Solicitud de informacion fallida. Intente de nuevo");
     }
 
+    public static void mostrarMensajeEmpleadoAdministrativoExistente() {
+        LOGGER.info("Error: Ya existe un empleado administrativo registrado. Intente con diferentes datos.");
+    }
+
 }

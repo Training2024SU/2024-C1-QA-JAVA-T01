@@ -73,13 +73,22 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" +
-                "idEmpleado=" + idEmpleado +
-                ", nombre='" + nombre + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                ", correo='" + correo + '\'' +
-                ", rol='" + rol + '\'' +
-                ", esAdministrativo=" + esAdministrativo +
-                '}';
+        final String RESET = "\033[0m";
+        final String GREEN = "\033[32m";
+
+        String columnas = String.format(
+                "%-10s %-20s %-15s %-30s %-15s %-15s",
+                "ID", "Nombre", "Contraseña", "Correo", "Rol", "Administrativo"
+        );
+        String datos = String.format(
+                "%s%-10d%s %s%-20s%s %s%-15s%s %s%-30s%s %s%-15s%s %s%-15b%s",
+                GREEN, idEmpleado, RESET,
+                GREEN, nombre, RESET,
+                GREEN, contrasena, RESET,
+                GREEN, correo, RESET,
+                GREEN, rol, RESET,
+                GREEN, esAdministrativo, RESET
+        );
+        return "\n" + columnas + "\n" + datos;
     }
 }

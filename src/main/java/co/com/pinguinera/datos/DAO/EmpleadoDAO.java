@@ -6,6 +6,7 @@ import co.com.pinguinera.datos.model.Empleado;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class EmpleadoDAO extends AbstractDAO<Empleado> {
 
@@ -52,8 +53,10 @@ public class EmpleadoDAO extends AbstractDAO<Empleado> {
             statement.setString(5, empleado.getRol());
             statement.setBoolean(6, empleado.isEsAdministrativo());
             statement.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
         }
     }
+
 
     // Método para actualizar un empleado existente en la base de datos
     @Override

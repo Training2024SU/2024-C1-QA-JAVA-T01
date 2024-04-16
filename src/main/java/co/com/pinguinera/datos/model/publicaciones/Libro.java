@@ -15,8 +15,8 @@ public class Libro extends Publicacion {
         this.setTipoPublicacion(TipoPublicacion.LIBRO);
     }
 
-    public Libro(int idPublicacion, String titulo, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
+    public Libro(int idPublicacion, String titulo, String autor, int numPaginas, int cantEjemplares, int cantPrestados, int cantDisponible) {
         // Llama al constructor de Publicacion con todos los parámetros, incluido `idPublicacion`
-        super(idPublicacion, titulo, TipoPublicacion.LIBRO, autor, numPaginas, cantEjemplares, cantPrestados, cantDisponible, areas, edades);
+        super(idPublicacion, titulo, TipoPublicacion.LIBRO, autor, numPaginas, cantEjemplares, cantPrestados, cantDisponible);
     }
 }
