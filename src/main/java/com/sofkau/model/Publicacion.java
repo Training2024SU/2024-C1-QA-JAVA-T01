@@ -15,20 +15,21 @@ public class Publicacion {
     private List<EdadSugerida> edades;
 
 
-    public Publicacion(String titulo, Autor autor, int numeroPaginas, int cantidadEjemplares, int cantidadPrestado) {
+    public Publicacion(String titulo, Autor autor,String tipo, int numeroPaginas, int cantidadEjemplares, int cantidadPrestado) {
         this.titulo = titulo;
         this.autor = autor;
         this.numeroPaginas = numeroPaginas;
         this.cantidadEjemplares = cantidadEjemplares;
         this.cantidadPrestado = cantidadPrestado;
+        this.tipo = tipo;
     }
 
-    public Publicacion(String titulo, Autor autor, int cantidadEjemplares, int cantidadPrestado) {
+    public Publicacion(String titulo, Autor autor,String tipo, int cantidadEjemplares, int cantidadPrestado) {
         this.titulo = titulo;
         this.autor = autor;
-        this.numeroPaginas = numeroPaginas;
         this.cantidadEjemplares = cantidadEjemplares;
         this.cantidadPrestado = cantidadPrestado;
+        this.tipo = tipo;
     }
 
     public Publicacion() {

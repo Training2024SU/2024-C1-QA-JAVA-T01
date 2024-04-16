@@ -66,4 +66,19 @@ public class PublicacionRepositorio {
         return publicaciones;
     }
 
+    public static void actualizarPublicacion(String tituloAnterior,Publicacion nuevaPublicacion) {
+        String query = String.format("UPDATE Publicacion SET titulo='%s', tipo_publicacion='%s', id_autor='%s', num_paginas=%d, " +
+                        "cant_ejemplares=%d, cant_prestados=%d, cant_disponible=%d WHERE titulo='%s'",
+                nuevaPublicacion.getTitulo(),
+                nuevaPublicacion.getTipo(),
+                nuevaPublicacion.getAutor().getId(),
+                nuevaPublicacion.getNumeroPaginas(),
+                nuevaPublicacion.getCantidadEjemplares(),
+                nuevaPublicacion.getCantidadPrestado(),
+                nuevaPublicacion.getCantidadDisponible(),
+                tituloAnterior);
+
+        IngresoQuery.ejecutarIngresoQuery(query);
+    }
+
 }

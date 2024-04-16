@@ -5,6 +5,14 @@ public class EdadSugerida {
     private String titulo;
     private String edadSugeridad;
 
+    public EdadSugerida(String titulo, String edadSugeridad) {
+        this.titulo = titulo;
+        this.edadSugeridad = edadSugeridad;
+    }
+
+    public EdadSugerida() {
+    }
+
     public String getTitulo() {
         return titulo;
     }

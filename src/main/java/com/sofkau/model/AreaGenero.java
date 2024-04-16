@@ -5,6 +5,14 @@ public class AreaGenero {
     private String titulo;
     private String areaGenero;
 
+    public AreaGenero(String titulo, String areaGenero) {
+        this.titulo = titulo;
+        this.areaGenero = areaGenero;
+    }
+
+    public AreaGenero() {
+    }
+
     public String getTitulo() {
         return titulo;
     }

@@ -10,4 +10,14 @@ public class MensajeOperacionBd {
         System.out.println(ConstantesInserccionBd.MSN_ERRORCREARAUTOR);
     }
 
+    public static void crearLibro(){
+        System.out.println(ConstantesInserccionBd.MSN_CREARlIBRO);
+    }
+
+    public static void crearNovela(){
+        System.out.println(ConstantesInserccionBd.MSN_CREARNOVELA);
+    }
+
+
+
 }

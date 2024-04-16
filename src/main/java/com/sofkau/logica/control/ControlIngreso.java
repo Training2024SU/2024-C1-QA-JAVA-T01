@@ -5,9 +5,7 @@ import com.sofkau.logica.Autor.AutorOperaciones;
 import com.sofkau.logica.empleado.EmpleadoOperaciones;
 import com.sofkau.logica.publicacion.PublicacionOperaciones;
 import com.sofkau.logica.usuario.UsuarioOperaciones;
-import com.sofkau.model.Empleado;
-import com.sofkau.model.Publicacion;
-import com.sofkau.model.Usuario;
+import com.sofkau.model.*;
 import com.sofkau.util.enums.Roles;
 import com.sofkau.util.enums.TipoPublicacion;
 
@@ -49,12 +47,12 @@ public class ControlIngreso {
                         }case 1 ->{
 
                         }case 2 ->{
-                            scannerGlobal.nextLine();
                             menuEmpleado();
                         }
                     }
 
             } catch (Exception e) {
+                    option = 0;
                     System.out.println("Error por la razon " + e.getMessage());
                 }
         }
@@ -79,7 +77,6 @@ public class ControlIngreso {
                 }else{
                     System.out.println("Credenciales incorrectas por favor verifique");
                 }
-
                 break;
             case 3:
                 Menu.nombre();
@@ -211,12 +208,14 @@ public class ControlIngreso {
                 int cantPres = scannerGlobal.nextInt();
                 Menu.ingresoNumPaginas();
                 int numPag = scannerGlobal.nextInt();
+                scannerGlobal.nextLine();
                 Menu.ingresoAreaConocimiento();
                 String areaConocimiento = scannerGlobal.nextLine();
 
+                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Libro.toString(),
+                                numPag,cantEjemplar,cantPres),
+                         new AreaGenero(titulo,areaConocimiento));
 
-                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),numPag,cantEjemplar,cantPres),
-                        TipoPublicacion.Libro);
             }
             case 2 -> {
                 Menu.ingresoNovela();
@@ -229,8 +228,16 @@ public class ControlIngreso {
                 int cantEjemplar = scannerGlobal.nextInt();
                 Menu.ingresoCantPrestado();
                 int cantPres = scannerGlobal.nextInt();
-                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),cantEjemplar,cantPres),
-                        TipoPublicacion.Novela);
+                scannerGlobal.nextLine();
+                Menu.ingresoGenero();
+                String genero = scannerGlobal.nextLine();
+                Menu.ingresoEdadSugerida();
+                String edadSugeridad = scannerGlobal.nextLine();
+
+                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Libro.toString(),
+                                cantEjemplar,cantPres),
+                        new AreaGenero(titulo,genero),new EdadSugerida(titulo,edadSugeridad));
+
             }
             default -> {
                 System.out.println("Ha ocurrido un error por favor verifique sus credenciales");

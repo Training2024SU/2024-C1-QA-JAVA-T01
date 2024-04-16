@@ -30,4 +30,15 @@ public class AreaGeneroOperaciones {
                     .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public void actualizarAreaGenero(String tituloPublicacion, AreaGenero areaGenero) {
+        // Actualizar en el repositorio
+        AreaGeneroRepositorio.actualizarAreaGenero(tituloPublicacion, areaGenero);
+
+        // Eliminar la entrada antigua de la lista, si existe
+        listaAreaGeneros.removeIf(ag -> ag.getTitulo().equals(tituloPublicacion));
+
+        // Agregar la nueva entrada a la lista
+        listaAreaGeneros.add(areaGenero);
+    }
+
 }

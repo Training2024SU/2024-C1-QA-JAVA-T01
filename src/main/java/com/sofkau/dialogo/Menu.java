@@ -74,6 +74,10 @@ public class Menu {
         System.out.println(MSN_GENERO);
     }
 
+    public static void ingresoEdadSugerida(){
+        System.out.println(MSN_EDADSUGERIDA);
+    }
+
 
 
 

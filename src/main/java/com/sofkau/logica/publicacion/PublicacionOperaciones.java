@@ -1,6 +1,9 @@
 package com.sofkau.logica.publicacion;
 
 import com.github.javafaker.Faker;
+import com.sofkau.dialogo.MensajeOperacionBd;
+import com.sofkau.dialogo.Menu;
+import com.sofkau.integration.repositorio.AreaGeneroRepositorio;
 import com.sofkau.integration.repositorio.PublicacionRepositorio;
 import com.sofkau.model.AreaGenero;
 import com.sofkau.model.Autor;
@@ -16,28 +19,79 @@ import static com.sofkau.integration.database.mysql.Constantes.INSERT_LIBRO;
 
 public class PublicacionOperaciones {
 
-
     private static HashMap<String, Publicacion> publicaciones = new HashMap<>();
 
     private AreaGeneroOperaciones areaGeneroOperaciones = new AreaGeneroOperaciones();
 
     private EdadSugeridaOperaciones edadSugeridaOperaciones = new EdadSugeridaOperaciones();
 
+// Se hace una sobrecarga de metodos para registrar según sea el tipo de publicacion
 
-    public void registrarPublicacion(Publicacion publicacion, TipoPublicacion tipo) {
+    // Se crea un libro
+    public void registrarPublicacion(Publicacion publicacion, AreaGenero areaGenero) {
 
-        publicacion.setTipo(tipo.toString());
-        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares()- publicacion.getCantidadPrestado());
+        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares() - publicacion.getCantidadPrestado());
 
-        // Crear la publicación en la base de datos
+        // Crear el libro en la base de datos
         PublicacionRepositorio.crearPublicacion(publicacion);
 
-        // Agregar la publicación al HashMap de publicaciones
-         publicaciones.put(publicacion.getTitulo(), publicacion);
+        //Crear Area genero en la base de datos
+        areaGeneroOperaciones.crearAreaGenero(areaGenero);
+
+        // Agregar el libro al HashMap de publicaciones
+         publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
 
         System.out.println("Libro creado correctamente: "+publicacion);
 
+
     }
+
+    // Se crea una novela
+    public void registrarPublicacion(Publicacion publicacion, AreaGenero areaGenero, EdadSugerida edadSugerida) {
+
+        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares()- publicacion.getCantidadPrestado());
+
+        // Crear el libro en la base de datos
+        PublicacionRepositorio.crearPublicacion(publicacion);
+
+        //Crear Area genero en la base de datos
+        areaGeneroOperaciones.crearAreaGenero(areaGenero);
+
+        // Crear EdadSugeridad en la base de datos
+        edadSugeridaOperaciones.crearEdadSugerida(edadSugerida);
+
+        // Agregar la novela al HashMap de publicaciones
+        publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
+        publicaciones.put(publicacion.getTitulo(),relacionarEdadesSugeridas(publicacion));
+
+        MensajeOperacionBd.crearNovela();
+
+    }
+
+    public void actualizarPublicacion(Publicacion publicacion, AreaGenero areaGenero, EdadSugerida edadSugerida) {
+
+        publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares()- publicacion.getCantidadPrestado());
+
+        // Crear el libro en la base de datos
+        PublicacionRepositorio.actualizarPublicacion(publicacion.getTitulo(),publicacion);
+
+        //Crear Area genero en la base de datos
+        areaGeneroOperaciones.crearAreaGenero(areaGenero);
+
+        // Crear EdadSugeridad en la base de datos
+        edadSugeridaOperaciones.crearEdadSugerida(edadSugerida);
+
+        // Agregar la novela al HashMap de publicaciones
+        publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
+        publicaciones.put(publicacion.getTitulo(),relacionarEdadesSugeridas(publicacion));
+
+        MensajeOperacionBd.crearNovela();
+
+    }
+
+
+
+
 
     private Publicacion relacionarAreasGenero(Publicacion publicacion) {
         // Obtener las áreas de género para esta publicación
@@ -59,6 +113,7 @@ public class PublicacionOperaciones {
         return publicacion;
     }
 
+    // Trae todas las publicaciones y las guarda en el hashmap
     private void getPublicaciones() {
         publicaciones = PublicacionRepositorio.consultarPublicaciones();
         for (Publicacion publicacion : publicaciones.values()) {
@@ -67,18 +122,4 @@ public class PublicacionOperaciones {
         }
     }
 
-    public static String crearLibro() {
-        String id;
-        String nombre;
-        String numeroHojas;
-        String editorial;
-        String sentencia;
-        Faker faker = new Faker(new Locale("es"));
-        id = faker.bothify("####???##");
-        nombre = (faker.name().name()).replace("'", "");
-        numeroHojas = faker.bothify("###");
-        editorial = (faker.book().publisher()).replace("'", "");
-        sentencia = String.format(INSERT_LIBRO, id, nombre, numeroHojas, editorial);
-        return sentencia;
-    }
 }

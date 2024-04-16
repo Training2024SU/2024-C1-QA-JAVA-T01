@@ -31,6 +31,9 @@ public class ConstantesMenu {
     public static final String MSN_CANT_PRESTADOS = "Ingreso de cantidad prestados";
 
     public static final String MSN_AREACONOCIMIENTO = "Ingreso area de conocimiento";
+
+    public static final String MSN_EDADSUGERIDA = "Ingreso la edad sugeridad para la novela";
+
     public static final String MSN_GENERO = "Ingreso genero";
 
     public static final String MSN_CREARNOVELA ="2. Crear Novela";

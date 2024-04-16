@@ -29,4 +29,14 @@ public class EdadSugeridaOperaciones {
                 .filter(edad -> edad.getTitulo().equals(titulo))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public void actualizarEdadSugerida(String tituloPublicacion, EdadSugerida edadSugerida) {
+        EdadSugeridaRepositorio.actualizarEdadSugerida(tituloPublicacion,edadSugerida);
+        // Eliminar la entrada antigua de la lista, si existe
+        listaEdadesSugeridas.removeIf(edad -> edad.getTitulo().equals(tituloPublicacion));
+
+        // Agregar la nueva entrada a la lista
+        listaEdadesSugeridas.add(edadSugerida);
+    }
+
 }

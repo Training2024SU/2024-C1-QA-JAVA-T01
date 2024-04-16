@@ -44,4 +44,10 @@ public class AreaGeneroRepositorio {
 
         return areaGeneros;
     }
+
+    public static void actualizarAreaGenero(String tituloPublicacion, AreaGenero areaGenero) {
+        String query = String.format("UPDATE Area_genero SET titulo_publicacion = '%s', area_generocol = '%s' WHERE titulo_publicacion = '%s'", areaGenero.getTitulo(), areaGenero.getAreaGenero(), tituloPublicacion);
+        IngresoQuery.ejecutarIngresoQuery(query);
+    }
+
 }
