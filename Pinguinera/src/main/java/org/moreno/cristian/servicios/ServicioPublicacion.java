@@ -69,15 +69,14 @@ public class ServicioPublicacion implements RepositorioPublicacion {
 
     @Override
     public boolean actualizarPublicacion(Publicacion publicacion) {
-        String sqlActualizarPublicacion = "UPDATE publicacion SET titulo = ?, nEjemplares = ?, nDisponibles = ?, nPrestados = ?, autor_id = ? WHERE id = ?";
+        String sqlActualizarPublicacion = "UPDATE publicacion SET titulo = ?, nEjemplares = ?, nPrestados = ?, autor_id = ? WHERE id = ?";
 
         try (PreparedStatement pstmtPublicacion = conn.prepareStatement(sqlActualizarPublicacion)) {
             pstmtPublicacion.setString(1, publicacion.getTitulo());
             pstmtPublicacion.setInt(2, publicacion.getTotalEjemplares());
-            pstmtPublicacion.setInt(3, publicacion.getEjemplaresDisponibles());
-            pstmtPublicacion.setInt(4, publicacion.getEjemplaresPrestados());
-            pstmtPublicacion.setString(5, publicacion.getAutor().getId());
-            pstmtPublicacion.setString(6, publicacion.getId());
+            pstmtPublicacion.setInt(3, publicacion.getEjemplaresPrestados());
+            pstmtPublicacion.setString(4, publicacion.getAutor().getId());
+            pstmtPublicacion.setString(5, publicacion.getId());
 
             int rowsAffected = pstmtPublicacion.executeUpdate();
 

@@ -12,7 +12,7 @@ public interface RepositorioLibro {
 
     Optional<Libro> libroPorNombre(String nombre);
     Optional<List<Libro>> todosDisponibles();
-    Optional<List<Libro>> disponiblePorNombreLibro(String nombreLibro);
+    Optional<Libro> disponiblePorNombreLibro(String nombreLibro);
     Optional<List<Libro>> disponiblesPorAutor(String nombreAutor);
 
 

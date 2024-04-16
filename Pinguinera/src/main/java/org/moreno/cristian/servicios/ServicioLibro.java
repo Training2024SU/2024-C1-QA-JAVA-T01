@@ -62,15 +62,15 @@ public class ServicioLibro implements RepositorioLibro {
     }
 
     @Override
-    public Optional<List<Libro>> disponiblePorNombreLibro(String nombreLibro) {
+    public Optional<Libro> disponiblePorNombreLibro(String nombreLibro) {
         return todosLibros()
-                .map(libros -> libros.stream()
+                .flatMap(libros -> libros.stream()
                         .filter(libro -> libro.getEjemplaresDisponibles() > 0)
                         .filter(libro -> libro.getTitulo().equals(nombreLibro))
-                        .collect(Collectors.toList())
-                )
-                .filter(libros -> !libros.isEmpty());
+                        .findFirst()  // Find the first libro that matches
+                );
     }
+
 
     @Override
     public Optional<List<Libro>> disponiblesPorAutor(String nombreAutor) {
@@ -83,10 +83,10 @@ public class ServicioLibro implements RepositorioLibro {
     public boolean guardarLibro(Libro nuevoLibro) {
         String sqlInsertLibro = "INSERT INTO libro (id, paginas, area) VALUES (?, ?, ?)";
         if (libroPorNombre(nuevoLibro.getTitulo()).isPresent()) {
-            return servicioPublicacion.guardarPublicacion(nuevoLibro)  &&
-                    ejecutarActualizacion(sqlInsertLibro, nuevoLibro.getId(), nuevoLibro.getNumeroPaginas(), nuevoLibro.getAreaConocimiento().toString());
+            return false;
         }
-        return false;
+        return servicioPublicacion.guardarPublicacion(nuevoLibro)  &&
+                ejecutarActualizacion(sqlInsertLibro, nuevoLibro.getId(), nuevoLibro.getNumeroPaginas(), nuevoLibro.getAreaConocimiento().toString());
     }
 
     @Override

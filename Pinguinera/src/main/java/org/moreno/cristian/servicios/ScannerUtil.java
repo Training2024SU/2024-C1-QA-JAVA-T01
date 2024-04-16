@@ -14,4 +14,24 @@ public class ScannerUtil {
             scanner.close();
         }
     }
+
+    public static int pedirEntero() {
+
+        int entero =0;
+
+        while (true) {
+            try {
+                entero = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("You entered: " + entero + "\n");
+                break;
+            } catch (java.util.InputMismatchException e) {
+                System.out.print("Invalid input. Please enter an integer.");
+                // Clear
+                scanner.next(); // Read and discard the invalid input
+            }
+
+        }
+        return entero;
+    }
 }

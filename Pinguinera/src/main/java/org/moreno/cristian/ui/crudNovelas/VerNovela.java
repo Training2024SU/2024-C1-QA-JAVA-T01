@@ -8,70 +8,30 @@ import org.moreno.cristian.modelos.enums.Genero;
 import org.moreno.cristian.repositorios.RepositorioLibro;
 import org.moreno.cristian.repositorios.RepositorioNovela;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class VerNovela {
 
     public static void verNovela(Scanner scan, RepositorioNovela servicioNovela) {
 
-        System.out.print("Ingresa el título de la novela: ");
-        String titulo = scan.nextLine();
+        Optional<List<Novela>> novelasOptional = servicioNovela.todasNovelas();
 
-        if (servicioNovela.novelaPorNombre(titulo).isEmpty()) {
-            System.out.println("Novela no encontrada ");
-            return;
-        }
+        if (novelasOptional.isPresent()) {
 
-        int numeroEjemplares =0;
-        System.out.print("Ingresa el número de ejemplares: ");
+            List<Novela> novelas = novelasOptional.get();
 
-        while (true) {
-            try {
-                numeroEjemplares = scan.nextInt();
-                scan.nextLine();
-
-            } catch (java.util.InputMismatchException e) {
-                System.out.print("Invalid input. Please enter an integer.");
-                // Clear the scanner buffer
-                scan.next(); // Read and discard the invalid input
+            for (Novela novela : novelas) {
+                System.out.println("Id: " + novela.getId());
+                System.out.println("Título: " + novela.getTitulo());
+                System.out.println("Autor: " + novela.getAutor().getNombre());
+                System.out.println("Área conocimiento: " + novela.getGenero());
+                System.out.println("Copias disponibles: " + novela.getEjemplaresDisponibles());
+                System.out.println("-----");
             }
-            if (numeroEjemplares <= 0) {
-                System.out.println("El número de ejemplares deber ser mayor que cero");
-            } else {
-                break;
-            }
-
-        }
-
-        System.out.print("Ingresa el nombre del autor: ");
-        String autor = scan.nextLine();
-
-
-        int edadLectura =0;
-        System.out.print("Ingresa el número de páginas: ");
-
-        while (true) {
-            try {
-                edadLectura = scan.nextInt();
-                scan.nextLine();
-                System.out.print("You entered: " + edadLectura);
-            } catch (java.util.InputMismatchException e) {
-                System.out.print("Invalid input. Please enter an integer.");
-                // Clear the scanner buffer
-                scan.next(); // Read and discard the invalid input
-            }
-            break;
-        }
-
-        System.out.print("Ingresa el área de conocimiento: ");
-        String area = scan.nextLine();
-
-        Novela nuevaNovela = new Novela(titulo, numeroEjemplares, 0, 0, new Autor(autor), edadLectura, Genero.valueOf(area));
-
-        if (servicioNovela.guardarNovela(nuevaNovela)) {
-            System.out.println("Novela guardado");
         } else {
-            System.out.println("Ocurrió un error");
+            System.out.println("No hay novelas");
         }
     }
 }

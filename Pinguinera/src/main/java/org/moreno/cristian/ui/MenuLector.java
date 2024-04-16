@@ -1,11 +1,13 @@
 package org.moreno.cristian.ui;
 
-import org.moreno.cristian.modelos.Libro;
-import org.moreno.cristian.modelos.Novela;
-import org.moreno.cristian.modelos.Usuario;
+import org.moreno.cristian.modelos.*;
+import org.moreno.cristian.repositorios.RepositorioLibro;
+import org.moreno.cristian.repositorios.RepositorioNovela;
+import org.moreno.cristian.repositorios.RepositorioPrestamo;
 import org.moreno.cristian.servicios.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,13 +16,15 @@ import java.util.Scanner;
 public class MenuLector {
 
     private static Scanner scan = ScannerUtil.obtenerScanner();
-    private static ServicioLibro servicioLibro;
-    private static ServicioNovela servicioNovela;
+    private static RepositorioLibro servicioLibro;
+    private static RepositorioNovela servicioNovela;
+    private static RepositorioPrestamo servicioPrestamo;
 
     static {
         try {
             servicioLibro = new ServicioLibro(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())), ConexionBD.obtenerConexion());
             servicioNovela = new ServicioNovela(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())), ConexionBD.obtenerConexion());
+            servicioPrestamo = new ServicioPrestamo(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -36,7 +40,7 @@ public class MenuLector {
             System.out.println("Qué desea hacer\n" +
                     "   1. Ver libros\n" +
                     "   2. Ver novelas\n" +
-                    "   3. Prestar libros\n" +
+                    "   3. Hacer préstamo\n" +
                     "   4. Prestar novelas\n" +
                     "   5. Devolver libros\n" +
                     "   6. Devoler novelas\n");
@@ -51,16 +55,16 @@ public class MenuLector {
                     listarNovelas();
                     break;
                 case "3":
-                    prestarLibros();
+                    hacerPrestamo(lector);
                     break;
                 case "4":
-                    prestarLibros();
+                    prestarNovelas();
                     break;
                 case "5":
-                    prestarLibros();
+                    devolverLibros();
                     break;
                 case "6":
-                    prestarLibros();
+                    devolverNovelas();
                     break;
                 default:
                     System.out.println("Ingresa una opción correcta");
@@ -75,7 +79,8 @@ public class MenuLector {
 
             System.out.println(
                     "\n   1. Ver todos\n" +
-                    "   2. Filtrar por autor" );
+                    "   2. Filtrar por autor\n" +
+                    "   3. Salir" );
 
             String respuestaLector = scan.nextLine();
             System.out.println(respuestaLector);
@@ -172,7 +177,55 @@ public class MenuLector {
         }
     }
 
-    public static void prestarLibros () {
+    public static void hacerPrestamo(Usuario usuario) {
+
+        List<Publicacion> publicacionesEnPrestamo = new ArrayList<>();
+
+        System.out.print("Escribe el número de publicaciones que deseas prestar: ");
+        int cantidadPublicaciones = ScannerUtil.pedirEntero();
+
+
+        for (int i = 1; i <= cantidadPublicaciones; i++) {
+            System.out.println("Ingresa el nombre de la pubicación " + i + ": ");
+            String nombrePublicacion = scan.nextLine();
+
+            Optional<? extends Publicacion> publicacionOptional = servicioLibro.disponiblePorNombreLibro(nombrePublicacion);
+
+            if (publicacionOptional.isPresent()) {
+
+                int copiasDisponibles = publicacionOptional.get().getEjemplaresDisponibles();
+
+                System.out.println("Existen " + copiasDisponibles + " ejemplar(es)\n" +
+                        "Ingresa la cantidad de ejemplares que deseas prestar: ");
+                int cantidadParaPrestar = ScannerUtil.pedirEntero();
+
+                while(cantidadParaPrestar > copiasDisponibles) {
+                    System.out.println("Has elegido una cantidad mayor a la disponible, escribe una cantidad válida: ");
+                    cantidadParaPrestar = ScannerUtil.pedirEntero();
+                }
+                publicacionOptional.get().setEjemplaresDisponibles(copiasDisponibles - cantidadParaPrestar);
+                publicacionesEnPrestamo.add(publicacionOptional.get());
+            } else {
+                System.out.println("No se pudo agregar el libro: No existe o no disponible");
+            }
+        }
+
+        if(publicacionesEnPrestamo.size() == 0) {
+            System.out.println("No se pudo hacer el préstamo: no se agregó ninguna publicación");
+            return;
+        }
+
+        LocalDate fechaDeHoy = LocalDate.now();
+        Prestamo nuevoPrestamo = new Prestamo(fechaDeHoy, fechaDeHoy.plusDays(15), usuario, publicacionesEnPrestamo);
+
+        if(servicioPrestamo.guardarPrestamo(nuevoPrestamo)) {
+            System.out.println("Préstamo realizado");
+        }
+        System.out.println("Ocurrió un error durante el préstamo");
+
+    }
+
+    public static void prestarNovelas () {
 
 
         while (true) {
@@ -183,6 +236,17 @@ public class MenuLector {
     }
 
     public static void devolverLibros () {
+
+
+        while (true) {
+
+            System.out.print("Escribe el nombre del libro que deseas devolver: ");
+
+            String respuestaLector = scan.nextLine();
+        }
+    }
+
+    public static void devolverNovelas () {
 
 
         while (true) {
