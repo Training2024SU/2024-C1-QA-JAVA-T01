@@ -35,6 +35,10 @@ public class Menu {
         System.out.println(ConstantesMenu.MSN_CREARNOVELA);
         System.out.println(ConstantesMenu.MSN_ACTUALIZARLIBRO);
         System.out.println(ConstantesMenu.MSN_ACTUALIZARNOVELA);
+        System.out.println(MSN_ENTREGARLIBRO);
+        System.out.println(MSN_LIBRODEV);
+        System.out.println(MSN_LISTARPRESTAMOS);
+
     }
 
     public static void prestamo(){
@@ -116,7 +120,20 @@ public class Menu {
         System.out.println(MSN_LISTARPUBLICACIONAUTOR);
     }
 
+    public static void entregarLibroUsuario() {
+        System.out.println(MSN_ENTREGARLIBRO);
+    }
 
+    public static void libroDevuelto() {
+        System.out.println(MSN_LIBRODEV);
+    }
 
+    public static void listarPrestamos() {
+        System.out.println(MSN_LISTARPRESTAMOS);
+    }
+
+    public static void IngresoIdPrestamo() {
+        System.out.println(MSN_INGRESOIDPRESTAMO);
+    }
 
 }

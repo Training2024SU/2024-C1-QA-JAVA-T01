@@ -7,8 +7,10 @@ import com.sofkau.logica.prestamo.PrestamoOperaciones;
 import com.sofkau.logica.publicacion.PublicacionOperaciones;
 import com.sofkau.logica.usuario.UsuarioOperaciones;
 import com.sofkau.model.*;
+import com.sofkau.util.enums.EstadoPrestamo;
 import com.sofkau.util.enums.Roles;
 import com.sofkau.util.enums.TipoPublicacion;
+import java.util.logging.Logger;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -29,6 +31,11 @@ public class ControlIngreso {
     private static PublicacionOperaciones publicacionOp = new PublicacionOperaciones();
 
     private static PrestamoOperaciones prestamoOp = new PrestamoOperaciones();
+
+    private static final Logger logger = Logger.getLogger(ControlIngreso.class.getName());
+
+
+
 
     private static int option = 0;
     private static int optionEmp = 0;
@@ -58,7 +65,7 @@ public class ControlIngreso {
 
             } catch (Exception e) {
                     option = 0;
-                    System.out.println("Error por la razon " + e.getMessage());
+                    logger.severe("Error por la razón: "+e.getMessage());
                 }
         }
     }
@@ -339,6 +346,22 @@ public class ControlIngreso {
                         cantEjemplar,cantPres),
                         new AreaGenero(titulo,genero),new EdadSugerida(titulo,edadSugeridad),
                         tituloAntiguo);
+            }case 5 ->{
+                    Menu.IngresoIdPrestamo();
+                    String idPrestamo = scannerGlobal.nextLine();
+                prestamoOp.actualizarEstadoPrestamo(EstadoPrestamo.REALIZADO,idPrestamo);
+
+            }case 6 ->{
+                    Menu.IngresoIdPrestamo();
+                    String idPrestamo = scannerGlobal.nextLine();
+                    prestamoOp.actualizarEstadoPrestamo(EstadoPrestamo.FINALIZADO,idPrestamo);
+
+            }case 7 ->{
+                    Menu.listarPrestamos();
+                    Menu.correo();
+                    String correo = scannerGlobal.nextLine();
+
+                    prestamoOp.listarPrestamosPorCorreo(correo);
             }
             default -> {
                 System.out.println("Ha ocurrido un error por favor verifique sus credenciales");

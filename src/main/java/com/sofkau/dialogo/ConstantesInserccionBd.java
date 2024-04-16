@@ -17,4 +17,8 @@ public class ConstantesInserccionBd {
 
     public static String MSN_CREARPRESTAMO="Se ha creado el prestamo exitosamente";
 
+    public static String MSN_PRESTAMOERROR ="Error al actualizar el prestamo";
+
+    public static String MSN_PRESTAMOACTUALIZADO ="El prestamo se ha actualizado correctamente";
+
 }

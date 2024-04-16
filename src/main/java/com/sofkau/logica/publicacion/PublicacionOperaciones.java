@@ -45,29 +45,22 @@ public class PublicacionOperaciones {
         areaGeneroOperaciones.crearAreaGenero(areaGenero);
         // Agregar el libro al HashMap de publicaciones
          publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
-        System.out.println("Libro creado correctamente: "+publicacion);
+        MensajeOperacionBd.crearLibro();
     }
 
     // Se crea una novela
     public void registrarPublicacion(Publicacion publicacion, AreaGenero areaGenero, EdadSugerida edadSugerida) {
-
         publicacion.setCantidadDisponible(publicacion.getCantidadEjemplares()- publicacion.getCantidadPrestado());
-
         // Crear el libro en la base de datos
         PublicacionRepositorio.crearPublicacion(publicacion);
-
         //Crear Area genero en la base de datos
         areaGeneroOperaciones.crearAreaGenero(areaGenero);
-
         // Crear EdadSugeridad en la base de datos
         edadSugeridaOperaciones.crearEdadSugerida(edadSugerida);
-
         // Agregar la novela al HashMap de publicaciones
         publicaciones.put(publicacion.getTitulo(),relacionarAreasGenero(publicacion));
         publicaciones.put(publicacion.getTitulo(),relacionarEdadesSugeridas(publicacion));
-
         MensajeOperacionBd.crearNovela();
-
     }
 
     //Se actualiza el libro
@@ -126,7 +119,7 @@ public class PublicacionOperaciones {
 
             MensajeOperacionBd.actualizarNovelaExitoso();
         }else{
-            MensajeOperacionBd.errorActualizarLibro();
+            MensajeOperacionBd.errorActualizarNovela();
         }
     }
 

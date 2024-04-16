@@ -59,4 +59,12 @@ public class PrestamoRepositorio {
             throw new RuntimeException(e);
         }
     }
+
+    public static void actualizarPrestamo(Prestamo prestamo) {
+        String query = String.format("UPDATE Prestamo SET estado='%s' WHERE id_prestamo='%s'",
+                prestamo.getEstadoPrestamo(),
+                prestamo.getId());
+        IngresoQuery.ejecutarIngresoQuery(query);
+    }
+
 }

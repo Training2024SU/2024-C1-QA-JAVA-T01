@@ -27,6 +27,7 @@ public class PrestamoOperaciones {
         getPrestamos();
     }
 
+    //Registra un nuevo prestamo
     public void RegistrarPrestamo (String titulo, String dateDevolucion, String correoUsuario){
         Prestamo prestamo = new Prestamo();
         prestamo.setId(GenerateUniqueId.generateID());
@@ -63,12 +64,38 @@ public class PrestamoOperaciones {
         publicacionOp.actualizarCantidadPrestadaPublicacion(prestamo.getTituloPublicacion(),1,false);
     }
 
-    public void actualizarEstadoPrestamo(){
 
+    // Actualiza el estado de un prestamo
+    public void actualizarEstadoPrestamo(EstadoPrestamo estado, String idPrestamo){
+       Prestamo prestamo = getPrestamo(idPrestamo);
+       Date fechaActual = new Date();
+        if(!prestamos.isEmpty()){
+            prestamo.setEstadoPrestamo(estado.toString());
+            PrestamoRepositorio.actualizarPrestamo(prestamo);
+            if(estado == EstadoPrestamo.FINALIZADO){
+                // Se devuelve publicacion del stock
+                publicacionOp.actualizarCantidadPrestadaPublicacion(prestamo.getTituloPublicacion(),1,true);
+            }
+
+            if(estado == EstadoPrestamo.FINALIZADO && fechaActual.after(prestamo.getFechaDevolucion()) ){
+                System.out.println("El usuario no cumplio con la fecha de devolución");
+            }
+            //Actualiza el prestamo en la lista
+            prestamos.put(idPrestamo,prestamo);
+            MensajeOperacionBd.prestamoActualizado();
+        }else{
+            MensajeOperacionBd.errorActualizacionPrestamo();
+        }
     }
 
+    //Consulta todos los prestamos en base de datos
     public void getPrestamos() {
         prestamos = PrestamoRepositorio.consultarPrestamos();
+    }
+
+    // Obtiene un prestamo
+    public Prestamo getPrestamo(String idPrestamo){
+       return prestamos.get(idPrestamo);
     }
 
     public void listarPrestamosPorCorreo(String correoUsuario) {

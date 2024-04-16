@@ -39,7 +39,7 @@ public class ConexionDatabase {
     public static MySqlOperation getMySqlOperation(){
         return mySqlOperation;
     }
-    public void closeConnection() throws SQLException {
+    public static void closeConnection() throws SQLException {
         mySqlOperation.close();
     }
 

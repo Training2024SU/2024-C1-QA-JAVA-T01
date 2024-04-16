@@ -1,46 +1,61 @@
 package com.sofkau.dialogo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MensajeOperacionBd {
 
+    private static final Logger logger = LoggerFactory.getLogger(MensajeOperacionBd.class);
+
     public static void crearAutor(){
-        System.out.println(ConstantesInserccionBd.MSN_CREARAUTOR);
+        logger.info(ConstantesInserccionBd.MSN_CREARAUTOR);
     }
 
     public static void crearError(){
-        System.out.println(ConstantesInserccionBd.MSN_ERRORCREARAUTOR);
+        logger.error(ConstantesInserccionBd.MSN_ERRORCREARAUTOR);
     }
 
     public static void crearLibro(){
-        System.out.println(ConstantesInserccionBd.MSN_CREARlIBRO);
+        logger.info(ConstantesInserccionBd.MSN_CREARlIBRO);
     }
 
     public static void crearNovela(){
-        System.out.println(ConstantesInserccionBd.MSN_CREARNOVELA);
+        logger.info(ConstantesInserccionBd.MSN_CREARNOVELA);
     }
 
     public static void actualizarLibroExitoso() {
-        System.out.println(ConstantesInserccionBd.MSN_ACTUALIZARLIBRO);
+        logger.info(ConstantesInserccionBd.MSN_ACTUALIZARLIBRO);
     }
 
     public static void actualizarNovelaExitoso() {
-        System.out.println(ConstantesInserccionBd.MSN_ACTUALIZARNOVELA);
+        logger.info(ConstantesInserccionBd.MSN_ACTUALIZARNOVELA);
     }
 
     public static void errorActualizarLibro() {
-        System.out.println(ConstantesInserccionBd.MSN_ERRORACTUALIZARLIBRO);
+        logger.error(ConstantesInserccionBd.MSN_ERRORACTUALIZARLIBRO);
     }
 
     public static void errorActualizarNovela() {
-        System.out.println(ConstantesInserccionBd.MSN_ERRORACTUALIZARNOVELA);
+        logger.error(ConstantesInserccionBd.MSN_ERRORACTUALIZARNOVELA);
     }
 
     public static void crearUsuario() {
-        System.out.println(ConstantesInserccionBd.MSN_CREARUSUARIO);
+        logger.info(ConstantesInserccionBd.MSN_CREARUSUARIO);
     }
 
     public static void crearPrestamo() {
-        System.out.println(ConstantesInserccionBd.MSN_CREARPRESTAMO);
+        logger.info(ConstantesInserccionBd.MSN_CREARPRESTAMO);
     }
+
+    public static void errorActualizacionPrestamo() {
+        logger.error(ConstantesInserccionBd.MSN_PRESTAMOERROR);
+    }
+
+    public static void prestamoActualizado() {
+        logger.info(ConstantesInserccionBd.MSN_PRESTAMOACTUALIZADO);
+    }
+
+
 
 
 }
