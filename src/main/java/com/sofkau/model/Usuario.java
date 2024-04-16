@@ -38,4 +38,13 @@ public class Usuario {
     public void setContrasena(String contrasenna) {
         this.contrasena = contrasenna;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                '}';
+    }
 }

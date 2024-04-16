@@ -45,4 +45,19 @@ public class ConstantesMenu {
     public static final String MSN_NOMBREU ="Por favor el ingrese nombre";
     public static final String MSN_CORREOU ="Por favor el ingrese correo";
     public static final String MSN_CONTRASENAU ="Por favor la ingrese contraseña";
+
+    public static final String MSN_PRESTAMO ="Prestamo";
+
+    public static final String MSN_FECHADEVOLUCION ="Por favor ingrese la fecha de devolución (formato: yyyy-MM-dd):";
+
+    public static final String MSN_REALIZARPRESTAMO ="1. Realizar Prestamo ";
+
+    public static final String MSN_LISTARLIBROSU ="2. LISTAR LIBROS";
+
+    public static final String MSN_LISTARNOVELASU ="3. LISTAR NOVELAS";
+
+    public static final String MSN_LISTARAUTORESU ="4. LISTAR AUTORES";
+
+    public static final String MSN_LISTARPUBLICACIONAUTOR="5. LISTAR PUBLICACIONES POR AUTOR";
+
 }

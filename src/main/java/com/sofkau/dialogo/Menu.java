@@ -38,6 +38,13 @@ public class Menu {
         System.out.println(ConstantesMenu.MSN_ACTUALIZARNOVELA);
     }
 
+    public static void prestamo(){
+        System.out.println(MSN_PRESTAMO);
+    }
+
+    public static void ingresoFechaDevolucion(){
+        System.out.println(MSN_FECHADEVOLUCION);
+    }
 
     public static void ingresoLibro(){
         System.out.println(ConstantesMenu.MSN_INGRESILIBRO);
@@ -101,6 +108,15 @@ public class Menu {
     public static void contrasena(){
         System.out.println(ConstantesMenu.MSN_CONTRASENAU );
     }
+
+    public static void menuUsuario() {
+        System.out.println(MSN_REALIZARPRESTAMO);
+        System.out.println(MSN_LISTARLIBROSU);
+        System.out.println(MSN_LISTARNOVELASU);
+        System.out.println(MSN_LISTARAUTORESU);
+        System.out.println(MSN_LISTARPUBLICACIONAUTOR);
+    }
+
 
 
 

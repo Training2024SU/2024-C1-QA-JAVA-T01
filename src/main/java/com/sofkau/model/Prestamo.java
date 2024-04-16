@@ -3,7 +3,7 @@ package com.sofkau.model;
 import java.util.Date;
 
 public class Prestamo {
-    private int id;
+    private String id;
     private Date fechaPrestamo;
     private Date fechaDevolucion;
 
@@ -19,11 +19,11 @@ public class Prestamo {
     private String correoUsuario;
     private String tituloPublicacion;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -19,6 +19,8 @@ public class ControlIngreso {
 
     private static Scanner scannerGlobal = new Scanner(System.in);
 
+    private static UsuarioOperaciones usuarioOp;
+
     private static EmpleadoOperaciones empleadoOp;
 
     private static AutorOperaciones autorOp = new AutorOperaciones();
@@ -45,7 +47,7 @@ public class ControlIngreso {
                             option = Integer.parseInt(op);
                             inicioSesion(option);
                         }case 1 ->{
-
+                            menuUsuario();
                         }case 2 ->{
                             menuEmpleado();
                         }
@@ -60,39 +62,88 @@ public class ControlIngreso {
 
     private static void inicioSesion(int option) {
         switch (option) {
-            case 1:
-
-                break;
-            case 2:
-                EmpleadoOperaciones.getEmpleados();
-                Menu.correo();
-                String correoEmp = scannerGlobal.nextLine();
-                Menu.contrasena();
-                String contrasenaEmp = scannerGlobal.nextLine();
-
-                empleadoOp = new EmpleadoOperaciones();
-
-                if(empleadoOp.inicioSesion(correoEmp,contrasenaEmp)){
-                    menuEmpleado();
-                }else{
-                    System.out.println("Credenciales incorrectas por favor verifique");
-                }
-                break;
-            case 3:
-                Menu.nombre();
-                String nombre = scannerGlobal.nextLine();
+            case 1 -> {
                 Menu.correo();
                 String correo = scannerGlobal.nextLine();
                 Menu.contrasena();
                 String contrasena = scannerGlobal.nextLine();
-                UsuarioOperaciones.getUsuarios();
-                UsuarioOperaciones.registrarUsuario(new Usuario(nombre,correo,contrasena));
-                break;
-            case 4:
-                bandera = false;
-                break;
-            default:
+
+                usuarioOp = new UsuarioOperaciones();
+
+                if (usuarioOp.inicioSesion(correo, contrasena)) {
+                    menuUsuario();
+                } else {
+                    System.out.println("Credenciales incorrectas por favor verifique");
+                }
+            }
+            case 2 -> {
+                EmpleadoOperaciones.getEmpleados();
+            Menu.correo();
+            String correoEmp = scannerGlobal.nextLine();
+            Menu.contrasena();
+            String contrasenaEmp = scannerGlobal.nextLine();
+
+            empleadoOp = new EmpleadoOperaciones();
+
+            if (empleadoOp.inicioSesion(correoEmp, contrasenaEmp)) {
+                menuEmpleado();
+            } else {
+                System.out.println("Credenciales incorrectas por favor verifique");
+            }
+
+            } case 3 -> {
+            Menu.nombre();
+            String nombre = scannerGlobal.nextLine();
+            Menu.correo();
+            String correoU = scannerGlobal.nextLine();
+            Menu.contrasena();
+            String contrasenaU = scannerGlobal.nextLine();
+            UsuarioOperaciones.getUsuarios();
+            UsuarioOperaciones.registrarUsuario(new Usuario(nombre, correoU, contrasenaU));
+
+        }case 4 -> {
+            bandera = false;
+
+        }default -> {
                 System.out.println("ingrese una opcion válida");
+
+            }
+
+        }
+    }
+
+    private static void menuUsuario() {
+
+        Menu.menuUsuario();
+        int op = scannerGlobal.nextInt();
+        scannerGlobal.nextLine();
+
+        switch (op) {
+            case 1-> {
+                Menu.ingresoTitulo();
+                String titulo = scannerGlobal.nextLine();
+                Menu.ingresoFechaDevolucion();
+                String fechaDev = scannerGlobal.nextLine();
+                scannerGlobal.nextLine();
+
+            }
+            case 2-> {
+                System.out.println("d");
+            }
+            case 3-> {
+                System.out.println("c");
+            }
+            case 4-> {
+                System.out.println("a");
+            }
+            case 5-> {
+                System.out.println("b");
+            }
+            default -> {
+                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
+                bandera = false;
+            }
+
         }
     }
 

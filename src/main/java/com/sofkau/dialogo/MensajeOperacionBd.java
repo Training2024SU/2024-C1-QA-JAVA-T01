@@ -34,5 +34,9 @@ public class MensajeOperacionBd {
         System.out.println(ConstantesInserccionBd.MSN_ERRORACTUALIZARNOVELA);
     }
 
+    public static void crearUsuario() {
+        System.out.println(ConstantesInserccionBd.MSN_CREARUSUARIO);
+    }
+
 
 }
