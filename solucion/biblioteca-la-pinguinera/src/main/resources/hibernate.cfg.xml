@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/biblioteca-la-pinguinera</property>
+        <property name="hibernate.connection.username">${laPinguineraDBUser}</property>
+        <property name="hibernate.connection.password">${laPinguineraDbPassword}</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- Other Hibernate properties -->
+        <mapping class ="co.com.sofka.modelo.Usuario"/>
+        <mapping class ="co.com.sofka.modelo.Novela"/>
+        <mapping class ="co.com.sofka.modelo.Libro"/>
+        <mapping class ="co.com.sofka.modelo.Prestamo"/>
+    </session-factory>
+</hibernate-configuration>
