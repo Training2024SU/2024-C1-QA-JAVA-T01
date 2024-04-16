@@ -66,9 +66,13 @@ public class Menu {
         System.out.println(MSN_CANT_PRESTADOS);
     }
 
+    public static void ingresoAreaConocimiento(){
+        System.out.println(MSN_AREACONOCIMIENTO);
+    }
 
-
-
+    public static void ingresoGenero(){
+        System.out.println(MSN_GENERO);
+    }
 
 
 

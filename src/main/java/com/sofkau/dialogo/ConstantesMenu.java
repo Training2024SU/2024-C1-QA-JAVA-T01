@@ -30,6 +30,9 @@ public class ConstantesMenu {
     public static final String MSN_CANT_EJEMPLARES = "Ingreso de cantidad de ejemplares";
     public static final String MSN_CANT_PRESTADOS = "Ingreso de cantidad prestados";
 
+    public static final String MSN_AREACONOCIMIENTO = "Ingreso area de conocimiento";
+    public static final String MSN_GENERO = "Ingreso genero";
+
     public static final String MSN_CREARNOVELA ="2. Crear Novela";
 
     public static final String MSN_ACTUALIZARLIBRO="3. Actualizar Libro";

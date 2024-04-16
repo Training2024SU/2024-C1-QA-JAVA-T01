@@ -2,17 +2,10 @@ package com.sofkau.util.enums;
 
 public enum EstadoPrestamo {
 
-    ESTADO_UNO("SOLICITADO"),ESTADO_DOS("REALIZADO"),
+  SOLICITADO,
 
-    ESTADO_TRES("FINALIZADO");
+  REALIZADO,
 
-    private String value;
+  FINALIZADO
 
-    private EstadoPrestamo(String estado) {
-        this.value = estado;
-    }
-
-    public String getvalue() {
-        return value;
-    }
 }

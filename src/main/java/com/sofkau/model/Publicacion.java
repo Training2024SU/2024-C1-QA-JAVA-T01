@@ -31,6 +31,10 @@ public class Publicacion {
         this.cantidadPrestado = cantidadPrestado;
     }
 
+    public Publicacion() {
+
+    }
+
     public String getTitulo() {
         return titulo;
     }

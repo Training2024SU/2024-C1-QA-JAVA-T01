@@ -211,6 +211,10 @@ public class ControlIngreso {
                 int cantPres = scannerGlobal.nextInt();
                 Menu.ingresoNumPaginas();
                 int numPag = scannerGlobal.nextInt();
+                Menu.ingresoAreaConocimiento();
+                String areaConocimiento = scannerGlobal.nextLine();
+
+
                 publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),numPag,cantEjemplar,cantPres),
                         TipoPublicacion.Libro);
             }
@@ -235,8 +239,6 @@ public class ControlIngreso {
 
         }
     }
-
-
 
     private static int pedirOpcion() {
         Scanner scanner = new Scanner(System.in);
