@@ -72,10 +72,11 @@ public class ControladorCRUDUsuario {
     }
 
     public void obtenerTodosUsuarios() {
-        List<Usuario> usuariosLocales = crudUsuariosLocales.obtenerTodos();
-        // Presentar los usuarios locales
-        for (Usuario usuario : usuariosLocales) {
-            System.out.println(usuario);
+        try {
+            List<Usuario> usuarios = usuarioDAO.obtenerTodos();
+            usuarios.forEach(System.out::println);
+        } catch (SQLException e) {
+            VistaUtil.mostrarMensajeSolicitudFallida();
         }
     }
 

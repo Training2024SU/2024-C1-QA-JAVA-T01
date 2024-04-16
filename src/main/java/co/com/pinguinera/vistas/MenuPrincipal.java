@@ -2,8 +2,8 @@ package co.com.pinguinera.vistas;
 
 import co.com.pinguinera.LoggerUtil;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
-import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
+import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -37,7 +37,7 @@ public class MenuPrincipal {
             LOGGER.info("1. Iniciar sesión como empleado");
             LOGGER.info("2. Iniciar sesión como usuario");
             LOGGER.info("3. Registrarse como usuario");
-            LOGGER.info("4. Salir");
+            LOGGER.info("4. " + MenuConstantes.OPCION_VOLVER);
 
             int eleccion = VistaUtil.obtenerOpcion();
             continuar = manejarEleccion(eleccion);
@@ -67,7 +67,7 @@ public class MenuPrincipal {
                 LOGGER.info("Gracias por usar la librería Pinguinera. ¡Hasta luego!");
                 return false;
             default:
-                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.info(MenuConstantes.OPCION_INVALIDA);
                 break;
         }
         return true;

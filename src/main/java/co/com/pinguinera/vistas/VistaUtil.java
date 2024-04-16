@@ -69,9 +69,13 @@ public class VistaUtil {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
+                LOGGER.info("Opción no válida. Inténtelo de nuevo.");
             }
         }
+    }
+
+    public static void mostrarMensajeSolicitudFallida() {
+        LOGGER.info("Solicitud de informacion fallida. Intente de nuevo");
     }
 
 }

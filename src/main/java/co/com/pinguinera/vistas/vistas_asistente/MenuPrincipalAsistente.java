@@ -4,6 +4,7 @@ import co.com.pinguinera.LoggerUtil;
 import co.com.pinguinera.controladores.crud.ControladorCRUDLibro;
 import co.com.pinguinera.controladores.crud.ControladorCRUDNovela;
 import co.com.pinguinera.controladores.crud.ControladorCRUDPrestamo;
+import co.com.pinguinera.vistas.MenuConstantes;
 import co.com.pinguinera.vistas.VistaUtil;
 
 import java.util.logging.Logger;
@@ -28,16 +29,16 @@ public class MenuPrincipalAsistente {
 
         while (continuar) {
             LOGGER.info("\nMenú principal de asistente");
-            LOGGER.info("1. Ver todos los libros");
-            LOGGER.info("2. Ver todas las novelas");
-            LOGGER.info("3. Ver todos los préstamos");
-            LOGGER.info("4. Agregar libro");
-            LOGGER.info("5. Agregar novela");
-            LOGGER.info("6. Eliminar libro");
-            LOGGER.info("7. Eliminar novela");
-            LOGGER.info("8. Actualizar libro");
-            LOGGER.info("9. Actualizar novela");
-            LOGGER.info("10. Salir");
+            LOGGER.info("1. " + MenuConstantes.VER_TODOS_LIBROS);
+            LOGGER.info("2. " + MenuConstantes.VER_TODAS_NOVELAS);
+            LOGGER.info("3. " + MenuConstantes.VER_TODOS_PRESTAMOS);
+            LOGGER.info("4. " + MenuConstantes.AGREGAR_LIBRO);
+            LOGGER.info("5. " + MenuConstantes.AGREGAR_NOVELA);
+            LOGGER.info("6. " + MenuConstantes.ELIMINAR_LIBRO);
+            LOGGER.info("7. " + MenuConstantes.ELIMINAR_NOVELA);
+            LOGGER.info("8. " + MenuConstantes.ACTUALIZAR_LIBRO);
+            LOGGER.info("9. " + MenuConstantes.ACTUALIZAR_NOVELA);
+            LOGGER.info("10. " + MenuConstantes.SALIR);
 
             int opcion = VistaUtil.obtenerOpcion();
 
@@ -74,7 +75,7 @@ public class MenuPrincipalAsistente {
                     continuar = false;
                     break;
                 default:
-                    LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
+                    LOGGER.info(MenuConstantes.OPCION_INVALIDA);
             }
         }
     }

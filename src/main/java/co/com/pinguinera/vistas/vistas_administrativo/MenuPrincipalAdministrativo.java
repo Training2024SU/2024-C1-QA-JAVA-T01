@@ -5,12 +5,11 @@ import co.com.pinguinera.controladores.crud.*;
 import co.com.pinguinera.vistas.MenuConstantes;
 import co.com.pinguinera.vistas.VistaUtil;
 
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class MenuPrincipalAdministrativo {
 
-    private static final Logger LOGGER = LoggerUtil.getLogger(); // Usar el logger global desde LoggerUtil
+    private static final Logger LOGGER = LoggerUtil.getLogger();
 
     private final ControladorCRUDUsuario controladorCRUDUsuario;
     private final ControladorCRUDPrestamo controladorCRUDPrestamo;
@@ -28,7 +27,6 @@ public class MenuPrincipalAdministrativo {
         this.controladorCRUDEmpleado = controladorCRUDEmpleado;
         this.controladorCRUDNovela = controladorCRUDNovela;
         this.controladorCRUDLibro = controladorCRUDLibro;
-        Scanner scanner = new Scanner(System.in);
     }
 
     public void mostrarMenu() {
@@ -41,7 +39,7 @@ public class MenuPrincipalAdministrativo {
             LOGGER.info("3. Gestión de empleados");
             LOGGER.info("4. Gestión de novelas");
             LOGGER.info("5. Gestión de libros");
-            LOGGER.info("6. Salir");
+            LOGGER.info("6. " + MenuConstantes.SALIR);
 
             int opcion = VistaUtil.obtenerOpcion();
 
@@ -100,7 +98,7 @@ public class MenuPrincipalAdministrativo {
         LOGGER.info("\nGestión de préstamos");
         LOGGER.info("1. Registrar préstamo");
         LOGGER.info("2. Actualizar préstamo");
-        LOGGER.info("3. Ver todos los préstamos");
+        LOGGER.info("3. " + MenuConstantes.VER_TODOS_PRESTAMOS);
         LOGGER.info("4. " + MenuConstantes.OPCION_VOLVER);
 
         int opcion = VistaUtil.obtenerOpcion();
@@ -117,7 +115,7 @@ public class MenuPrincipalAdministrativo {
             case 4:
                 return;
             default:
-                LOGGER.warning(MenuConstantes.OPCION_INVALIDA);
+                LOGGER.info(MenuConstantes.OPCION_INVALIDA);
         }
     }
 
@@ -142,16 +140,16 @@ public class MenuPrincipalAdministrativo {
             case 4:
                 return;
             default:
-                LOGGER.warning(MenuConstantes.OPCION_INVALIDA);
+                LOGGER.info(MenuConstantes.OPCION_INVALIDA);
         }
     }
 
     private void mostrarMenuGestionNovelas() {
         LOGGER.info("\nGestión de novelas");
-        LOGGER.info("1. Agregar novela");
+        LOGGER.info("1. " + MenuConstantes.AGREGAR_NOVELA);
         LOGGER.info("2. Actualizar novela");
         LOGGER.info("3. Eliminar novela");
-        LOGGER.info("4. Ver todas las novelas");
+        LOGGER.info("4. " + MenuConstantes.VER_TODAS_NOVELAS);
         LOGGER.info("5. " + MenuConstantes.OPCION_VOLVER);
 
         int opcion = VistaUtil.obtenerOpcion();
@@ -171,16 +169,16 @@ public class MenuPrincipalAdministrativo {
             case 5:
                 return;
             default:
-                LOGGER.warning(MenuConstantes.OPCION_INVALIDA);
+                LOGGER.info(MenuConstantes.OPCION_INVALIDA);
         }
     }
 
     private void mostrarMenuGestionLibros() {
         LOGGER.info("\nGestión de libros");
-        LOGGER.info("1. Agregar libro");
-        LOGGER.info("2. Actualizar libro");
-        LOGGER.info("3. Eliminar libro");
-        LOGGER.info("4. Ver todos los libros");
+        LOGGER.info("1. " + MenuConstantes.AGREGAR_LIBRO);
+        LOGGER.info("2. " + MenuConstantes.ACTUALIZAR_LIBRO);
+        LOGGER.info("3. " + MenuConstantes.ELIMINAR_LIBRO);
+        LOGGER.info("4. " + MenuConstantes.VER_TODOS_LIBROS);
         LOGGER.info("5. " + MenuConstantes.OPCION_VOLVER);
 
         int opcion = VistaUtil.obtenerOpcion();
@@ -200,7 +198,7 @@ public class MenuPrincipalAdministrativo {
             case 5:
                 return;
             default:
-                LOGGER.warning(MenuConstantes.OPCION_INVALIDA);
+                LOGGER.info(MenuConstantes.OPCION_INVALIDA);
         }
     }
 }

@@ -9,6 +9,7 @@ import co.com.pinguinera.vistas.vista_empleado.InformacionEmpleadoVista;
 import co.com.pinguinera.vistas.vista_usuario.InformacionUsuarioVista;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ControladorCRUDEmpleado {
 
@@ -41,6 +42,16 @@ public class ControladorCRUDEmpleado {
         }
         sincronizarDatos();
     }
+
+    public void obtenerTodosEmpleados() {
+        try {
+            List<Empleado> empleados = empleadoDAO.obtenerTodos();
+            empleados.forEach(System.out::println);
+        } catch (SQLException e) {
+            VistaUtil.mostrarMensajeSolicitudFallida();
+        }
+    }
+
 
     public void actualizarEmpleado() {
         Empleado empleadoActualizado = new Empleado();

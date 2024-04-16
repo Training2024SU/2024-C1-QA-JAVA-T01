@@ -76,8 +76,12 @@ public class ControladorCRUDPrestamo {
     }
 
     public void obtenerTodosPrestamos() {
-        List<Prestamo> prestamosLocales = crudPrestamosLocales.obtenerTodos();
-        // Aquí podrías presentar los préstamos locales, esto se haría en la vista.
+        try {
+            List<Prestamo> prestamos = prestamoDAO.obtenerTodos();
+            prestamos.forEach(System.out::println);
+        } catch (SQLException e) {
+            VistaUtil.mostrarMensajeSolicitudFallida();
+        }
     }
 
     private void sincronizarDatos() {

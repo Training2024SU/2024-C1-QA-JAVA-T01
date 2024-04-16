@@ -29,3 +29,11 @@ Qsrc/main/java/co/com/pinguinera/vistas/vista_usuario/InformacionUsuarioVista.ja
 Nsrc/main/java/co/com/pinguinera/vistas/vista_usuario/MenuPrincipalUsuario.java,1/e/1ec1e16d65c9ee29221807432a00ee7a50d7cf3c
 j
 :src/main/java/co/com/pinguinera/vistas/MenuConstantes.java,f/1/f17578c705e7259c7862df29761ae38fbabcf8bc
+|
+Lsrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDLibro.java,f/1/f1e9b0dba58b7c9f6b639c9a10a780a3dea80cec
+}
+Msrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDNovela.java,b/d/bd2cb16386876fd881295b77dcdb3fe1c0042ab7
+
+Osrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDPrestamo.java,a/1/a179caf4d65fc5c58aa5579ec1663844a4dce5f2
+~
+Nsrc/main/java/co/com/pinguinera/controladores/crud/ControladorCRUDUsuario.java,f/e/feefec31d1b60e502a372503f347f29a44ba36fd

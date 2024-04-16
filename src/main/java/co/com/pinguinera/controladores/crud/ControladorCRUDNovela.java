@@ -81,7 +81,7 @@ public class ControladorCRUDNovela {
             List<Novela> novelasBD = novelaDAO.obtenerTodos();
             novelasBD.forEach(System.out::println);
         } catch (SQLException e) {
-            System.err.println("Error al obtener las novelas: " + e.getMessage());
+            VistaUtil.mostrarMensajeSolicitudFallida();
         }
     }
 

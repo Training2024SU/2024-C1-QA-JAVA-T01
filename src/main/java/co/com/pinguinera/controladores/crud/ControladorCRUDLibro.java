@@ -81,7 +81,7 @@ public class ControladorCRUDLibro {
             List<Libro> librosBD = libroDAO.obtenerTodos();
             librosBD.forEach(System.out::println);
         } catch (SQLException e) {
-            System.err.println("Error al obtener los libros: " + e.getMessage());
+            VistaUtil.mostrarMensajeSolicitudFallida();
         }
     }
 
