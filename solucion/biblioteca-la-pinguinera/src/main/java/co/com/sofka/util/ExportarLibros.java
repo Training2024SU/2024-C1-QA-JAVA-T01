@@ -1,4 +1,4 @@
-package co.com.sofka;
+package co.com.sofka.util;
 
 import lombok.Getter;
 import lombok.Setter;

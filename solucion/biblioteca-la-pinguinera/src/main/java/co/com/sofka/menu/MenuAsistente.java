@@ -1,6 +1,6 @@
 package co.com.sofka.menu;
 
-import co.com.sofka.ExportarLibros;
+import co.com.sofka.util.ExportarLibros;
 import co.com.sofka.servicio.ServicioLibro;
 import co.com.sofka.servicio.ServicioNovela;
 import co.com.sofka.servicio.ServicioPrestamo;
