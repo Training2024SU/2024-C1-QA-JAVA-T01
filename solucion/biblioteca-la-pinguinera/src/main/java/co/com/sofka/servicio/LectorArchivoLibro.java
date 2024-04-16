@@ -13,7 +13,7 @@ import java.util.Scanner;
 @Setter
 @ToString
 @Entity
-public class LectorArchivo {
+public class LectorArchivoLibro {
         public void LeerArchivo(String filepath){
 
         try {

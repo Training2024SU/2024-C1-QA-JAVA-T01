@@ -12,7 +12,6 @@ public class MenuAsistente {
     ServicioLibro servicioLibro;
     ServicioNovela servicioNovela;
     ServicioPrestamo servicioPrestamo;
-
     MetodosMenuAsistenteLibro metodosMenuAsistenteLibro;
     MetodosMenuAsistenteNovela metodosMenuAsistenteNovela;
     MetodosMenuAsistentePrestamo metodosMenuAsistentePrestamo;
@@ -25,11 +24,10 @@ public class MenuAsistente {
         this.servicioLibro = servicioLibro;
         this.servicioNovela = servicioNovela;
         this.servicioPrestamo = servicioPrestamo;
-        this.scanner = scanner;
-
-        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro, exportarLibro);
         this.metodosMenuAsistenteNovela = new MetodosMenuAsistenteNovela(scanner, servicioNovela);
         this.metodosMenuAsistentePrestamo = new MetodosMenuAsistentePrestamo(scanner, servicioPrestamo);
+        this.scanner = scanner;
+        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro, exportarLibro);
     }
 
     public void imprimirMenuAsistente(){
@@ -85,10 +83,10 @@ public class MenuAsistente {
                     metodosMenuAsistenteNovela.borrarNovela();
                     break;
                 case 15:
-                    metodosMenuAsistenteLibro.exportarAExcel();
+                    metodosMenuAsistenteLibro.exportarAArchivo();
                     break;
                 case 16:
-                    metodosMenuAsistenteLibro.leerExcel();
+                    metodosMenuAsistenteLibro.leerArchivo();
                     break;
                 case 0:
                     seguirEjecucion = false;

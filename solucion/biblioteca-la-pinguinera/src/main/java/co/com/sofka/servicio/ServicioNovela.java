@@ -34,7 +34,7 @@ public class ServicioNovela {
 
     public void listarNovelasDisponibles() {
         List<Novela> novelas = repositorioNovela.listarNovelas().stream()
-                .filter(novela -> novela.isFueBorrado() == false) // traiga todo lo que tenga fueBorrado = false
+                .filter(novela -> novela.isFueBorrado() == false)
                 .filter(novela -> novela.sePuedePrestar())
                 .collect(Collectors.toList());
 

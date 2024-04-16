@@ -107,3 +107,66 @@ VALUES
     ('Kurt Vonnegut', 25, 30, 5, 'Matadero cinco', 16, 'Ciencia ficcion'),
     ('Antoine de Saint-Exupéry', 20, 25, 5, 'Tierra de hombres', 16, 'Ficcion'),
     ('J.D. Salinger', 22, 27, 5, 'Levantad, carpinteros, la viga del tejado y Seymour: una introducción', 16, 'Ficcion');
+
+
+-- Insertar Usuarios Asistentes en la tabla usuarios
+INSERT INTO `biblioteca-la-pinguinera`.usuario (contrasena, correo, nombre, rol)
+VALUES 
+    ('contrasena1', 'laura@example.com', 'Laura Perez', 'ASISTENTE'),
+    ('contrasena2', 'maria@example.com', 'Maria Lopez', 'ASISTENTE'),
+    ('contrasena3', 'pedro@example.com', 'Pedro Ramirez', 'ASISTENTE');
+
+
+-- Insertar Usuarios lectores en la tabla usuarios
+INSERT INTO `biblioteca-la-pinguinera`.usuario (contrasena, correo, nombre, rol)
+VALUES 
+    ('contrasena1', 'usuario1@example.com', 'Juan Perez', 'LECTORES'),
+    ('contrasena2', 'usuario2@example.com', 'Maria Lopez', 'LECTORES'),
+    ('contrasena3', 'usuario3@example.com', 'Pedro Ramirez', 'LECTORES'),
+    ('contrasena4', 'usuario4@example.com', 'Ana Garcia', 'LECTORES'),
+    ('contrasena5', 'usuario5@example.com', 'Luis Martinez', 'LECTORES'),
+    ('contrasena6', 'usuario6@example.com', 'Laura Rodriguez', 'LECTORES'),
+    ('contrasena7', 'usuario7@example.com', 'Diego Hernandez', 'LECTORES'),
+    ('contrasena8', 'usuario8@example.com', 'Sofia Gonzalez', 'LECTORES'),
+    ('contrasena9', 'usuario9@example.com', 'Carlos Sanchez', 'LECTORES'),
+    ('contrasena10', 'usuario10@example.com', 'Ana Maria Fernandez', 'LECTORES'),
+    ('contrasena11', 'usuario11@example.com', 'Javier Diaz', 'LECTORES'),
+    ('contrasena12', 'usuario12@example.com', 'Martina Alvarez', 'LECTORES'),
+    ('contrasena13', 'usuario13@example.com', 'Ricardo Cruz', 'LECTORES'),
+    ('contrasena14', 'usuario14@example.com', 'Elena Torres', 'LECTORES'),
+    ('contrasena15', 'usuario15@example.com', 'Gabriel Ramirez', 'LECTORES'),
+    ('contrasena16', 'usuario16@example.com', 'Valentina Martinez', 'LECTORES'),
+    ('contrasena17', 'usuario17@example.com', 'Pablo Castro', 'LECTORES'),
+    ('contrasena18', 'usuario18@example.com', 'Florencia Diaz', 'LECTORES'),
+    ('contrasena19', 'usuario19@example.com', 'Lucas Soto', 'LECTORES'),
+    ('contrasena20', 'usuario20@example.com', 'Camila Lopez', 'LECTORES'),
+    ('contrasena21', 'usuario21@example.com', 'Nicolas Fernandez', 'LECTORES'),
+    ('contrasena22', 'usuario22@example.com', 'Agustina Perez', 'LECTORES'),
+    ('contrasena23', 'usuario23@example.com', 'Matias Alvarez', 'LECTORES'),
+    ('contrasena24', 'usuario24@example.com', 'Josefa Martinez', 'LECTORES'),
+    ('contrasena25', 'usuario25@example.com', 'Mateo Gonzalez', 'LECTORES'),
+    ('contrasena26', 'usuario26@example.com', 'Isabella Ramos', 'LECTORES'),
+    ('contrasena27', 'usuario27@example.com', 'Facundo Rodriguez', 'LECTORES'),
+    ('contrasena28', 'usuario28@example.com', 'Daniela Gutierrez', 'LECTORES'),
+    ('contrasena29', 'usuario29@example.com', 'Bruno Diaz', 'LECTORES'),
+    ('contrasena30', 'usuario30@example.com', 'Catalina Silva', 'LECTORES'),
+    ('contrasena31', 'usuario31@example.com', 'Manuel Rodriguez', 'LECTORES'),
+    ('contrasena32', 'usuario32@example.com', 'Valeria Gomez', 'LECTORES'),
+    ('contrasena33', 'usuario33@example.com', 'Felipe Alvarez', 'LECTORES'),
+    ('contrasena34', 'usuario34@example.com', 'Mariana Torres', 'LECTORES'),
+    ('contrasena35', 'usuario35@example.com', 'Luciano Suarez', 'LECTORES'),
+    ('contrasena36', 'usuario36@example.com', 'Natalia Diaz', 'LECTORES'),
+    ('contrasena37', 'usuario37@example.com', 'Santiago Fernandez', 'LECTORES'),
+    ('contrasena38', 'usuario38@example.com', 'Paula Martin', 'LECTORES'),
+    ('contrasena39', 'usuario39@example.com', 'Alejandro Lopez', 'LECTORES'),
+    ('contrasena40', 'usuario40@example.com', 'Victoria Perez', 'LECTORES'),
+    ('contrasena41', 'usuario41@example.com', 'Gonzalo Garcia', 'LECTORES'),
+    ('contrasena42', 'usuario42@example.com', 'Carolina Martinez', 'LECTORES'),
+    ('contrasena43', 'usuario43@example.com', 'Maximiliano Ramirez', 'LECTORES'),
+    ('contrasena44', 'usuario44@example.com', 'Isabel Fernandez', 'LECTORES'),
+    ('contrasena45', 'usuario45@example.com', 'Emilio Alvarez', 'LECTORES'),
+    ('contrasena46', 'usuario46@example.com', 'Florencia Gonzalez', 'LECTORES'),
+    ('contrasena47', 'usuario47@example.com', 'Leonardo Suarez', 'LECTORES'),
+    ('contrasena48', 'usuario48@example.com', 'Martina Lopez', 'LECTORES'),
+    ('contrasena49', 'usuario49@example.com', 'Juan Ignacio Martinez', 'LECTORES'),
+    ('contrasena50', 'usuario50@example.com', 'Antonella Rodriguez', 'LECTORES');

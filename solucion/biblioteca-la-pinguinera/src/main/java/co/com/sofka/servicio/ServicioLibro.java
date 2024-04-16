@@ -77,7 +77,6 @@ public class ServicioLibro {
             System.out.println("Id ingresado no existe");
             return;
         }
-
         libro.setFueBorrado(true);
 
         repositorioLibro.modificar(libro);

@@ -28,7 +28,7 @@ public class Menu {
     static ExportarLibro exportarLibro = new ExportarLibro(sessionFactory);
 
     static MenuAdministrador menuAdministrador = new MenuAdministrador(servicioUsuario, scanner);
-    static MenuLector menuLector = new MenuLector(servicioLibro, servicioNovela, servicioPrestamo, scanner);
+    static MenuLector menuLector = new MenuLector(servicioLibro, servicioNovela, servicioPrestamo, scanner, exportarLibro);
     static MenuAsistente menuAsistente = new MenuAsistente(servicioLibro, servicioNovela, servicioPrestamo, scanner, exportarLibro);
 
 

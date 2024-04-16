@@ -1,6 +1,7 @@
 package co.com.sofka.menu;
 
 import co.com.sofka.modelo.Usuario;
+import co.com.sofka.servicio.ExportarLibro;
 import co.com.sofka.servicio.ServicioLibro;
 import co.com.sofka.servicio.ServicioNovela;
 import co.com.sofka.servicio.ServicioPrestamo;
@@ -16,16 +17,18 @@ public class MenuLector {
     ServicioLibro servicioLibro;
     ServicioNovela servicioNovela;
     ServicioPrestamo servicioPrestamo;
+    MetodosMenuAsistenteLibro metodosMenuAsistenteLibro;
 
     Scanner scanner;
 
     boolean seguirEjecucion = true;
 
-    public MenuLector(ServicioLibro servicioLibro, ServicioNovela servicioNovela, ServicioPrestamo servicioPrestamo, Scanner scanner ) {
+    public MenuLector(ServicioLibro servicioLibro, ServicioNovela servicioNovela, ServicioPrestamo servicioPrestamo, Scanner scanner, ExportarLibro exportarLibro ) {
         this.servicioLibro = servicioLibro;
         this.servicioNovela = servicioNovela;
         this.servicioPrestamo = servicioPrestamo;
         this.scanner = scanner;
+        this.metodosMenuAsistenteLibro = new MetodosMenuAsistenteLibro(scanner, servicioLibro, exportarLibro);
     }
 
     public void imprimirMenuLectores(Usuario usuario){
@@ -54,6 +57,12 @@ public class MenuLector {
                     break;
                 case 6:
                     prestarNovelas(usuario);
+                    break;
+                case 7:
+                    metodosMenuAsistenteLibro.exportarAArchivo();
+                    break;
+                case 8:
+                    metodosMenuAsistenteLibro.leerArchivo();
                     break;
                 case 0:
                     seguirEjecucion = false;

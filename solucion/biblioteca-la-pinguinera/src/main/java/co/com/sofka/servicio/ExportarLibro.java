@@ -30,7 +30,7 @@ public class ExportarLibro {
 
     public void exportarArchivo(String filePath) {
 
-        String nombreArchivo = "\\libros-disponibles.csv";
+        String nombreArchivo = "\\librosLaPinguinera.csv";
         String filePathConArchivo = filePath + nombreArchivo;
 
         try (Session session = sessionFactory.openSession()) {
