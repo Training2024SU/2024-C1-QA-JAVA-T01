@@ -7,6 +7,7 @@ import com.davidbonelo.persistance.BorrowingDAO;
 import com.davidbonelo.persistance.NovelDAO;
 import com.davidbonelo.persistance.UserDAO;
 import com.davidbonelo.services.BorrowingsService;
+import com.davidbonelo.services.DataService;
 import com.davidbonelo.services.LibraryManager;
 import com.davidbonelo.services.UserService;
 
@@ -14,13 +15,14 @@ import java.sql.Connection;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static com.davidbonelo.utils.UserInteractions.closeScanner;
 import static com.davidbonelo.utils.Permissions.validMenuAccess;
+import static com.davidbonelo.utils.UserInteractions.closeScanner;
 
 public class MainMenu {
     private final UserService userService;
     private final LibraryManager libraryManager;
     private final BorrowingsService borrowingsService;
+    private final DataService dataService;
     private User user;
     private ResourceBundle messages = ResourceBundle.getBundle("messages");
 
@@ -32,9 +34,11 @@ public class MainMenu {
         this.userService = new UserService(userDAO);
         this.libraryManager = new LibraryManager(bookDAO, novelDAO);
         this.borrowingsService = new BorrowingsService(bookDAO, novelDAO, borrowingDAO, connection);
+        this.dataService = new DataService(bookDAO, novelDAO, connection);
     }
 
     public void menu() {
+        userService.login("ad","min");
         System.out.println(messages.getString("welcome"));
         while (true) {
             messages = ResourceBundle.getBundle("messages"); // Refresh if language changed
@@ -46,7 +50,7 @@ public class MainMenu {
                 case 2 -> new BooksMenu(libraryManager, borrowingsService, user).menu();
                 case 3 -> new NovelsMenu(libraryManager, borrowingsService, user).menu();
                 case 4 -> new BorrowingMenu(borrowingsService, user).menu();
-                case 5 -> new AdminMenu(userService, user).menu();
+                case 5 -> new AdminMenu(userService, dataService, user).menu();
                 case 8 -> Locale.setDefault(Locale.forLanguageTag("es"));
                 case 9 -> logout(user);
                 case 0 -> {
@@ -62,7 +66,8 @@ public class MainMenu {
         String visitorChoices = messages.getString("main.choices.visitor");
         String readerChoices = messages.getString("main.choices.reader");
         String adminChoices = messages.getString("main.choices.admin");
-        return new MenuChoices("Main", visitorChoices, readerChoices, "", adminChoices).showMenu(user);
+        return new MenuChoices(messages.getString("main.keyword"), visitorChoices, readerChoices,
+                "", adminChoices).showMenu(user);
     }
 
     private void logout(User user) {

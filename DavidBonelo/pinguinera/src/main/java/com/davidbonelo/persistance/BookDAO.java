@@ -2,6 +2,7 @@ package com.davidbonelo.persistance;
 
 import com.davidbonelo.models.Book;
 import com.davidbonelo.models.LibraryItem;
+import com.mysql.cj.MysqlType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,20 +50,29 @@ public class BookDAO {
     }
 
     public void createBook(Book book) throws SQLException {
-        String sql = "INSERT INTO Books ( title, author, copies, copies_borrowed, field, " +
-                "pages ) VALUES ( ?, ?, ?, ?, ?, ? )";
+        String sql = "INSERT INTO Books ( id, title, author, copies, copies_borrowed, field, " +
+                "pages ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, book.getTitle());
-            statement.setString(2, book.getAuthor());
-            statement.setInt(3, book.getCopies());
-            statement.setInt(4, book.getCopiesBorrowed());
-            statement.setString(5, book.getField());
-            statement.setInt(6, book.getPages());
+            prepareCreate(statement, book);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted == 0) {
                 throw new SQLException("Creating book failed, no rows affected.");
             }
         }
+    }
+
+    public void prepareCreate(PreparedStatement statement, Book book) throws SQLException {
+        if (containsId(book)) {
+            statement.setInt(1, book.getId());
+        } else {
+            statement.setNull(1, MysqlType.NULL.getJdbcType());
+        }
+        statement.setString(2, book.getTitle());
+        statement.setString(3, book.getAuthor());
+        statement.setInt(4, book.getCopies());
+        statement.setInt(5, book.getCopiesBorrowed());
+        statement.setString(6, book.getField());
+        statement.setInt(7, book.getPages());
     }
 
     public void updateBook(Book book) throws SQLException {

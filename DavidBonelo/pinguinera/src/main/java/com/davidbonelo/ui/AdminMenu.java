@@ -2,8 +2,10 @@ package com.davidbonelo.ui;
 
 import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
+import com.davidbonelo.services.DataService;
 import com.davidbonelo.services.UserService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
@@ -16,10 +18,12 @@ public class AdminMenu {
     private final UserService userService;
     private final User user;
     private final ResourceBundle messages = ResourceBundle.getBundle("messages");
+    private final DataService dataService;
 
 
-    public AdminMenu(UserService userService, User user) {
+    public AdminMenu(UserService userService, DataService dataService, User user) {
         this.userService = userService;
+        this.dataService = dataService;
         this.user = user;
     }
 
@@ -35,6 +39,8 @@ public class AdminMenu {
                 case 2 -> createEmployeeUser();
                 case 3 -> updateUser();
                 case 4 -> deleteUser();
+                case 5 -> exportInventoryData();
+                case 6 -> importInventoryData();
                 case 0 -> {
                     return;
                 }
@@ -101,7 +107,30 @@ public class AdminMenu {
             userService.deleteUser(userId);
             System.out.println(messages.getString("admin.res.deleteOk"));
         } catch (SQLException e) {
-            System.out.println(MessageFormat.format(messages.getString("admin.res.deleteBad"), e.getLocalizedMessage()));
+            System.out.println(MessageFormat.format(messages.getString("admin.res.deleteBad"),
+                    e.getLocalizedMessage()));
+        }
+    }
+
+    private void exportInventoryData() {
+        System.out.println(messages.getString("admin.info.exporting"));
+        String fileName = askText(messages.getString("admin.req.exportName")) + ".csv";
+        try {
+            dataService.exportInventory(fileName);
+            System.out.println(messages.getString("admin.res.exportOk") + fileName + ".csv");
+        } catch (SQLException | IOException e) {
+            System.out.println(messages.getString("main.res.exportBad") + e.getMessage());
+        }
+    }
+
+    private void importInventoryData() {
+        System.out.println(messages.getString("admin.info.importing"));
+        String fileName = askText(messages.getString("admin.req.importName")) + ".csv";
+        try {
+            dataService.importInventory(fileName);
+            System.out.println(messages.getString("admin.res.importOk") + fileName + ".csv");
+        } catch (Exception e) {
+            System.out.println(messages.getString("admin.res.importBad") + e.getMessage());
         }
     }
 }

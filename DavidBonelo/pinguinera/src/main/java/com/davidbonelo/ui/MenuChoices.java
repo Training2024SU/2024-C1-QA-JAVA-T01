@@ -3,10 +3,11 @@ package com.davidbonelo.ui;
 import com.davidbonelo.models.User;
 import com.davidbonelo.models.UserRole;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-import static com.davidbonelo.utils.UserInteractions.askNumber;
 import static com.davidbonelo.utils.Permissions.validPermission;
+import static com.davidbonelo.utils.UserInteractions.askNumber;
 
 public class MenuChoices {
     private final String menuName;
@@ -31,7 +32,9 @@ public class MenuChoices {
     }
 
     private String buildMenuMessage(User user) {
-        final StringBuilder menuMessage = new StringBuilder(menuName + " menu:");
+        final StringBuilder menuMessage =
+                new StringBuilder(MessageFormat.format(messages.getString("main.menu.name"),
+                        menuName));
 
         menuMessage.append(visitorChoices);
 
@@ -72,7 +75,7 @@ public class MenuChoices {
     }
 
     private boolean isMainMenu() {
-        String MAIN_KEYWORD = "Main";
-        return menuName.equals(MAIN_KEYWORD);
+        String mainKeyword = messages.getString("main.keyword");
+        return menuName.equals(mainKeyword);
     }
 }
