@@ -79,4 +79,15 @@ public class VistaUtil {
         LOGGER.info("Error: Ya existe un empleado administrativo registrado. Intente con diferentes datos.");
     }
 
+    public static int pedirIdPrestamo() {
+        LOGGER.info("Por favor, introduzca el ID del préstamo:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static String pedirNuevoEstado() {
+        LOGGER.info("Por favor, introduzca el nuevo estado del préstamo (SOLICITADO, REALIZADO, FINALIZADO):");
+        return scanner.nextLine().toUpperCase();
+    }
+
+
 }

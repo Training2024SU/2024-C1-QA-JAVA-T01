@@ -1,10 +1,8 @@
 package co.com.pinguinera.vistas.vistas_asistente;
 
 import co.com.pinguinera.LoggerUtil;
-import co.com.pinguinera.controladores.ControladorPrestamosCorreo;
+import co.com.pinguinera.controladores.ControladorPrestamo;
 import co.com.pinguinera.controladores.crud.ControladorCRUDPrestamo;
-import co.com.pinguinera.datos.DAO.UsuarioDAO;
-import co.com.pinguinera.datos.DAO.PrestamoDAO;
 import co.com.pinguinera.vistas.MenuConstantes;
 import co.com.pinguinera.vistas.VistaUtil;
 
@@ -15,11 +13,12 @@ public class MenuAdministrarPrestamos {
     private static final Logger LOGGER = LoggerUtil.getLogger(); // Usar el logger global
 
     private final ControladorCRUDPrestamo controladorCRUDPrestamo;
-    private final ControladorPrestamosCorreo controladorPrestamosCorreo;
+    private final ControladorPrestamo controladorPrestamo;
 
-    public MenuAdministrarPrestamos(ControladorCRUDPrestamo controladorCRUDPrestamo, UsuarioDAO usuarioDAO, PrestamoDAO prestamosDAO) {
+    public MenuAdministrarPrestamos(ControladorCRUDPrestamo controladorCRUDPrestamo,
+                                    ControladorPrestamo controladorPrestamo) {
         this.controladorCRUDPrestamo = controladorCRUDPrestamo;
-        this.controladorPrestamosCorreo = new ControladorPrestamosCorreo(usuarioDAO, prestamosDAO);
+        this.controladorPrestamo = controladorPrestamo;
     }
 
     public void mostrarMenu() {
@@ -31,8 +30,9 @@ public class MenuAdministrarPrestamos {
             LOGGER.info("2. Registrar nuevo préstamo");
             LOGGER.info("3. Eliminar préstamo");
             LOGGER.info("4. Actualizar préstamo");
-            LOGGER.info("5. Listar préstamos por correo");
-            LOGGER.info("6. Volver al menú anterior");
+            LOGGER.info("5. Consultar préstamos por correo"); // Renombrada opción
+            LOGGER.info("6. Cambiar estado de préstamo"); // Opción agregada
+            LOGGER.info("7. Volver al menú anterior");
 
             int opcion = VistaUtil.obtenerOpcion();
 
@@ -50,10 +50,12 @@ public class MenuAdministrarPrestamos {
                     controladorCRUDPrestamo.actualizarPrestamo();
                     break;
                 case 5:
-                    // Invoca el método `consultarPrestamosPorCorreo` del `ControladorPrestamosCorreo`
-                    controladorPrestamosCorreo.consultarPrestamosPorCorreo();
+                    controladorPrestamo.consultarPrestamosPorCorreo(); // Invoca el método de ControladorPrestamo
                     break;
                 case 6:
+                    controladorPrestamo.cambiarEstadoPrestamo(); // Invoca el método de ControladorPrestamo
+                    break;
+                case 7:
                     LOGGER.info("Volviendo al menú anterior...");
                     continuar = false;
                     break;

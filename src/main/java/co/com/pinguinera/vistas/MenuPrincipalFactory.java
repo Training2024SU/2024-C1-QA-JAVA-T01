@@ -1,5 +1,6 @@
 package co.com.pinguinera.vistas;
 
+import co.com.pinguinera.controladores.ControladorPrestamo;
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
 import co.com.pinguinera.controladores.crud.*;
@@ -112,13 +113,14 @@ public class MenuPrincipalFactory {
         // Asignar MenuPrincipalUsuario a UsuarioSesionControlador
         usuarioSesionControlador.setMenuPrincipalUsuario(menuPrincipalUsuario);
 
+        ControladorPrestamo controladorPrestamo = new ControladorPrestamo(prestamoDAO);
 
-// Crear instancia de MenuAdministrarPrestamos
+// Crear instancia de MenuAdministrarPrestamos con controladorCRUDPrestamo y controladorPrestamo
         MenuAdministrarPrestamos menuAdministrarPrestamos = new MenuAdministrarPrestamos(
                 controladorCRUDPrestamo,
-                usuarioDAO,
-                prestamoDAO
+                controladorPrestamo
         );
+
 
 // Crear instancia de MenuPrincipalAsistente
         MenuPrincipalAsistente menuPrincipalAsistente = new MenuPrincipalAsistente(
