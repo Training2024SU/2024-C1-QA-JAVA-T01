@@ -1,12 +1,8 @@
 package com.sofka.modelo;
 
-
 import lombok.*;
 
-import java.time.LocalDate;
-
 // Clase para representar un préstamo
-
 @Data
 @Getter
 @NoArgsConstructor

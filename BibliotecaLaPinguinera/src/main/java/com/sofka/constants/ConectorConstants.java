@@ -1,4 +1,4 @@
-package com.sofka.Constants;
+package com.sofka.constants;
 
 public class ConectorConstants {
     public static final String SERVER = "localhost";

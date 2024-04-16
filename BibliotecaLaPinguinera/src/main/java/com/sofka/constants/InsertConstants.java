@@ -1,4 +1,4 @@
-package com.sofka.Constants;
+package com.sofka.constants;
 
 public class InsertConstants {
     public static final String INSERT_PUBLICACION = "insert into publicacion values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";

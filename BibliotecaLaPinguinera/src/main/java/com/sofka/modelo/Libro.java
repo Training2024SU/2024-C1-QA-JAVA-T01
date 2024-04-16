@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Libro extends Publicacion{
+public class Libro extends Publicacion {
     private String titulo;
     private String autor;
     private String tipo = "LIBRO";

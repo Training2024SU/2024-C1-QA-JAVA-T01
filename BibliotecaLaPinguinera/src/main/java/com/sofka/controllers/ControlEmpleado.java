@@ -1,6 +1,6 @@
-package com.sofka.controller;
+package com.sofka.controllers;
 
-import com.sofka.Enums.Rol;
+import com.sofka.enums.Rol;
 import com.sofka.modelo.Empleado;
 import net.datafaker.Faker;
 
@@ -11,18 +11,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import static com.sofka.BibliotecaLaPinguinera.*;
-import static com.sofka.Constants.InsertConstants.INSERT_EMPLEADO;
-import static com.sofka.Constants.SelectConstants.SELECT_ALL_FROM_EMPLEADO;
+import static com.sofka.constants.InsertConstants.INSERT_EMPLEADO;
+import static com.sofka.constants.SelectConstants.SELECT_ALL_FROM_EMPLEADO;
+import static com.sofka.controllers.ControlMenu.mostrarMensaje;
+import static com.sofka.controllers.ControlStament.ejecutarMostrarSQL;
+import static com.sofka.controllers.ControlStament.insertIntoBd;
 
 public class ControlEmpleado {
 
     private static final List<Empleado> empleados = new ArrayList<>();
 
-    public static void logicaCrearEmpleado(Empleado empleado){
+    public static void logicaCrearEmpleado(Empleado empleado) {
         registrarEmpleado(empleado);
         empleados.add(empleado);
-        mostrarMensaje("¡Empleado registrado exitosamente: " +empleado.getNombre()+ "!");
+        mostrarMensaje("¡Empleado registrado exitosamente: " + empleado.getNombre() + "!");
     }
 
     public static void registrarNuevoEmpleado(String rol) {
@@ -32,10 +34,9 @@ public class ControlEmpleado {
         String contrasena = JOptionPane.showInputDialog(null, "Ingrese una nueva contraseña: ");
         Empleado worker = new Empleado(idEmpleado, nombre, contrasena, correo, rol);
         logicaCrearEmpleado(worker);
-        mostrarMensaje("¡Empleado registrado exitosamente: " + nombre + "!");
     }
 
-    public static void registrarEmpleado(Empleado empleado){
+    public static void registrarEmpleado(Empleado empleado) {
         String cadena = String.format(INSERT_EMPLEADO, empleado.getIdEmpleado(), empleado.getNombre(), empleado.getContrasena(), empleado.getCorreo(), empleado.getRol());
         insertIntoBd(cadena);
     }
@@ -59,12 +60,8 @@ public class ControlEmpleado {
 
     public static void selectAllFromEmpleado() throws SQLException {
         System.out.println("Lista de Empleados Registrados");
-        insertIntoBd(SELECT_ALL_FROM_EMPLEADO);
-        ejecutarMostrarSQL();
+        ejecutarMostrarSQL(SELECT_ALL_FROM_EMPLEADO);
     }
-
-
-
 
 
 }

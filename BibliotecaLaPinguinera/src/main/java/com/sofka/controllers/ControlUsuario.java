@@ -1,4 +1,4 @@
-package com.sofka.controller;
+package com.sofka.controllers;
 
 import com.sofka.modelo.Usuario;
 import net.datafaker.Faker;
@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static com.sofka.BibliotecaLaPinguinera.*;
-import static com.sofka.Constants.InsertConstants.INSERT_USUARIO;
-import static com.sofka.Constants.SelectConstants.SELECT_ALL_FROM_USUARIO;
+import static com.sofka.constants.InsertConstants.INSERT_USUARIO;
+import static com.sofka.constants.SelectConstants.SELECT_ALL_FROM_USUARIO;
+import static com.sofka.controllers.ControlMenu.mostrarMensaje;
+import static com.sofka.controllers.ControlStament.ejecutarMostrarSQL;
+import static com.sofka.controllers.ControlStament.insertIntoBd;
 
 public class ControlUsuario {
     private ControlUsuario() {
@@ -55,7 +57,7 @@ public class ControlUsuario {
 
     public static void selectAllFromUsuario() throws SQLException {
         System.out.println("Lista de Usuarios Registrados");
-        insertIntoBd(SELECT_ALL_FROM_USUARIO);
-        ejecutarMostrarSQL();
+        ejecutarMostrarSQL(SELECT_ALL_FROM_USUARIO);
     }
+
 }

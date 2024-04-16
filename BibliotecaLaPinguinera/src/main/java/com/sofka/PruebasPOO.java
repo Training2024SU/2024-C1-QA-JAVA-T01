@@ -49,7 +49,7 @@ public class PruebasPOO {
         librosUsuario1.add(libros.get(1));
         ArrayList<Novela> novelasUsuario1 = new ArrayList<>();
         novelasUsuario1.add(novelas.get(0));
-        prestamos.add(new Prestamo( "novelasUsuario1", "2023-04-01", "2023-04-15", "SOLICITADO",usuario1.getCorreo(), librosUsuario1.get(0).getTitulo()));
+        prestamos.add(new Prestamo("novelasUsuario1", "2023-04-01", "2023-04-15", "SOLICITADO", usuario1.getCorreo(), librosUsuario1.get(0).getTitulo()));
     }
 
     // Métodos para gestionar usuarios, libros, novelas y préstamos
