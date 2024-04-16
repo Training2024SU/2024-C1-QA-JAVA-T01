@@ -1,6 +1,8 @@
 package co.com.pinguinera.vistas.vistas_administrativo;
 
 import co.com.pinguinera.controladores.crud.*;
+import co.com.pinguinera.vistas.VistaUtil;
+
 import java.util.Scanner;
 
 public class MenuPrincipalAdministrativo {
@@ -37,7 +39,7 @@ public class MenuPrincipalAdministrativo {
             System.out.println("5. Gestión de libros");
             System.out.println("6. Salir");
 
-            int opcion = obtenerOpcion();
+            int opcion = VistaUtil.obtenerOpcion();
 
             switch (opcion) {
                 case 1:
@@ -72,7 +74,7 @@ public class MenuPrincipalAdministrativo {
         System.out.println("3. Eliminar usuario");
         System.out.println("4. Volver");
 
-        int opcion = obtenerOpcion();
+        int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
             case 1:
                 controladorCRUDUsuario.registrarUsuario();
@@ -97,7 +99,7 @@ public class MenuPrincipalAdministrativo {
         System.out.println("3. Ver todos los préstamos");
         System.out.println("4. Volver");
 
-        int opcion = obtenerOpcion();
+        int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
             case 1:
                 controladorCRUDPrestamo.registrarPrestamo();
@@ -122,7 +124,7 @@ public class MenuPrincipalAdministrativo {
         System.out.println("3. Eliminar empleado");
         System.out.println("4. Volver");
 
-        int opcion = obtenerOpcion();
+        int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
             case 1:
                 controladorCRUDEmpleado.registrarEmpleado();
@@ -148,7 +150,7 @@ public class MenuPrincipalAdministrativo {
         System.out.println("4. Ver todas las novelas");
         System.out.println("5. Volver");
 
-        int opcion = obtenerOpcion();
+        int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
             case 1:
                 controladorCRUDNovela.registrarNovela();
@@ -177,7 +179,7 @@ public class MenuPrincipalAdministrativo {
         System.out.println("4. Ver todos los libros");
         System.out.println("5. Volver");
 
-        int opcion = obtenerOpcion();
+        int opcion = VistaUtil.obtenerOpcion();
         switch (opcion) {
             case 1:
                 controladorCRUDLibro.registrarLibro();
@@ -198,14 +200,4 @@ public class MenuPrincipalAdministrativo {
         }
     }
 
-    private int obtenerOpcion() {
-        while (true) {
-            System.out.print("Opción: ");
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
-            }
-        }
-    }
 }

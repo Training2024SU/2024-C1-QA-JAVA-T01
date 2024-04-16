@@ -3,6 +3,7 @@ package co.com.pinguinera.vistas;
 import co.com.pinguinera.controladores.autenticacion.EmpleadoSesionControlador;
 import co.com.pinguinera.controladores.crud.ControladorCRUDUsuario;
 import co.com.pinguinera.controladores.autenticacion.UsuarioSesionControlador;
+import co.com.pinguinera.vistas.VistaUtil;
 
 import java.util.Scanner;
 
@@ -35,23 +36,8 @@ public class MenuPrincipal {
             System.out.println("3. Registrarse como usuario");
             System.out.println("4. Salir");
 
-            int eleccion = obtenerOpcion();
+            int eleccion =  VistaUtil.obtenerOpcion();
             continuar = manejarEleccion(eleccion);
-        }
-    }
-
-    /**
-     * Obtiene una opción numérica válida ingresada por el usuario.
-     * @return La opción seleccionada por el usuario.
-     */
-    private int obtenerOpcion() {
-        while (true) {
-            System.out.print("Opción: ");
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
-            }
         }
     }
 

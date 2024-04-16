@@ -3,6 +3,8 @@ package co.com.pinguinera.vistas.vistas_asistente;
 import co.com.pinguinera.controladores.crud.ControladorCRUDLibro;
 import co.com.pinguinera.controladores.crud.ControladorCRUDNovela;
 import co.com.pinguinera.controladores.crud.ControladorCRUDPrestamo;
+import co.com.pinguinera.vistas.VistaUtil;
+
 import java.util.Scanner;
 
 public class MenuPrincipalAsistente {
@@ -36,7 +38,7 @@ public class MenuPrincipalAsistente {
             System.out.println("9. Actualizar novela");
             System.out.println("10. Salir");
 
-            int opcion = obtenerOpcion();
+            int opcion = VistaUtil.obtenerOpcion();
 
             switch (opcion) {
                 case 1:
@@ -76,14 +78,5 @@ public class MenuPrincipalAsistente {
         }
     }
 
-    private int obtenerOpcion() {
-        while (true) {
-            System.out.print("Opción: ");
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Opción no válida. Inténtelo de nuevo.");
-            }
-        }
-    }
+
 }

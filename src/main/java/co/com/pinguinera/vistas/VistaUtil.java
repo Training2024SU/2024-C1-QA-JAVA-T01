@@ -1,60 +1,76 @@
 package co.com.pinguinera.vistas;
 
+import co.com.pinguinera.LoggerUtil;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class VistaUtil {
 
+    // Usar el logger global desde LoggerUtil
+    private static final Logger LOGGER = LoggerUtil.getLogger();
     private static final Scanner scanner = new Scanner(System.in);
 
+    // Constructor privado para ocultar el constructor público implícito
+    private VistaUtil() {
+        // Este constructor se deja vacío para impedir instanciaciones de la clase
+    }
+
     public static String pedirCorreoElectronico() {
-        System.out.print("Por favor, introduzca su correo electrónico: ");
+        LOGGER.info("Por favor, introduzca su correo electrónico");
         return scanner.nextLine();
     }
 
     public static String pedirContrasena() {
-        System.out.print("Por favor, introduzca su contraseña: ");
+        LOGGER.info("Por favor, introduzca su contraseña");
         return scanner.nextLine();
     }
 
     public static void mostrarMensajeExito() {
-        System.out.println("Proceso Exitoso");
+        LOGGER.info("Proceso Exitoso");
     }
 
     public static void mostrarMensajeError() {
-        System.out.println("Error. Por favor, inténtelo nuevamente.");
+        LOGGER.severe("Error. Por favor, inténtelo nuevamente.");
     }
 
-    // Método para pedir el nombre del usuario
     public static String pedirNombre() {
-        System.out.print("Por favor, introduzca su nombre: ");
+        LOGGER.info("Por favor, introduzca su nombre");
         return scanner.nextLine();
     }
 
-    // Métodos adicionales para pedir información relacionada con libros y novelas
     public static String pedirTitulo() {
-        System.out.print("Por favor, introduzca el título: ");
+        LOGGER.info("Por favor, introduzca el título");
         return scanner.nextLine();
     }
 
     public static String pedirAutor() {
-        System.out.print("Por favor, introduzca el autor: ");
+        LOGGER.info("Por favor, introduzca el autor");
         return scanner.nextLine();
     }
 
     public static int pedirNumPaginas() {
-        System.out.print("Por favor, introduzca el número de páginas: ");
+        LOGGER.info("Por favor, introduzca el número de páginas");
         return Integer.parseInt(scanner.nextLine());
     }
 
     public static int pedirCantEjemplares() {
-        System.out.print("Por favor, introduzca la cantidad de ejemplares: ");
+        LOGGER.info("Por favor, introduzca la cantidad de ejemplares");
         return Integer.parseInt(scanner.nextLine());
     }
 
     public static int pedirCantPrestados() {
-        System.out.print("Por favor, introduzca la cantidad de ejemplares prestados: ");
+        LOGGER.info("Por favor, introduzca la cantidad de ejemplares prestados");
         return Integer.parseInt(scanner.nextLine());
     }
 
-
+    public static int obtenerOpcion() {
+        while (true) {
+            LOGGER.info("Por favor, introduzca la opción");
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                LOGGER.warning("Opción no válida. Inténtelo de nuevo.");
+            }
+        }
+    }
 }
