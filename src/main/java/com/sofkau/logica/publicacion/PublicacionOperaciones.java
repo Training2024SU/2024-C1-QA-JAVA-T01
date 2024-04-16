@@ -201,7 +201,7 @@ public class PublicacionOperaciones {
             // Verificar si el nombre del autor coincide con el nombre proporcionado
             if (publicacion.getAutor().getNombre().equals(nombreAutor)) {
                 // obtiene el tipo de la publicaion
-               TipoPublicacion tipo= publicacion.getTipo().equals(TipoPublicacion.Novela)?TipoPublicacion.Novela:TipoPublicacion.Libro;
+               TipoPublicacion tipo= publicacion.getTipo().equals(TipoPublicacion.Novela.toString())?TipoPublicacion.Novela:TipoPublicacion.Libro;
                 imprimirPublicacion(tipo,publicacion);
             }
         }
@@ -214,16 +214,16 @@ public class PublicacionOperaciones {
             System.out.println(publicacion);
             String generoArea = tipo == TipoPublicacion.Novela ? "Géneros" : "Area conocimiento";
             if (tipo == TipoPublicacion.Libro) {
-                System.out.println(publicacion.getNumeroPaginas());
+                System.out.print(" Número páginas: "+publicacion.getNumeroPaginas());
             }
-            System.out.println(generoArea);
+            System.out.print(" "+generoArea);
             for (AreaGenero areaGenero : publicacion.getAreas()) {
-                System.out.println("- " + areaGenero.getAreaGenero());
+                System.out.print(" - " + areaGenero.getAreaGenero());
             }
             if(tipo == TipoPublicacion.Novela){
-                System.out.println("Edades sugeridas:");
+                System.out.print(" Edades sugeridas:");
                 for (EdadSugerida edadSugerida : publicacion.getEdades()) {
-                    System.out.println("- " + edadSugerida.getEdadSugeridad());
+                    System.out.print(" - " + edadSugerida.getEdadSugeridad());
                 }
             }
             System.out.println();

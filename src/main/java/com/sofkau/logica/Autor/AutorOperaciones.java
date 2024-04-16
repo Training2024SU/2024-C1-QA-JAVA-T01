@@ -49,16 +49,6 @@ public class AutorOperaciones {
        return autorVal.orElse(null);
     }
 
-
-    public void generateAutores(int numAutores) {
-        Faker faker = new Faker();
-        for (int i = 0; i < numAutores; i++) {
-            String nombre = faker.name().fullName();
-            Autor autor = new Autor(GenerateUniqueId.generateID(), nombre);
-            registrarAutor(autor);
-        }
-    }
-
     public Autor buscarAutorNombre(String nombre) {
         for (Autor autor : autores.values()) {
             if (autor.getNombre().equalsIgnoreCase(nombre)) {

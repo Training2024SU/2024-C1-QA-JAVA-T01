@@ -8,10 +8,17 @@ import com.sofkau.model.Usuario;
 import java.util.Scanner;
 
 import static com.sofkau.dialogo.Menu.menuPrincipal;
+import static com.sofkau.logica.control.ControlIngreso.scannerGlobal;
+import static com.sofkau.logica.control.ControlIngreso.usuarioOp;
+import static com.sofkau.logica.control.ControlIngreso.option;
+import static com.sofkau.logica.control.ControlIngreso.empleadoOp;
+import static com.sofkau.logica.control.ControlIngreso.bandera;
 
 
 public class InicioSesion {
-   /* private static void inicioSesion(int op) {
+
+
+    protected static void inicioSesion(int op) {
         switch (op) {
             case 1 -> {
                 Menu.correo();
@@ -22,7 +29,7 @@ public class InicioSesion {
                 usuarioOp = new UsuarioOperaciones();
 
                 if (usuarioOp.inicioSesion(correo, contrasena)) {
-                    menuUsuario();
+                    MenuUsuario.menuUsuario();
                 } else {
                     option = 0;
                     System.out.println("Credenciales incorrectas por favor verifique");
@@ -38,7 +45,7 @@ public class InicioSesion {
                 empleadoOp = new EmpleadoOperaciones();
 
                 if (empleadoOp.inicioSesion(correoEmp, contrasenaEmp)) {
-                    menuEmpleado();
+                    MenuEmpleado.menuEmpleado();
                 } else {
                     option = 0;
                     System.out.println("Credenciales incorrectas por favor verifique");
@@ -52,6 +59,7 @@ public class InicioSesion {
                 Menu.contrasena();
                 String contrasenaU = scannerGlobal.nextLine();
                 usuarioOp.registrarUsuario(new Usuario(nombre, correoU, contrasenaU));
+                option = 0;
 
             }case 4 -> {
                 bandera = false;
@@ -62,6 +70,5 @@ public class InicioSesion {
             }
 
         }
-    }*/
-
+    }
 }

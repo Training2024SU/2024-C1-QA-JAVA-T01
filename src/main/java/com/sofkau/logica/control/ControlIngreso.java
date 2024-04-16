@@ -20,25 +20,22 @@ public class ControlIngreso {
 
     protected static boolean bandera = true;
 
-    private static Scanner scannerGlobal = new Scanner(System.in);
+    protected static Scanner scannerGlobal = new Scanner(System.in);
 
-    private static UsuarioOperaciones usuarioOp;
+    protected static UsuarioOperaciones usuarioOp = new UsuarioOperaciones();
 
-    private static EmpleadoOperaciones empleadoOp;
+    protected static EmpleadoOperaciones empleadoOp = new EmpleadoOperaciones();
 
-    private static AutorOperaciones autorOp = new AutorOperaciones();
+    protected static AutorOperaciones autorOp = new AutorOperaciones();
 
-    private static PublicacionOperaciones publicacionOp = new PublicacionOperaciones();
+    protected static PublicacionOperaciones publicacionOp = new PublicacionOperaciones();
 
-    private static PrestamoOperaciones prestamoOp = new PrestamoOperaciones();
+    protected static PrestamoOperaciones prestamoOp = new PrestamoOperaciones();
 
-    private static final Logger logger = Logger.getLogger(ControlIngreso.class.getName());
-
-
+    protected static final Logger logger = Logger.getLogger(ControlIngreso.class.getName());
 
 
-    private static int option = 0;
-    private static int optionEmp = 0;
+    protected static int option = 0;
 
     public ControlIngreso() {
     }
@@ -47,7 +44,12 @@ public class ControlIngreso {
     // Se hace publico para ser el unico metodo que se pueda llamar desde el main
     public static void implementarLogica() {
 
-            autorOp.generateAutores(5);
+        // Se generan autores autes de iniciar el programa
+
+
+        // Se genera el empleado administrador si no se encuentra registrado en la base de datos en base a los
+        // Datos proporicionado en el .env
+
             while (bandera) {
                 try {
                     switch (option) {
@@ -55,11 +57,11 @@ public class ControlIngreso {
                             Menu.menuPrincipal();
                             String op = scannerGlobal.nextLine();
                             option = Integer.parseInt(op);
-                            inicioSesion(option);
+                            InicioSesion.inicioSesion(option);
                         }case 1 ->{
-                            menuUsuario();
+                            MenuUsuario.menuUsuario();
                         }case 2 ->{
-                            menuEmpleado();
+                            MenuEmpleado.menuEmpleado();
                         }
                     }
 
@@ -67,307 +69,6 @@ public class ControlIngreso {
                     option = 0;
                     logger.severe("Error por la razón: "+e.getMessage());
                 }
-        }
-    }
-
-    private static void inicioSesion(int op) {
-        switch (op) {
-            case 1 -> {
-                Menu.correo();
-                String correo = scannerGlobal.nextLine();
-                Menu.contrasena();
-                String contrasena = scannerGlobal.nextLine();
-
-                usuarioOp = new UsuarioOperaciones();
-
-                if (usuarioOp.inicioSesion(correo, contrasena)) {
-                    menuUsuario();
-                } else {
-                    option = 0;
-                    System.out.println("Credenciales incorrectas por favor verifique");
-                }
-            }
-            case 2 -> {
-                EmpleadoOperaciones.getEmpleados();
-            Menu.correo();
-            String correoEmp = scannerGlobal.nextLine();
-            Menu.contrasena();
-            String contrasenaEmp = scannerGlobal.nextLine();
-
-            empleadoOp = new EmpleadoOperaciones();
-
-            if (empleadoOp.inicioSesion(correoEmp, contrasenaEmp)) {
-                menuEmpleado();
-            } else {
-                option = 0;
-                System.out.println("Credenciales incorrectas por favor verifique");
-            }
-
-            } case 3 -> {
-            Menu.nombre();
-            String nombre = scannerGlobal.nextLine();
-            Menu.correo();
-            String correoU = scannerGlobal.nextLine();
-            Menu.contrasena();
-            String contrasenaU = scannerGlobal.nextLine();
-            usuarioOp.registrarUsuario(new Usuario(nombre, correoU, contrasenaU));
-
-        }case 4 -> {
-            bandera = false;
-
-        }default -> {
-                System.out.println("ingrese una opcion válida");
-
-            }
-
-        }
-    }
-
-    private static void menuUsuario() {
-
-        Menu.menuUsuario();
-        int op = scannerGlobal.nextInt();
-        scannerGlobal.nextLine();
-
-        switch (op) {
-            case 1-> {
-                Menu.ingresoTitulo();
-                String titulo = scannerGlobal.nextLine();
-                Menu.ingresoFechaDevolucion();
-                String fechaDev = scannerGlobal.nextLine();
-
-                prestamoOp.RegistrarPrestamo(titulo,fechaDev,usuarioOp.getUsuarioActual().getCorreo());
-            }
-            case 2-> {
-                publicacionOp.imprimirPublicaciones(TipoPublicacion.Libro);
-            }
-            case 3-> {
-                publicacionOp.imprimirPublicaciones(TipoPublicacion.Novela);
-            }
-            case 4-> {
-                autorOp.listarAutores();
-            }
-            case 5-> {
-                Menu.nombre();
-                String nombre = scannerGlobal.nextLine();
-                publicacionOp.listarPublicacionesPorAutor(nombre);
-            }
-            default -> {
-                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
-                bandera = false;
-            }
-
-        }
-    }
-
-    private static void menuEmpleado()  {
-
-        switch (empleadoOp.getEmpleadoActual().getRol()) {
-            case "ADMINISTRADOR" -> {
-                Menu.menuAdministrador();
-                int op = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                menuAdministrador(op);
-            }
-            case "ASISTENTE" -> {
-                Menu.ingresoAsistente();
-                int op = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                menuAsistente(op);
-            }
-            case "PROPIETARIO" -> {
-                Menu.ingresoPropietario();
-                int op = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                menuPropietario(op);
-            }
-            default -> {
-                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
-                bandera = false;
-            }
-
-        }
-    }
-
-    private static void menuAdministrador(int op) {
-
-        switch (op) {
-            case 1 -> {
-                Menu.nombre();
-                String nombre = scannerGlobal.nextLine();
-                Menu.correo();
-                String correo = scannerGlobal.nextLine();
-                Menu.contrasena();
-                String contrasena = scannerGlobal.nextLine();
-
-
-                empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ADMINISTRADOR.toString());
-
-            }
-            case 2 -> {
-                Menu.nombre();
-                String nombre = scannerGlobal.nextLine();
-                Menu.correo();
-                String correo = scannerGlobal.nextLine();
-                Menu.contrasena();
-                String contrasena = scannerGlobal.nextLine();
-
-                empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ASISTENTE.toString());
-
-            }
-            case 3 -> {
-                /*Menu.nombre();
-                String nombre = scannerGlobal.nextLine();
-                Menu.correo();
-                String correo = scannerGlobal.nextLine();
-                Menu.contrasena();
-                String contrasena = scannerGlobal.nextLine();
-
-                UsuarioOperaciones.registrarUsuario(new Usuario(nombre, correo, contrasena));*/
-            }
-            default -> {
-                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
-                bandera = false;
-            }
-
-        }
-    }
-
-    private static void menuPropietario(int op) {
-
-        switch (op) {
-            case 1 -> {
-                Menu.nombre();
-                String nombre = scannerGlobal.nextLine();
-                Menu.correo();
-                String correo = scannerGlobal.nextLine();
-                Menu.contrasena();
-                String contrasena = scannerGlobal.nextLine();
-
-
-                empleadoOp.registrarEmpleado(new Empleado(nombre,correo,contrasena), Roles.ASISTENTE.toString());
-
-            }
-            default -> {
-                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
-                bandera = false;
-            }
-
-        }
-    }
-
-    private static void menuAsistente(int op) {
-        switch (op) {
-            case 1 -> {
-                Menu.ingresoLibro();
-                Menu.ingresoTitulo();
-                String titulo = scannerGlobal.nextLine();
-                autorOp.listarAutores();
-                Menu.ingresoAutor();
-                String nombreAutor = scannerGlobal.nextLine();
-                Menu.ingresoCantEjemplar();
-                int cantEjemplar = scannerGlobal.nextInt();
-                Menu.ingresoCantPrestado();
-                int cantPres = scannerGlobal.nextInt();
-                Menu.ingresoNumPaginas();
-                int numPag = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                Menu.ingresoAreaConocimiento();
-                String areaConocimiento = scannerGlobal.nextLine();
-
-                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Libro.toString(),
-                                numPag,cantEjemplar,cantPres),
-                         new AreaGenero(titulo,areaConocimiento));
-
-            }
-            case 2 -> {
-                Menu.ingresoNovela();
-                Menu.ingresoTitulo();
-                String titulo = scannerGlobal.nextLine();
-                autorOp.listarAutores();
-                Menu.ingresoAutor();
-                String nombreAutor = scannerGlobal.nextLine();
-                Menu.ingresoCantEjemplar();
-                int cantEjemplar = scannerGlobal.nextInt();
-                Menu.ingresoCantPrestado();
-                int cantPres = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                Menu.ingresoGenero();
-                String genero = scannerGlobal.nextLine();
-                Menu.ingresoEdadSugerida();
-                String edadSugeridad = scannerGlobal.nextLine();
-
-                publicacionOp.registrarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Novela.toString(),
-                                cantEjemplar,cantPres),
-                        new AreaGenero(titulo,genero),new EdadSugerida(titulo,edadSugeridad));
-
-            }case 3 ->{
-                Menu.actualizacionLibro();
-                Menu.tituloActualizar();
-                String tituloAntiguo = scannerGlobal.nextLine();
-                Menu.ingresoTitulo();
-                String titulo = scannerGlobal.nextLine();
-                autorOp.listarAutores();
-                Menu.ingresoAutor();
-                String nombreAutor = scannerGlobal.nextLine();
-                Menu.ingresoCantEjemplar();
-                int cantEjemplar = scannerGlobal.nextInt();
-                Menu.ingresoCantPrestado();
-                int cantPres = scannerGlobal.nextInt();
-                Menu.ingresoNumPaginas();
-                int numPag = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                Menu.ingresoAreaConocimiento();
-                String areaConocimiento = scannerGlobal.nextLine();
-                publicacionOp.actualizarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Libro.toString(),
-                                numPag,cantEjemplar,cantPres),
-                        new AreaGenero(titulo,areaConocimiento),
-                        tituloAntiguo);
-            }case 4 ->{
-                Menu.actualizacionNovela();
-                Menu.tituloActualizar();
-                String tituloAntiguo = scannerGlobal.nextLine();
-                Menu.ingresoTitulo();
-                String titulo = scannerGlobal.nextLine();
-                autorOp.listarAutores();
-                Menu.ingresoAutor();
-                String nombreAutor = scannerGlobal.nextLine();
-                Menu.ingresoCantEjemplar();
-                int cantEjemplar = scannerGlobal.nextInt();
-                Menu.ingresoCantPrestado();
-                int cantPres = scannerGlobal.nextInt();
-                scannerGlobal.nextLine();
-                Menu.ingresoGenero();
-                String genero = scannerGlobal.nextLine();
-                Menu.ingresoEdadSugerida();
-                String edadSugeridad = scannerGlobal.nextLine();
-
-                publicacionOp.actualizarPublicacion(new Publicacion(titulo,autorOp.buscarAutorNombre(nombreAutor),TipoPublicacion.Novela.toString(),
-                        cantEjemplar,cantPres),
-                        new AreaGenero(titulo,genero),new EdadSugerida(titulo,edadSugeridad),
-                        tituloAntiguo);
-            }case 5 ->{
-                    Menu.IngresoIdPrestamo();
-                    String idPrestamo = scannerGlobal.nextLine();
-                prestamoOp.actualizarEstadoPrestamo(EstadoPrestamo.REALIZADO,idPrestamo);
-
-            }case 6 ->{
-                    Menu.IngresoIdPrestamo();
-                    String idPrestamo = scannerGlobal.nextLine();
-                    prestamoOp.actualizarEstadoPrestamo(EstadoPrestamo.FINALIZADO,idPrestamo);
-
-            }case 7 ->{
-                    Menu.listarPrestamos();
-                    Menu.correo();
-                    String correo = scannerGlobal.nextLine();
-
-                    prestamoOp.listarPrestamosPorCorreo(correo);
-            }
-            default -> {
-                System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
-                bandera = false;
-            }
-
         }
     }
 

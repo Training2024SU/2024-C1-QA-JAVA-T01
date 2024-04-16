@@ -38,6 +38,8 @@ public class Menu {
         System.out.println(MSN_ENTREGARLIBRO);
         System.out.println(MSN_LIBRODEV);
         System.out.println(MSN_LISTARPRESTAMOS);
+        System.out.println(MSN_LISTARPRESTAMOS);
+        System.out.println(MSN_INGRESOAU);
 
     }
 

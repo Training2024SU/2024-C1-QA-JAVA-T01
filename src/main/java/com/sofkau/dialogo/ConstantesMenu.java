@@ -43,6 +43,8 @@ public class ConstantesMenu {
 
     public static final String MSN_ENTREGARLIBRO="5. Entregar Libro usuario";
     public static final String MSN_LIBRODEV ="6. Ingresar libro devuelto";
+
+    public static final String MSN_INGRESOAU ="8. Ingresar autor";
     public static final String MSN_LISTARPRESTAMOS ="7. Consultar Prestamos lector";
 
 
