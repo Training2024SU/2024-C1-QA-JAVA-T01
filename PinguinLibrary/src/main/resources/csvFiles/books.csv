@@ -1,0 +1,9 @@
+bookId,bookTitle,quantity,quantityLoaned,quantityAvailable,category,authorName
+1,Cien annos de soledad prueba,100,3,97,horror,Stephen King
+11,prueba2,1,0,1,horror,J.K. Rowling
+2,Harry Potter y la piedra filosofal,8,1,7,Fantasia,J.K. Rowling
+3,El resplandor,15,1,14,Terror,Stephen King
+4,Tokio blues,20,1,19,Drama,Haruki Murakami
+5,Asesinato en el Orient Express,12,1,11,Misterio,Agatha Christie
+c15cac91-06b0-4135-a004-8927d58bb457,1886,10,0,10,horror,Ernest Hemingway
+d0e8d0b2-5019-409a-b918-e251f451512d,Prueba,80,10,70,suspense,Stephen King
