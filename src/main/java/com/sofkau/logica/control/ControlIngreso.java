@@ -132,16 +132,18 @@ public class ControlIngreso {
                 prestamoOp.RegistrarPrestamo(titulo,fechaDev,usuarioOp.getUsuarioActual().getCorreo());
             }
             case 2-> {
-                publicacionOp.imprimirLibros();
+                publicacionOp.imprimirPublicaciones(TipoPublicacion.Libro);
             }
             case 3-> {
-                publicacionOp.imprimirNovelas();
+                publicacionOp.imprimirPublicaciones(TipoPublicacion.Novela);
             }
             case 4-> {
                 autorOp.listarAutores();
             }
             case 5-> {
-                System.out.println("b");
+                Menu.nombre();
+                String nombre = scannerGlobal.nextLine();
+                publicacionOp.listarPublicacionesPorAutor(nombre);
             }
             default -> {
                 System.out.println("Ha ocurrido un error por favor verifique sus credenciales");
@@ -346,15 +348,4 @@ public class ControlIngreso {
         }
     }
 
-    private static int pedirOpcion() {
-        Scanner scanner = new Scanner(System.in);
-        int option;
-        try {
-            option = scanner.nextInt();
-        } catch (Exception e) {
-            option = 0;
-            System.out.println("Error por la razon " + e.getMessage());
-        }
-        return option;
-    }
 }

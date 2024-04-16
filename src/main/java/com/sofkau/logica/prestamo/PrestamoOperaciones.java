@@ -3,6 +3,7 @@ package com.sofkau.logica.prestamo;
 import com.sofkau.dialogo.MensajeOperacionBd;
 import com.sofkau.integration.repositorio.EmpleadoRepositorio;
 import com.sofkau.integration.repositorio.PrestamoRepositorio;
+import com.sofkau.logica.publicacion.PublicacionOperaciones;
 import com.sofkau.model.Empleado;
 import com.sofkau.model.Prestamo;
 import com.sofkau.util.CommonOperacion.GenerateUniqueId;
@@ -17,9 +18,12 @@ public class PrestamoOperaciones {
 
     private static HashMap<String, Prestamo> prestamos = new HashMap<>();
 
+    private PublicacionOperaciones publicacionOp;
+
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
     public PrestamoOperaciones() {
+        this.publicacionOp = new PublicacionOperaciones();
         getPrestamos();
     }
 
@@ -55,9 +59,29 @@ public class PrestamoOperaciones {
         // Se actualiza el prestamo en la lista
         prestamos.put(prestamo.getId(), prestamo);
 
+        //Se suma 1 la cantidad de ejemplares prestados
+        publicacionOp.actualizarCantidadPrestadaPublicacion(prestamo.getTituloPublicacion(),1,false);
+    }
+
+    public void actualizarEstadoPrestamo(){
+
     }
 
     public void getPrestamos() {
         prestamos = PrestamoRepositorio.consultarPrestamos();
     }
+
+    public void listarPrestamosPorCorreo(String correoUsuario) {
+        // Iterar sobre todos los préstamos
+        for (Prestamo prestamo : prestamos.values()) {
+            // Verificar si el préstamo pertenece al usuario con el correo especificado
+            if (prestamo.getCorreoUsuario().equals(correoUsuario)) {
+                System.out.println(prestamo);
+            }else{
+                System.out.println("No hay prestamos para este usuario");
+            }
+        }
+    }
+
+
 }

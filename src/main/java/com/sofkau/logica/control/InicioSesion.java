@@ -1,50 +1,67 @@
 package com.sofkau.logica.control;
 
+import com.sofkau.dialogo.Menu;
+import com.sofkau.logica.empleado.EmpleadoOperaciones;
+import com.sofkau.logica.usuario.UsuarioOperaciones;
+import com.sofkau.model.Usuario;
+
 import java.util.Scanner;
 
 import static com.sofkau.dialogo.Menu.menuPrincipal;
 
 
-
 public class InicioSesion {
+   /* private static void inicioSesion(int op) {
+        switch (op) {
+            case 1 -> {
+                Menu.correo();
+                String correo = scannerGlobal.nextLine();
+                Menu.contrasena();
+                String contrasena = scannerGlobal.nextLine();
 
-    private boolean bandera = true;
-    public static void implementarLogica() {
-        int option;
-        boolean bandera = true;
-        while (bandera) {
-            menuPrincipal();
-            option = pedirOpcion();
-            bandera = seleccionarOpciones(option,bandera);
+                usuarioOp = new UsuarioOperaciones();
 
-        }
-    }
+                if (usuarioOp.inicioSesion(correo, contrasena)) {
+                    menuUsuario();
+                } else {
+                    option = 0;
+                    System.out.println("Credenciales incorrectas por favor verifique");
+                }
+            }
+            case 2 -> {
+                EmpleadoOperaciones.getEmpleados();
+                Menu.correo();
+                String correoEmp = scannerGlobal.nextLine();
+                Menu.contrasena();
+                String contrasenaEmp = scannerGlobal.nextLine();
 
-    public static boolean seleccionarOpciones(int option, boolean bandera) {
-        switch (option) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
+                empleadoOp = new EmpleadoOperaciones();
+
+                if (empleadoOp.inicioSesion(correoEmp, contrasenaEmp)) {
+                    menuEmpleado();
+                } else {
+                    option = 0;
+                    System.out.println("Credenciales incorrectas por favor verifique");
+                }
+
+            } case 3 -> {
+                Menu.nombre();
+                String nombre = scannerGlobal.nextLine();
+                Menu.correo();
+                String correoU = scannerGlobal.nextLine();
+                Menu.contrasena();
+                String contrasenaU = scannerGlobal.nextLine();
+                usuarioOp.registrarUsuario(new Usuario(nombre, correoU, contrasenaU));
+
+            }case 4 -> {
                 bandera = false;
-                break;
-            default:
-                System.out.println("ingrese una opcion válida");
-        }
-        return bandera;
-    }
 
-    public static int pedirOpcion() {
-        Scanner scanner = new Scanner(System.in);
-        int option;
-        try {
-            option = scanner.nextInt();
-        } catch (Exception e) {
-            option = 0;
-            System.out.println("Error por la razon " + e.getMessage());
+            }default -> {
+                System.out.println("ingrese una opcion válida");
+
+            }
+
         }
-        return option;
-    }
+    }*/
 
 }

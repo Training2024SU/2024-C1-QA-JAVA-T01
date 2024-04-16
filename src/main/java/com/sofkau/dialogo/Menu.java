@@ -1,7 +1,6 @@
 package com.sofkau.dialogo;
 
 import static com.sofkau.dialogo.ConstantesMenu.*;
-import static com.sofkau.dialogo.ConstantesRegistroUsuario.*;
 
 public class Menu {
 
