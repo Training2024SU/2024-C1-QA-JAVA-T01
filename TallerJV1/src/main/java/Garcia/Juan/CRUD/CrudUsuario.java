@@ -14,6 +14,7 @@ public class CrudUsuario {
 
     private static final String GET_USERS = "SELECT * FROM bibliotecapingu.usuario";
     protected static final String INSERT_USER = "INSERT INTO bibliotecapingu.usuario (correo, contrasenha ,nombre, rol) VALUES ('%s','%s','%s','%s')";
+    protected static final String INSERT_ADMIN = "INSERT IGNORE INTO bibliotecapingu.usuario (correo, contrasenha ,nombre, rol) VALUES ('%s','%s','%s','%s')";
 
     public CrudUsuario(MySqlOperation mySqlOperation) {
         this.mySqlOperation = mySqlOperation;
@@ -48,5 +49,16 @@ public class CrudUsuario {
         String statement = String.format(INSERT_USER,correo,contrasena,nombre,rol);
         mySqlOperation.setSqlStatement(statement);
         mySqlOperation.executeSqlStatementVoid();
+    }
+
+    public static void crearAdmin(MySqlOperation mySqlOperation){
+        String correo = "administrador@pingu.com.co";
+        String contrasena = "contrasenasegura123456";
+        String nombre = "John Doe";
+        String rol = "ADMINISTRADOR";
+        String statement = String.format(INSERT_ADMIN,correo,contrasena,nombre,rol);
+        mySqlOperation.setSqlStatement(statement);
+        mySqlOperation.executeSqlStatementVoid();
+
     }
 }

@@ -11,6 +11,7 @@ import Garcia.Juan.database.mysql.MySqlOperation;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+import static Garcia.Juan.CRUD.CrudUsuario.crearAdmin;
 import static Garcia.Juan.database.ConexionBD.*;
 import static Garcia.Juan.dialogo.Menu.*;
 import static Garcia.Juan.logica.MetodosMain.iniciarPrograma;
@@ -30,6 +31,7 @@ public class Main {
         MetodosProducto metodosProducto = new MetodosProducto(mySqlOperation);
         MetodosPrestamo metodosPrestamo = new MetodosPrestamo(mySqlOperation);
         SesionIniciada sesionIniciada = new SesionIniciada(mySqlOperation);
+        crearAdmin(mySqlOperation);
         iniciarPrograma(mySqlOperation);
         closeConnection(mySqlOperation);
         loggerFinal();
