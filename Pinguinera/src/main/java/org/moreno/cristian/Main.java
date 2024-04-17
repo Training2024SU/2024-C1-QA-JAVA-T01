@@ -16,16 +16,6 @@ public class Main {
 
         MenuPrincipal.menuInicial();
 
-//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//            ConexionBD.cerrarConexion();
-//            System.out.println("Database connection closed.");
-//        }));
-
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String appConfigPath = rootPath + "app.properties";
-        Properties appProps = new Properties();
-        appProps.load(new FileInputStream(appConfigPath));
-
         ConexionBD.cerrarConexion();
         ScannerUtil.cerrarScanner();
     }
