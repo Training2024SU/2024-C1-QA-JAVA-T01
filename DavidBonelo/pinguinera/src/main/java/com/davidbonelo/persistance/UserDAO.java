@@ -35,28 +35,11 @@ public class UserDAO {
         return null;
     }
 
-    public User getUserById(int userId) throws SQLException {
-        String sql = "SELECT * FROM Users WHERE is_deleted = 0 AND id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, userId);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                User user = buildUserFromResult(rs);
-                rs.close();
-                return user;
-            } else {
-                rs.close();
-                throw new SQLException("User with id " + userId + " Not found");
-            }
-        }
-    }
-
     public List<User> getAllUsers() throws SQLException {
         // Avoid selecting passwords
         String sql = "SELECT id, name, email, role FROM Users WHERE is_deleted = 0";
         ArrayList<User> users = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs =
-                statement.executeQuery()) {
+        try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
 
             while (rs.next()) {
                 users.add(buildUserFromResult(rs));
@@ -94,20 +77,6 @@ public class UserDAO {
             int updatedRows = statement.executeUpdate();
             if (updatedRows == 0) {
                 throw new SQLException("Couldn't update user with id: " + user.getId());
-            }
-        }
-    }
-
-    public void deleteUser(User user) throws SQLException {
-        if (missingId(user)) {
-            throw new IllegalArgumentException("Cant delete a User without an id");
-        }
-        String sql = "DELETE FROM Users WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, user.getId());
-            int deletedRows = statement.executeUpdate();
-            if (deletedRows == 0) {
-                throw new SQLException("User with id " + user.getId() + " not found, can't delete");
             }
         }
     }

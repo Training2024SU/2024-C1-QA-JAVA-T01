@@ -73,6 +73,10 @@ public class BorrowingMenu {
         int borrowingId = askNumber(messages.getString("borrowings.req.id"));
         try {
             Borrowing borrowing = borrowingsService.getBorrowingDetails(user, borrowingId);
+            if (borrowing == null){
+                System.out.println(messages.getString("borrowings.out.detailsBad"));
+                return;
+            }
             System.out.println(messages.getString("borrowings.info.details"));
             System.out.println(borrowing.toStringWithItems());
         } catch (SQLException e) {

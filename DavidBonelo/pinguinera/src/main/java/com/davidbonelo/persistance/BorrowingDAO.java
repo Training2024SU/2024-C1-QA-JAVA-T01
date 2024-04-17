@@ -67,17 +67,6 @@ public class BorrowingDAO {
         return borrowings;
     }
 
-    /**
-     * Calling this is expensive, consider only fetching the items for one or a few Borrowings
-     */
-    public List<Borrowing> getAllBorrowingsAndItems() throws SQLException {
-        List<Borrowing> borrowings = getAllBorrowings();
-        for (Borrowing b : borrowings) {
-            b.setBorrowedItems(getAllItemsForABorrowing(b.getId()));
-        }
-        return borrowings;
-    }
-
     public List<LibraryItem> getAllItemsForABorrowing(int borrowingId) throws SQLException {
         List<LibraryItem> items = new ArrayList<>();
         // Note to self: Don't try to optimize by joining this 2 queries because then it will not
@@ -100,7 +89,7 @@ public class BorrowingDAO {
                     items.add(buildBookFromResult(rsB));
                 }
                 while (rsN.next()) {
-                    items.add(buildNovelFromResult(rsB));
+                    items.add(buildNovelFromResult(rsN));
                 }
             }
         }

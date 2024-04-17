@@ -7,7 +7,7 @@ public class Borrowing {
     private final User borrower;
     private int id;
     private List<LibraryItem> borrowedItems;
-    private LocalDate requestedDate;
+    private final LocalDate requestedDate;
     private LocalDate returnDate;
     private BorrowingStatus status;
 
@@ -37,10 +37,6 @@ public class Borrowing {
 
     public LocalDate getRequestedDate() {
         return requestedDate;
-    }
-
-    public void setRequestedDate(LocalDate requestedDate) {
-        this.requestedDate = requestedDate;
     }
 
     public LocalDate getReturnDate() {
@@ -91,7 +87,7 @@ public class Borrowing {
     public String toStringWithItems() {
         StringBuilder stringBuilder = new StringBuilder(this + "\nItems list: \n");
         if (borrowedItems != null) {
-            borrowedItems.forEach(stringBuilder::append);
+            borrowedItems.forEach(i -> stringBuilder.append(i).append("\n"));
         }
         return stringBuilder.toString();
     }
