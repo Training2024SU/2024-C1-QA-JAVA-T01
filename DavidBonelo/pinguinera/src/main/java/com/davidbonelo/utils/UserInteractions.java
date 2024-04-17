@@ -49,7 +49,7 @@ public class UserInteractions {
         String input = scanner.nextLine().trim();
         // Invalid input handling
         while (input.isEmpty()) {
-            System.out.print(messages.getString("ask.invalid.empty"));
+            System.out.println(messages.getString("ask.invalid.empty"));
             System.out.print(prompt);
             input = scanner.nextLine().trim();
         }

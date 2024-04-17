@@ -24,6 +24,9 @@ public class Permissions {
         if (user.getRole().equals(UserRole.ADMINISTRATOR)) {
             return true;
         }
+        if (user.getRole().equals(UserRole.EMPLOYEE) && requiredRole.equals(UserRole.READER)) {
+            return true;
+        }
         return user.getRole().equals(requiredRole);
     }
 }
