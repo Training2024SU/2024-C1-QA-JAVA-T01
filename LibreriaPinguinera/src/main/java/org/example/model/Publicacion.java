@@ -1,0 +1,134 @@
+package org.example.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Publicacion {
+    public static final List<Publicacion> publicaciones=new ArrayList<>();
+    public static final List<Publicacion> libros=new ArrayList<>();
+    public static final List<Publicacion> novelas=new ArrayList<>();
+    public static final List<Publicacion> librosDisponibles=new ArrayList<>();
+    public static final List<Publicacion> novelasDisponibles=new ArrayList<>();
+    public static final List<Publicacion> librosPorAutor=new ArrayList<>();
+    private String titulo;
+    private String tipo;
+    private String autor;
+    private int numeroPaginas;
+    private int cantidadEjemplares;
+    private int cantidadPrestado;
+    private int cantidadDisponible;
+    private List<AreaGenero> areas;
+    private List<EdadSugerida> edades;
+
+    public Publicacion() {
+    }
+
+    public Publicacion(String titulo, String tipo, String autor, int numeroPaginas, int cantidadEjemplares, int cantidadPrestado, int cantidadDisponible, List<AreaGenero> areas, List<EdadSugerida> edades) {
+        this.titulo = titulo;
+        this.tipo = tipo;
+        this.autor = autor;
+        this.numeroPaginas = numeroPaginas;
+        this.cantidadEjemplares = cantidadEjemplares;
+        this.cantidadPrestado = cantidadPrestado;
+        this.cantidadDisponible = cantidadDisponible;
+        this.areas = areas;
+        this.edades = edades;
+    }
+
+    public Publicacion(String titulo, String tipo, String autor, int numeroPaginas, int cantidadEjemplares, int cantidadPrestado, int cantidadDisponible) {
+        this.titulo = titulo;
+        this.tipo = tipo;
+        this.autor = autor;
+        this.numeroPaginas = numeroPaginas;
+        this.cantidadEjemplares = cantidadEjemplares;
+        this.cantidadPrestado = cantidadPrestado;
+        this.cantidadDisponible = cantidadDisponible;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public int getNumeroPaginas() {
+        return numeroPaginas;
+    }
+
+    public void setNumeroPaginas(int numeroPaginas) {
+        this.numeroPaginas = numeroPaginas;
+    }
+
+    public int getCantidadEjemplares() {
+        return cantidadEjemplares;
+    }
+
+    public void setCantidadEjemplares(int cantidadEjemplares) {
+        this.cantidadEjemplares = cantidadEjemplares;
+    }
+
+    public int getCantidadPrestado() {
+        return cantidadPrestado;
+    }
+
+    public void setCantidadPrestado(int cantidadPrestado) {
+        this.cantidadPrestado = cantidadPrestado;
+    }
+
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
+    }
+
+    public void setCantidadDisponible(int cantidadDisponible) {
+        this.cantidadDisponible = cantidadDisponible;
+    }
+
+    public List<AreaGenero> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<AreaGenero> areas) {
+        this.areas = areas;
+    }
+
+    public List<EdadSugerida> getEdades() {
+        return edades;
+    }
+
+    public void setEdades(List<EdadSugerida> edades) {
+        this.edades = edades;
+    }
+
+    @Override
+    public String toString() {
+        return "Publicacion{" +
+                "titulo='" + titulo + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", numeroPaginas=" + numeroPaginas +
+                ", cantidadEjemplares=" + cantidadEjemplares +
+                ", cantidadPrestado=" + cantidadPrestado +
+                ", cantidadDisponible=" + cantidadDisponible +
+                ", areas=" + areas +
+                ", edades=" + edades +
+                '}';
+    }
+}
