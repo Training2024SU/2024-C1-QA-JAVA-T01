@@ -1,5 +1,7 @@
 package org.moreno.cristian.ui.crudNovelas;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.repositorios.RepositorioAutor;
 import org.moreno.cristian.repositorios.RepositorioLibro;
 import org.moreno.cristian.repositorios.RepositorioNovela;
@@ -22,6 +24,7 @@ public class CrudNovelas {
     private static Scanner scan = new Scanner(System.in);
     private static final RepositorioAutor servicioAutor;
     private static final RepositorioNovela servicioNovela;
+    static Logger log = LogManager.getLogger(String.valueOf(CrudNovelas.class));
 
     static {
         try {
@@ -34,7 +37,7 @@ public class CrudNovelas {
 
     public static void crudNovelas() {
         while (true) {
-            System.out.println("\nQué desea hacer?\n" +
+            log.info("\nQué desea hacer?\n" +
                     "   1. Crear novela \n" +
                     "   2. Eliminar novela \n" +
                     "   3. Actualizar novela \n" +
@@ -56,7 +59,7 @@ public class CrudNovelas {
                     verNovela(scan, servicioNovela);
                     break;
                 default:
-                    System.out.println("Inténtalo de nuevo");
+                    log.error("Inténtalo de nuevo");
             }
         }
     }

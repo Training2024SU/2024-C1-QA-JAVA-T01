@@ -1,20 +1,23 @@
 package org.moreno.cristian.ui.crudLibros;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.repositorios.RepositorioLibro;
 
 import java.util.Scanner;
 
 public class EliminarLibro {
 
+    static Logger log = LogManager.getLogger(String.valueOf(EliminarLibro.class));
     public static void eliminarLibro (Scanner scan, RepositorioLibro servicioLibro) {
 
-        System.out.print("Ingresa el id del libro: ");
+        log.info("Ingresa el id del libro: ");
         String libroId = scan.nextLine();
 
         if (servicioLibro.eliminarLibro(libroId)) {
-            System.out.println("Libro eliminado");
+            log.info("Libro eliminado");
         } else {
-            System.out.println("Libro no encontrado");
+            log.warn("Libro no encontrado");
         }
     }
 }

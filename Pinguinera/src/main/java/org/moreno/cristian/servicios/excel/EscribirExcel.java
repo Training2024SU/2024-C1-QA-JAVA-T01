@@ -1,5 +1,7 @@
 package org.moreno.cristian.servicios.excel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -18,6 +20,7 @@ public class EscribirExcel {
 
     private static final Workbook workbook = new XSSFWorkbook();
     private static final RepositorioUsuario servicioUsuario = new ServicioUsuario();
+    static Logger log = LogManager.getLogger(String.valueOf(EscribirExcel.class));
 
     public static void migrarUsuarios () throws IOException {
         Sheet hoja = workbook.createSheet("Usuarios");

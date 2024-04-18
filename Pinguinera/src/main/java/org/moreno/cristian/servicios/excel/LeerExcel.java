@@ -1,5 +1,7 @@
 package org.moreno.cristian.servicios.excel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -20,6 +22,7 @@ public class LeerExcel {
 
     private static final Workbook workbook = new XSSFWorkbook();
     private static final RepositorioUsuario servicioUsuario = new ServicioUsuario();
+    static Logger log = LogManager.getLogger(String.valueOf(LeerExcel.class));
 
     public static void leer () {
 
@@ -38,7 +41,7 @@ public class LeerExcel {
                 columnas = filaActual.cellIterator();
                 while (columnas.hasNext()) {
                     columnaActual = columnas.next();
-                    System.out.println(columnaActual);
+                    log.info(columnaActual);
                 }
             }
         } catch (FileNotFoundException e) {

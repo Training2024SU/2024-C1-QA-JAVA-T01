@@ -1,9 +1,13 @@
 package org.moreno.cristian.servicios;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Scanner;
 
 public class ScannerUtil {
     private static Scanner scanner = new Scanner(System.in);
+    static Logger log = LogManager.getLogger(String.valueOf(ScannerUtil.class));
 
     public static Scanner obtenerScanner() {
         return scanner;
@@ -23,10 +27,9 @@ public class ScannerUtil {
             try {
                 entero = scanner.nextInt();
                 scanner.nextLine();
-                System.out.print("You entered: " + entero + "\n");
                 break;
             } catch (java.util.InputMismatchException e) {
-                System.out.print("Invalid input. Please enter an integer.");
+                log.error("Input no válido. Por favor ingresa un entero");
                 // Clear
                 scanner.next(); // Read and discard the invalid input
             }

@@ -1,5 +1,7 @@
 package org.moreno.cristian.ui.crudNovelas;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.modelos.Autor;
 import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.Novela;
@@ -14,6 +16,8 @@ import java.util.Scanner;
 
 public class VerNovela {
 
+    static Logger log = LogManager.getLogger(String.valueOf(VerNovela.class));
+
     public static void verNovela(Scanner scan, RepositorioNovela servicioNovela) {
 
         Optional<List<Novela>> novelasOptional = servicioNovela.todasNovelas();
@@ -23,15 +27,15 @@ public class VerNovela {
             List<Novela> novelas = novelasOptional.get();
 
             for (Novela novela : novelas) {
-                System.out.println("Id: " + novela.getId());
-                System.out.println("Título: " + novela.getTitulo());
-                System.out.println("Autor: " + novela.getAutor().getNombre());
-                System.out.println("Área conocimiento: " + novela.getGenero());
-                System.out.println("Copias disponibles: " + novela.getEjemplaresDisponibles());
-                System.out.println("-----");
+                log.info("Id: " + novela.getId());
+                log.info("Título: " + novela.getTitulo());
+                log.info("Autor: " + novela.getAutor().getNombre());
+                log.info("Área conocimiento: " + novela.getGenero());
+                log.info("Copias disponibles: " + novela.getEjemplaresDisponibles());
+                log.info("-----");
             }
         } else {
-            System.out.println("No hay novelas");
+            log.info("No hay novelas");
         }
     }
 }

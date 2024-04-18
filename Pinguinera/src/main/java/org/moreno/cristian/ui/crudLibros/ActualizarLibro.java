@@ -1,50 +1,42 @@
 package org.moreno.cristian.ui.crudLibros;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.modelos.Autor;
 import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.enums.AreaConocimiento;
 import org.moreno.cristian.repositorios.RepositorioAutor;
 import org.moreno.cristian.repositorios.RepositorioLibro;
+import org.moreno.cristian.servicios.ScannerUtil;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class ActualizarLibro {
 
+    static Logger log = LogManager.getLogger(String.valueOf(ActualizarLibro.class));
     public static void actualizarLibro(Scanner scan, RepositorioLibro servicioLibro, RepositorioAutor servicioAutor) {
 
-        System.out.print("Ingresa el título del libro actualizar: ");
+        log.info("Ingresa el título del libro actualizar: ");
         String titulo = scan.nextLine();
 
         Optional<Libro> libroOptional = servicioLibro.libroPorNombre(titulo);
 
         if (!libroOptional.isPresent()) {
-            System.out.println("No existe un libro con este nombre ");
+            log.warn("No existe un libro con este nombre ");
             return;
         }
         Libro libroViejo = libroOptional.get();
 
 
-        System.out.print("Ingresa el nuevo título del libro actualizar: ");
+        log.info("Ingresa el nuevo título del libro actualizar: ");
         String nuevoTitulo = scan.nextLine();
 
-        int nuevoNumeroEjemplares =0;
-        System.out.print("Ingresa el nuevo número de ejemplares: ");
+        log.info("Ingresa el nuevo número de ejemplares: ");
+        int nuevoNumeroEjemplares = ScannerUtil.pedirEntero();
 
-        while (true) {
-            try {
-                nuevoNumeroEjemplares = scan.nextInt();
-                scan.nextLine();
-                System.out.print("You entered: " + nuevoNumeroEjemplares + "\n");
-            } catch (java.util.InputMismatchException e) {
-                System.out.print("Invalid input. Please enter an integer.");
-                // Clear the scanner buffer
-                scan.next(); // Read and discard the invalid input
-            }
-            break;
-        }
 
-        System.out.print("Ingresa el nuevo nombre del autor: ");
+        log.info("Ingresa el nuevo nombre del autor: ");
         String nombreNuevoAutor = scan.nextLine();
 
         Autor nuevoAutor;
@@ -57,30 +49,19 @@ public class ActualizarLibro {
         }
 
 
-        int nuevoNumeroPaginas =0;
-        System.out.print("Ingresa el número de páginas: ");
+        log.info("Ingresa el número de páginas: ");
+        int nuevoNumeroPaginas = ScannerUtil.pedirEntero();
 
-        while (true) {
-            try {
-                nuevoNumeroPaginas = scan.nextInt();
-                scan.nextLine();
-                break;
-            } catch (java.util.InputMismatchException e) {
-                System.out.print("Invalid input. Please enter an integer.");
-                // Clear the scanner buffer
-                scan.next(); // Read and discard the invalid input
-            }
-        }
 
-        System.out.print("Ingresa el nuevo área de conocimiento: ");
+        log.info("Ingresa el nuevo área de conocimiento: ");
         String nuevoArea = scan.nextLine();
 
         Libro libroActualizado = new Libro(libroViejo.getId(), nuevoTitulo, nuevoNumeroEjemplares, 0, 0, nuevoAutor, nuevoNumeroPaginas, AreaConocimiento.valueOf(nuevoArea));
 
         if (servicioLibro.actualizarLibro(libroActualizado)) {
-            System.out.println("Libro actualizado");
+            log.info("Libro actualizado");
         } else {
-            System.out.println("Ocurrió un error");
+            log.error("Ocurrió un error");
         }
     }
 }

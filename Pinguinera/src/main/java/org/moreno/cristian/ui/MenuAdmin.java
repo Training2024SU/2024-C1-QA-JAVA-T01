@@ -1,5 +1,7 @@
 package org.moreno.cristian.ui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.modelos.Autor;
 import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.Publicacion;
@@ -8,6 +10,7 @@ import org.moreno.cristian.modelos.enums.AreaConocimiento;
 import org.moreno.cristian.modelos.enums.Rol;
 import org.moreno.cristian.repositorios.RepositorioLibro;
 import org.moreno.cristian.servicios.*;
+import org.moreno.cristian.ui.crudNovelas.CrudNovelas;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,23 +25,14 @@ public class MenuAdmin {
 
     private static Scanner scan = ScannerUtil.obtenerScanner();
     private static final ServicioUsuario servicioUsuario = new ServicioUsuario();
-    private static final RepositorioLibro servicioLibro;
-
-    static {
-        try {
-            servicioLibro = new ServicioLibro(new ServicioPublicacion(ConexionBD.obtenerConexion(), new ServicioAutor(ConexionBD.obtenerConexion())), ConexionBD.obtenerConexion());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    static Logger log = LogManager.getLogger(String.valueOf(MenuAdmin.class));
 
     public static void home(Usuario admin) {
 
-        System.out.println("Bienvenido de nuevo " + admin.getNombre());
+        log.info("Bienvenido de nuevo " + admin.getNombre());
 
         while (true) {
-            System.out.println("\nQué desea hacer?\n" +
+            log.info("\nQué desea hacer?\n" +
                     "   1. Crear asistente \n" +
                     "   2. Ver usuarios \n" +
                     "   3. CRUD libros \n" +
@@ -46,8 +40,6 @@ public class MenuAdmin {
                     "   5. Ver préstamos \n");
 
             String respuestaAdmin = scan.nextLine();
-
-            System.out.println("Respuesta admin: " + respuestaAdmin);
 
             switch(respuestaAdmin) {
                 case "1":
@@ -66,7 +58,7 @@ public class MenuAdmin {
 //                    listarPrestamos(scan);
                     break;
                 default:
-                    System.out.println("Intentalo de nuevo");
+                    log.error("Inténtalo de nuevo");
             }
         }
 
@@ -85,10 +77,10 @@ public class MenuAdmin {
                 // Si ninguno de los campos está vacío
                 Usuario newUser = new Usuario(nombreAsistente, correoAsistente, contraseniaAsistente, Rol.ASISTENTE);
                 servicioUsuario.guardarUsuario(newUser);
-                System.out.println("\nUsuario guardado\n");
+                log.info("\nUsuario guardado\n");
                 break; // Salir del bucle
             } else {
-                System.out.println("Por favor, ingresa todos los datos correctamente.");
+                log.warn("Por favor, ingresa todos los datos correctamente.");
             }
         }
     }
@@ -98,10 +90,10 @@ public class MenuAdmin {
 
         if (usuarios.isPresent()) {
             for (Usuario usuario : usuarios.get()) {
-                System.out.println(usuario.toString());
+                log.info(usuario.toString());
             }
         } else {
-            System.out.println("No se encontró ningún usuario");
+            log.warn("No se encontró ningún usuario");
         }
     }
 

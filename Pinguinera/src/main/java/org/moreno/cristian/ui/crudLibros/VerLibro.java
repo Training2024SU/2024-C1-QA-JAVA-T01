@@ -1,5 +1,7 @@
 package org.moreno.cristian.ui.crudLibros;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.modelos.Autor;
 import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.enums.AreaConocimiento;
@@ -11,6 +13,8 @@ import java.util.Scanner;
 
 public class VerLibro {
 
+    static Logger log = LogManager.getLogger(String.valueOf(VerLibro.class));
+
     public static void verLibro(Scanner scan, RepositorioLibro servicioLibro) {
 
         Optional<List<Libro>> librosOptional = servicioLibro.todosLibros();
@@ -20,15 +24,15 @@ public class VerLibro {
             List<Libro> libros = librosOptional.get();
 
             for (Libro libro : libros) {
-                System.out.println("Id: " + libro.getId());
-                System.out.println("Título: " + libro.getTitulo());
-                System.out.println("Autor: " + libro.getAutor().getNombre());
-                System.out.println("Área conocimiento: " + libro.getAreaConocimiento());
-                System.out.println("Copias disponibles: " + libro.getEjemplaresDisponibles());
-                System.out.println("-----");
+                log.info("Id: " + libro.getId());
+                log.info("Título: " + libro.getTitulo());
+                log.info("Autor: " + libro.getAutor().getNombre());
+                log.info("Área conocimiento: " + libro.getAreaConocimiento());
+                log.info("Copias disponibles: " + libro.getEjemplaresDisponibles());
+                log.info("-----");
             }
         } else {
-            System.out.println("No hay libros");
+            log.warn("No hay libros");
         }
 
     }

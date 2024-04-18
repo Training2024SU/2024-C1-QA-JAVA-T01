@@ -1,5 +1,7 @@
 package org.moreno.cristian.ui.crudLibros;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.moreno.cristian.modelos.Autor;
 import org.moreno.cristian.modelos.Libro;
 import org.moreno.cristian.modelos.enums.AreaConocimiento;
@@ -20,6 +22,7 @@ public class CrudLibros {
     private static Scanner scan = ScannerUtil.obtenerScanner();
     private static final RepositorioAutor servicioAutor;
     private static final RepositorioLibro servicioLibro;
+    static Logger log = LogManager.getLogger(String.valueOf(CrudLibros.class));
 
     static {
         try {
@@ -32,7 +35,7 @@ public class CrudLibros {
 
     public static void crudLibros() {
         while (true) {
-            System.out.println("\nQué desea hacer?\n" +
+            log.info("\nQué desea hacer?\n" +
                     "   1. Crear libro \n" +
                     "   2. Eliminar libro \n" +
                     "   3. Actualizar libro \n" +
@@ -54,7 +57,7 @@ public class CrudLibros {
                     verLibro(scan, servicioLibro);
                     break;
                 default:
-                    System.out.println("Inténtalo de nuevo");
+                    log.error("Respuesta no válida. Inténtalo de nuevo");
             }
         }
     }
