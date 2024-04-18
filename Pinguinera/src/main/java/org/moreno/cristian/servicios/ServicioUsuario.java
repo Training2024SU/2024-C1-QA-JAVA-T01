@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ServicioUsuario implements RepositorioUsuario {
@@ -53,10 +54,10 @@ public class ServicioUsuario implements RepositorioUsuario {
     }
 
     @Override
-    public Optional<ArrayList<Usuario>> listarUsuarios() {
+    public Optional<List<Usuario>> listarUsuarios() {
 
         String sqlConsulta = "SELECT * FROM usuario";
-        ArrayList<Usuario> usuarios = new ArrayList<>();
+        List<Usuario> usuarios = new ArrayList<>();
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sqlConsulta);

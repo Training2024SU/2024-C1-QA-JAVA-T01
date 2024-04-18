@@ -11,6 +11,7 @@ import org.moreno.cristian.servicios.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -93,7 +94,7 @@ public class MenuAdmin {
     }
     public static void verUsuarios() {
 
-        Optional<ArrayList<Usuario>> usuarios = servicioUsuario.listarUsuarios();
+        Optional<List<Usuario>> usuarios = servicioUsuario.listarUsuarios();
 
         if (usuarios.isPresent()) {
             for (Usuario usuario : usuarios.get()) {
