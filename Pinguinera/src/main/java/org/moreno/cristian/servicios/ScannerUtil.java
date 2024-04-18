@@ -9,6 +9,9 @@ public class ScannerUtil {
     private static Scanner scanner = new Scanner(System.in);
     static Logger log = LogManager.getLogger(String.valueOf(ScannerUtil.class));
 
+    private ScannerUtil() {
+    }
+
     public static Scanner obtenerScanner() {
         return scanner;
     }

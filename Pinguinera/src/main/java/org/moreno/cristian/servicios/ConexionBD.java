@@ -20,6 +20,9 @@ public class ConexionBD {
 
     private static Connection connection;
 
+    private ConexionBD() {
+    }
+
     public static Connection obtenerConexion() throws SQLException {
         if (connection == null || connection.isClosed()) {
             try {
