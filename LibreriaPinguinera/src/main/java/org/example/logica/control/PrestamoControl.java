@@ -143,7 +143,7 @@ public class PrestamoControl {
         return correoUsuario;
     }
 
-    private static void ractualizarEstadoPrestamo(String correoUsuario, String estadoLista, String estadoInicial, String estadoFinal) throws SQLException {
+    private static void actualizarEstadoPrestamo(String correoUsuario, String estadoLista, String estadoInicial, String estadoFinal) throws SQLException {
         mostrarPrestamos(correoUsuario, estadoLista);
         for (int i = 0; i < prestamos.size(); i++) {
             Prestamo prestamoRealizado = prestamos.get(i);
